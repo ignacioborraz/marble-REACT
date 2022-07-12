@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Paytone+One&display=swap');
+
+a {
+    text-decoration: none;
+}
+
+.bgIndex {
+    background-image: url('../media/searchingJob.svg')
+}
+
+.bgCompany, .bgSignUp {
+    background-image: url('../media/working3.svg')
+}
+
+.bgDetailCompany {
+    background-image: url('../media/coworking.svg')
+}
+
+.bgJob , .bgUser, .bgSignIn {
+    background-image: url('../media/working1.svg')
+}
+
+.bgDetailJob, .bgDetailUser {
+    background-image: url('../media/mirror.svg')
+}
+
+.bgVariant {
+    background-image: url('../media/interview.svg')
+}
+
+.backGroundStyle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.9;
+}
+
+.newForm {
+    width: 75%;
+    min-width: 280px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.inputForm {
+    flex-grow: 1;
+    margin: 5px;
+    padding: 2px;
+    height: 30px;
+    background-color: rgb(224,224,224)
+}
+
+.buttonForm {
+    width: 100%;
+    padding: 15px;
+    margin-top: 15px;
+    border: 0 solid;
+    background-color: #6b189a;
+    color: rgb(224,224,224);
+    font-size: 16px;
+    font-family: 'Paytone One';
+    text-align: 'center'
+}
+
+.list {
+    width: 280px;
+    height: 240px;
+    object-fit: contain;
+    background-color: white;
+    padding: 5px;
+}
+
+.selectList {
+    margin: 5px;
+    width: 100%;
+    height: 40px;
+    font-size: 15px;
+    padding: 10px;
+    background-color: rgb(224,224,224)
+}
