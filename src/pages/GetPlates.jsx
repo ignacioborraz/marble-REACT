@@ -5,7 +5,7 @@ import Container from '../components/Container'
 import Text from '../components/Text'
 
 import {useDispatch,useSelector} from 'react-redux'
-import plateActions from '../redux/actions/companyActions'
+import plateActions from '../redux/actions/plateActions'
 
 export default function GetPlates() {
 

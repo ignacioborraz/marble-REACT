@@ -8,16 +8,16 @@ import StyledGridImg from '../components/StyledGridImg'
 import StyledInput from '../components/StyledInput'
 import Text from '../components/Text'
 
-import jobActions from '../redux/actions/jobActions'
+//import jobActions from '../redux/actions/jobActions'
 
-export default function CreateJob({options}) {
+export default function CreatePlate({options}) {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
     const allInputs = {}
     
-    async function handleCreation(event) {
+/*     async function handleCreation(event) {
         event.preventDefault()
         console.log(allInputs)
         try {
@@ -26,7 +26,7 @@ export default function CreateJob({options}) {
         } catch(error) {
             console.log(error)
         }
-    }
+    } */
 
     let classN = 'backGroundStyle '+options.bgImage
 
@@ -37,7 +37,7 @@ export default function CreateJob({options}) {
                 <Text variant='h3' width='75%' font='Paytone One' color='rgb(224,224,224)' bgColor='rgb(105,24,152)' padding='15px' margin='0 0 15px 0'>
                     {options.title}
                 </Text>
-                <form onSubmit={handleCreation} className='newForm'>
+                <form /* onSubmit={handleCreation} */ className='newForm'>
                     {options.data.map(everyData => (
                         <StyledInput key={everyData.id} everyData={everyData} allInputs={allInputs} label={true} />
                     ))}

@@ -18,7 +18,9 @@ let optionsNav = {
     ],
     non: [ //usuarios no logueados pueden ver
         {to: '/createCompany', name: 'New Company'},
-        {to: '/getCompanies', name: 'Companies'}
+        {to: '/getCompanies', name: 'Companies'},
+        {to: '/createPlate', name: 'New Plate'},
+        {to: '/getPlates', name: 'Plates'}
     ]
 } //la opcion '/profile' para ver/editar un perfil se realizará desde el menú de usuario
 

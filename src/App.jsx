@@ -4,6 +4,8 @@ import Index from './pages/Index'
 import VariantPage from './pages/VariantPage'
 import GetCompanies from './pages/GetCompanies'
 import CreateCompany from './pages/CreateCompany'
+import GetPlates from './pages/GetPlates'
+import CreatePlate from './pages/CreatePlate'
 
 import NavBar from './components/NavBar'
 import Footer from './components/Footer'
@@ -24,6 +26,8 @@ export default function App() {
                 <Route path="/getCompanies" element={<GetCompanies options={options.company} />} />
                 <Route path="/createCompany" element={<CreateCompany options={options.company} />} />
                 <Route path="/createdCompany" element={<VariantPage text={"COMPANY CREATED!"} back={{to: "getCompanies",text: "show companies"}} />} />
+                <Route path="/getPlates" element={<GetPlates options={options.company} />} />
+                <Route path="/createPlate" element={<CreatePlate options={options.company} />} />
                 <Route path="/*" element={<VariantPage text={"NOT FOUND"}  back={{to: "",text: "back to home"}}/>} />
             </Routes>
             <MySnackBar />
