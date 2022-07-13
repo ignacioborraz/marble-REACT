@@ -3,9 +3,9 @@ import {combineReducers} from 'redux'
 
 //importo los redutores de REDUX que se van a combinar:
 import companyReducer from './companyReducer'
-import jobReducer from './jobReducer'
+import plateReducer from './plateReducer'
 import userReducer from './userReducer'
 
-const mainReducer = combineReducers({companyReducer,jobReducer,userReducer})
+const mainReducer = combineReducers({companyReducer,plateReducer,userReducer})
 
 export default mainReducer

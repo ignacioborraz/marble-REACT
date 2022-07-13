@@ -1,56 +1,56 @@
 import axios from 'axios'
 import apiUrl from '../../url'
 
-const companyActions = {
+const plateActions = {
 
-    createCompany: (nameCompany,logoCompany,detailCompany) => {
+    createPlate: (name,type,photo,height,heightSquare,width,widthSquare,thickness,lot,state,company) => {
         return async(dispatch,getState) => {
             try {
-                await axios.post(apiUrl+'api/company',{nameCompany,logoCompany,detailCompany})    
+                await axios.post(apiUrl+'api/plate',{name,type,photo,height,heightSquare,width,widthSquare,thickness,lot,state,company})    
             } catch(error) {
                 console.log(error)
             }            
         }
     },
 
-    getCompanies: () => {
+    getPlates: () => {
         return async(dispatch, getState) => {
             try {
-                const res = await axios.get(apiUrl+`api/company`)
+                const res = await axios.get(apiUrl+`api/plate`)
                 //console.log(res)
                 let sortedRes = res.data.response.sort((a,b)=>b.nameCompany-a.nameCompany)
-                dispatch({type:'GET_COMPANIES', payload: sortedRes})
+                dispatch({type:'GET_PLATES', payload: sortedRes})
             } catch(error) {
                 console.log(error)
             }
         }
     },
 
-    getOneCompany: (id) => {
+    getOnePlate: (id) => {
         return async(dispatch, getState) => {
             try {
-                const res = await axios.get(apiUrl+`api/company/${id}`)
-                dispatch({type:'GET_ONE_COMPANY', payload:res.data.response})
+                const res = await axios.get(apiUrl+`api/plate/${id}`)
+                dispatch({type:'GET_ONE_PLATE', payload:res.data.response})
             } catch(error) {
                 console.log(error)
             }
         }
     },
 
-    putCompany: (id,data) => {
+    putPlate: (id,data) => {
         return async(dispatch, getState) => {
             try {
-                await axios.put(apiUrl+`api/company/${id}`,data)
+                await axios.put(apiUrl+`api/plate/${id}`,data)
             } catch(error) {
                 console.log(error)
             }
         }
     },
 
-    deleteCompany: (id) => {
+    deletePlate: (id) => {
         return async(dispatch, getState) => {
             try {
-                await axios.delete(apiUrl+`api/company/${id}`)
+                await axios.delete(apiUrl+`api/plate/${id}`)
             } catch(error) {
                 console.log(error)
             }
@@ -59,4 +59,4 @@ const companyActions = {
 
 }
 
-export default companyActions
+export default plateActions
