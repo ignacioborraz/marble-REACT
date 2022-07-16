@@ -6,7 +6,7 @@ const plateActions = {
     createPlate: (name,type,photo,height,heightSquare,width,widthSquare,thickness,lot,state,company) => {
         return async(dispatch,getState) => {
             try {
-                await axios.post(apiUrl+'api/plate',{name,type,photo,height,heightSquare,width,widthSquare,thickness,lot,state,company})    
+                await axios.post(apiUrl+'api/marble/plate',{name,type,photo,height,heightSquare,width,widthSquare,thickness,lot,state,company})    
             } catch(error) {
                 console.log(error)
             }            
@@ -16,7 +16,7 @@ const plateActions = {
     getPlates: () => {
         return async(dispatch, getState) => {
             try {
-                const res = await axios.get(apiUrl+`api/plate`)
+                const res = await axios.get(apiUrl+'api/marble/plate')
                 //console.log(res)
                 let sortedRes = res.data.response.sort((a,b)=>b.nameCompany-a.nameCompany)
                 dispatch({type:'GET_PLATES', payload: sortedRes})
@@ -29,7 +29,7 @@ const plateActions = {
     getOnePlate: (id) => {
         return async(dispatch, getState) => {
             try {
-                const res = await axios.get(apiUrl+`api/plate/${id}`)
+                const res = await axios.get(apiUrl+'api/marble/plate'+id)
                 dispatch({type:'GET_ONE_PLATE', payload:res.data.response})
             } catch(error) {
                 console.log(error)
@@ -40,7 +40,7 @@ const plateActions = {
     putPlate: (id,data) => {
         return async(dispatch, getState) => {
             try {
-                await axios.put(apiUrl+`api/plate/${id}`,data)
+                await axios.put(apiUrl+'api/marble/plate'+id,data)
             } catch(error) {
                 console.log(error)
             }
@@ -50,7 +50,7 @@ const plateActions = {
     deletePlate: (id) => {
         return async(dispatch, getState) => {
             try {
-                await axios.delete(apiUrl+`api/plate/${id}`)
+                await axios.delete(apiUrl+'api/marble/plate'+id)
             } catch(error) {
                 console.log(error)
             }

@@ -1,3 +1,4 @@
+import { cardActionAreaClasses } from '@mui/material'
 import axios from 'axios'
 import apiUrl from '../../url'
 
@@ -6,7 +7,7 @@ const userActions = {
     signUp: (data) => {
         return async(dispatch,getState) => {
             try {
-                const res = await axios.post(apiUrl+'api/auth/signUp',data)
+                const res = await axios.post(apiUrl+'api/marble/auth/sign/up',data)
                 //console.log(res)
                 dispatch({type: 'MESSAGE',
                     payload: {
@@ -23,14 +24,13 @@ const userActions = {
     },
 
     signIn: (data) => {
-        //console.log(data)
+        console.log(data)
         return async(dispatch, getState) => {
             try {
-                const res = await axios.post(apiUrl+'api/auth/signIn',data)
-                //console.log(res)
+                const res = await axios.post(apiUrl+'api/marble/auth/sign/in',data)
                 if (res.data.success) {
                     localStorage.setItem('token',res.data.response.token)
-                    console.log(localStorage.getItem('token'))
+                    //console.log(localStorage.getItem('token'))
                     dispatch({type: 'USER', payload: res.data.response})
                 } else {
                     dispatch({type: 'MESSAGE',
@@ -40,8 +40,8 @@ const userActions = {
                             success: res.data.success
                         }
                     })
+                    return res
                 }
-                return res
             } catch(error) {
                 console.log(error)
             }
@@ -50,7 +50,7 @@ const userActions = {
 
     signOut: (mail) => {
         return async (dispatch, getState) => {
-            await axios.post(apiUrl+'api/auth/signOut',{mail})
+            await axios.post(apiUrl+'api/marble/auth/sign/out',{mail})
             localStorage.removeItem('token')
             dispatch({
                 type: 'USER',
@@ -61,26 +61,37 @@ const userActions = {
 
     verifyToken: (token) => {
         return async (dispatch, getState) => {
-            console.log(token)
-            const user = await axios.get(apiUrl+'api/token', {headers: {'Authorization': 'Bearer '+token}} )
-            console.log(user)
-            if (user.data.success) {
-                dispatch({
-                    type: 'USER',
-                    payload: user.data.response
-                })
-                dispatch({
-                    type: 'MESSAGE',
-                    payload: {
-                        view: true,
-                        message: user.data.message,
-                        success: user.data.success
-                    }
-                })
-            } else {
-                localStorage.removeItem('token')
+            try {
+                const user = await axios.get(apiUrl+'api/marble/auth/sign/token', {headers: {'Authorization': 'Bearer '+token}} )
+                //console.log(user)
+                if (user) {
+                    dispatch({
+                        type: 'USER',
+                        payload: user.data.response
+                    })
+                    dispatch({
+                        type: 'MESSAGE',
+                        payload: {
+                            view: true,
+                            message: user.data.message,
+                            success: user.data.success
+                        }
+                    })
+                } else {
+                    localStorage.removeItem('token')
+                    dispatch({
+                        type: 'MESSAGE',
+                        payload: {
+                            view: true,
+                            message: user.data.message,
+                            success: user.data.success
+                        }
+                    })
+                }
+            } catch(error) {
+                console.log(error)
             }
-        }
+        }            
     }
 
 }

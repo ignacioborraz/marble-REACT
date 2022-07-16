@@ -6,7 +6,7 @@ const companyActions = {
     createCompany: (nameCompany,logoCompany,detailCompany) => {
         return async(dispatch,getState) => {
             try {
-                await axios.post(apiUrl+'api/company',{nameCompany,logoCompany,detailCompany})    
+                await axios.post(apiUrl+'api/marble/company',{nameCompany,logoCompany,detailCompany})    
             } catch(error) {
                 console.log(error)
             }            
@@ -16,7 +16,7 @@ const companyActions = {
     getCompanies: () => {
         return async(dispatch, getState) => {
             try {
-                const res = await axios.get(apiUrl+`api/company`)
+                const res = await axios.get(apiUrl+'api/marble/company')
                 //console.log(res)
                 let sortedRes = res.data.response.sort((a,b)=>b.nameCompany-a.nameCompany)
                 dispatch({type:'GET_COMPANIES', payload: sortedRes})
@@ -29,7 +29,7 @@ const companyActions = {
     getOneCompany: (id) => {
         return async(dispatch, getState) => {
             try {
-                const res = await axios.get(apiUrl+`api/company/${id}`)
+                const res = await axios.get(apiUrl+'api/marble/company'+id)
                 dispatch({type:'GET_ONE_COMPANY', payload:res.data.response})
             } catch(error) {
                 console.log(error)
@@ -40,7 +40,7 @@ const companyActions = {
     putCompany: (id,data) => {
         return async(dispatch, getState) => {
             try {
-                await axios.put(apiUrl+`api/company/${id}`,data)
+                await axios.put(apiUrl+'api/marble/company'+id,data)
             } catch(error) {
                 console.log(error)
             }
@@ -50,7 +50,7 @@ const companyActions = {
     deleteCompany: (id) => {
         return async(dispatch, getState) => {
             try {
-                await axios.delete(apiUrl+`api/company/${id}`)
+                await axios.delete(apiUrl+'api/marble/company'+id)
             } catch(error) {
                 console.log(error)
             }
