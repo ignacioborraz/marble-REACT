@@ -23,7 +23,7 @@ export default function SelectColor() {
     }
     
     return (
-        <Container grow='1' wrap='wrap' bgColor='rgb(224,224,224)'>
+        <Container grow='1' wrap='wrap' justify='center' bgColor='rgb(224,224,224)'>
             <Container width='100%' wrap='wrap'>
                 {colors?.map(everyColor => (
                     <LinkRouter className='linkColors' to={'/nueva/color/'+everyColor.company} onClick={creatingPlate} key={everyColor._id} id={everyColor._id}>

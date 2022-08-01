@@ -9,6 +9,9 @@ import Index from './pages/Index'
 import VariantPage from './pages/VariantPage'
 import SelectCompany from './pages/New-1-Company'
 import SelectColor from './pages/New-2-Color'
+import SelectType from './pages/New-3-Type'
+import SelectData from './pages/New-4-Data'
+import Stock from './pages/Stock-0'
 /* import NewType from './pages/NewType'
 import SignIn from './pages/SignIn'
 import GetCompanies from './pages/GetCompanies'
@@ -40,6 +43,9 @@ export default function App() {
                 <Route path="/" element={<Index />} />
                 <Route path="/nueva" element={<SelectCompany />} />
                 <Route path="/nueva/:id" element={<SelectColor />} />
+                <Route path="/nueva/color/:id" element={<SelectType />} />
+                <Route path="/nueva/color/tipo/:id" element={<SelectData />} />
+                <Route path="/stock" element={<Stock />} />
 {/*                <Route path="/nueva/placa" element={<NewPlate />} />
                 <Route path="/signin" element={<SignIn options={options.signIn} />} />
                 <Route path="/getCompanies" element={<GetCompanies options={options.company} />} />

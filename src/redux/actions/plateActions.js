@@ -3,10 +3,13 @@ import apiUrl from '../../url'
 
 const plateActions = {
 
-    createPlate: (name,type,photo,height,heightSquare,width,widthSquare,thickness,lot,state,company) => {
+    createPlate: (plate) => {
+        const {lot,company,color,type,comments} = plate
+        console.log(plate)
         return async(dispatch,getState) => {
             try {
-                await axios.post(apiUrl+'api/marble/plate',{name,type,photo,height,heightSquare,width,widthSquare,thickness,lot,state,company})    
+                let res = await axios.post(apiUrl+'api/marble/plate',{lot,company,color,type,comments})
+                console.log(res.data.response);
             } catch(error) {
                 console.log(error)
             }            
@@ -17,9 +20,8 @@ const plateActions = {
         return async(dispatch, getState) => {
             try {
                 const res = await axios.get(apiUrl+'api/marble/plate')
-                //console.log(res)
-                let sortedRes = res.data.response.sort((a,b)=>b.nameCompany-a.nameCompany)
-                dispatch({type:'GET_PLATES', payload: sortedRes})
+                console.log(res.data.response)
+                dispatch({type:'GET_PLATES', payload: res.data.response})
             } catch(error) {
                 console.log(error)
             }

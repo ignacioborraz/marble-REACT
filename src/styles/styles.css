@@ -16,6 +16,12 @@ a {
     width: 100%;
 }
 
+.fitStock {
+    object-fit: cover;
+    height: 80%;
+    width: 100%;
+}
+
 .link {
     display: flex;
     justify-content: center;
@@ -37,8 +43,39 @@ a {
     align-items: center;
     flex-wrap: wrap;
     text-align: center;
-    width: 24vw;
-    height: 24vw;
+    width: 23vw;
+    height: 23vw;
+    font-family: 'Paytone One';
+    color: rgb(25,25,25);
+    background-color: white;
+    margin: 5px;
+    padding: 5px;
+}
+
+.linkTypes {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    text-align: center;
+    width: 45%;
+    height: 90%;
+    font-family: 'Paytone One';
+    color: rgb(25,25,25);
+    background-color: white;
+    margin: 5px;
+    padding: 5px;
+}
+
+.linkStocks {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 23vw;
+    height: 23vw;
     font-family: 'Paytone One';
     color: rgb(25,25,25);
     background-color: white;

@@ -13,7 +13,7 @@ export default function Index() {
                 </LinkRouter>
             </Container>
             <Container width='100%' justify='space-evenly'>
-                <LinkRouter className='link link2 ml10 mb10' to={'/'}>
+                <LinkRouter className='link link2 ml10 mb10' to={'/stock'}>
                     STOCK
                 </LinkRouter>
                 <LinkRouter className='link link2 mr10 mb10' to={'/'}>

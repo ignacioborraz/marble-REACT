@@ -9,7 +9,7 @@ const typeActions = {
             try {
                 const res = await axios.get(apiUrl+'api/marble/types/'+id)
                 console.log(res.data.response)
-                dispatch({type:'GET_TYPESS', payload: res.data.response})
+                dispatch({type:'GET_TYPES', payload: res.data.response})
             } catch(error) {
                 console.log(error)
             }
