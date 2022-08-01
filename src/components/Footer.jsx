@@ -10,7 +10,7 @@ function Footer() {
             alignItems: 'center',
             height: '70px',
             color: 'rgb(224,224,224)',
-            backgroundColor: 'rgb(105,24,152)'}}>
+            backgroundColor: 'rgb(204,21,23)'}}>
             <Typography variant='h6' sx={{fontFamily: 'Paytone One'}}>
                 ------ portaro ------
             </Typography>
@@ -20,6 +20,6 @@ function Footer() {
 
 export default Footer
 
-//rgb(2,0,3) //negro
-//rgb(105,24,152) //violeta
+//rgb(25,25,25) //negro
+//rgb(204,21,23) //violeta
 //rgb(224,224,224) //gris

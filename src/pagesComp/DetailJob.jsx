@@ -73,27 +73,27 @@ export default function DetailJob({bgImage}) {
     let classN = 'backGroundStyle '+bgImage
 
     return (
-        <Grid container sx={{flexGrow: '1', backgroundColor: 'rgb(2,0,3)'}}>
+        <Grid container sx={{flexGrow: '1', backgroundColor: 'rgb(25,25,25)'}}>
             <StyledGridImg bgColor='rgb(224,224,224)' className={classN} />
             <StyledGrid bgColor='rgb(224,224,224)' direction='column'>
-                <Text variant='h5' width='280px' font='Paytone One' color='rgb(224,224,224)' bgColor='rgb(105,24,152)' padding='10px'>
+                <Text variant='h5' width='280px' font='Paytone One' color='rgb(224,224,224)' bgColor='rgb(204,21,23)' padding='10px'>
                     {job.nameJob}
                 </Text>
-                <Text variant='h5' weight='800' width='280px' color='rgb(105,24,152)' bgColor='white' padding='5px 10px'>
+                <Text variant='h5' weight='800' width='280px' color='rgb(204,21,23)' bgColor='white' padding='5px 10px'>
                     {job.company?.nameCompany}
                 </Text>
                 <img src={job.photoJob} alt={job.nameJob} className="list" />
-                <Text variant='h6' width='280px' color='rgb(2,0,3)' bgColor='white' padding='5px 10px'>
+                <Text variant='h6' width='280px' color='rgb(25,25,25)' bgColor='white' padding='5px 10px'>
                     {job.detailJob}
                 </Text>
-                <Text variant='h6' weight='800' width='280px' color='rgb(2,0,3)' bgColor='white' padding='5px 10px'>
+                <Text variant='h6' weight='800' width='280px' color='rgb(25,25,25)' bgColor='white' padding='5px 10px'>
                     USD {job.salaryJob}
                 </Text>
                 <Container width='280px'>
-                    <Text variant='h6' width='50%' font='Paytone One' color='rgb(224,224,224)' bgColor='rgba(2,0,3,0.5)' hover='rgb(105,24,152)' padding='5px' to={toOpenEdit}>
+                    <Text variant='h6' width='50%' font='Paytone One' color='rgb(224,224,224)' bgColor='rgba(102,102,102)' hover='rgb(204,21,23)' padding='5px' to={toOpenEdit}>
                         edit
                     </Text>
-                    <Text variant='h6' width='50%' font='Paytone One' color='rgb(224,224,224)' bgColor='rgb(2,0,3)' hover='rgb(105,24,152)' padding='5px' to={toDelete}>
+                    <Text variant='h6' width='50%' font='Paytone One' color='rgb(224,224,224)' bgColor='rgb(25,25,25)' hover='rgb(204,21,23)' padding='5px' to={toDelete}>
                         delete
                     </Text>
                 </Container>

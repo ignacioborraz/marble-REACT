@@ -27,10 +27,10 @@ export default function CreateCompany({options}) {
     let classN = 'backGroundStyle '+options.bgImage
 
     return (
-        <Grid container sx={{flexGrow: '1', backgroundColor: 'rgb(2,0,3)'}}>
+        <Grid container sx={{flexGrow: '1', backgroundColor: 'rgb(25,25,25)'}}>
             <StyledGridImg bgColor='rgb(224,224,224)' className={classN} />
             <StyledGrid bgColor='rgb(224,224,224)' direction='column'>
-                <Text variant='h3' width='75%' font='Paytone One' color='rgb(224,224,224)' bgColor='rgb(105,24,152)' padding='15px' margin='0 0 15px 0'>
+                <Text variant='h3' width='75%' font='Paytone One' color='rgb(224,224,224)' bgColor='rgb(204,21,23)' padding='15px' margin='0 0 15px 0'>
                     {options.title}
                 </Text>
                 <form onSubmit={handleCreation} className='newForm'>

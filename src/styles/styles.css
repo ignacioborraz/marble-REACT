@@ -4,6 +4,65 @@ a {
     text-decoration: none;
 }
 
+.fit {
+    object-fit: contain;
+    height: 40vh;
+    width: 100%;
+}
+
+.fitColors {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    flex-wrap: wrap;
+    text-align: center;
+    width: 30vw;
+    font-family: 'Paytone One';
+    color: rgb(25,25,25);
+    background-color: white;
+    padding: 5px;
+    margin: 5px;
+}
+
+.linkColors {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    text-align: center;
+    width: 24vw;
+    height: 24vw;
+    font-family: 'Paytone One';
+    color: rgb(25,25,25);
+    background-color: white;
+    margin: 5px;
+    padding: 5px;
+}
+
+.mt10 {
+    margin-top: 10px;
+}
+
+.mb10 {
+    margin-bottom: 10px;
+}
+
+.ml10 {
+    margin-left: 10px;
+}
+
+.mr10 {
+    margin-right: 10px;
+}
+
+/* 
 .bgIndex {
     background-image: url('../media/searchingJob.svg')
 }
@@ -82,4 +141,4 @@ a {
     font-size: 15px;
     padding: 10px;
     background-color: rgb(224,224,224)
-}
+} */

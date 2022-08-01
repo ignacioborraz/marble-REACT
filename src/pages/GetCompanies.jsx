@@ -22,11 +22,11 @@ export default function GetCompanies() {
             {companies.map(everyCompany => (
                 everyCompany.nameCompany!=='non' &&
                 <Container  key={everyCompany._id} direction='column' margin='0 10px 20px 10px'>
-                    <Text variant='h5' width='280px' padding='10px' bgColor='rgb(105,24,152)' color='rgb(224,224,224)' font='Paytone One'>
+                    <Text variant='h5' width='280px' padding='10px' bgColor='rgb(204,21,23)' color='rgb(224,224,224)' font='Paytone One'>
                         {everyCompany.nameCompany}</Text>
                     <img src={everyCompany.logoCompany} alt={everyCompany.nameCompany} className="list" />
                     <LinkRouter to={`/detailCompany/${everyCompany._id}`}>
-                        <Text width='280px' padding='10px' bgColor='rgb(2,0,3)'color='rgb(224,224,224)'  hover='rgb(105,24,152)'  font='Paytone One'>
+                        <Text width='280px' padding='10px' bgColor='rgb(25,25,25)'color='rgb(224,224,224)'  hover='rgb(204,21,23)'  font='Paytone One'>
                             +info</Text>
                     </LinkRouter>
                 </Container >

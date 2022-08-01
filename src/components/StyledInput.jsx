@@ -25,7 +25,7 @@ export default function StyledInput({everyData,allInputs,label}) {
         ) : (everyData.id==='role') ? (
             <SelectRole allInputs={allInputs} label={true} />
         ) : (
-            <Container width='100%' color='rgb(224,224,224)' bgColor='rgb(2,0,3)' paddding='2px' margin='2px'>
+            <Container width='100%' color='rgb(224,224,224)' bgColor='rgb(25,25,25)' paddding='2px' margin='2px'>
                 {label && <label htmlFor={everyData.id}><StyledIcon>
                     {everyData.id.includes('name') ? <WorkIcon /> : everyData.id.includes('salary') ? <AttachMoneyIcon /> : (everyData.id.includes('logo') || everyData.id.includes('photo')) ? <AddAPhotoIcon /> : everyData.id.includes('word') ? <KeyIcon /> : <CategoryIcon />}
                 </StyledIcon></label>}

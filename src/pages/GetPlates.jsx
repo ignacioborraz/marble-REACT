@@ -21,7 +21,7 @@ export default function GetPlates() {
         <Container grow='1' wrap='wrap' bgColor='rgb(224,224,224)' padding='20px 0'>
             {plates.map(everyPlate => (
                 <Container  key={everyPlate._id} direction='column' margin='0 10px 20px 10px'>
-                    <Text variant='h5' width='280px' padding='10px' bgColor='rgb(105,24,152)' color='rgb(224,224,224)' font='Paytone One'>
+                    <Text variant='h5' width='280px' padding='10px' bgColor='rgb(204,21,23)' color='rgb(224,224,224)' font='Paytone One'>
                         {everyPlate.name}</Text>
                     <Text variant='h5' width='280px' padding='10px'>
                         {everyPlate.type}</Text>
@@ -29,7 +29,7 @@ export default function GetPlates() {
                         {everyPlate.height} X {everyPlate.width} X {everyPlate.thickness}</Text>
                     <img src={everyPlate.photo} alt={everyPlate.name} className="list" />
                     <LinkRouter to={`/detailPlate/${everyPlate._id}`}>
-                        <Text width='280px' padding='10px' bgColor='rgb(2,0,3)'color='rgb(224,224,224)'  hover='rgb(105,24,152)'  font='Paytone One'>
+                        <Text width='280px' padding='10px' bgColor='rgb(25,25,25)'color='rgb(224,224,224)'  hover='rgb(204,21,23)'  font='Paytone One'>
                             +info</Text>
                     </LinkRouter>
                 </Container >

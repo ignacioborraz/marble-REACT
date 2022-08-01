@@ -19,7 +19,7 @@ export default function SelectRole({allInputs,label}) {
     }
 
     return (
-        <Container width='100%' color='rgb(224,224,224)' bgColor='rgb(2,0,3)' paddding='2px' margin='2px'>
+        <Container width='100%' color='rgb(224,224,224)' bgColor='rgb(25,25,25)' paddding='2px' margin='2px'>
             {label && <label htmlFor={id}><StyledIcon><PersonIcon /></StyledIcon></label>}
             <select defaultValue="" name={id} id={id} className='inputForm' onChange={toAdd} ref={input} required>
                 <option disabled value="">select role</option>
