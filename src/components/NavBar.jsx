@@ -44,21 +44,22 @@ export default function NavBar() {
   }
 
   return (
-    <Container justify='space-between' bgColor='rgb(25,25,25)' padding='10px'>
+    <Container justify='space-between' bgColor='#C82832' padding='10px'>
       <IconButton onClick={() => navigate(-1)} sx={{p: 0}}>
         <ArrowBackIcon sx={{
           width: '40px',
           height: '40px',
+          padding: '5px',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          color: 'rgb(204,21,23)',
-          backgroundColor: 'rgb(224,224,224)',
+          color: '#C82832',
+          backgroundColor: 'rgb(230,230,230)',
           textDecoration: 'none',
-          borderRadius: '20px'}} />
+          borderRadius: '5px'}} />
       </IconButton>
-      <Text variant='h6'font='Paytone One' color='rgb(224,224,224)' padding='5px'>
-        Giacomo Portaro
+      <Text variant='h5' font='Paytone One' color='rgb(230,230,230)' padding='5px'>
+        PORTARO
       </Text>
 
           {/* ---------- USER OPTIONS ---------- */}
@@ -68,23 +69,23 @@ export default function NavBar() {
                 {user ? <Avatar alt="photoUser" src={user.user.photoUser} sx={{
                   width: '40px',
                   height: '40px',
+                  padding: '5px',
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
-                  color: 'rgb(204,21,23)',
-                  backgroundColor: 'rgb(224,224,224)',
                   textDecoration: 'none',
-                  borderRadius: '20px'}} /> :
+                  borderRadius: '5px'}} /> :
                 <PersonIcon sx={{
                   width: '40px',
                   height: '40px',
+                  padding: '5px',
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
-                  color: 'rgb(204,21,23)',
-                  backgroundColor: 'rgb(224,224,224)',
+                  color: '#C82832',
+                  backgroundColor: 'rgb(230,230,230)',
                   textDecoration: 'none',
-                  borderRadius: '20px'}} />}
+                  borderRadius: '5px'}} />}
               </IconButton>
             </Tooltip>
             <Menu
@@ -106,18 +107,18 @@ export default function NavBar() {
               {user ? (
                 <Box>
                   <LinkRouter to={`/profile/${user.user.id}`}>
-                    <MenuItem sx={{'&:hover': {bgcolor: 'rgb(224,224,224)'}}} onClick={handleCloseUserMenu}>
-                      <Typography sx={{padding: '2px', paddingLeft: '6px', paddingRight: '6px', color: 'rgb(25,25,25)'}}>{user.user.nameUser.charAt(0).toUpperCase()+user.user.nameUser.slice(1).toLowerCase()}</Typography>
+                    <MenuItem sx={{'&:hover': {bgcolor: 'rgb(230,2230,230)'}}} onClick={handleCloseUserMenu}>
+                      <Typography sx={{padding: '2px', paddingLeft: '6px', paddingRight: '6px', color: 'black'}}>{user.user.nameUser.charAt(0).toUpperCase()+user.user.nameUser.slice(1).toLowerCase()}</Typography>
                     </MenuItem>
                   </LinkRouter>
-                  <MenuItem sx={{'&:hover': {bgcolor: 'rgb(224,224,224)'}}} onClick={handleCloseUserMenu}>
-                    <Typography sx={{padding: '2px', paddingLeft: '6px', paddingRight: '6px', color: 'rgb(25,25,25)'}} onClick={signOut}>Sign Out</Typography>
+                  <MenuItem sx={{'&:hover': {bgcolor: 'rgb(230,2230,230)'}}} onClick={handleCloseUserMenu}>
+                    <Typography sx={{padding: '2px', paddingLeft: '6px', paddingRight: '6px', color: 'black'}} onClick={signOut}>Sign Out</Typography>
                   </MenuItem>
                 </Box>
               ) : userOptions.map((everyOption,index) => (
                 <LinkRouter key={index} to={everyOption.to} onClick={handleCloseUserMenu}>
-                  <MenuItem sx={{'&:hover': {bgcolor: 'rgb(224,224,224)'}}}>
-                        <Typography sx={{padding: '2px', paddingLeft: '6px', paddingRight: '6px', color: 'rgb(25,25,25)'}}>{everyOption.name}</Typography>
+                  <MenuItem sx={{'&:hover': {bgcolor: 'rgb(230,2230,230)'}}}>
+                        <Typography sx={{padding: '2px', paddingLeft: '6px', paddingRight: '6px', color: 'black'}}>{everyOption.name}</Typography>
                   </MenuItem>
                 </LinkRouter>
               ))}
