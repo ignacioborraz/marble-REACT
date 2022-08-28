@@ -27,6 +27,7 @@ const userActions = {
         return async(dispatch, getState) => {
             try {
                 const res = await axios.post(apiUrl+'api/marble/auth/sign/in',data)
+                console.log(res)
                 if (res.data.success) {
                     localStorage.setItem('token',res.data.response.token)
                     //console.log(localStorage.getItem('token'))
@@ -47,9 +48,9 @@ const userActions = {
         }
     },
 
-    signOut: (mail) => {
+    signOut: (id) => {
         return async (dispatch, getState) => {
-            await axios.post(apiUrl+'api/marble/auth/sign/out',{mail})
+            await axios.post(apiUrl+'api/marble/auth/sign/out',{id})
             localStorage.removeItem('token')
             dispatch({
                 type: 'USER',
@@ -59,10 +60,11 @@ const userActions = {
     },
 
     verifyToken: (token) => {
+        console.log(token)
         return async (dispatch, getState) => {
             try {
                 const user = await axios.get(apiUrl+'api/marble/auth/sign/token', {headers: {'Authorization': 'Bearer '+token}} )
-                //console.log(user)
+                console.log(user)
                 if (user) {
                     dispatch({
                         type: 'USER',

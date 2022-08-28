@@ -18,8 +18,8 @@ import userActions from '../redux/actions/userActions'
 import {Link as LinkRouter,useNavigate} from 'react-router-dom'
 
 let userOptions = [
-  {to: '/signIn', name: 'Login'},
-  {to: '/signUp', name: 'Register'}
+  {to: '/usuario', name: 'nuevo'},
+  {to: '/ingresar', name: 'ingresar'}
 ]
 
 export default function NavBar() {
@@ -39,7 +39,7 @@ export default function NavBar() {
   }
 
   async function signOut() {
-    await dispatch(userActions.signOut(user.user.mail))
+    await dispatch(userActions.signOut(user.user.id))
       .then(navigate("/",{replace:true}))
   }
 
@@ -65,27 +65,15 @@ export default function NavBar() {
           {/* ---------- USER OPTIONS ---------- */}
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="OPEN">
-              <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
-                {user ? <Avatar alt="photoUser" src={user.user.photoUser} sx={{
+              <IconButton onClick={handleOpenUserMenu}>
+                <Avatar alt="photoUser" src={user.user.photo} className='onlyFit' sx={{
                   width: '40px',
                   height: '40px',
-                  padding: '5px',
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
                   textDecoration: 'none',
-                  borderRadius: '5px'}} /> :
-                <PersonIcon sx={{
-                  width: '40px',
-                  height: '40px',
-                  padding: '5px',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  color: '#C82832',
-                  backgroundColor: 'rgb(230,230,230)',
-                  textDecoration: 'none',
-                  borderRadius: '5px'}} />}
+                  borderRadius: '5px'}} />
               </IconButton>
             </Tooltip>
             <Menu
@@ -108,17 +96,22 @@ export default function NavBar() {
                 <Box>
                   <LinkRouter to={`/profile/${user.user.id}`}>
                     <MenuItem sx={{'&:hover': {bgcolor: 'rgb(230,2230,230)'}}} onClick={handleCloseUserMenu}>
-                      <Typography sx={{padding: '2px', paddingLeft: '6px', paddingRight: '6px', color: 'black'}}>{user.user.nameUser.charAt(0).toUpperCase()+user.user.nameUser.slice(1).toLowerCase()}</Typography>
+                      <Typography sx={{flexGrow: '1', padding: '2px', color: 'black', textAlign: 'right'}}>{user.user.nick.toUpperCase()}</Typography>
+                    </MenuItem>
+                  </LinkRouter>
+                  <LinkRouter to={`/usuario`}>
+                    <MenuItem sx={{'&:hover': {bgcolor: 'rgb(230,2230,230)'}}} onClick={handleCloseUserMenu}>
+                      <Typography sx={{flexGrow: '1', padding: '2px', color: 'black', textAlign: 'right'}}>nuevo usuario</Typography>
                     </MenuItem>
                   </LinkRouter>
                   <MenuItem sx={{'&:hover': {bgcolor: 'rgb(230,2230,230)'}}} onClick={handleCloseUserMenu}>
-                    <Typography sx={{padding: '2px', paddingLeft: '6px', paddingRight: '6px', color: 'black'}} onClick={signOut}>Sign Out</Typography>
+                    <Typography sx={{flexGrow: '1', padding: '2px', color: 'black', textAlign: 'right'}} onClick={signOut}>salir!</Typography>
                   </MenuItem>
                 </Box>
               ) : userOptions.map((everyOption,index) => (
                 <LinkRouter key={index} to={everyOption.to} onClick={handleCloseUserMenu}>
                   <MenuItem sx={{'&:hover': {bgcolor: 'rgb(230,2230,230)'}}}>
-                        <Typography sx={{padding: '2px', paddingLeft: '6px', paddingRight: '6px', color: 'black'}}>{everyOption.name}</Typography>
+                        <Typography sx={{padding: '2px', color: 'black'}}>{everyOption.name}</Typography>
                   </MenuItem>
                 </LinkRouter>
               ))}
