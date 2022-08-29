@@ -39,6 +39,7 @@ export default function App() {
             <Routes>
                 {user ? (<>
                     <Route path="/" element={<Index />} />
+                    <Route path="/menu" element={<Index />} />
                     <Route path="/admin" element={<NewUser role='admin' />} />
                     <Route path="/user" element={<NewUser role='user' />} />
                     <Route path="/perfil/:id" element={<PutUser />} />

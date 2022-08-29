@@ -3,6 +3,7 @@ import {Link as LinkRouter,useParams} from 'react-router-dom'
 import {useDispatch,useSelector} from 'react-redux'
 import colorActions from '../redux/actions/colorActions'
 import Container from '../components/Container'
+import Text from '../components/Text'
 
 export default function SelectColor() {
 
@@ -27,7 +28,10 @@ export default function SelectColor() {
             <Container width='100%' wrap='wrap'>
                 {colors?.map(everyColor => (
                     <LinkRouter className='linkColors' to={'/nueva/color/'+everyColor.company} onClick={creatingPlate} key={everyColor._id} id={everyColor._id}>
-                        <img src={everyColor.photo} alt={everyColor._id} className='fitColors' id={everyColor._id} />
+                        <Text variant='h6' font='Paytone One' color='rgb(25,25,25)' padding='5px' id={everyColor._id}>
+                            {everyColor.name}
+                        </Text>
+                        <img src={everyColor.photo} alt={everyColor._id} className='fitColor' id={everyColor._id} />
                     </LinkRouter>
                 ))}
             </Container>

@@ -1,7 +1,7 @@
 import Text from '../components/Text'
 import {Link as LinkRouter} from 'react-router-dom'
 
-export default function VariantPage({text,back}) {
+export default function VariantPage() {
 
     return (
         <LinkRouter to={'/'} className='form-container'>

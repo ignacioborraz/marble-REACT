@@ -4,6 +4,22 @@ a {
     text-decoration: none;
 }
 
+.menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.shadow-text:hover {
+    font-weight: 800;
+    color: #C82832;
+    text-shadow: 0 0 10px white, 0 0 10px white, 0px 0px 10px white;
+}
+
+.shadow-box:hover {
+    box-shadow: 0 0 5px rgb(25,25,25), 0 0 5px rgb(25,25,25), 0px 0px 5px rgb(25,25,25);
+}
+
 .onlyFit {
     object-fit: contain !important;
 }
@@ -14,15 +30,9 @@ a {
     width: 100%;
 }
 
-.fitColors {
+.fitColor, .fitStock {
     object-fit: cover;
-    height: 100%;
-    width: 100%;
-}
-
-.fitStock {
-    object-fit: cover;
-    height: 80%;
+    height: 150px;
     width: 100%;
 }
 
@@ -47,8 +57,8 @@ a {
     align-items: center;
     flex-wrap: wrap;
     text-align: center;
-    width: 23vw;
-    height: 23vw;
+    width: 30vw;
+    height: 200px;
     font-family: 'Montserrat', sans-serif;
     color: rgb(25,25,25);
     background-color: white;
@@ -78,8 +88,8 @@ a {
     justify-content: center;
     align-items: center;
     text-align: center;
-    width: 23vw;
-    height: 23vw;
+    width: 30vw;
+    height: 200px;
     font-family: 'Montserrat', sans-serif;
     color: rgb(25,25,25);
     background-color: white;

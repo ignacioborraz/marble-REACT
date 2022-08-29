@@ -45,7 +45,7 @@ export default function NavBar() {
   return (
     <Container justify='space-between' bgColor='#C82832' padding='10px'>
       <IconButton onClick={() => navigate(-1)}>
-        <ArrowBackIcon sx={{
+        <ArrowBackIcon className='shadow-box' sx={{
           width: '40px',
           height: '40px',
           padding: '5px',
@@ -57,15 +57,18 @@ export default function NavBar() {
           textDecoration: 'none',
           borderRadius: '5px'}} />
       </IconButton>
-      <Text variant='h5' font='Montserrat' color='rgb(230,230,230)' padding='5px'>
-          Marmolería Giacomo Portaro
-      </Text>
+
+      <LinkRouter to={`/menu`} className='menu'>
+        <Text variant='h5' font='Montserrat' color='rgb(230,230,230)' className='shadow-text'>
+            Marmolería Giacomo Portaro
+        </Text>
+      </LinkRouter>
 
           {/* ---------- USER OPTIONS ---------- */}
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="OPEN">
               <IconButton onClick={handleOpenUserMenu}>
-                <Avatar alt="photoUser" src={user.user.photo} className='onlyFit' sx={{
+                <Avatar alt="photoUser" src={user.user.photo} className='onlyFit shadow-box' sx={{
                   width: '40px',
                   height: '40px',
                   display: 'flex',
@@ -106,6 +109,11 @@ export default function NavBar() {
                   <LinkRouter to={`/user`}>
                     <MenuItem sx={{'&:hover': {bgcolor: 'rgb(230,2230,230)'}}} onClick={handleCloseUserMenu}>
                       <Typography sx={{flexGrow: '1', padding: '2px', color: 'black', textAlign: 'right'}}>nuevo user</Typography>
+                    </MenuItem>
+                  </LinkRouter>
+                  <LinkRouter to={`/menu`}>
+                    <MenuItem sx={{'&:hover': {bgcolor: 'rgb(230,2230,230)'}}} onClick={handleCloseUserMenu}>
+                      <Typography sx={{flexGrow: '1', padding: '2px', color: 'black', textAlign: 'right'}}>menu</Typography>
                     </MenuItem>
                   </LinkRouter>
                   <MenuItem sx={{'&:hover': {bgcolor: 'rgb(230,2230,230)'}}} onClick={handleCloseUserMenu}>
