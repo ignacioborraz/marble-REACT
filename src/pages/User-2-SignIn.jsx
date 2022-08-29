@@ -1,13 +1,15 @@
 import {useDispatch} from 'react-redux'
 import {useRef} from 'react'
+import {useNavigate} from 'react-router-dom'
 
 import KeyIcon from '@mui/icons-material/Key'
 import WorkIcon from '@mui/icons-material/Work'
 
 import userActions from '../redux/actions/userActions'
 
-export default function Login({options}) {
+export default function SignIn() {
 
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const nick = useRef()
     const pass = useRef()
@@ -23,6 +25,7 @@ export default function Login({options}) {
         console.log(allInputs)
         try {
             await dispatch(userActions.signIn(allInputs))
+                .then(navigate("/",{replace:true}))
         } catch(error) {
             console.error(error)
             return allInputs //debo returnarlos para no perder los datos
@@ -50,9 +53,9 @@ export default function Login({options}) {
                         color: '#C82832',
                         backgroundColor: 'rgb(230,230,230)',
                         borderRadius: '5px'}} /></label>
-                    <input name='pass' id='pass' placeholder='Contraseña' type="text" className='inputForm' ref={pass} required/>            
+                    <input name='pass' id='pass' placeholder='Contraseña' type="password" className='inputForm' ref={pass} required/>            
                 </fieldset>
-                <input type="submit" className='buttonForm' required value='ingresar!' />
+                <input type="submit" className='buttonForm' required value='INGRESAR' />
             </form>
         </div>
     )

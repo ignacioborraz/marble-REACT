@@ -7,8 +7,9 @@ import MySnackBar from './components/MySnackBar'
 
 import Index from './pages/Index'
 import VariantPage from './pages/VariantPage'
-import Login from './pages/Login'
-import NewUser from './pages/NewUser'
+import SignIn from './pages/User-2-SignIn'
+import NewUser from './pages/User-1-NewUser'
+import PutUser from './pages/User-3-Put'
 import SelectCompany from './pages/New-1-Company'
 import SelectColor from './pages/New-2-Color'
 import SelectType from './pages/New-3-Type'
@@ -27,7 +28,7 @@ export default function App() {
     useEffect(() => {
         if(localStorage.getItem('token')!== null) {
             const token = localStorage.getItem("token")
-            console.log(token)
+            //console.log(token)
             dispatch(userActions.verifyToken(token))
         }
     },[])
@@ -38,16 +39,19 @@ export default function App() {
             <Routes>
                 {user ? (<>
                     <Route path="/" element={<Index />} />
-                    <Route path="/usuario" element={<NewUser />} />
+                    <Route path="/admin" element={<NewUser role='admin' />} />
+                    <Route path="/user" element={<NewUser role='user' />} />
+                    <Route path="/perfil/:id" element={<PutUser />} />
                     <Route path="/nueva" element={<SelectCompany />} />
                     <Route path="/nueva/:id" element={<SelectColor />} />
                     <Route path="/nueva/color/:id" element={<SelectType />} />
                     <Route path="/nueva/color/tipo/:id" element={<SelectData />} />
                     <Route path="/stock" element={<Stock />} />
                 </>) : (
-                    <Route path="/" element={<Login />} />
+                    <Route path="/" element={<SignIn />} />
                 )}
-                <Route path="/*" element={<VariantPage text={"NOT FOUND"}  back={{to: "",text: "back to home"}}/>} />
+                <Route path="/ingresar" element={<SignIn />} />
+                <Route path="/*" element={<VariantPage />} />
                 {/*             
                     <Route path="/nueva/placa" element={<NewPlate />} />
                     <Route path="/signin" element={<SignIn options={options.signIn} />} />

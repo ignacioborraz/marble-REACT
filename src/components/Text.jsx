@@ -1,6 +1,6 @@
 import {Typography} from '@mui/material'
 
-export default function Text({children,font,width,grow,variant,color,bgColor,padding,margin,hover,onClick,weight,id}) {
+export default function Text({children,font,width,grow,variant,color,bgColor,radius,padding,margin,hover,onClick,weight,id}) {
     return (
         <Typography variant={variant} id={id} onClick={onClick} sx={{
             fontFamily: font,
@@ -19,6 +19,7 @@ export default function Text({children,font,width,grow,variant,color,bgColor,pad
             textAlign: 'center',
             color: color,
             backgroundColor: bgColor,
+            borderRadius: radius,
             padding: padding,
             margin: margin,
             '&:hover': {bgcolor: hover}}}>

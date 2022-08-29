@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Paytone+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800&display=swap');
 
 a {
     text-decoration: none;
@@ -34,7 +34,7 @@ a {
     flex-wrap: wrap;
     text-align: center;
     width: 30vw;
-    font-family: 'Paytone One';
+    font-family: 'Montserrat', sans-serif;
     color: rgb(25,25,25);
     background-color: white;
     padding: 5px;
@@ -49,7 +49,7 @@ a {
     text-align: center;
     width: 23vw;
     height: 23vw;
-    font-family: 'Paytone One';
+    font-family: 'Montserrat', sans-serif;
     color: rgb(25,25,25);
     background-color: white;
     margin: 5px;
@@ -65,7 +65,7 @@ a {
     text-align: center;
     width: 45%;
     height: 90%;
-    font-family: 'Paytone One';
+    font-family: 'Montserrat', sans-serif;
     color: rgb(25,25,25);
     background-color: white;
     margin: 5px;
@@ -80,7 +80,7 @@ a {
     text-align: center;
     width: 23vw;
     height: 23vw;
-    font-family: 'Paytone One';
+    font-family: 'Montserrat', sans-serif;
     color: rgb(25,25,25);
     background-color: white;
     margin: 5px;
@@ -103,23 +103,33 @@ a {
     margin-right: 10px;
 }
 
-
 .form-container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #C82832;
     flex-grow: 1;
+    background-image: url('../media/textura.jpg');
+    background-size: cover;
+    background-position: center;
 }
 
-.newForm {
+.new-form {
     width: 75%;
     min-width: 280px;
+    max-width: 480px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     margin-bottom: 20px;
+}
+
+.new-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    color: #C82832;
 }
 
 .input-container {
@@ -129,11 +139,9 @@ a {
     width: 100%;
     height: 50px;
     border: 0 solid;
-    background-color: #C82832
 }
 
 .inputLabel {
-    padding: 2px;
     margin: 5px;
     margin-left: 0;
     height: 40px;
@@ -145,9 +153,10 @@ a {
     padding: 5px;
     margin: 5px;
     margin-right: 0;
-    border: 0 solid;
+    border: 1px solid #C82832;
     height: 40px;
-    background-color: rgb(224,224,224)
+    background-color: white;
+    border-radius: 5px;
 }
 
 .buttonForm {
@@ -156,13 +165,13 @@ a {
     margin-top: 15px;
     border: 0 solid;
     border-radius: 5px;
-    color: #C82832;
-    background-color: rgb(230,230,230);
+    color: white;
+    background-color: #C82832;
     font-size: 16px;
-    font-family: 'Paytone One';
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
     text-align: 'center'
 }
-
 
 
 
@@ -226,7 +235,7 @@ a {
     background-color: #6b189a;
     color: rgb(224,224,224);
     font-size: 16px;
-    font-family: 'Paytone One';
+    font-family: 'Montserrat', sans-serif;
     text-align: 'center'
 }
 

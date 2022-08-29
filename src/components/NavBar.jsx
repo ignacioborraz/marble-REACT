@@ -8,7 +8,6 @@ import Box from '@mui/material/Box'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 import Menu from '@mui/material/Menu'
-import PersonIcon from '@mui/icons-material/Person'
 import Avatar from '@mui/material/Avatar'
 import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
@@ -40,12 +39,12 @@ export default function NavBar() {
 
   async function signOut() {
     await dispatch(userActions.signOut(user.user.id))
-      .then(navigate("/",{replace:true}))
+      .then(navigate("/ingresar",{replace:true}))
   }
 
   return (
     <Container justify='space-between' bgColor='#C82832' padding='10px'>
-      <IconButton onClick={() => navigate(-1)} sx={{p: 0}}>
+      <IconButton onClick={() => navigate(-1)}>
         <ArrowBackIcon sx={{
           width: '40px',
           height: '40px',
@@ -58,8 +57,8 @@ export default function NavBar() {
           textDecoration: 'none',
           borderRadius: '5px'}} />
       </IconButton>
-      <Text variant='h5' font='Paytone One' color='rgb(230,230,230)' padding='5px'>
-        PORTARO
+      <Text variant='h5' font='Montserrat' color='rgb(230,230,230)' padding='5px'>
+          Marmolería Giacomo Portaro
       </Text>
 
           {/* ---------- USER OPTIONS ---------- */}
@@ -94,18 +93,23 @@ export default function NavBar() {
             >
               {user ? (
                 <Box>
-                  <LinkRouter to={`/profile/${user.user.id}`}>
+                  <LinkRouter to={`/perfil/${user.user.id}`}>
                     <MenuItem sx={{'&:hover': {bgcolor: 'rgb(230,2230,230)'}}} onClick={handleCloseUserMenu}>
                       <Typography sx={{flexGrow: '1', padding: '2px', color: 'black', textAlign: 'right'}}>{user.user.nick.toUpperCase()}</Typography>
                     </MenuItem>
                   </LinkRouter>
-                  <LinkRouter to={`/usuario`}>
+                  <LinkRouter to={`/admin`}>
                     <MenuItem sx={{'&:hover': {bgcolor: 'rgb(230,2230,230)'}}} onClick={handleCloseUserMenu}>
-                      <Typography sx={{flexGrow: '1', padding: '2px', color: 'black', textAlign: 'right'}}>nuevo usuario</Typography>
+                      <Typography sx={{flexGrow: '1', padding: '2px', color: 'black', textAlign: 'right'}}>nuevo admin</Typography>
+                    </MenuItem>
+                  </LinkRouter>
+                  <LinkRouter to={`/user`}>
+                    <MenuItem sx={{'&:hover': {bgcolor: 'rgb(230,2230,230)'}}} onClick={handleCloseUserMenu}>
+                      <Typography sx={{flexGrow: '1', padding: '2px', color: 'black', textAlign: 'right'}}>nuevo user</Typography>
                     </MenuItem>
                   </LinkRouter>
                   <MenuItem sx={{'&:hover': {bgcolor: 'rgb(230,2230,230)'}}} onClick={handleCloseUserMenu}>
-                    <Typography sx={{flexGrow: '1', padding: '2px', color: 'black', textAlign: 'right'}} onClick={signOut}>salir!</Typography>
+                    <Typography sx={{flexGrow: '1', padding: '2px', color: 'black', textAlign: 'right'}} onClick={signOut}>salir</Typography>
                   </MenuItem>
                 </Box>
               ) : userOptions.map((everyOption,index) => (

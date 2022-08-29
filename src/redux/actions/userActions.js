@@ -60,11 +60,11 @@ const userActions = {
     },
 
     verifyToken: (token) => {
-        console.log(token)
+        //console.log(token)
         return async (dispatch, getState) => {
             try {
                 const user = await axios.get(apiUrl+'api/marble/auth/sign/token', {headers: {'Authorization': 'Bearer '+token}} )
-                console.log(user)
+                //console.log(user)
                 if (user) {
                     dispatch({
                         type: 'USER',
@@ -93,6 +93,35 @@ const userActions = {
                 console.log(error)
             }
         }            
+    },
+
+    getUser: (id,token) => {
+        return async(dispatch, getState) => {
+            try {
+                const res = await axios.get(apiUrl+'api/marble/auth/'+id, {headers: {'Authorization': 'Bearer '+token}} )
+                dispatch({type:'USER', payload:res.data.response})
+            } catch(error) {
+                console.log(error)
+            }
+        }
+    },
+
+    putUser: (id,token,data) => {
+        return async(dispatch, getState) => {
+            try {
+                const res = await axios.put(apiUrl+'api/marble/auth/'+id, data, {headers: {'Authorization': 'Bearer '+token}})
+                dispatch({
+                    type: 'MESSAGE',
+                    payload: {
+                        view: true,
+                        message: res.data.message,
+                        success: res.data.success
+                    }
+                })
+            } catch(error) {
+                console.log(error)
+            }
+        }
     }
 
 }
