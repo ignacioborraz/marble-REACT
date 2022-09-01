@@ -11,7 +11,7 @@ import Menu from '@mui/material/Menu'
 import Avatar from '@mui/material/Avatar'
 import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
-
+import logo from '../media/Logo-Chico-Marmoleria-Portaro-Rosario.png'
 import {useSelector,useDispatch} from 'react-redux'
 import userActions from '../redux/actions/userActions'
 import {Link as LinkRouter,useNavigate} from 'react-router-dom'
@@ -43,7 +43,7 @@ export default function NavBar() {
   }
 
   return (
-    <Container justify='space-between' bgColor='#C82832' padding='10px'>
+    <Container justify='space-between' bgColor='#0a0a0a' padding='10px'>
       <IconButton onClick={() => navigate(-1)}>
         <ArrowBackIcon className='shadow-box' sx={{
           width: '40px',
@@ -59,9 +59,11 @@ export default function NavBar() {
       </IconButton>
 
       <LinkRouter to={`/menu`} className='menu'>
-        <Text variant='h5' font='Montserrat' color='rgb(230,230,230)' className='shadow-text'>
+      <img src={logo} alt="logo" style={{ "height": "5rem"}} />
+        
+        {/* <Text variant='h5' font='Montserrat' color='rgb(230,230,230)' className='shadow-text'>
             Marmolería Giacomo Portaro
-        </Text>
+        </Text> */}
       </LinkRouter>
 
           {/* ---------- USER OPTIONS ---------- */}
