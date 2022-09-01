@@ -44,9 +44,11 @@ export default function SelectType() {
    const checksCant = (cant) => {
       let lista = [];
       for (let i = 1; i <= cant; i++) {
-         lista.push({ i })
+         lista.push({i})
+         console.log("🚀 ~ file: New-4-Data.jsx ~ line 48 ~ checksCant ~ i", i.value)
          setData(lista)
          console.log(lista)
+         
       }
 
    }
@@ -122,7 +124,6 @@ export default function SelectType() {
                               <div key={index} className='mb10' >
                                  <label htmlFor='comentario'>CODIGO: </label>
                                  <input id='codigo' type='text' />
-
                                  <label className='ml10 labelCheck'><input type="checkbox" id="cbox1" value={true} />Cod.Interno</label>
                                  <label className='ml10 labelCheck'><input type="checkbox" id="cbox2" value={true} />Nota del Pedido </label>
                               </div>

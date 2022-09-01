@@ -10,6 +10,7 @@ export default function SelectCompany() {
 
     useEffect(() => {
         dispatch(companyActions.getCompanies())
+        // eslint-disable-next-line
     }, [])
 
     const companies = useSelector(store => store.companyReducer.companies)

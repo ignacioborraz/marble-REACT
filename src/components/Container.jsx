@@ -1,6 +1,7 @@
+import { Start } from '@mui/icons-material'
 import {Box} from '@mui/material'
 
-export default function Container({children,width,grow,wrap,direction,justify,align,color,bgColor,padding,margin,to}) {
+export default function Container({children,width,grow,wrap,direction,justify,align,color,bgColor,padding,margin,to, content}) {
 
     return (
         <Box onClick={to} sx={{
@@ -9,6 +10,7 @@ export default function Container({children,width,grow,wrap,direction,justify,al
             flexDirection: direction,
             justifyContent: justify,
             alignItems: align,
+            alignContent:content,
             flexGrow: grow,
             flexWrap: wrap,
             color: color,

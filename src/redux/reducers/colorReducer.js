@@ -1,6 +1,7 @@
 const initialState = { //defino el estado inicial del reductor
     colors: [],
     filterColors: [],
+    filt:[],
     oneColor: {}
 }
 
@@ -11,13 +12,29 @@ const colorReducer = (state = initialState, action) => { //defino el reductor, q
         case 'GET_COLORS':
             return {
                 ...state,
-                colors: action.payload
+                colors: action.payload,
+                filterColors: action.payload
             }
         case 'GET_ONE_COLOR':
             return {
                 ...state,
-                oneColor: action.payload
+                oneColor: action.payload,
+                
             }
+        case 'FILTER_COLORS':
+            let filter = state.colors.filter(color => color.name.trim().toLowerCase().startsWith(action.payload.trim().toLowerCase()))
+            return {
+                ...state,
+                filterColors: filter,
+                
+            }
+            case 'F_COLORS':
+                
+                return {
+                    ...state,
+                    filt: action.payload,
+                    
+                }
         default:
             return state
     }

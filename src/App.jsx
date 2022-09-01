@@ -20,6 +20,7 @@ import userActions from './redux/actions/userActions'
 
 import './styles/styles.css'
 
+
 export default function App() {
 
     const user = useSelector(store => store.userReducer.user)
@@ -31,6 +32,7 @@ export default function App() {
             //console.log(token)
             dispatch(userActions.verifyToken(token))
         }
+        // eslint-disable-next-line
     },[])
 
     return (
