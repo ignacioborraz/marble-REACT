@@ -40,14 +40,24 @@ export default function SelectColor() {
                     </div>
 
                 </div>
-                {colors?.map(everyColor => (
-                    <LinkRouter className='linkColors' to={'/nueva/color/' + everyColor.company} onClick={creatingPlate} key={everyColor._id} id={everyColor._id}>
-                        <Text variant='h6' font='Paytone One' color='rgb(25,25,25)' padding='5px' id={everyColor._id}>
-                            {everyColor.name}
-                        </Text>
-                        <img src={everyColor.photo} alt={everyColor._id} className='fitColor' id={everyColor._id} />
-                    </LinkRouter>
-                ))}
+                <div>
+                    <div className='containerInput'>
+                        <input type="text" name="" id="" placeholder='Buscar por nombre' />
+                    </div>
+                    <div className='containerCardsMarca'>
+
+                    
+                    {colors?.map(everyColor => (
+                        <LinkRouter className='linkColors' to={'/nueva/color/' + everyColor.company} onClick={creatingPlate} key={everyColor._id} id={everyColor._id}>
+                            <Text variant='h6' font='Paytone One' color='rgb(25,25,25)' padding='5px' id={everyColor._id}>
+                                {everyColor.name}
+                            </Text>
+                            <img src={everyColor.photo} alt={everyColor._id} className='fitColor' id={everyColor._id} />
+                        </LinkRouter>
+                    ))}
+                    </div>
+                </div>
+
             </Container>
         </Container>
     )
