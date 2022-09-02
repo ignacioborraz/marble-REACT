@@ -15,9 +15,9 @@
 }
 body::-webkit-scrollbar{
   width: 0.6rem!important;
-  background: #c9c9c9!important;
+  background: #181818!important;
 }
 body::-webkit-scrollbar-thumb{
-  background: rgb(108 0 0)!important;
+  background: rgb(216, 216, 216)!important;
   border-radius: 0.4rem!important;
 }

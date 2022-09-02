@@ -61,7 +61,7 @@ export default function SelectColor() {
         <Container grow='1' wrap='wrap' bgColor='rgb(224,224,224)' sx={{ alignContent: 'flex-start' }}>
             <Container width='100%' wrap='wrap' justify='center' content='start' sx={{ alignContent: 'flex-start' }} >
                 <div className='containerNameCompany'>
-                    <div className={company.nameCompany}>
+                    <div className={`hola ${company.nameCompany}` }>
                         <div className='mask2'>
                             <h1 className='titleCardCompany'>{company.nameCompany}</h1>
                         </div>

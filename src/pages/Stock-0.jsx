@@ -14,6 +14,7 @@ export default function Stock() {
     },[])
 
     const plates = useSelector(store => store.plateReducer.plates)
+    console.log("🚀 ~ file: Stock-0.jsx ~ line 17 ~ Stock ~ plates", plates)
     
     return (
         <Container grow='1' bgColor='rgb(224,224,224)'>

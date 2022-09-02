@@ -130,7 +130,7 @@ a {
 }
 
 .containerDatosForm {
-    width: 80%;
+    width: 88%;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -393,10 +393,11 @@ a {
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    width: 40%;
+    width: 45rem;
     min-height: 50vh;
     padding: 1rem;
 }
+
 
 input {
     margin-right: 10px;
@@ -631,6 +632,11 @@ label {
     width: 100%;
     justify-content: space-evenly;
 }
+.cajaCheck {
+    border: solid 1px rgb(178 178 178);
+    padding: 15px 12px;
+    margin: 2px;
+}
 
 @media (width < 768px) {
     .logo {
@@ -643,6 +649,13 @@ label {
 
     .form {
         width: 85%;
+    }
+    .cajaCheck {
+        border: solid 1px rgb(178 178 178);
+        padding: 10px;
+        margin: 2px;
+        display: flex;
+        flex-direction: column;
     }
 
     @media (width < 550px) {
@@ -711,6 +724,9 @@ label {
     @media (width < 425px) {
         .logo {
             height: 2rem !important;
+        }
+        .linkColors{
+            width: 18rem ;
         }
     }
 }

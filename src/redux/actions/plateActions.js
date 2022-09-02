@@ -4,11 +4,12 @@ import apiUrl from '../../url'
 const plateActions = {
 
     createPlate: (plate) => {
+        const token = localStorage.getItem('token')
         const {lot,company,color,type,comments} = plate
         console.log(plate)
         return async(dispatch,getState) => {
             try {
-                let res = await axios.post(apiUrl+'api/marble/plate',{lot,company,color,type,comments})
+                let res = await axios.post(apiUrl+'api/marble/plate',{lot,company,color,type,comments}, {headers: {'Authorization': 'Bearer '+token}})
                 console.log(res.data.response);
             } catch(error) {
                 console.log(error)
