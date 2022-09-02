@@ -5,11 +5,10 @@ const plateActions = {
 
     createPlate: (plate) => {
         const token = localStorage.getItem('token')
-        const {lot,company,color,type,comments} = plate
         console.log(plate)
         return async(dispatch,getState) => {
             try {
-                let res = await axios.post(apiUrl+'api/marble/plate',{lot,company,color,type,comments}, {headers: {'Authorization': 'Bearer '+token}})
+                let res = await axios.post(apiUrl+'api/marble/plates',plate, {headers: {'Authorization': 'Bearer '+token}})
                 console.log(res.data.response);
             } catch(error) {
                 console.log(error)
@@ -21,8 +20,7 @@ const plateActions = {
         return async(dispatch, getState) => {
             const token = localStorage.getItem('token')
             try {
-                const res = await axios.get(apiUrl+'api/marble/plate', {headers: {'Authorization': 'Bearer '+token}})
-                console.log(res.data.response)
+                const res = await axios.get(apiUrl+'api/marble/plates', {headers: {'Authorization': 'Bearer '+token}})
                 dispatch({type:'GET_PLATES', payload: res.data.response})
             } catch(error) {
                 console.log(error)
@@ -34,7 +32,7 @@ const plateActions = {
         const token = localStorage.getItem('token')
         return async(dispatch, getState) => {
             try {
-                const res = await axios.get(apiUrl+'api/marble/plate'+id, {headers: {'Authorization': 'Bearer '+token}})
+                const res = await axios.get(apiUrl+'api/marble/plates/'+id, {headers: {'Authorization': 'Bearer '+token}})
                 dispatch({type:'GET_ONE_PLATE', payload:res.data.response})
             } catch(error) {
                 console.log(error)
@@ -46,7 +44,7 @@ const plateActions = {
         const token = localStorage.getItem('token')
         return async(dispatch, getState) => {
             try {
-                await axios.put(apiUrl+'api/marble/plate'+id,data, {headers: {'Authorization': 'Bearer '+token}})
+                await axios.put(apiUrl+'api/marble/plates/'+id,data, {headers: {'Authorization': 'Bearer '+token}})
             } catch(error) {
                 console.log(error)
             }
@@ -57,7 +55,7 @@ const plateActions = {
         const token = localStorage.getItem('token')
         return async(dispatch, getState) => {
             try {
-                await axios.delete(apiUrl+'api/marble/plate'+id)
+                await axios.delete(apiUrl+'api/marble/plates/'+id, {headers: {'Authorization': 'Bearer '+token}})
             } catch(error) {
                 console.log(error)
             }
