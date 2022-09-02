@@ -130,7 +130,7 @@ a {
 }
 
 .containerDatosForm {
-    width: 88%;
+    width: 92%;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -277,6 +277,56 @@ a {
 }
 
 /****BTNform*****/
+.btnAdd {
+    width: 10rem;
+    position: relative;
+    font-size: 17px;
+    text-decoration: none;
+    padding: 4px 8px;
+    display: inline-block;
+    border-radius: 6em;
+    transition: all .2s;
+    border: none;
+    background-color: white;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: #272626;
+   }
+   
+   .btnAdd:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+   }
+   
+   .btnAdd:active {
+    transform: translateY(-1px);
+    background-color: #fff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+   }
+   
+   .btnAdd::after {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    border-radius: 100px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: all .4s;
+   }
+   
+   /* .btnAdd::after {
+    background-color: #fff;
+   } */
+   
+   .btnAdd:hover::after {
+    transform: scaleX(1.4) scaleY(1.6);
+    opacity: 0;
+   
+   }
+
 .btnForm {
     padding: 0.3em 3em;
     font-size: 15px;
@@ -412,7 +462,7 @@ input {
 }
 
 label {
-    font-size: 20px;
+    font-size: 17px;
     font-weight: bold;
     letter-spacing: 1px;
     color: #272626;
@@ -634,8 +684,28 @@ label {
 }
 .cajaCheck {
     border: solid 1px rgb(178 178 178);
-    padding: 15px 12px;
+    padding: 14px 5px;
     margin: 2px;
+    /* text-align: center; */
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.btnDelet{
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+.btnDelet:hover {
+
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+   /* background-color: rgb(236, 236, 236); */
+   color: red;
+   }
+
+.iconDelet{
+    color: #C82832!important;
+    border: none;
 }
 
 @media (width < 768px) {

@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import plateActions from '../redux/actions/plateActions'
 import Container from '../components/Container'
 import Text from '../components/Text'
@@ -19,32 +20,46 @@ export default function SelectType() {
 
   const dispatch = useDispatch()
   const [cant, setCant] = useState("");
-  const [cantData, setCantData] = useState([]);
+  const [cantData, setCantData] = useState([]);//para generar la cantidad de inpus
+  const [cantInputs, setCantInputs] = useState([]);
+  console.log("🚀 ~ file: New-4-Data.jsx ~ line 24 ~ SelectType ~ cantInputs", cantInputs)
+  
   const [inputs, setInputs] = useState([
     {
       codigo: "",
-      interno: "",
-      pedido: "",
+      interno: false,
+      pedido: false,
     }
   ]);
+  console.log("🚀 ~ file: New-4-Data.jsx ~ line 33 ~ SelectType ~ inputs", inputs)
 
-  const handleChange = (event) => {
-    event.preventDefault();
-    setCant(event.target.value);
-    checksCant(event.target.value)
-  };
-  const checksCant = (cant) => {
-    
-    let lista = [];
-    for (let i = 1; i <= cant; i++) {
-      lista.push({ i })
-      setCantData(lista)
-      setInputs(lista)
-    }
+
+const addInput = (e) => {
+  e.preventDefault()
+  if (inputs.length >= 10) {
+    console.log("ya no se puede agregar mas")
   }
+  else{
+    setInputs([...inputs, {
+      codigo: "",
+        interno: false,
+        pedido: false,
+    }
+    ])
+  }
+}
 
+const deleteInput = ( index) => {
+ 
+ //setInputs([...inputs.filter((_, index)=> index !== inp)])
+  const fields = inputs
+  console.log("🚀 ~ file: New-4-Data.jsx ~ line 54 ~ deleteInput ~ fields", fields)
+  fields.splice(index, 1)
+  setInputs([...inputs])
+}
 
   const datos = (value, index, key) => {
+    value.preventDefault()
     const fields = inputs
     if (key === "codigo" ) {
       fields[index][key] = value.target.value ;
@@ -62,12 +77,12 @@ export default function SelectType() {
     let plate = JSON.parse(localStorage.getItem('plate'))
     plate.lot = lot?.current.value.trim()
     plate.comments = comments?.current.value.trim()
-    plate.codigos = inputs
+    //plate.codigos = inputs
     //localStorage.setItem('plate',JSON.stringify(plate))
     //console.log(JSON.parse(localStorage.getItem('plate')))
     console.log(plate)
-    await dispatch(plateActions.createPlate(plate))
-      .then(navigate("/", { replace: true }))
+    // await dispatch(plateActions.createPlate(plate))
+    //   .then(navigate("/", { replace: true }))
   }
 
   return (
@@ -89,8 +104,8 @@ export default function SelectType() {
                   <label htmlFor='comentario'>COMENTARIO: </label>
                   <input id='comentario' type='text' ref={comments} />
                 </div>
-
-                <Box className='hidden md:block'>
+                  <button type='button' className='btnAdd' onClick={addInput}>agregar codigo</button>
+                {/* <Box className='hidden md:block'>
 
                   <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
                     <InputLabel id="demo-simple-select-label" className='inputMui' >CANTIDAD</InputLabel>
@@ -115,17 +130,19 @@ export default function SelectType() {
                       <MenuItem value={10}>10</MenuItem>
                     </Select>
                   </FormControl>
-                </Box>
+                </Box> */}
 
                 {
-                  cantData.map((cant, index) =>
+                  inputs.map((cant, index) =>
                     <div key={index} className='mb10 cajaCheck' >
                       <label>{`Codigo${index + 1}`}</label>
-                      <input id={`codigo-${index + 1}`}  name='codigo'  onChange={(e) => datos(e, index, 'codigo')} />
+                      <input id={`codigo-${index + 1}`}  name='codigo' value={cant.codigo}  onChange={(e) => datos(e, index, 'codigo')} />
                       <label className='ml10 labelCheck' >
                         <input type="checkbox" id={`interno-${index + 1}`}  name='interno'  onChange={(e) => datos(e, index, 'interno')} />Cod.Interno</label>
                       <label className='ml10 labelCheck' >
                         <input type="checkbox" id={`pedido-${index + 1}`}  name='pedido' onChange={(e) => datos(e, index, 'pedido')} />Nota del Pedido </label>
+                        <button className='btnDelet' type='button' onClick={() => deleteInput(index)} ><DeleteForeverIcon className='iconDelet'/></button> 
+                    
                     </div>
                   )
                 }
