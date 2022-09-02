@@ -9,7 +9,7 @@ import WashIcon from '@mui/icons-material/Wash';
 export default function Index() {
     return (
         <Container grow='1' wrap='wrap' bgColor='rgb(224,224,224)'>
-            <Container width='100%' justify='space-evenly'>
+            <div className='containerIndex1' >
                 <LinkRouter className='link linkNew link1 ml10 mt10' to={'/nueva'}>
                     <div className='mask'>
                         <PlaylistAddCircleIcon className='iconTitle' />
@@ -24,8 +24,8 @@ export default function Index() {
                     </div>
                     
                 </LinkRouter>
-            </Container>
-            <Container width='100%' justify='space-evenly'>
+            </div>
+            <div className='containerIndex1' >
                 <LinkRouter className='link linkStock link2 ml10 mb10' to={'/stock'}>
                     <div className='mask'>
                         <PlaylistAddCheckCircleIcon className='iconTitle' />
@@ -47,7 +47,9 @@ export default function Index() {
                     </div>
 
                 </LinkRouter>
-            </Container>
+
+                
+            </div>
         </Container>
     )
 

@@ -13,3 +13,11 @@
   display: flex;
   flex-direction: column;
 }
+body::-webkit-scrollbar{
+  width: 0.6rem!important;
+  background: #c9c9c9!important;
+}
+body::-webkit-scrollbar-thumb{
+  background: rgb(108 0 0)!important;
+  border-radius: 0.4rem!important;
+}

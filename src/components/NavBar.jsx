@@ -59,7 +59,7 @@ export default function NavBar() {
       </IconButton>
 
       <LinkRouter to={`/menu`} className='menu'>
-      <img src={logo} alt="logo" style={{ "height": "5rem"}} />
+      <img className='logo' src={logo} alt="logo" style={{ "height": "5rem"}} />
         
         {/* <Text variant='h5' font='Montserrat' color='rgb(230,230,230)' className='shadow-text'>
             Marmolería Giacomo Portaro

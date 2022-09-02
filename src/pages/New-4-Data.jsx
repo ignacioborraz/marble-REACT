@@ -39,13 +39,11 @@ export default function SelectType() {
    const handleChange = (event) => {
       setCant(event.target.value);
       checksCant(event.target.value)
-
    };
    const checksCant = (cant) => {
       let lista = [];
       for (let i = 1; i <= cant; i++) {
          lista.push({i})
-         console.log("🚀 ~ file: New-4-Data.jsx ~ line 48 ~ checksCant ~ i", i.value)
          setData(lista)
          console.log(lista)
          
@@ -83,11 +81,11 @@ export default function SelectType() {
 
 
                         {/* <input type='number' onChange={charge}/> */}
-                        <div className='mb10'>
+                        <div className='mb10 '>
                            <label htmlFor='lote'>LOTE: </label>
                            <input id='lote' type='text' ref={lot} />
                         </div>
-                        <div className='mb10'>
+                        <div className='mb10 '>
                            <label htmlFor='comentario'>COMENTARIO: </label>
                            <input id='comentario' type='text' ref={comments} />
                         </div>
@@ -121,11 +119,11 @@ export default function SelectType() {
 
                         {
                            cantData.map((cant, index) =>
-                              <div key={index} className='mb10' >
+                              <div key={index} className='mb10 cajaCheck' >
                                  <label htmlFor='comentario'>CODIGO: </label>
-                                 <input id='codigo' type='text' />
-                                 <label className='ml10 labelCheck'><input type="checkbox" id="cbox1" value={true} />Cod.Interno</label>
-                                 <label className='ml10 labelCheck'><input type="checkbox" id="cbox2" value={true} />Nota del Pedido </label>
+                                 <input id='codigo' type='text' name='codigo[]' />
+                                 <label className='ml10 labelCheck'><input type="checkbox" name='interno[]'  />Cod.Interno</label>
+                                 <label className='ml10 labelCheck'><input type="checkbox" name='pedido[]' />Nota del Pedido </label>
                               </div>
                            )
                         }
