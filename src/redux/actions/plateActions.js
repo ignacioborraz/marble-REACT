@@ -19,8 +19,9 @@ const plateActions = {
 
     getPlates: () => {
         return async(dispatch, getState) => {
+            const token = localStorage.getItem('token')
             try {
-                const res = await axios.get(apiUrl+'api/marble/plate')
+                const res = await axios.get(apiUrl+'api/marble/plate', {headers: {'Authorization': 'Bearer '+token}})
                 console.log(res.data.response)
                 dispatch({type:'GET_PLATES', payload: res.data.response})
             } catch(error) {
@@ -30,9 +31,10 @@ const plateActions = {
     },
 
     getOnePlate: (id) => {
+        const token = localStorage.getItem('token')
         return async(dispatch, getState) => {
             try {
-                const res = await axios.get(apiUrl+'api/marble/plate'+id)
+                const res = await axios.get(apiUrl+'api/marble/plate'+id, {headers: {'Authorization': 'Bearer '+token}})
                 dispatch({type:'GET_ONE_PLATE', payload:res.data.response})
             } catch(error) {
                 console.log(error)
@@ -41,9 +43,10 @@ const plateActions = {
     },
 
     putPlate: (id,data) => {
+        const token = localStorage.getItem('token')
         return async(dispatch, getState) => {
             try {
-                await axios.put(apiUrl+'api/marble/plate'+id,data)
+                await axios.put(apiUrl+'api/marble/plate'+id,data, {headers: {'Authorization': 'Bearer '+token}})
             } catch(error) {
                 console.log(error)
             }
@@ -51,6 +54,7 @@ const plateActions = {
     },
 
     deletePlate: (id) => {
+        const token = localStorage.getItem('token')
         return async(dispatch, getState) => {
             try {
                 await axios.delete(apiUrl+'api/marble/plate'+id)
