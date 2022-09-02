@@ -3,9 +3,11 @@ import apiUrl from "../../url";
 
 const colorActions = {
   createColor: (name, photo, company) => {
+    const token = localStorage.getItem('token')
+    
     return async (dispatch, getState) => {
       try {
-        await axios.post(apiUrl + "api/marble/color", { name, photo, company });
+        await axios.post(apiUrl + "api/marble/color", { name, photo, company }, {headers: {'Authorization': 'Bearer '+token}});
       } catch (error) {
         console.log(error);
       }
@@ -13,10 +15,13 @@ const colorActions = {
   },
 
   getColors: (id) => {
+    const token = localStorage.getItem('token')
+    console.log(token)
     //console.log(id);
     return async (dispatch, getState) => {
       try {
-        const res = await axios.get(apiUrl + "api/marble/colors/" + id);
+        const res = await axios.get(apiUrl + "api/marble/colors/" + id, {headers: {'Authorization': 'Bearer '+token}}
+        );
         //console.log(res.data.response)
         dispatch({ type: "GET_COLORS", payload: res.data.response });
       } catch (error) {
@@ -25,6 +30,7 @@ const colorActions = {
     };
   },
   // filterc: (input,id) => {
+    //const token = localStorage.getItem('token')
   //   //console.log(id);
   //   return async (dispatch, getState) => {
   //     try {
@@ -37,9 +43,10 @@ const colorActions = {
   //   };
   // },
   filterColors: (input) => {
+    const token = localStorage.getItem('token')
     return (dispatch, getState) => {
       try {
-        dispatch({ type: "FILTER_COLORS", payload: input });
+        dispatch({ type: "FILTER_COLORS", payload: input }, {headers: {'Authorization': 'Bearer '+token}});
       } catch (error) {
         console.log(error);
       }
@@ -47,10 +54,11 @@ const colorActions = {
   },
 
   getOneColor: (id) => {
+    const token = localStorage.getItem('token')
     return async (dispatch, getState) => {
       try {
         const res = await axios.get(apiUrl + "api/marble/color" + id);
-        dispatch({ type: "GET_ONE_COLOR", payload: res.data.response });
+        dispatch({ type: "GET_ONE_COLOR", payload: res.data.response }, {headers: {'Authorization': 'Bearer '+token}});
       } catch (error) {
         console.log(error);
       }
@@ -58,9 +66,15 @@ const colorActions = {
   },
 
   putColor: (id, data) => {
+    const token = localStorage.getItem('token')
     return async (dispatch, getState) => {
       try {
-        await axios.put(apiUrl + "api/marble/color" + id, data);
+        await axios.put(apiUrl + "api/marble/color" + id, data, {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
       } catch (error) {
         console.log(error);
       }
@@ -68,9 +82,10 @@ const colorActions = {
   },
 
   deleteColor: (id) => {
+    const token = localStorage.getItem('token')
     return async (dispatch, getState) => {
       try {
-        await axios.delete(apiUrl + "api/marble/color" + id);
+        await axios.delete(apiUrl + "api/marble/color" + id, {headers: {'Authorization': 'Bearer '+token}});
       } catch (error) {
         console.log(error);
       }
