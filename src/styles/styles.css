@@ -148,27 +148,27 @@ a {
 }
 
 .Pura {
-    background-image: url("https://a.storyblok.com/f/150360/2576x1618/7649cfa7e5/fullwidth.png/m/");
+    background-image: url("../media/puraStone.jpg");
 }
 
 .Silestone {
-    background-image: url("https://cdn-com.cosentino.com/es/wp-content/uploads/2022/02/Silestone-Kitchen-2-Faro-White-recorte-1.jpg");
+    background-image: url("../media/Silestone.jpg");
 }
 
 .Dekton {
-    background-image: url("https://a.storyblok.com/f/150360/2880x1906/169de82e2e/new_encimeras-de-cocina.jpeg/m/");
+    background-image: url("../media/dekton.jpg");
 }
 
 .Neolith {
-    background-image: url("https://www.marmoleriagaona.com/images/02neolith/top/Neolith-g-1.jpg");
+    background-image: url("../media/Neolith.jpg");
 }
 
 .Mármol {
-    background-image: url("https://www.marmoleriagaona.com/images/05-marmol/05.jpg");
+    background-image: url("../media/marmolPortada.jpg");
 }
 
 .Granito {
-    background-image: url("https://destefano1913.com/wp-content/uploads/portada_granito.jpg");
+    background-image: url("../media/portada_granito.jpg");
 }
 
 /*****/
