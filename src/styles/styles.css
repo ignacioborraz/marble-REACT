@@ -263,11 +263,11 @@ a {
 
 }
 
-.Standard {
+.Standard, .Media {
     background-image: url("https://dbdzm869oupei.cloudfront.net/img/vinylrugs/preview/34990.png");
 }
 
-.Jumbo {
+.Jumbo,  .Entera{
     background-image: url("https://static.vecteezy.com/system/resources/previews/004/479/531/large_2x/black-and-gold-marble-texture-free-photo.jpg");
 }
 
