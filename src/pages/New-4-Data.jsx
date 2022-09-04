@@ -18,53 +18,64 @@ export default function SelectType() {
     {
       codigo: "",
       typeCode: "",
-      
     }
   ]);
 
-const addInput = () => {
-  
-  if (inputs.length >= 10) {
-    console.log("ya no se puede agregar mas")
-  }
-  else{
-    setInputs([...inputs, {
-      codigo: "",
-      typeCode: "",
-      
-        
-    }
-    ])
-  }
-}
+  const addInput = () => {
 
-const deleteInput = ( index) => {
-  const fields = inputs
-  fields.splice(index, 1)
-  setInputs([...inputs])
-}
+    if (inputs.length >= 10) {
+      console.log("ya no se puede agregar mas")
+    }
+    else {
+      setInputs([...inputs, {
+        codigo: "",
+        typeCode: "",
+      }
+      ])
+    }
+  }
+
+  const deleteInput = (index) => {
+    const fields = inputs
+    fields.splice(index, 1)
+    setInputs([...inputs])
+  }
 
   const datos = (value, index, key) => {
     const fields = inputs
-  
-      fields[index][key] = value.target.value ;
-  
+    fields[index][key] = value.target.value;
     setInputs([...inputs])
   }
   console.log("🚀 ~ file: New-4-Data.jsx ~ line 79 ~ SelectType ~ inputs", inputs)
-  
+
+
   async function creatingPlate(event) {
     event.preventDefault()
-    let plate = JSON.parse(localStorage.getItem('plate'))
-    plate.lot = lot?.current.value.trim()
-    plate.comments = comments?.current.value.trim()
-    plate.internal = inputs[1]
+
+    for (let i = 0; i < inputs.length; i++) {
+      let plate = JSON.parse(localStorage.getItem('plate'))
+      plate.lot = lot?.current.value.trim()
+      plate.comments = comments?.current.value.trim()
+      plate.done = false
+
+      if (inputs[i].typeCode === "interno") {
+        plate.internal = inputs[i].codigo
+        console.log("es internoooo")
+      }
+      else {
+        plate.note = inputs[i].codigo
+        console.log("es pedidooo")
+      }
+      console.log(plate)
+      await dispatch(plateActions.createPlate(plate))
+      //.then(navigate("/", { replace: true }))
+    }
     //plate.note = inputs[2]
     //localStorage.setItem('plate',JSON.stringify(plate))
     //console.log(JSON.parse(localStorage.getItem('plate')))
-    console.log(plate)
-    await dispatch(plateActions.createPlate(plate))
-      .then(navigate("/", { replace: true }))
+    
+    // await dispatch(plateActions.createPlate(plate))
+    //   .then(navigate("/", { replace: true }))
   }
 
   return (
@@ -78,25 +89,25 @@ const deleteInput = ( index) => {
 
                 <div className='mb10 '>
                   <label htmlFor='lote'>LOTE: </label>
-                  <input id='lote' type='text' ref={lot} />
+                  <input id='lote' type='text' ref={lot} required/>
                 </div>
                 <div className='mb10 '>
                   <label htmlFor='comentario'>COMENTARIO: </label>
                   <input id='comentario' type='text' ref={comments} />
                 </div>
-                  <button type='button' className='btnAdd' onClick={addInput}>agregar codigo</button>
+                <button type='button' className='btnAdd' onClick={addInput}>agregar codigo</button>
 
                 {
                   inputs.map((cant, index) =>
                     <div key={index} className='mb10 cajaCheck' >
                       <label>{`Codigo${index + 1}`}</label>
-                      <input id={`codigo-${index + 1}`}  name='codigo' value={cant.codigo}  onChange={(e) => datos(e, index, 'codigo')} />
+                      <input id={`codigo-${index + 1}`} name='codigo' value={cant.codigo} onChange={(e) => datos(e, index, 'codigo')} required/>
                       <label className='ml10 labelCheck' >
-                        <input type="radio" id={`interno-${index + 1}`}  name={`typeCode${index + 1}`} value='interno'  onChange={(e) => datos(e, index, 'typeCode')} />Cod.Interno</label>
+                        <input type="radio" id={`interno-${index + 1}`} name={`typeCode${index + 1}`} value='interno' required onChange={(e) => datos(e, index, 'typeCode')} />Cod.Interno</label>
                       <label className='ml10 labelCheck' >
-                        <input type="radio" id={`pedido-${index + 1}`}  name={`typeCode${index + 1}`} value='pedido' onChange={(e) => datos(e, index, 'typeCode')} />Nota del Pedido </label>
-                        <button className='btnDelet' type='button' onClick={() => deleteInput(index)} ><DeleteForeverIcon className='iconDelet'/></button> 
-                    
+                        <input type="radio" id={`pedido-${index + 1}`} name={`typeCode${index + 1}`} value='pedido' required onChange={(e) => datos(e, index, 'typeCode')} />Nota del Pedido </label>
+                      <button className='btnDelet' type='button' onClick={() => deleteInput(index)} ><DeleteForeverIcon className='iconDelet' /></button>
+
                     </div>
                   )
                 }

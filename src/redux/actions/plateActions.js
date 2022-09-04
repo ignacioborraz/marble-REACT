@@ -9,7 +9,7 @@ const plateActions = {
         return async(dispatch,getState) => {
             try {
                 let res = await axios.post('http://localhost:8000/api/marble/plates',plate, {headers: {'Authorization': 'Bearer '+token}})
-                console.log(res.data.response);
+                console.log(res);
             } catch(error) {
                 console.log(error)
             }            

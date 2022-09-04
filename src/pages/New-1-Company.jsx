@@ -16,8 +16,15 @@ export default function SelectCompany() {
     const companies = useSelector(store => store.companyReducer.companies)
     console.log("🚀 ~ file: New-1-Company.jsx ~ line 16 ~ SelectCompany ~ companies", companies)
 
-    function creatingPlate(event) {
-        let plate = { company: event.target.id }
+    // function creatingPlate(event) {
+    //     let plate = { company: event.target.id }
+    //     localStorage.setItem('plate', JSON.stringify(plate))
+    //     console.log(JSON.parse(localStorage.getItem('plate')))
+    // }
+    function creatingPlate(id) {
+        console.log("🚀 ~ file: New-1-Company.jsx ~ line 25 ~ creatingPlate ~ event", id)
+        let plate = JSON.parse(localStorage.getItem('plate'))
+        plate.company = id
         localStorage.setItem('plate', JSON.stringify(plate))
         console.log(JSON.parse(localStorage.getItem('plate')))
     }
@@ -26,7 +33,7 @@ export default function SelectCompany() {
         <Container grow='1' wrap='wrap' bgColor='rgb(224,224,224)'>
             <Container width='100%' justify='space-evenly' wrap='wrap'>
                 {companies?.map(everyCompany => (
-                    <LinkRouter className='cardCompany link' to={'/nueva/' + everyCompany._id} onClick={creatingPlate} key={everyCompany._id} id={everyCompany._id}>
+                    <LinkRouter className='cardCompany link' to={'/nueva/' + everyCompany._id} onClick={creatingPlate(everyCompany._id)} key={everyCompany._id} id={everyCompany._id}>
                         <div className={everyCompany.nameCompany}>
                             <div className='mask'>
                                 <h1 className='titleCard'>{everyCompany.nameCompany}</h1>
