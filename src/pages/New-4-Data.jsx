@@ -68,14 +68,9 @@ export default function SelectType() {
       }
       console.log(plate)
       await dispatch(plateActions.createPlate(plate))
-      //.then(navigate("/", { replace: true }))
+      .then(navigate("/", { replace: true }))
     }
-    //plate.note = inputs[2]
-    //localStorage.setItem('plate',JSON.stringify(plate))
-    //console.log(JSON.parse(localStorage.getItem('plate')))
-    
-    // await dispatch(plateActions.createPlate(plate))
-    //   .then(navigate("/", { replace: true }))
+
   }
 
   return (
@@ -120,15 +115,6 @@ export default function SelectType() {
 
         </div>
 
-
-        {/*                 <LinkRouter className='linkTypes' to={'/listo'} onClick={creatingPlate} key={everyType._id} id={everyType._id}>
-                        <Text variant='h4' font='Paytone One' color='rgb(25,25,25)' padding='5px' id={everyType._id}>
-                            {everyType.name}
-                        </Text>
-                        <Text variant='h6' color='rgb(25,25,25)' padding='5px' id={everyType._id}>
-                            {everyType.width} × {everyType.height}
-                        </Text>
-                    </LinkRouter> */}
       </Container>
     </Container >
   )

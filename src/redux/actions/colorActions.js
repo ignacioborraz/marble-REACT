@@ -16,7 +16,7 @@ const colorActions = {
 
   getColors: (id) => {
     const token = localStorage.getItem('token')
-    console.log(token)
+    //console.log(token)
     //console.log(id);
     return async (dispatch, getState) => {
       try {

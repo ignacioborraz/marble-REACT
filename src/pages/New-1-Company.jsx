@@ -16,17 +16,11 @@ export default function SelectCompany() {
     const companies = useSelector(store => store.companyReducer.companies)
     console.log("🚀 ~ file: New-1-Company.jsx ~ line 16 ~ SelectCompany ~ companies", companies)
 
-    // function creatingPlate(event) {
-    //     let plate = { company: event.target.id }
-    //     localStorage.setItem('plate', JSON.stringify(plate))
-    //     console.log(JSON.parse(localStorage.getItem('plate')))
-    // }
     function creatingPlate(id) {
-        console.log("🚀 ~ file: New-1-Company.jsx ~ line 25 ~ creatingPlate ~ event", id)
+
         let plate = JSON.parse(localStorage.getItem('plate'))
         plate.company = id
         localStorage.setItem('plate', JSON.stringify(plate))
-        console.log(JSON.parse(localStorage.getItem('plate')))
     }
 
     return (

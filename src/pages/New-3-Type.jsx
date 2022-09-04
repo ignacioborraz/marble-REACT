@@ -29,7 +29,7 @@ export default function SelectType() {
         let plate = JSON.parse(localStorage.getItem('plate'))
         plate.type = id
         localStorage.setItem('plate', JSON.stringify(plate))
-        console.log(JSON.parse(localStorage.getItem('plate')))
+        //console.log(JSON.parse(localStorage.getItem('plate')))
     }
 
     return (
@@ -45,16 +45,7 @@ export default function SelectType() {
                             </div>
 
                         </div>
-                        {/* <Text variant='h4' font='Paytone One' color='rgb(25,25,25)' padding='5px' id={everyType._id}>
-                            {everyType.name}
-                        </Text>
-                        
-                        <Text variant='h6' color='rgb(25,25,25)' padding='5px' id={everyType._id}>
-                            {everyType.width} × {everyType.height}
-                        </Text>
-                        <Text variant='h5' font='Paytone One' color='rgb(25,25,25)' padding='5px' id={everyType._id}>
-                            {everyType.thickness} <small className='ml10'>esp</small>
-                        </Text> */}
+
                     </LinkRouter>
                 ))}
                 
