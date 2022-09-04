@@ -18,16 +18,17 @@ export default function Stock() {
     
     return (
         <Container grow='1' bgColor='rgb(224,224,224)'>
-            <Container width='100%' justify='center' wrap='wrap'>
+             <div className='containerCardsMarca'>
                 {plates?.map(everyPlate => (
-                    <div className='linkStocks' /* to={'/nueva/color/tipo/'+everyPlate._id} */ key={everyPlate._id}>
-                        <Text variant='h6' font='Paytone One' color='rgb(25,25,25)' padding='5px' id={everyPlate._id}>
+                    <div className='linkColors' /* to={'/nueva/color/tipo/'+everyPlate._id} */ key={everyPlate._id}>
+                        {/* <Text variant='h6' font='Paytone One' color='rgb(25,25,25)' padding='5px' id={everyPlate._id}>
                             {everyPlate.color.name}
-                        </Text>
+                        </Text> */}
+                        <h2 className='nameCards'>{everyPlate.color.name}</h2>
                         <img src={everyPlate.color.photo} alt={everyPlate._id} className='fitStock' id={everyPlate._id} />
                     </div>
                 ))}
-            </Container>
+            </div>
         </Container>
     )
     
