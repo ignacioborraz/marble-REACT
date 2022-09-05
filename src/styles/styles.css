@@ -719,7 +719,15 @@ label {
     color: #C82832!important;
     border: none;
 }
-
+.containerStock{
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    background-color:rgb(224,224,224);
+}
+.inputStock{
+    width: 16rem;
+}
 @media (width < 768px) {
     .logo {
         height: 3rem !important;

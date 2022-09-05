@@ -9,19 +9,23 @@ const plateReducer = (state = initialState, action) => {
         case 'GET_PLATES':
             return {
                 ...state,
-                plates: action.payload
+                plates: action.payload,
+                filterPlates:action.payload,
             }
         case 'GET_ONE_PLATE':
             return {
                 ...state,
                 onePlate: action.payload
             }
-/*         case 'FILTER_PLATES':
-            let filter = state.plates.filter(everyJob => everyJob.nameJob.toLowerCase().startsWith(action.payload.trim().toLowerCase()))
+         case 'FILTER_PLATES':
+            
+            let filter = state.plates.filter(plate => plate.color.name.toLowerCase().startsWith(action.payload.trim().toLowerCase()) || plate.internal?.startsWith(action.payload.trim()) || plate.note?.startsWith(action.payload.trim()) || plate.company.nameCompany.toLowerCase().startsWith(action.payload.trim().toLowerCase()))
             return {
+               
                 ...state,
-                filterCity: filter
-            } */
+                
+                filterPlates: filter
+            } 
         default:
             return state
     }
