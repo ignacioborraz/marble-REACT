@@ -29,6 +29,7 @@ export default function SelectColor() {
 
 
     function creatingPlate(event) {
+        console.log("🚀 ~ file: New-2-Color.jsx ~ line 32 ~ creatingPlate ~ event", event)
         let plate = JSON.parse(localStorage.getItem('plate'))
         plate.color = event.target.id
         localStorage.setItem('plate', JSON.stringify(plate))

@@ -51,7 +51,6 @@ export default function SelectType() {
 
   async function creatingPlate(event) {
     event.preventDefault()
-
     for (let i = 0; i < inputs.length; i++) {
       let plate = JSON.parse(localStorage.getItem('plate'))
       plate.lot = lot?.current.value.trim()
@@ -60,17 +59,20 @@ export default function SelectType() {
 
       if (inputs[i].typeCode === "interno") {
         plate.internal = inputs[i].codigo
+        plate.note = null
         console.log("es internoooo")
       }
-      else {
+      else if (inputs[i].typeCode === "pedido") {
         plate.note = inputs[i].codigo
+        plate.internal = null
         console.log("es pedidooo")
       }
+
+      localStorage.setItem('plate', JSON.stringify(plate))
       console.log(plate)
       await dispatch(plateActions.createPlate(plate))
-      .then(navigate("/", { replace: true }))
     }
-
+    (navigate("/", { replace: true }))
   }
 
   return (
@@ -84,7 +86,7 @@ export default function SelectType() {
 
                 <div className='mb10 '>
                   <label htmlFor='lote'>LOTE: </label>
-                  <input id='lote' type='text' ref={lot} required/>
+                  <input id='lote' type='text' ref={lot} required />
                 </div>
                 <div className='mb10 '>
                   <label htmlFor='comentario'>COMENTARIO: </label>
@@ -96,7 +98,7 @@ export default function SelectType() {
                   inputs.map((cant, index) =>
                     <div key={index} className='mb10 cajaCheck' >
                       <label>{`Codigo${index + 1}`}</label>
-                      <input id={`codigo-${index + 1}`} name='codigo' value={cant.codigo} onChange={(e) => datos(e, index, 'codigo')} required/>
+                      <input id={`codigo-${index + 1}`} name='codigo' value={cant.codigo} onChange={(e) => datos(e, index, 'codigo')} required />
                       <label className='ml10 labelCheck' >
                         <input type="radio" id={`interno-${index + 1}`} name={`typeCode${index + 1}`} value='interno' required onChange={(e) => datos(e, index, 'typeCode')} />Cod.Interno</label>
                       <label className='ml10 labelCheck' >
