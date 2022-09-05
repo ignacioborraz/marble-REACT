@@ -43,7 +43,7 @@ export default function SignIn() {
                         color: '#C82832',
                         backgroundColor: 'rgb(230,230,230)',
                         borderRadius: '5px'}} /></label>
-                    <input name='nick' id='nick' placeholder='Nick' type="text" className='inputForm' ref={nick} required/>
+                    <input name='nick' id='nick' placeholder='Usuario' type="text" className='inputForm' ref={nick} required/>
                 </fieldset>
                 <fieldset className='input-container'>
                     <label className='inputLabel' htmlFor='pass'><KeyIcon sx={{

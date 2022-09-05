@@ -67,7 +67,7 @@ export default function NavBar() {
       </LinkRouter>
 
           {/* ---------- USER OPTIONS ---------- */}
-          <Box sx={{ flexGrow: 0 }}>
+          <Box sx={{ flexGrow: 0, display: 'flex' }}>
             <Tooltip title="OPEN">
               <IconButton onClick={handleOpenUserMenu}>
                 <Avatar alt="photoUser" src={user.user.photo} className='onlyFit shadow-box' sx={{
