@@ -24,7 +24,7 @@ export default function Stock() {
                     <LinkRouter className='cardCompany link' to={'/stock/plates/internal'}  >
                         <div className="bgDisp">
                             <div className='mask3'>
-                                <ThumbUpIcon className='iconTitle'/>
+                                <ThumbUpIcon className='iconTitle disp'/>
                                 <h1 className='titleCard'>DISPONIBLES</h1>
                             </div>
                         </div>

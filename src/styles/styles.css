@@ -332,6 +332,9 @@ a {
     background-color: #1f7430;
 
 }
+/* .disp{
+    color: #1f7430!important ;
+} */
 .vendidas{
     background-color: #0a3297;
 }
@@ -339,7 +342,7 @@ a {
     background-color: #d83939;
 }
 .titleStock{
-    font-size: 2.7rem;
+    font-size: 2.5rem;
     letter-spacing: 3.2px;
     color: rgb(255, 255, 255);
     font-weight: 900;
