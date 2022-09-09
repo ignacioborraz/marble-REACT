@@ -35,7 +35,7 @@ export default function SelectType() {
         <Container grow='1' wrap='wrap' bgColor='rgb(224,224,224)'>
             <Container width='100%' justify='space-evenly' align='center' wrap='wrap'>
                 {types?.map(everyType => (
-                    <LinkRouter className='linkTypes link linkEmp link2 mr10 mb10' to={'/nueva/color/tipo/' + everyType._id} onClick={creatingPlate} key={everyType._id} id={everyType._id}>
+                    <LinkRouter className='linkTypes  mr10 mb10' to={'/nueva/color/tipo/' + everyType._id} onClick={creatingPlate} key={everyType._id} id={everyType._id}>
                         <div className={` ${everyType.name} bgType` }>
                             <div className='mask'>
                                 <h1 className='titleCard'>{everyType.name}</h1>

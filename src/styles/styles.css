@@ -677,86 +677,7 @@ label {
     outline: darkred !important;
 }
 
-/* 
-.bgIndex {
-    background-image: url('../media/searchingJob.svg')
-}
 
-.bgCompany, .bgSignUp {
-    background-image: url('../media/working3.svg')
-}
-
-.bgDetailCompany {
-    background-image: url('../media/coworking.svg')
-}
-
-.bgJob , .bgUser, .bgSignIn {
-    background-image: url('../media/working1.svg')
-}
-
-.bgDetailJob, .bgDetailUser {
-    background-image: url('../media/mirror.svg')
-}
-
-.bgVariant {
-    background-image: url('../media/interview.svg')
-}
-
-.backGroundStyle {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-size: cover;
-    background-position: center;
-    opacity: 0.9;
-}
-
-.newForm {
-    width: 75%;
-    min-width: 280px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.inputForm {
-    flex-grow: 1;
-    margin: 5px;
-    padding: 2px;
-    height: 30px;
-    background-color: rgb(224,224,224)
-}
-
-.buttonForm {
-    width: 100%;
-    padding: 15px;
-    margin-top: 15px;
-    border: 0 solid;
-    background-color: #6b189a;
-    color: rgb(224,224,224);
-    font-size: 16px;
-    font-family: 'Montserrat', sans-serif;
-    text-align: 'center'
-}
-
-.list {
-    width: 280px;
-    height: 240px;
-    object-fit: contain;
-    background-color: white;
-    padding: 5px;
-}
-
-.selectList {
-    margin: 5px;
-    width: 100%;
-    height: 40px;
-    font-size: 15px;
-    padding: 10px;
-    background-color: rgb(224,224,224)
-} */
 .containerIndex1 {
     display: flex;
     width: 100%;
@@ -786,6 +707,8 @@ label {
 .iconDelet{
     color: #C82832!important;
     border: none;
+    /* position: fixed;
+    transform: translateX(-11px) translateY(-27px); */
 }
 .containerStock{
     display: flex;
@@ -808,7 +731,7 @@ label {
     }
 
     .titleCard {
-        font-size: 1rem;
+        font-size: 1.7rem;
     }
 
     .form {
@@ -816,10 +739,14 @@ label {
     }
     .cajaCheck {
         border: solid 1px rgb(178 178 178);
-        padding: 10px;
-        margin: 2px;
+        /* padding: 10px;
+        margin: 2px; */
         display: flex;
-        flex-direction: column;
+        justify-content: flex-start;
+        justify-content: space-evenly;
+        /* flex-direction: column; */
+        flex-wrap: wrap;
+        flex-direction: row;
     }
 
     @media (width < 550px) {
@@ -878,11 +805,26 @@ label {
 
         .cajaCheck {
             border: solid 1px rgb(178 178 178);
-            padding: 10px;
-            margin: 2px;
+            /* padding: 10px;
+            margin: 2px; */
             display: flex;
-            flex-direction: column;
+            /* flex-direction: column; */
+            flex-direction: row;
+            flex-wrap: wrap;
         }
+        .subtCard {
+            margin-top: 6px;
+            letter-spacing: 4px;
+            color: #ffffff;
+            font-weight: 900;
+            font-size: 15px;}
+            .inputCodigo{
+                width: 10rem;
+            }
+            
+            .btnAdd{
+                font-size: 15px;
+            }
     }
 
     @media (width < 425px) {
@@ -891,6 +833,13 @@ label {
         }
         .linkColors{
             width: 18rem ;
+        }
+        
+    }
+    @media (width < 375px) {
+        .iconDelet{
+            position: fixed;
+            transform: translateX(12px) translateY(-23px);
         }
     }
 }
