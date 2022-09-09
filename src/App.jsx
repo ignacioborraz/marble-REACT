@@ -19,6 +19,9 @@ import Stock from './pages/Stock-0'
 import userActions from './redux/actions/userActions'
 
 import './styles/styles.css'
+import StockInternalPlates from './pages/Stock-1-internal'
+import StockNotePlates from './pages/Stock-2-note copy'
+import StockDonePlates from './pages/Stock-3-done'
 
 
 export default function App() {
@@ -50,6 +53,9 @@ export default function App() {
                     <Route path="/nueva/color/:id" element={<SelectType />} />
                     <Route path="/nueva/color/tipo/:id" element={<SelectData />} />
                     <Route path="/stock" element={<Stock />} />
+                    <Route path="/stock/plates/internal" element={<StockInternalPlates />} />
+                    <Route path="/stock/plates/note" element={<StockNotePlates />} />
+                    <Route path="/stock/plates/done" element={<StockDonePlates />} />
                 </>) : (
                     <Route path="/" element={<SignIn />} />
                 )}
