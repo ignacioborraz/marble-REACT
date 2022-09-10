@@ -86,11 +86,11 @@ export default function SelectType() {
 
                 <div className='mb10 '>
                   <label htmlFor='lote'>LOTE: </label>
-                  <input id='lote' type='text' ref={lot} required />
+                  <input className='inputCodigo' id='lote' type='text' ref={lot} required />
                 </div>
                 <div className='mb10 '>
                   <label htmlFor='comentario'>COMENTARIO: </label>
-                  <input id='comentario' type='text' ref={comments} />
+                  <input className='inputCodigo' id='comentario' type='text' ref={comments} />
                 </div>
                 <button type='button' className='btnAdd' onClick={addInput}>agregar codigo</button>
 

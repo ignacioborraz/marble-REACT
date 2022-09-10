@@ -819,11 +819,12 @@ label {
             font-weight: 900;
             font-size: 15px;}
             .inputCodigo{
-                width: 10rem;
+                width: 14rem;
             }
             
             .btnAdd{
                 font-size: 15px;
+                align-self: center;
             }
     }
 
