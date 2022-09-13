@@ -86,19 +86,23 @@ export default function SelectType() {
 
                 <div className='mb10 '>
                   <label htmlFor='lote'>LOTE: </label>
-                  <input id='lote' type='text' ref={lot} required />
+                  <input className='inputCodigo' id='lote' type='text' ref={lot} required />
                 </div>
                 <div className='mb10 '>
                   <label htmlFor='comentario'>COMENTARIO: </label>
-                  <input id='comentario' type='text' ref={comments} />
+                  <input className='inputCodigo' id='comentario' type='text' ref={comments} />
                 </div>
                 <button type='button' className='btnAdd' onClick={addInput}>agregar codigo</button>
 
                 {
                   inputs.map((cant, index) =>
                     <div key={index} className='mb10 cajaCheck' >
-                      <label>{`Codigo${index + 1}`}</label>
-                      <input id={`codigo-${index + 1}`} name='codigo' value={cant.codigo} onChange={(e) => datos(e, index, 'codigo')} required />
+                      <div>
+                        <label>{`Codigo${index + 1}`}</label>
+                        <input className='inputCodigo' id={`codigo-${index + 1}`} name='codigo' value={cant.codigo} onChange={(e) => datos(e, index, 'codigo')} required />
+
+                      </div>
+
                       <label className='ml10 labelCheck' >
                         <input type="radio" id={`interno-${index + 1}`} name={`typeCode${index + 1}`} value='interno' required onChange={(e) => datos(e, index, 'typeCode')} />Cod.Interno</label>
                       <label className='ml10 labelCheck' >

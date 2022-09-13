@@ -16,12 +16,38 @@ const plateActions = {
       }
     };
   },
-  filterPlates: (input) => {
+  filterInternalPlates: (input) => {
     const token = localStorage.getItem("token");
     return (dispatch, getState) => {
       try {
         dispatch(
-          { type: "FILTER_PLATES", payload: input },
+          { type: "FILTER_INTERNAL_PLATES", payload: input },
+          { headers: { Authorization: "Bearer " + token } }
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  },
+  filterNotePlates: (input) => {
+    const token = localStorage.getItem("token");
+    return (dispatch, getState) => {
+      try {
+        dispatch(
+          { type: "FILTER_NOTE_PLATES", payload: input },
+          { headers: { Authorization: "Bearer " + token } }
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  },
+  filterDonePlates: (input) => {
+    const token = localStorage.getItem("token");
+    return (dispatch, getState) => {
+      try {
+        dispatch(
+          { type: "FILTER_DONE_PLATES", payload: input },
           { headers: { Authorization: "Bearer " + token } }
         );
       } catch (error) {
@@ -43,6 +69,47 @@ const plateActions = {
       }
     };
   },
+  internalPlate: () => {
+    const token = localStorage.getItem("token");
+    return async (dispatch, getState) => {
+      try {
+        const res = await axios.get(apiUrl + "api/marble/plates?internal=true" , {
+          headers: { Authorization: "Bearer " + token },
+        });
+        console.log("🚀 ~ file: plateActions.js ~ line 53 ~ return ~ res", res.data.response)
+        dispatch({ type: "INTERNAL_PLATE", payload: res.data.response });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  },
+  notePlate: () => {
+    const token = localStorage.getItem("token");
+    return async (dispatch, getState) => {
+      try {
+        const res = await axios.get(apiUrl + "api/marble/plates?note=true", {
+          headers: { Authorization: "Bearer " + token },
+        });
+        console.log("🚀 ~ file: plateActions.js ~ line 53 ~ return ~ res", res.data.response)
+        dispatch({ type: "NOTE_PLATE", payload: res.data.response });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  },
+  donePlate: () => {
+    const token = localStorage.getItem("token");
+    return async (dispatch, getState) => {
+      try {
+        const res = await axios.get(apiUrl + "api/marble/plates?done=true", {
+          headers: { Authorization: "Bearer " + token },
+        });
+        dispatch({ type: "DONE_PLATE", payload: res.data.response });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  },
 
   getOnePlate: (id) => {
     const token = localStorage.getItem("token");
@@ -57,6 +124,7 @@ const plateActions = {
       }
     };
   },
+  
 
   putPlate: (id, data) => {
     const token = localStorage.getItem("token");
