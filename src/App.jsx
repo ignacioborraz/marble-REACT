@@ -20,8 +20,11 @@ import userActions from './redux/actions/userActions'
 
 import './styles/styles.css'
 import StockInternalPlates from './pages/Stock-1-internal'
-import StockNotePlates from './pages/Stock-2-note copy'
+import StockNotePlates from './pages/Stock-2-note'
 import StockDonePlates from './pages/Stock-3-done'
+import SelectCompanyEditPlate from './pages/EditPlate-1-Company'
+import EditPlateType from './pages/EditPlate-2-type'
+import EditPlate from './pages/EditPlate-3-plate'
 
 
 export default function App() {
@@ -56,6 +59,9 @@ export default function App() {
                     <Route path="/stock/plates/internal" element={<StockInternalPlates />} />
                     <Route path="/stock/plates/note" element={<StockNotePlates />} />
                     <Route path="/stock/plates/done" element={<StockDonePlates />} />
+                    <Route path="/editPlate" element={<SelectCompanyEditPlate />} />
+                    <Route path="/editPlate/type/:id" element={<EditPlateType />} />
+                    <Route path='/editPlate/plate' element={<EditPlate/>}/>
                 </>) : (
                     <Route path="/" element={<SignIn />} />
                 )}

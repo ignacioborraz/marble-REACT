@@ -42,9 +42,7 @@ export default function SelectType() {
                                 <h2 className='subtCard'>{everyType.width} × {everyType.height}</h2>
                                 <h2 className='subtCard'>{everyType.thickness} <small>esp</small></h2>
                             </div>
-
                         </div>
-
                     </LinkRouter>
                 ))}
                 

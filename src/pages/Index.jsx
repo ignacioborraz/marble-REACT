@@ -17,7 +17,7 @@ export default function Index() {
                     </div>
 
                 </LinkRouter>
-                <LinkRouter className='link linkUsarPlaca link1 mr10 mt10' to={'/'}>
+                <LinkRouter className='link linkUsarPlaca link1 mr10 mt10' to={'/editPlate'}>
                 <div className='mask'>
                         <LayersIcon className='iconTitle' />
                         <h1 className='titleCard'>USAR PLACA</h1>
