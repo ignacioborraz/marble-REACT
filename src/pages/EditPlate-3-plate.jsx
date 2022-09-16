@@ -1,64 +1,94 @@
 import { useEffect, useState } from 'react'
-
-import { Link as LinkRouter } from 'react-router-dom'
+import { Link as LinkRouter, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import plateActions from '../redux/actions/plateActions'
+import colorActions from '../redux/actions/colorActions';
+import companyActions from '../redux/actions/companyActions';
+import Container from '../components/Container'
+
 
 export default function EditPlate() {
+
     const dispatch = useDispatch()
     const [inputSearch, setInputSearch] = useState("")
-    useEffect(() => {
-        dispatch(plateActions.internalPlate())
-        // eslint-disable-next-line
-    }, [])
-    useEffect(() => {
-        dispatch(plateActions.filterInternalPlates(inputSearch))
-        // eslint-disable-next-line
-    }, [inputSearch])
-    let internalPlate = useSelector(store => store.plateReducer.internalPlate)
-    console.log("🚀 ~ file: Stock-0.jsx ~ line 21 ~ Stock ~ internalPlates", internalPlate)
+    console.log(JSON.parse(localStorage.getItem('editPlate')))
+    const plate = JSON.parse(localStorage.getItem('editPlate'))
+    const id = plate.company
+    console.log("🚀 ~ file: EditPlate-4-modif.jsx ~ line 13 ~ idCompany", id)
 
-    let filterPlates = useSelector(store => store.plateReducer.filterInternalPlates)
-    console.log("🚀 ~ file: Stock-0.jsx ~ line 22 ~ Stock ~ filterCard", filterPlates)
+    useEffect(() => {
+        dispatch(colorActions.getColors(id))
+        // eslint-disable-next-line
+    }, [id])
 
-    function SortArray(x, y) {
-        if (x.color.name < y.color.name) { return -1; }
-        if (x.name > y.name) { return 1; }
+    useEffect(() => {
+        dispatch(companyActions.getOneCompany(id))
+        dispatch(colorActions.filterColors(inputSearch))
+        // eslint-disable-next-line
+    }, [inputSearch, id])
+
+    let filterCard = useSelector(store => store.colorReducer.filterColors)
+
+    const company = useSelector(store => store.companyReducer.oneCompany)
+
+
+    function creatingPlate(event) {
+
+        let plate = JSON.parse(localStorage.getItem('editPlate'))
+        plate.color = event.target.id
+        localStorage.setItem('editPlate', JSON.stringify(plate))
+        //console.log(JSON.parse(localStorage.getItem('plate')))
+    }
+
+    //const ord = filterCard.sort((a, b) => b.name - a.name)
+
+    function SortArray(x, y){
+        if (x.name < y.name) {return -1;}
+        if (x.name > y.name) {return 1;}
         return 0;
     }
-    var filterOrd = filterPlates.sort(SortArray);
+    var filterOrd = filterCard.sort(SortArray);
+    //console.log(filterOrd);
+
     return (
-        <div className='containerStock'>
-            <div className='containerNameStock'>
-            
-                <h1 className='titleStock'>Disponibles</h1>
-            
-            </div>
-            <div className='containerInput'>
-
-                <input className='input inputStock' type="text" placeholder='Buscar por color, cod. o emp.' onChange={(e) => setInputSearch(e.target.value)} />
-
-            </div>
-            <div className='containerCardsMarca mt10'>
-
-                {filterOrd?.map(everyPlate => (
-                    //  <LinkRouter className='linkColors' to={'/nueva/color/' + everyColor.company} onClick={creatingPlate} key={everyColor._id} id={everyColor._id}></LinkRouter>
-                    <LinkRouter className='linkColors cardStock'  to={'/editPlate/type/color/'+everyPlate._id}  key={everyPlate._id}>
-                        <div className='companyCardStock'>
-                            <h2 className='nameCards'>{everyPlate.color.name}</h2>
-                            <h3 className='nameCards'>{everyPlate.company?.nameCompany}</h3>
-                            {
-                                everyPlate.internal ? (<h3 className='nameCards'>codInterno:{everyPlate.internal}</h3>)
-                                    : <h3 className='nameCards'>codPedido: {everyPlate.note}</h3>
-                            }
-                            {/* <h3 className='nameCards'>{everyPlate.type.name}</h3> */}
-                            <h3 className='nameCards'>{everyPlate.type.name} {everyPlate.state[0].width} × {everyPlate.state[0].height} x {everyPlate.type.thickness}</h3>
+        <Container grow='1' wrap='wrap' bgColor='rgb(224,224,224)' sx={{ alignContent: 'flex-start' }}>
+            <Container width='100%' wrap='wrap' justify='center' content='start' sx={{ alignContent: 'flex-start' }} >
+                <div className='containerNameCompany'>
+                    <div className={`hola ${company.nameCompany}` }>
+                        <div className='mask2'>
+                            <h1 className='titleCardCompany'>{company.nameCompany}</h1>
                         </div>
+                    </div>
 
-                        <img src={everyPlate.color.photo} alt={everyPlate._id} className='fitStock' id={everyPlate._id} />
-                    </LinkRouter>
-                ))}
-            </div>
-        </div>
+                </div>
+                <div>
+                    <div className='containerInput'>
+                        <input className='input' type="text" placeholder='Buscar por color' onChange={(e) => setInputSearch(e.target.value)} />
+
+                    </div>
+                    {
+                        filterOrd.length > 0 ?
+
+                            <div className='containerCardsMarca'>
+
+
+                                {filterOrd?.map(everyColor => (
+                                    <LinkRouter className='linkColors'  to={'/editPlate/type/color/'+ everyColor.company} onClick={creatingPlate} key={everyColor._id} id={everyColor._id}>
+                                        <h2 className='nameCards'>{everyColor.name}</h2>
+                                        <img src={everyColor.photo} alt={everyColor._id} className='fitColor' id={everyColor._id} />
+                                    </LinkRouter>
+                                ))}
+                            </div>
+
+                            :
+                            <div className='noResult'>
+                                <h1>no hay resultados</h1>
+                            </div>
+
+                    }
+                </div>
+
+            </Container>
+        </Container>
     )
+
 }
