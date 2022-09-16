@@ -79,7 +79,7 @@ a {
 .mask {
     height: 100%;
     width: 100%;
-    background-color: #000000cc;
+    background-color: #00000096;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -125,7 +125,7 @@ a {
 }
 
 .mask:hover {
-    background-color: #000000a6;
+    background-color: #00000057;
     transition: 1s;
 }
 
@@ -282,12 +282,25 @@ a {
 
 .Standard, .Media {
     background-image: url("https://dbdzm869oupei.cloudfront.net/img/vinylrugs/preview/34990.png");
+
 }
 
 .Jumbo,  .Entera{
     background-image: url("https://static.vecteezy.com/system/resources/previews/004/479/531/large_2x/black-and-gold-marble-texture-free-photo.jpg");
-}
 
+}
+.bgMenor{
+    background-image: url("https://images.unsplash.com/photo-1554755229-ca4470e07232?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80");
+}
+.bgMayor{
+    background-image: url("https://images.unsplash.com/photo-1566305977571-5666677c6e98?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=645&q=80");
+}
+.bgConsumir{
+    background-image: url("https://images.unsplash.com/photo-1546453667-8a8d2d07bc20?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80");
+}
+.bgOtra{
+    background-image: url("https://images.unsplash.com/photo-1585314062340-f1a5a7c9328d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80");
+}
 
 .linkTypes div:hover {
     /* /text-shadow: 0 1px 0 #fff, 0 -1px 2px rgb(0 0 0 / 30%), 0 -2px 2px rgb(0 0 0 / 20%), 0 0 3px rgb(0 0 0 / 10%); */
@@ -720,6 +733,10 @@ label {
 .inputStock{
     width: 16rem;
 }
+.menorH{
+    height: 98%!important;
+}
+/******Medias*******/
 @media (width < 1024px) {
     .titleCard {
         font-size: 2rem;

@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import plateActions from '../redux/actions/plateActions'
 
 export default function EditPlate() {
-
     const dispatch = useDispatch()
     const [inputSearch, setInputSearch] = useState("")
     useEffect(() => {
@@ -43,7 +42,8 @@ export default function EditPlate() {
             <div className='containerCardsMarca mt10'>
 
                 {filterOrd?.map(everyPlate => (
-                    <div className='linkColors cardStock' /* to={'/nueva/color/tipo/'+everyPlate._id} */ key={everyPlate._id}>
+                    //  <LinkRouter className='linkColors' to={'/nueva/color/' + everyColor.company} onClick={creatingPlate} key={everyColor._id} id={everyColor._id}></LinkRouter>
+                    <LinkRouter className='linkColors cardStock'  to={'/editPlate/type/color/'+everyPlate._id}  key={everyPlate._id}>
                         <div className='companyCardStock'>
                             <h2 className='nameCards'>{everyPlate.color.name}</h2>
                             <h3 className='nameCards'>{everyPlate.company?.nameCompany}</h3>
@@ -56,10 +56,9 @@ export default function EditPlate() {
                         </div>
 
                         <img src={everyPlate.color.photo} alt={everyPlate._id} className='fitStock' id={everyPlate._id} />
-                    </div>
+                    </LinkRouter>
                 ))}
             </div>
         </div>
     )
-
 }

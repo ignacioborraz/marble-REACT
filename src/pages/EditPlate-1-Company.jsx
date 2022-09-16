@@ -18,8 +18,8 @@ export default function SelectCompanyEditPlate() {
 
     function creatingPlate(event) {
         let plate = { company: event.currentTarget.id }
-        localStorage.setItem('plate', JSON.stringify(plate))
-        console.log(JSON.parse(localStorage.getItem('plate')))
+        localStorage.setItem('editPlate', JSON.stringify(plate))
+        console.log(JSON.parse(localStorage.getItem('editPlate')))
 
     }
 

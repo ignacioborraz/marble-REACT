@@ -25,6 +25,7 @@ import StockDonePlates from './pages/Stock-3-done'
 import SelectCompanyEditPlate from './pages/EditPlate-1-Company'
 import EditPlateType from './pages/EditPlate-2-type'
 import EditPlate from './pages/EditPlate-3-plate'
+import EditPlateTypeModif from './pages/EditPlate-4-modif'
 
 
 export default function App() {
@@ -62,6 +63,7 @@ export default function App() {
                     <Route path="/editPlate" element={<SelectCompanyEditPlate />} />
                     <Route path="/editPlate/type/:id" element={<EditPlateType />} />
                     <Route path='/editPlate/plate' element={<EditPlate/>}/>
+                    <Route path="/editPlate/type/color/:id" element={<EditPlateTypeModif/>} />
                 </>) : (
                     <Route path="/" element={<SignIn />} />
                 )}
