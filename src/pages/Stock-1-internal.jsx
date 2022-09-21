@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-
 import { Link as LinkRouter } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import plateActions from '../redux/actions/plateActions'
@@ -25,10 +24,11 @@ export default function StockInternalPlates() {
     const [reload, setReload] = useState(false)
     const [open, setOpen] = useState(false);
     const [id, setId] = useState("")
-    const [idType, setIdType] = useState("")
+    const [idComp, setIdComp] = useState("")
     const [lote, setLote] = useState("")
     const [codigo, setCodigo] = useState("")
-    const [esp, setEsp] = useState("")
+    const [esp, setEsp] = useState({})
+    //const [type, setType] = useState("")
     const [valueSelect, setValueSelect] = useState('');
 
 
@@ -40,13 +40,22 @@ export default function StockInternalPlates() {
 
     useEffect(() => {
         dispatch(plateActions.filterInternalPlates(inputSearch))
+        dispatch(typeActions.getTypes(idComp))
         // eslint-disable-next-line
-    }, [inputSearch])
+    }, [inputSearch, idComp])
 
-    let internalPlate = useSelector(store => store.plateReducer.internalPlate)
+    // let internalPlate = useSelector(store => store.plateReducer.internalPlate)
     let filterPlates = useSelector(store => store.plateReducer.filterInternalPlates)
+    const types = useSelector(store => store.typeReducer.types)
+    console.log("🚀 ~ file: Stock-1-internal.jsx ~ line 50 ~ StockInternalPlates ~ types", types)
 
-
+    const [type, setType] = useState(
+        types.find((a) => a._id === esp._id)
+    );
+    console.log("🧉 ~ file: Stock-1-internal.jsx ~ line 55 ~ StockInternalPlates ~ type", type)
+    const typeAct = (id) => {
+        setType(types.find((a) => a._id === id));
+    };
     function SortArray(x, y) {
         if (x.color.name < y.color.name) { return -1; }
         if (x.name > y.name) { return 1; }
@@ -59,15 +68,19 @@ export default function StockInternalPlates() {
         setReload(!reload)
     }
 
-    const handleClickOpen = (id, codigo, esp, idType, lote) => {
+    const handleClickOpen = (id, codigo, esp, idComp, lote, type) => {
+        
         setOpen(true);
         setId(id);
         setCodigo(codigo);
-        setEsp(esp);
-        setIdType(idType)
+        //setEsp(esp);
+        setIdComp(idComp)
         setLote(lote)
         setValueSelect("int")
-    };
+        setEsp(type._id);
+        setType(type)
+
+    } 
     const handleClose = () => {
         setOpen(false);
     };
@@ -75,29 +88,36 @@ export default function StockInternalPlates() {
     const handleChange = (event) => {
         setValueSelect(event.target.value);
     };
+    const handleChangeType = (event) => {
+        console.log("🚀 ~ file: Stock-1-internal.jsx ~ line 88 ~ handleChangeType ~ event", event.target.value)
+        setEsp(event.target.value)
+        typeAct(event.target.value);
+        console.log(type)
+        //setReload(!reload)
+    };
+    
     async function modify(id, op) {
         let data = {}
         if (op === "ped") {
             data = {
                 internal: null,
                 note: codigo,
-                lot: lote
+                lot: lote,
+                type:type
             }
         }
         else {
             data = {
                 internal: codigo,
-                lot: lote
+                lot: lote,
+                type:type
             }
         }
-        const data2 = {
-            thickness: esp
-        }
+        
         console.log("🚀 ~ file: Stock-1-internal.jsx ~ line 68 ~ modify ~ data", data)
         const res = await dispatch(plateActions.putPlate(id, data))
         console.log("🚀 ~ file: Stock-1-internal.jsx ~ line 67 ~ modify ~ res", res)
-        const res2 = await dispatch(typeActions.putType(idType, data2))
-        console.log("🚀 ~ file: Stock-1-internal.jsx ~ line 73 ~ modify ~ res2", res2)
+
         setReload(!reload)
 
     }
@@ -129,7 +149,7 @@ export default function StockInternalPlates() {
 
                             <h3 className='nameCards'>{everyPlate.type.name} {everyPlate.state[0].width} × {everyPlate.state[0].height} x {everyPlate.type.thickness}</h3>
                             <div className='bntEditDelet'>
-                                <button className='iconEdit' onClick={() => handleClickOpen(everyPlate._id, everyPlate.internal, everyPlate.type.thickness, everyPlate.type._id, everyPlate.lot)}>Editar</button>
+                                <button className='iconEdit' onClick={() => handleClickOpen(everyPlate._id, everyPlate.internal, everyPlate.type.thickness, everyPlate.company._id, everyPlate.lot, everyPlate.type)}>Editar</button>
                                 <button className='iconDelete' onClick={() => delet(everyPlate._id)}>Eliminar</button>
                                 {/* <EditIcon className='iconEdit' />
                                 <DeleteIcon className='iconDelet' /> */}
@@ -157,10 +177,28 @@ export default function StockInternalPlates() {
                         label="Lote"
                         variant="standard"
                         onChange={(event) => setLote(event.target.value)}
-                        id="nuevoEsp"
+                        id="nuevoLote"
                     />
+                    <div className='selectCodigo'>
+                        <InputLabel id="demo-simple-select-label2">Espesor:</InputLabel>
+                        <Select
+                        
+                            labelId="demo-simple-select-label2"
+                            id="demo-simple-select2"
+                            value={esp}
+                            onChange={handleChangeType}
+                            defaultValue={esp}
+                        >
+                            {types.map((t) => (
+                                <MenuItem value={t._id} key={t._id}>
+                                    {t.name} {t.width}x{t.height} : {t.thickness}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                        
+                    </div>
 
-                    <TextField
+                    {/* <TextField
                         autoFocus
                         margin="dense"
                         defaultValue={esp}
@@ -170,7 +208,7 @@ export default function StockInternalPlates() {
                         variant="standard"
                         onChange={(event) => setEsp(event.target.value)}
                         id="nuevoEsp"
-                    />
+                    /> */}
 
                     <div className='selectCodigo'>
                         <InputLabel id="demo-simple-select-label">Codigo:</InputLabel>
