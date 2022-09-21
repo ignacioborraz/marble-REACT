@@ -46,9 +46,10 @@ a {
 
 }
 .fitStock{
-    height: 70%;
-    width: 95%;
+    height: 62%;
+    width: 94%;
     border: solid 2px;
+    object-fit: cover;
 }
 
 .nameCards {
@@ -735,6 +736,31 @@ label {
 }
 .menorH{
     height: 98%!important;
+}
+.bntEditDelet{
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    
+}
+.iconEdit{
+    color: white;
+    background-color: #1f7430;
+    padding: 3px;
+    border: none;
+    border-radius: 7px;
+}
+.iconDelete{
+    color: white;
+    background-color:#f54545;
+    padding: 3px;
+    border: none;
+    border-radius: 7px;
+}
+.selectCodigo{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 /******Medias*******/
 @media (width < 1024px) {

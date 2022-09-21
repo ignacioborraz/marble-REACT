@@ -125,7 +125,6 @@ const plateActions = {
     };
   },
   
-
   putPlate: (id, data) => {
     const token = localStorage.getItem("token");
     return async (dispatch, getState) => {
