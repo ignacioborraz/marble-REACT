@@ -17,6 +17,7 @@ export default function SelectCompany() {
     console.log("🚀 ~ file: New-1-Company.jsx ~ line 16 ~ SelectCompany ~ companies", companies)
 
     function creatingPlate(event) {
+        console.log(event.target.id)
         let plate = { company: event.currentTarget.id }
         localStorage.setItem('plate', JSON.stringify(plate))
         console.log(JSON.parse(localStorage.getItem('plate')))
