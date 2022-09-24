@@ -20,7 +20,7 @@ const colorActions = {
     //console.log(id);
     return async (dispatch, getState) => {
       try {
-        const res = await axios.get(apiUrl + "api/marble/colors/" + id, {headers: {'Authorization': 'Bearer '+token}}
+        const res = await axios.get(apiUrl + "api/marble/color/cia/" + id, {headers: {'Authorization': 'Bearer '+token}}
         );
         //console.log(res.data.response)
         dispatch({ type: "GET_COLORS", payload: res.data.response });

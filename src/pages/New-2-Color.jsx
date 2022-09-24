@@ -5,7 +5,9 @@ import colorActions from '../redux/actions/colorActions';
 import companyActions from '../redux/actions/companyActions';
 import Container from '../components/Container'
 import Text from '../components/Text'
-
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+import Skeleton from '@mui/material/Skeleton';
 export default function SelectColor() {
 
     const { id } = useParams()
@@ -13,6 +15,7 @@ export default function SelectColor() {
     const [inputSearch, setInputSearch] = useState("")
 
     useEffect(() => {
+        
         dispatch(colorActions.getColors(id))
         // eslint-disable-next-line
     }, [id])
@@ -38,9 +41,9 @@ export default function SelectColor() {
 
     //const ord = filterCard.sort((a, b) => b.name - a.name)
 
-    function SortArray(x, y){
-        if (x.name < y.name) {return -1;}
-        if (x.name > y.name) {return 1;}
+    function SortArray(x, y) {
+        if (x.name < y.name) { return -1; }
+        if (x.name > y.name) { return 1; }
         return 0;
     }
     var filterOrd = filterCard.sort(SortArray);
@@ -50,7 +53,7 @@ export default function SelectColor() {
         <Container grow='1' wrap='wrap' bgColor='rgb(224,224,224)' sx={{ alignContent: 'flex-start' }}>
             <Container width='100%' wrap='wrap' justify='center' content='start' sx={{ alignContent: 'flex-start' }} >
                 <div className='containerNameCompany'>
-                    <div className={`hola ${company.nameCompany}` }>
+                    <div className={`hola ${company.nameCompany}`}>
                         <div className='mask2'>
                             <h1 className='titleCardCompany'>{company.nameCompany}</h1>
                         </div>
@@ -62,26 +65,28 @@ export default function SelectColor() {
                         <input className='input' type="text" placeholder='Buscar por color' onChange={(e) => setInputSearch(e.target.value)} />
 
                     </div>
+                    
                     {
-                        filterOrd.length > 0 ?
-
-                            <div className='containerCardsMarca'>
-
-
-                                {filterOrd?.map(everyColor => (
-                                    <LinkRouter className='linkColors' to={'/nueva/color/' + everyColor.company} onClick={creatingPlate} key={everyColor._id} id={everyColor._id}>
-                                        <h2 className='nameCards'>{everyColor.name}</h2>
-                                        <img src={everyColor.photo} alt={everyColor._id} className='fitColor' id={everyColor._id} />
-                                    </LinkRouter>
-                                ))}
-                            </div>
-
-                            :
-                            <div className='noResult'>
-                                <h1>no hay resultados</h1>
-                            </div>
-
+                        filterOrd ? (
+                        
+                            filterOrd.length > 0 ?
+                                <div className='containerCardsMarca'>
+                                    {filterOrd?.map(everyColor => (
+                                        <LinkRouter className='linkColors' to={'/nueva/color/' + everyColor.company} onClick={creatingPlate} key={everyColor._id} id={everyColor._id}>
+                                            <h2 className='nameCards'>{everyColor.name}</h2>
+                                            <img src={everyColor.photo} alt={everyColor._id} className='fitColor' id={everyColor._id} />
+                                        </LinkRouter>
+                                    ))}
+                                </div>
+    
+                                :
+                                <div className='noResult'>
+                                    <h1>no hay resultados</h1>
+                                </div>
+    
+                        ) : <Skeleton variant="rectangular" width={210} height={118} />
                     }
+                   
                 </div>
 
             </Container>

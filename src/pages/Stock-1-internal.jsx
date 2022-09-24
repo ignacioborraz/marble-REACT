@@ -198,17 +198,6 @@ export default function StockInternalPlates() {
                         
                     </div>
 
-                    {/* <TextField
-                        autoFocus
-                        margin="dense"
-                        defaultValue={esp}
-                        type="text"
-                        fullWidth
-                        label="Espesor"
-                        variant="standard"
-                        onChange={(event) => setEsp(event.target.value)}
-                        id="nuevoEsp"
-                    /> */}
 
                     <div className='selectCodigo'>
                         <InputLabel id="demo-simple-select-label">Codigo:</InputLabel>
