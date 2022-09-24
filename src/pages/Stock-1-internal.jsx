@@ -15,7 +15,7 @@ import typeActions from '../redux/actions/typeActions';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-import NativeSelect from '@mui/material/NativeSelect';
+
 
 export default function StockInternalPlates() {
 

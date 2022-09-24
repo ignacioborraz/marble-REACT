@@ -8,7 +8,7 @@ const typeActions = {
         //console.log(id);
         return async(dispatch, getState) => {
             try {
-                const res = await axios.get(apiUrl+'api/marble/types/' + id, {headers: {'Authorization': 'Bearer '+token}})
+                const res = await axios.get(apiUrl+'api/marble/types/cia/' + id, {headers: {'Authorization': 'Bearer '+token}})
                 dispatch({type:'GET_TYPES', payload: res.data.response})
             } catch(error) {
                 console.log(error)
