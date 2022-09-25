@@ -44,7 +44,8 @@ export default function StockInternalPlates() {
         // eslint-disable-next-line
     }, [inputSearch, idComp])
 
-    // let internalPlate = useSelector(store => store.plateReducer.internalPlate)
+    let internalPlate = useSelector(store => store.plateReducer.internalPlate)
+    console.log("🚀 ~ file: Stock-1-internal.jsx ~ line 48 ~ StockInternalPlates ~ internalPlate", internalPlate)
     let filterPlates = useSelector(store => store.plateReducer.filterInternalPlates)
     const types = useSelector(store => store.typeReducer.types)
     console.log("🚀 ~ file: Stock-1-internal.jsx ~ line 50 ~ StockInternalPlates ~ types", types)
@@ -147,7 +148,7 @@ export default function StockInternalPlates() {
                                     : <h3 className='nameCards'>codPedido: {everyPlate.note}</h3>
                             }
 
-                            <h3 className='nameCards'>{everyPlate.type.name} {everyPlate.state[0].width} × {everyPlate.state[0].height} x {everyPlate.type.thickness}</h3>
+                            <h3 className='nameCards'>{everyPlate.type.name} {everyPlate.state?.width} × {everyPlate.state.height} x {everyPlate.type.thickness}</h3>
                             <div className='bntEditDelet'>
                                 <button className='iconEdit' onClick={() => handleClickOpen(everyPlate._id, everyPlate.internal, everyPlate.type.thickness, everyPlate.company._id, everyPlate.lot, everyPlate.type)}>Editar</button>
                                 <button className='iconDelete' onClick={() => delet(everyPlate._id)}>Eliminar</button>

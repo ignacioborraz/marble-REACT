@@ -7,7 +7,7 @@ const plateActions = {
     console.log(plate);
     return async (dispatch, getState) => {
       try {
-        let res = await axios.post(apiUrl + "api/marble/plates", plate, {
+        let res = await axios.post(apiUrl + "api/marble/plate", plate, {
           headers: { Authorization: "Bearer " + token },
         });
         console.log(res);
@@ -73,7 +73,7 @@ const plateActions = {
     const token = localStorage.getItem("token");
     return async (dispatch, getState) => {
       try {
-        const res = await axios.get(apiUrl + "api/marble/plates?internal=true" , {
+        const res = await axios.get(apiUrl + "api/marble/plate?internal=true" , {
           headers: { Authorization: "Bearer " + token },
         });
         console.log("🚀 ~ file: plateActions.js ~ line 53 ~ return ~ res", res.data.response)
@@ -87,7 +87,7 @@ const plateActions = {
     const token = localStorage.getItem("token");
     return async (dispatch, getState) => {
       try {
-        const res = await axios.get(apiUrl + "api/marble/plates?note=true", {
+        const res = await axios.get(apiUrl + "api/marble/plate?note=true", {
           headers: { Authorization: "Bearer " + token },
         });
         console.log("🚀 ~ file: plateActions.js ~ line 53 ~ return ~ res", res.data.response)
@@ -101,7 +101,7 @@ const plateActions = {
     const token = localStorage.getItem("token");
     return async (dispatch, getState) => {
       try {
-        const res = await axios.get(apiUrl + "api/marble/plates?done=true", {
+        const res = await axios.get(apiUrl + "api/marble/plate?done=true", {
           headers: { Authorization: "Bearer " + token },
         });
         dispatch({ type: "DONE_PLATE", payload: res.data.response });

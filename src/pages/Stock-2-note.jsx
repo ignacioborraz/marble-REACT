@@ -55,7 +55,7 @@ export default function StockNotePlates() {
                                     : <h3 className='nameCards'>codPedido: {everyPlate.note}</h3>
                             }
                             {/* <h3 className='nameCards'>{everyPlate.type.name}</h3> */}
-                            <h3 className='nameCards'>{everyPlate.type.name} {everyPlate.state[0].width} × {everyPlate.state[0].height} x {everyPlate.type.thickness}</h3>
+                            <h3 className='nameCards'>{everyPlate.type.name} {everyPlate.state.width} × {everyPlate.state.height} x {everyPlate.type.thickness}</h3>
                         </div>
 
                         <img src={everyPlate.color.photo} alt={everyPlate._id} className='fitStock' id={everyPlate._id} />

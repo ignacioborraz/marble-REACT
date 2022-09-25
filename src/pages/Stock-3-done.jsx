@@ -47,17 +47,17 @@ export default function StockDonePlates() {
                 {filterOrd?.map(everyPlate => (
                     <div className='linkColors cardStock' /* to={'/nueva/color/tipo/'+everyPlate._id} */ key={everyPlate._id}>
                         <div className='companyCardStock'>
-                            <h2 className='nameCards'>{everyPlate.color.name}</h2>
+                            <h2 className='nameCards'>{everyPlate.color?.name}</h2>
                             <h3 className='nameCards'>{everyPlate.company?.nameCompany}</h3>
                             {
                                 everyPlate.internal ? (<h3 className='nameCards'>codInterno:{everyPlate.internal}</h3>)
                                     : <h3 className='nameCards'>codPedido: {everyPlate.note}</h3>
                             }
                             {/* <h3 className='nameCards'>{everyPlate.type.name}</h3> */}
-                            <h3 className='nameCards'>{everyPlate.type.name} {everyPlate.state[0].width} × {everyPlate.state[0].height} x {everyPlate.type.thickness}</h3>
+                            <h3 className='nameCards'>{everyPlate.type.name} {everyPlate.state.width} × {everyPlate.state.height} x {everyPlate.type.thickness}</h3>
                         </div>
 
-                        <img src={everyPlate.color.photo} alt={everyPlate._id} className='fitStock' id={everyPlate._id} />
+                        <img src={everyPlate.color?.photo} alt={everyPlate._id} className='fitStock' id={everyPlate._id} />
                     </div>
                 ))}
             </div>
