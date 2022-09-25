@@ -31,7 +31,7 @@ a {
     width: 100%;
 }
 .companyCardStock h3{
-    font-size: 19px;
+    font-size: 18px;
     letter-spacing: 1px;
     color: #484848;
 }
@@ -47,10 +47,13 @@ a {
 
 }
 .fitStock{
-    height: 62%;
-    width: 94%;
+    height: 12rem;
+    width: 18rem;
    
     object-fit: cover;
+}
+.containerBtnVermas{
+    height: 10%;
 }
 
 .nameCards {
@@ -475,6 +478,7 @@ transition: all 1s;
 .cardStock{
     min-height: 21rem;
     width: 19rem;
+    min-height: 22rem;
 }
 
 .linkTypes {
@@ -740,25 +744,39 @@ label {
 .menorH{
     height: 98%!important;
 }
-.bntEditDelet{
+.bntEditDelet, .containerBtnVermas{
     display: flex;
-    gap: 1rem;
+    margin-top: 3px;
     justify-content: center;
     
+}
+
+.iconVerMas{
+    color: white;
+    background-color: #2742d2;
+    padding: 3px;
+    border: none;
+    border-radius: 5px;
+    width: 7rem;
+    flex-grow: 1;
 }
 .iconEdit{
     color: white;
     background-color: #1f7430;
     padding: 3px;
     border: none;
-    border-radius: 7px;
+    border-radius: 5px;
+    width: 7rem;
+    flex-grow: 1;
 }
 .iconDelete{
     color: white;
     background-color:#f54545;
     padding: 3px;
     border: none;
-    border-radius: 7px;
+    border-radius: 5px;
+    width: 7rem;
+    flex-grow: 1;
 }
 .selectCodigo{
     display: flex;

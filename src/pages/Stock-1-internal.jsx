@@ -23,6 +23,8 @@ export default function StockInternalPlates() {
     const [inputSearch, setInputSearch] = useState("")
     const [reload, setReload] = useState(false)
     const [open, setOpen] = useState(false);
+    const [openAlert, setOpenAlert] = useState(false);
+    const [openAlertEdit, setOpenAlertEdit] = useState(false);
     const [id, setId] = useState("")
     const [idComp, setIdComp] = useState("")
     const [lote, setLote] = useState("")
@@ -66,11 +68,16 @@ export default function StockInternalPlates() {
 
     async function delet(id) {
         await dispatch(plateActions.deletePlate(id))
+        setOpenAlert(false)
         setReload(!reload)
     }
-
+    const handleClickOpenAlert = () => {
+        setOpenAlert(true)
+    }
+    const handleClickOpenAlertEdit = () => {
+        setOpenAlertEdit(true)
+    }
     const handleClickOpen = (id, codigo, esp, idComp, lote, type) => {
-        
         setOpen(true);
         setId(id);
         setCodigo(codigo);
@@ -81,7 +88,13 @@ export default function StockInternalPlates() {
         setEsp(type._id);
         setType(type)
 
-    } 
+    }
+    const handleCloseEdit = () => {
+        setOpenAlertEdit(false)
+    };
+    const handleCloseDelet = () => {
+        setOpenAlert(false)
+    };
     const handleClose = () => {
         setOpen(false);
     };
@@ -96,7 +109,7 @@ export default function StockInternalPlates() {
         console.log(type)
         //setReload(!reload)
     };
-    
+
     async function modify(id, op) {
         let data = {}
         if (op === "ped") {
@@ -104,23 +117,25 @@ export default function StockInternalPlates() {
                 internal: null,
                 note: codigo,
                 lot: lote,
-                type:type
+                type: type
             }
         }
         else {
             data = {
                 internal: codigo,
                 lot: lote,
-                type:type
+                type: type
             }
         }
-        
+
         console.log("🚀 ~ file: Stock-1-internal.jsx ~ line 68 ~ modify ~ data", data)
         const res = await dispatch(plateActions.putPlate(id, data))
         console.log("🚀 ~ file: Stock-1-internal.jsx ~ line 67 ~ modify ~ res", res)
 
         setReload(!reload)
-
+        setOpenAlertEdit(false)
+        setOpen(false);
+    
     }
 
     return (
@@ -141,29 +156,54 @@ export default function StockInternalPlates() {
                     <div className='linkColors cardStock' /* to={'/nueva/color/tipo/'+everyPlate._id} */ key={everyPlate._id}>
                         <div className='companyCardStock'>
 
-                            <h2 className='nameCards'>{everyPlate.color.name}</h2>
-                            <h3 className='nameCards'>{everyPlate.company?.nameCompany}</h3>
+                            <h2 className='nameCards'>{everyPlate.company?.nameCompany}</h2>
+                            <h3 className='nameCards'>{everyPlate.color.name}</h3>
+                            <img src={everyPlate.color.photo} alt={everyPlate._id} className='fitStock' id={everyPlate._id} />
+                            <h3 className='nameCards'>{everyPlate.type.name} {everyPlate.state?.width} × {everyPlate.state.height} x {everyPlate.type.thickness}</h3>
                             {
-                                everyPlate.internal ? (<h3 className='nameCards'>codInterno:{everyPlate.internal}</h3>)
+                                everyPlate.internal ? (<h3 className='nameCards'>codInterno: {everyPlate.internal}</h3>)
                                     : <h3 className='nameCards'>codPedido: {everyPlate.note}</h3>
                             }
-
-                            <h3 className='nameCards'>{everyPlate.type.name} {everyPlate.state?.width} × {everyPlate.state.height} x {everyPlate.type.thickness}</h3>
+                            <div className='containerBtnVermas'>
+                                <button className='iconVerMas'>Ver más</button>
+                                
+                                
+                            </div>
                             <div className='bntEditDelet'>
                                 <button className='iconEdit' onClick={() => handleClickOpen(everyPlate._id, everyPlate.internal, everyPlate.type.thickness, everyPlate.company._id, everyPlate.lot, everyPlate.type)}>Editar</button>
-                                <button className='iconDelete' onClick={() => delet(everyPlate._id)}>Eliminar</button>
-                                {/* <EditIcon className='iconEdit' />
-                                <DeleteIcon className='iconDelet' /> */}
+                                <button className='iconDelete' onClick={() => handleClickOpenAlert()}>Eliminar</button>
+
                             </div>
                         </div>
+                        <Dialog open={openAlert} onClose={handleClose}>
+                            <DialogContent>
+                                <DialogContentText>
+                                    Esta seguro?
+                                </DialogContentText>
+                            </DialogContent>
+                            <DialogActions>
+                                <Button onClick={() => delet(everyPlate._id)}>Confirmar</Button>
+                                <Button onClick={handleCloseDelet}>Cancelar</Button>
+                            </DialogActions>
+                        </Dialog>
 
-
-                        <img src={everyPlate.color.photo} alt={everyPlate._id} className='fitStock' id={everyPlate._id} />
-
-
+                        <Dialog open={openAlertEdit} onClose={handleClose}>
+                            <DialogContent>
+                                <DialogContentText>
+                                    Esta seguro?
+                                </DialogContentText>
+                            </DialogContent>
+                            <DialogActions>
+                                <Button onClick={() => modify(id, valueSelect)}>Confirmar</Button>
+                                <Button onClick={handleCloseEdit}>Cancelar</Button>
+                            </DialogActions>
+                        </Dialog>
                     </div>
-                ))}
+                ))
+                }
             </div>
+
+
             <Dialog open={open} onClose={handleClose}>
                 <DialogContent>
                     <DialogContentText>
@@ -183,7 +223,7 @@ export default function StockInternalPlates() {
                     <div className='selectCodigo'>
                         <InputLabel id="demo-simple-select-label2">Espesor:</InputLabel>
                         <Select
-                        
+
                             labelId="demo-simple-select-label2"
                             id="demo-simple-select2"
                             value={esp}
@@ -196,7 +236,7 @@ export default function StockInternalPlates() {
                                 </MenuItem>
                             ))}
                         </Select>
-                        
+
                     </div>
 
 
@@ -231,8 +271,8 @@ export default function StockInternalPlates() {
                 </DialogContent>
 
                 <DialogActions>
-                    <Button onClick={() => modify(id, valueSelect)}>Edit</Button>
-                    <Button onClick={handleClose}>Finalize</Button>
+                    <Button onClick={handleClickOpenAlertEdit}>Editar</Button>
+                    <Button onClick={handleClose}>Cancelar</Button>
 
                 </DialogActions>
 
