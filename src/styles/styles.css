@@ -10,6 +10,7 @@ a {
     align-items: center;
 }
 
+
 .shadow-text:hover {
     font-weight: 800;
     color: #C82832;
@@ -213,7 +214,7 @@ a {
 }
 
 .containerNameCompany {
-
+transition: all 1s;
     width: 100%;
     height: 25vh;
     display: flex;
@@ -456,6 +457,7 @@ a {
 }
 
 .linkColors {
+    transition-duration: 4s;
     display: flex;
     justify-content: center;
     align-items: center;
