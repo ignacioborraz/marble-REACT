@@ -782,6 +782,71 @@ label {
     display: flex;
     align-items: center;
     gap: 1rem;
+    height: 4rem;
+}
+.companyCardStockDetail{
+    /* border: solid 1px gray; */
+    min-height: 30rem;
+    width: 80vw;
+    display: flex;
+    
+}
+.containerDetail{
+    justify-content: space-between;
+}
+.dataDetail{
+    width: 50%;
+    /* height: 15rem; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+.cjaBtnDetail{
+    margin-bottom: 1rem;
+    gap : 1rem
+}
+.cjaBtnDetail .iconEdit , .cjaBtnDetail .iconDelete{
+    height: 3rem;
+    font-size: 20px;
+
+}
+.containerStates{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.bgEtiquetaDetail{
+    background-color: #254795
+}
+
+.state{
+    
+    color: whitesmoke;
+    height: 9rem;
+    background-color: #9b9b9b;
+    
+}
+.h3Name{
+    color: #254795;
+
+}
+.dataName
+{
+    display: flex;
+    flex-direction: column;
+}
+.img-name{
+    display: flex;
+   
+}
+.imgDetail{
+    height: 10rem;
+    border: solid 1px grey;
+}
+.bgCargar{
+    background-image: url("https://s3.amazonaws.com/storage.wobiz.com/13/13358/images/Large/1474660724_cc6e3330cb0c792bd721dd56c1af05c1.13358.jpeg");
 }
 /******Medias*******/
 @media (width < 1024px) {

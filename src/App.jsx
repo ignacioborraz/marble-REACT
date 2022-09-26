@@ -26,6 +26,8 @@ import SelectCompanyEditPlate from './pages/EditPlate-1-Company'
 import EditPlateType from './pages/EditPlate-2-type'
 import EditPlate from './pages/EditPlate-3-plate'
 import EditPlateTypeModif from './pages/EditPlate-4-modif'
+import StockInternalDetail from './pages/Stock-1-Detail'
+import JohnsonMenu from './pages/Johnson-0'
 
 
 export default function App() {
@@ -58,12 +60,14 @@ export default function App() {
                     <Route path="/nueva/color/tipo/:id" element={<SelectData />} />
                     <Route path="/stock" element={<Stock />} />
                     <Route path="/stock/plates/internal" element={<StockInternalPlates />} />
+                    <Route path="/stock/plates/internal/detail/:id" element={<StockInternalDetail/>} />
                     <Route path="/stock/plates/note" element={<StockNotePlates />} />
                     <Route path="/stock/plates/done" element={<StockDonePlates />} />
                     <Route path="/editPlate" element={<SelectCompanyEditPlate />} />
                     <Route path="/editPlate/type/:id" element={<EditPlateType />} />
                     <Route path='/editPlate/plate' element={<EditPlate/>}/>
                     <Route path="/editPlate/type/color/:id" element={<EditPlateTypeModif/>} />
+                    <Route path="/johnson" element={<JohnsonMenu/>} />
                 </>) : (
                     <Route path="/" element={<SignIn />} />
                 )}

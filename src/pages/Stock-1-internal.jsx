@@ -135,7 +135,7 @@ export default function StockInternalPlates() {
         setReload(!reload)
         setOpenAlertEdit(false)
         setOpen(false);
-    
+
     }
 
     return (
@@ -159,15 +159,15 @@ export default function StockInternalPlates() {
                             <h2 className='nameCards'>{everyPlate.company?.nameCompany}</h2>
                             <h3 className='nameCards'>{everyPlate.color.name}</h3>
                             <img src={everyPlate.color.photo} alt={everyPlate._id} className='fitStock' id={everyPlate._id} />
-                            <h3 className='nameCards'>{everyPlate.type.name} {everyPlate.state?.width} × {everyPlate.state.height} x {everyPlate.type.thickness}</h3>
+                            <h3 className='nameCards'>{everyPlate.type.name} {everyPlate.state?.width} × {everyPlate.state.height} × {everyPlate.type.thickness}</h3>
                             {
                                 everyPlate.internal ? (<h3 className='nameCards'>codInterno: {everyPlate.internal}</h3>)
                                     : <h3 className='nameCards'>codPedido: {everyPlate.note}</h3>
                             }
                             <div className='containerBtnVermas'>
-                                <button className='iconVerMas'>Ver más</button>
-                                
-                                
+                                <LinkRouter className='iconVerMas' to={'/stock/plates/internal/detail/' + everyPlate._id }  >
+                                    Ver más
+                                </LinkRouter>
                             </div>
                             <div className='bntEditDelet'>
                                 <button className='iconEdit' onClick={() => handleClickOpen(everyPlate._id, everyPlate.internal, everyPlate.type.thickness, everyPlate.company._id, everyPlate.lot, everyPlate.type)}>Editar</button>
