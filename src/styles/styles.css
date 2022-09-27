@@ -848,6 +848,90 @@ label {
 .bgCargar{
     background-image: url("https://s3.amazonaws.com/storage.wobiz.com/13/13358/images/Large/1474660724_cc6e3330cb0c792bd721dd56c1af05c1.13358.jpeg");
 }
+.bgStockJohnson{
+    background-image: url("https://nardellisrl.com/wp-content/uploads/2020/07/Johnson-Bacha-AI-304-Luxor-SI71A.jpg");
+}
+.bgA304{
+    background-image: url("https://images.unsplash.com/photo-1611110321197-3b43447c00e7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1965&q=80");
+}
+.bgA430{
+    background-image: url("https://p4.wallpaperbetter.com/wallpaper/637/610/408/5bd021963bc15-wallpaper-preview.jpg");
+}
+.bgAccesorios{
+    background-image: url("https://cdn.discordapp.com/attachments/964573436590587985/1024118752880644156/kitchen-faucet-function.jpg");
+}
+.johnsonTypeh1{
+    font-size: 3rem;
+}
+.fitModel{
+    width: 100%;
+    height: 83%;
+    object-fit: cover;
+}
+.fitAccesory{
+    width: 100%;
+    height: 80%;
+    object-fit: cover;
+}
+.descriptionh2{
+    font-size: 15px;
+}
+.mask4{
+    justify-content: space-evenly;
+}
+.btnAcc{
+    border: none;
+}
+.addIcon{
+    position: absolute;
+    transform: translate(130px, -142px);
+}
+.divContinuar{
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+    height: 3rem;
+}
+.divNinguno{
+    height: 49px!important;
+}
+.formSink{
+    background-image: url("https://images.unsplash.com/photo-1556912102-ea493a2a5b93?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2093&q=80");
+}
+/* btonContinuarJohnson */
+.btnContinuar {
+    cursor: pointer;
+    font-weight: 700;
+    font-family: Helvetica,"sans-serif";
+    transition: all .2s;
+    padding: 10px 20px;
+    border-radius: 100px;
+    background: #008000;
+    border: 1px solid transparent;
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+  }
+  
+  .btnContinuar:hover {
+    background: #00ff00;
+  }
+  
+  .btnContinuar > svg {
+    width: 34px;
+    margin-left: 10px;
+    transition: transform .3s ease-in-out;
+  }
+  
+  .btnContinuar:hover svg {
+    transform: translateX(5px);
+  }
+  
+  .btnContinuar:active {
+    transform: scale(0.95);
+  }
+  
+  
 /******Medias*******/
 @media (width < 1024px) {
     .titleCard {

@@ -7,7 +7,8 @@ import colorReducer from './colorReducer'
 import typeReducer from './typeReducer'
 import plateReducer from './plateReducer'
 import userReducer from './userReducer'
+import johnsonReducer from './johnsonReducer'
 
-const mainReducer = combineReducers({companyReducer,colorReducer,typeReducer,plateReducer,userReducer})
+const mainReducer = combineReducers({companyReducer,colorReducer,typeReducer,plateReducer,userReducer, johnsonReducer})
 
 export default mainReducer
