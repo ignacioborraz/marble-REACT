@@ -108,7 +108,7 @@ export default function JohnsonData() {
 
                 </div>
                 {
-                  johnsonSelect.instalation.length > 0 ?
+                  johnsonSelect.instalation?.length > 0 ?
                     (
                       <div className='mb10 cajaCheck' >
 

@@ -84,7 +84,7 @@ export default function JohnsonAccesory() {
                     <div className={`hola bgAccesorios`}>
                         <div className='mask2 mask4'>
                             <h1 className='titleCardCompany'>Accesorios</h1>
-                            <LinkRouter onClick={ninguno} className='btnForm' to={'/johnson/new/type/accesory/data'} >Ninguno</LinkRouter>
+                            <LinkRouter onClick={ninguno} className='btnForm btnNinguno' to={'/johnson/new/type/accesory/data'} >Ninguno</LinkRouter>
                         </div>
                     </div>
 
