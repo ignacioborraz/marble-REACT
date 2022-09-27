@@ -28,6 +28,10 @@ import EditPlate from './pages/EditPlate-3-plate'
 import EditPlateTypeModif from './pages/EditPlate-4-modif'
 import StockInternalDetail from './pages/Stock-1-Detail'
 import JohnsonMenu from './pages/Johnson-0'
+import JohnsonType from './pages/Johnson-1-type'
+import JohnsonModel from './pages/Johnson-2-model'
+import JohnsonAccesory from './pages/Johnson-3-accesory'
+import JohnsonData from './pages/Johnson-4-Data'
 
 
 export default function App() {
@@ -68,6 +72,10 @@ export default function App() {
                     <Route path='/editPlate/plate' element={<EditPlate/>}/>
                     <Route path="/editPlate/type/color/:id" element={<EditPlateTypeModif/>} />
                     <Route path="/johnson" element={<JohnsonMenu/>} />
+                    <Route path="/johnson/new" element={<JohnsonType/>} />
+                    <Route path="/johnson/new/:type" element={<JohnsonModel/>} />
+                    <Route path="/johnson/new/accesory" element={<JohnsonAccesory/>} />
+                    <Route path="/johnson/new/type/accesory/data" element={<JohnsonData/>} />
                 </>) : (
                     <Route path="/" element={<SignIn />} />
                 )}
