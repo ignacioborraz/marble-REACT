@@ -40,7 +40,7 @@ export default function Index() {
                     </div>
 
                 </LinkRouter>
-                <LinkRouter className='link linkJson link2 mr10 mb10' to={'/'}>
+                <LinkRouter className='link linkJson link2 mr10 mb10' to={'/johnson'}>
                     <div className='mask'>
                         <WashIcon className='iconTitle' />
                         <h1 className='titleCard'>JOHNSON</h1>
