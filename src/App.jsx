@@ -32,7 +32,9 @@ import JohnsonType from './pages/Johnson-1-type'
 import JohnsonModel from './pages/Johnson-2-model'
 import JohnsonAccesory from './pages/Johnson-3-accesory'
 import JohnsonData from './pages/Johnson-4-Data'
-
+import StockJohnsonMenu from './pages/StockJohnson-0'
+import StockInternalJohnson from './pages/StockJohnson-1-internal'
+import StockNoteJohnson from './pages/StockJohnson-2-note'
 
 export default function App() {
 
@@ -76,6 +78,10 @@ export default function App() {
                     <Route path="/johnson/new/:type" element={<JohnsonModel/>} />
                     <Route path="/johnson/new/accesory" element={<JohnsonAccesory/>} />
                     <Route path="/johnson/new/type/accesory/data" element={<JohnsonData/>} />
+                    <Route path="/johnson/stock" element={<StockJohnsonMenu/>} />
+                    <Route path="/johnson/stock/internal" element={<StockInternalJohnson/>} />
+                    <Route path="/johnson/stock/note" element={<StockNoteJohnson/>} />
+                    <Route path="/johnson/stock/done" element={<StockJohnsonMenu/>} />
                 </>) : (
                     <Route path="/" element={<SignIn />} />
                 )}

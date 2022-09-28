@@ -36,7 +36,7 @@ export default function JohnsonModel() {
         function creatingSink(event) {
             console.log("🚀 ~ file: Johnson-2-model.jsx ~ line 41 ~ creatingSink ~ event", event)
 
-            let sink = { johnson: event.currentTarget.id }
+            let sink = { jhonson: event.currentTarget.id }
             localStorage.setItem('sink', JSON.stringify(sink))
             console.log(JSON.parse(localStorage.getItem('sink')))
         }

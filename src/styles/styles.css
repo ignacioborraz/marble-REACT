@@ -902,6 +902,16 @@ label {
 .formSink{
     background-image: url("https://images.unsplash.com/photo-1556912102-ea493a2a5b93?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2093&q=80");
 }
+.labelInputCodigo{
+    width: 56%;
+    display: flex;
+}
+.inputGrow{
+    flex-grow: 1;
+}
+.cajaCodigo{
+    display: flex;
+}
 /* btonContinuarJohnson */
 .btnContinuar {
     cursor: pointer;
@@ -934,7 +944,22 @@ label {
   .btnContinuar:active {
     transform: scale(0.95);
   }
-  
+  .checksInstalation{
+    display: flex;
+    align-items: center;
+  }
+  .bgJVendidas{
+    background-image: url("https://images.unsplash.com/photo-1594761047926-f0bdbadae552?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80");
+  }
+  .bgEntregadas{
+    background-image: url("https://images.unsplash.com/photo-1616596612351-5a7ae04e2840?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80");
+  }
+  .bgJdis{
+    background-image: url("https://images.unsplash.com/photo-1564518823771-494a12735793?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80");
+  }
+  .inputSink{
+    text-align: center;
+  }
   
 /******Medias*******/
 @media (width < 1024px) {
@@ -965,7 +990,18 @@ label {
         flex-wrap: wrap;
         flex-direction: row;
     }
-
+    .cajaCodigo {
+        flex-direction: column;
+    }
+    .labelInputCodigo {
+        width: 93%;
+    }
+    .checksInstalation{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+ }
     @media (width < 550px) {
         .containerIndex1 {
             flex-direction: column;
@@ -1043,6 +1079,9 @@ label {
                 font-size: 15px;
                 align-self: center;
             }
+            .inputCodigo {
+                width: 11rem;
+            }
     }
 
     @media (width < 425px) {
@@ -1059,5 +1098,17 @@ label {
             position: fixed;
             transform: translateX(12px) translateY(-23px);
         }
-    }
+        .labelInputCodigo {
+            flex-direction: column;
+
+            }
+            .inputCodigo{
+                width: 14rem;
+            }
+            .cheksSink{
+                display: flex;
+                justify-content: flex-start;
+                flex-direction: column;
 }
+            }
+   
