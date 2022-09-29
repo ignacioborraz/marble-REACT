@@ -2,35 +2,20 @@ import * as React from 'react';
 import { useEffect, useState } from 'react'
 import { Link as LinkRouter } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import plateActions from '../redux/actions/plateActions'
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import typeActions from '../redux/actions/typeActions';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import sinkActions from '../redux/actions/sinkActions';
 import Chip from '@mui/material/Chip';
-import Stack from '@mui/material/Stack';
-import ImageList from '@mui/material/ImageList';
-import ImageListItem from '@mui/material/ImageListItem';
-import ImageListItemBar from '@mui/material/ImageListItemBar';
-import ListSubheader from '@mui/material/ListSubheader';
-import IconButton from '@mui/material/IconButton';
-import InfoIcon from '@mui/icons-material/Info';
 import johnsonActions from '../redux/actions/johnsonActions';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
-
-
-
 
 export default function StockInternalJohnson() {
 
@@ -42,11 +27,8 @@ export default function StockInternalJohnson() {
     const [openAlertEdit, setOpenAlertEdit] = useState(false);
     const [id, setId] = useState("")
     const [idDelet, setIdDelet] = useState("")
-    const [lau, setLau] = useState([])
-    console.log("🚀 ~ file: StockJohnson-1-internal.jsx ~ line 45 ~ StockInternalJohnson ~ lau", lau)
     const [openAcc, setOpenAcc] = useState(false)
     const [codigo, setCodigo] = useState("")
-    const [esp, setEsp] = useState({})
     const [accesories, setAccesories] = useState([])
     const [valueSelect, setValueSelect] = useState('');
     const [accesorysAdd, setAccesorysAdd] = useState([])
@@ -70,12 +52,6 @@ export default function StockInternalJohnson() {
     console.log("🚀 ~ file: Johnson-2-model.jsx ~ line 34 ~ JohnsonModel ~ accesorys", accesoriesList)
     const types = useSelector(store => store.typeReducer.types)
 
-    const [type, setType] = useState(
-        types.find((a) => a._id === esp._id)
-    );
-    const typeAct = (id) => {
-        setType(types.find((a) => a._id === id));
-    };
 
     const handleClickAccesorios = () => {
         setOpenAcc(true)
@@ -281,25 +257,6 @@ export default function StockInternalJohnson() {
 
                     </div>
 
-
-
-                    {/* <Select
-                        multiple
-                        native
-                        value={esp}
-                        // @ts-ignore Typings are not considering `native`
-                        //onChange={handleChangeMultiple}
-                        label="Accesorios"
-                        inputProps={{
-                            id: 'select-multiple-native',
-                        }}
-                    >
-                        {accesories.map((op) => (
-                            <option key={op._id} value={op._id}>
-                                {op.code}
-                            </option>
-                        ))}
-                    </Select> */}
                 </DialogContent>
 
                 <DialogActions>

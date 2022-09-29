@@ -1,20 +1,9 @@
 import { useEffect, useState } from 'react'
 import { Link as LinkRouter } from 'react-router-dom'
-import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import colorActions from '../redux/actions/colorActions';
-import companyActions from '../redux/actions/companyActions';
 import Container from '../components/Container'
-import Text from '../components/Text'
-import CircularProgress from '@mui/material/CircularProgress';
-import Box from '@mui/material/Box';
 import Skeleton from '@mui/material/Skeleton';
 import johnsonActions from '../redux/actions/johnsonActions';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import AddIcon from '@mui/icons-material/Add';
-import DownloadDoneIcon from '@mui/icons-material/DownloadDone';
-import LibraryAddOutlinedIcon from '@mui/icons-material/LibraryAddOutlined';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import { useNavigate } from 'react-router-dom'

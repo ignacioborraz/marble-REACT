@@ -26,22 +26,6 @@ export default function StockNoteJohnson() {
     console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 25 ~ StockNoteJohnson ~ filterNoteSink", filterNoteSink)
     
 
-    
-    function bau(array) {
-        let mayor=0;
-        for (let i = 0; i < array.length; i++) {
-            if (array[i]>0 && array[i]<10) {
-                if (array[i] > mayor){
-                    mayor=array[i]
-                }
-            }
-        }
-        return console.log(mayor)
-        
-    }
-    const a =[1, 0 , 9, 8, 100]
-    bau(a)
-
     return (
         <div className='containerStock'>
             <div className='containerNameStock vendidas'>
