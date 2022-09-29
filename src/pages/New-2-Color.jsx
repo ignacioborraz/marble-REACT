@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { Link as LinkRouter} from 'react-router-dom'
-import {useParams} from 'react-router-dom'
+import { Link as LinkRouter } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import colorActions from '../redux/actions/colorActions';
 import companyActions from '../redux/actions/companyActions';
@@ -16,7 +16,7 @@ export default function SelectColor() {
     const [inputSearch, setInputSearch] = useState("")
 
     useEffect(() => {
-        
+
         dispatch(colorActions.getColors(id))
         // eslint-disable-next-line
     }, [id])
@@ -66,28 +66,28 @@ export default function SelectColor() {
                         <input className='input' type="text" placeholder='Buscar por color' onChange={(e) => setInputSearch(e.target.value)} />
 
                     </div>
-                    
+
                     {
-                        filterOrd ? (
-                        
-                            filterOrd.length > 0 ?
-                                <div className='containerCardsMarca'>
-                                    {filterOrd?.map(everyColor => (
-                                        <LinkRouter className='linkColors' to={'/nueva/color/' + everyColor.company} onClick={creatingPlate} key={everyColor._id} id={everyColor._id}>
-                                            <h2 className='nameCards'>{everyColor.name}</h2>
-                                            <img src={everyColor.photo} alt={everyColor._id} className='fitColor' id={everyColor._id} />
-                                        </LinkRouter>
-                                    ))}
-                                </div>
-    
-                                :
-                                <div className='noResult'>
-                                    <h1>no hay resultados</h1>
-                                </div>
-    
-                        ) : <Skeleton variant="rectangular" width={210} height={118} />
+
+
+                        filterOrd.length > 0 ?
+                            <div className='containerCardsMarca'>
+                                {filterOrd?.map(everyColor => (
+                                    <LinkRouter className='linkColors' to={'/nueva/color/' + everyColor.company} onClick={creatingPlate} key={everyColor._id} id={everyColor._id}>
+                                        <h2 className='nameCards'>{everyColor.name}</h2>
+                                        <img src={everyColor.photo} alt={everyColor._id} className='fitColor' id={everyColor._id} />
+                                    </LinkRouter>
+                                ))}
+                            </div>
+
+                            :
+                            <div className='noResult'>
+                                <h1>no hay resultados</h1>
+                            </div>
+
+
                     }
-                   
+
                 </div>
 
             </Container>

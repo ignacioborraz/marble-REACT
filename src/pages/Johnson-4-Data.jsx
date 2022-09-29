@@ -5,15 +5,17 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import johnsonActions from '../redux/actions/johnsonActions';
+import sinkActions from '../redux/actions/sinkActions';
 import Container from '../components/Container'
-
+import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
 export default function JohnsonData() {
 
   const navigate = useNavigate()
   const comments = useRef()
   let sink = JSON.parse(localStorage.getItem('sink'))
-  const johnson = sink.johnson
-  console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 16 ~ JohnsonData ~ johnson", johnson)
+  const jhonson = sink.jhonson
+  console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 16 ~ JohnsonData ~ johnson", jhonson)
   const dispatch = useDispatch()
   const [codigo, setCodigo] = useState("")
   const [instalation, setInstalation] = useState("instalacion lateral")
@@ -28,7 +30,7 @@ export default function JohnsonData() {
     }
   ]);
   useEffect(() => {
-    dispatch(johnsonActions.getOneJohnson(johnson))
+    dispatch(johnsonActions.getOneJohnson(jhonson))
     // eslint-disable-next-line
   }, [])
 
@@ -72,19 +74,15 @@ export default function JohnsonData() {
     if (typeCode === "interno") {
       sink.internal = codigo
       sink.note = null
-      console.log("es internoooo")
     }
     else if (typeCode === "pedido") {
       sink.note = codigo
       sink.internal = null
-      console.log("es pedidooo")
     }
-
     localStorage.setItem('sink', JSON.stringify(sink))
     console.log(sink)
-    await dispatch(johnsonActions.createSink(sink))
-
-    // (navigate("/", { replace: true }))
+    await dispatch(sinkActions.createSink(sink))
+    .then(navigate("/", { replace: true }))
   }
 
   return (
@@ -96,21 +94,24 @@ export default function JohnsonData() {
               <h1 className='titleForm'>CARGAR PILETA</h1>
               <div className='containerDatosForm'>
 
-                <div className='mb10 cajaCheck' >
-                  <div>
-                    <label>Codigo</label>
-                    <input className='inputCodigo' id={"codigo"} name='codigo' onChange={(e) => setCodigo(e.target.value)} required />
+                <div className='cajaCodigo' >
+                  <div className='labelInputCodigo'>
+                    <label>CODIGO: </label>
+                    <input className='inputCodigo inputGrow' id={"codigo"} name='codigo' onChange={(e) => setCodigo(e.target.value)} required />
                   </div>
-                  <label className='ml10 labelCheck' >
-                    <input type="radio" id={`interno`} name={`typeCode`} value='interno' required onChange={(e) => setTypeCode(e.target.value)} />Cod.Interno</label>
-                  <label className='ml10 labelCheck' >
-                    <input type="radio" id={`pedido`} name={`typeCode`} value='pedido' required onChange={(e) => setTypeCode(e.target.value)} />Nota del Pedido </label>
+                  <div className='cheksSink'>
+                    <label className='ml10 labelCheck' >
+                      <input type="radio" id={`interno`} name={`typeCode`} value='interno' required onChange={(e) => setTypeCode(e.target.value)} />Cod.Interno</label>
+                    <label className='ml10 labelCheck' >
+                      <input type="radio" id={`pedido`} name={`typeCode`} value='pedido' required onChange={(e) => setTypeCode(e.target.value)} />Nota del Pedido </label>
+
+                  </div>
 
                 </div>
                 {
                   johnsonSelect.instalation?.length > 0 ?
                     (
-                      <div className='mb10 cajaCheck' >
+                      <div className=' checksInstalation' >
 
                         <div>
                           <label>Instalacion:</label>
@@ -128,32 +129,12 @@ export default function JohnsonData() {
                     ) : null
                 }
 
-
-                <div className='mb10 '>
+                <div className='labelInputCodigo '>
                   <label htmlFor='comentario'>COMENTARIO: </label>
-                  <input className='inputCodigo' id='comentario' type='text' ref={comments} />
+                  <input className='inputCodigo inputGrow' id='comentario' type='text' ref={comments} />
                 </div>
 
-                {/* <button type='button' className='btnAdd' onClick={addInput}>agregar codigo</button>
 
-                {
-                  inputs.map((cant, index) =>
-                    <div key={index} className='mb10 cajaCheck' >
-                      <div>
-                        <label>{`Codigo${index + 1}`}</label>
-                        <input className='inputCodigo' id={`codigo-${index + 1}`} name='codigo' value={cant.codigo} onChange={(e) => datos(e, index, 'codigo')} required />
-
-                      </div>
-
-                      <label className='ml10 labelCheck' >
-                        <input type="radio" id={`interno-${index + 1}`} name={`typeCode${index + 1}`} value='interno' required onChange={(e) => datos(e, index, 'typeCode')} />Cod.Interno</label>
-                      <label className='ml10 labelCheck' >
-                        <input type="radio" id={`pedido-${index + 1}`} name={`typeCode${index + 1}`} value='pedido' required onChange={(e) => datos(e, index, 'typeCode')} />Nota del Pedido </label>
-                      <button className='btnDelet' type='button' onClick={() => deleteInput(index)} ><DeleteForeverIcon className='iconDelet' /></button>
-
-                    </div>
-                  )
-                } */}
 
               </div>
               <input type="submit" required value='ingresar' className='btnForm ' />

@@ -26,6 +26,7 @@ export default function StockInternalPlates() {
     const [openAlert, setOpenAlert] = useState(false);
     const [openAlertEdit, setOpenAlertEdit] = useState(false);
     const [id, setId] = useState("")
+    const [idDelet, setIdDelet] = useState("")
     const [idComp, setIdComp] = useState("")
     const [lote, setLote] = useState("")
     const [codigo, setCodigo] = useState("")
@@ -42,13 +43,24 @@ export default function StockInternalPlates() {
 
     useEffect(() => {
         dispatch(plateActions.filterInternalPlates(inputSearch))
-        dispatch(typeActions.getTypes(idComp))
         // eslint-disable-next-line
-    }, [inputSearch, idComp])
+    }, [inputSearch])
 
     let internalPlate = useSelector(store => store.plateReducer.internalPlate)
     console.log("🚀 ~ file: Stock-1-internal.jsx ~ line 48 ~ StockInternalPlates ~ internalPlate", internalPlate)
     let filterPlates = useSelector(store => store.plateReducer.filterInternalPlates)
+    async function handleClickOpen  (id, codigo, esp, idComp, lote, type ) {
+        setOpen(true);
+        setId(id);
+        setCodigo(codigo);
+        //setEsp(esp);
+        setIdComp(idComp)
+        setLote(lote)
+        setValueSelect("int")
+        setEsp(type._id);
+        setType(type)
+        await dispatch(typeActions.getTypes(idComp))
+    }
     const types = useSelector(store => store.typeReducer.types)
     console.log("🚀 ~ file: Stock-1-internal.jsx ~ line 50 ~ StockInternalPlates ~ types", types)
 
@@ -66,29 +78,15 @@ export default function StockInternalPlates() {
     }
     var filterOrd = filterPlates.sort(SortArray);
 
-    async function delet(id) {
-        await dispatch(plateActions.deletePlate(id))
-        setOpenAlert(false)
-        setReload(!reload)
-    }
-    const handleClickOpenAlert = () => {
+
+    const handleClickOpenAlert = (id) => {
+        setIdDelet(id)
         setOpenAlert(true)
     }
     const handleClickOpenAlertEdit = () => {
         setOpenAlertEdit(true)
     }
-    const handleClickOpen = (id, codigo, esp, idComp, lote, type) => {
-        setOpen(true);
-        setId(id);
-        setCodigo(codigo);
-        //setEsp(esp);
-        setIdComp(idComp)
-        setLote(lote)
-        setValueSelect("int")
-        setEsp(type._id);
-        setType(type)
-
-    }
+    
     const handleCloseEdit = () => {
         setOpenAlertEdit(false)
     };
@@ -137,7 +135,11 @@ export default function StockInternalPlates() {
         setOpen(false);
 
     }
-
+    async function delet(id) {
+        await dispatch(plateActions.deletePlate(id))
+        setOpenAlert(false)
+        setReload(!reload)
+    }
     return (
         <div className='containerStock'>
             <div className='containerNameStock'>
@@ -165,13 +167,13 @@ export default function StockInternalPlates() {
                                     : <h3 className='nameCards'>codPedido: {everyPlate.note}</h3>
                             }
                             <div className='containerBtnVermas'>
-                                <LinkRouter className='iconVerMas' to={'/stock/plates/internal/detail/' + everyPlate._id }  >
+                                <LinkRouter className='iconVerMas' to={'/stock/plates/internal/detail/' + everyPlate._id}  >
                                     Ver más
                                 </LinkRouter>
                             </div>
                             <div className='bntEditDelet'>
                                 <button className='iconEdit' onClick={() => handleClickOpen(everyPlate._id, everyPlate.internal, everyPlate.type.thickness, everyPlate.company._id, everyPlate.lot, everyPlate.type)}>Editar</button>
-                                <button className='iconDelete' onClick={() => handleClickOpenAlert()}>Eliminar</button>
+                                <button className='iconDelete' onClick={() => handleClickOpenAlert(everyPlate._id)}>Eliminar</button>
 
                             </div>
                         </div>
@@ -182,7 +184,7 @@ export default function StockInternalPlates() {
                                 </DialogContentText>
                             </DialogContent>
                             <DialogActions>
-                                <Button onClick={() => delet(everyPlate._id)}>Confirmar</Button>
+                                <Button onClick={() => delet(idDelet)}>Confirmar</Button>
                                 <Button onClick={handleCloseDelet}>Cancelar</Button>
                             </DialogActions>
                         </Dialog>
