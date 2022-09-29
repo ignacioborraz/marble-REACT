@@ -41,13 +41,8 @@ export default function JohnsonModel() {
             console.log(JSON.parse(localStorage.getItem('sink')))
         }
         
-    function SortArray(x, y) {
-        if (x.code < y.code) { return -1; }
-        if (x.code > y.code) { return 1; }
-        return 0;
-    }
-    var filterOrd = filterType.sort(SortArray);
-    console.log(filterOrd);
+   
+    
 
     return (
         <Container grow='1' wrap='wrap' bgColor='rgb(224,224,224)' sx={{ alignContent: 'flex-start' }}>
@@ -66,11 +61,11 @@ export default function JohnsonModel() {
                     </div>
                     
                     {
-                        filterOrd ? (
+                        filterType ? (
                         
-                            filterOrd.length > 0 ?
+                            filterType.length > 0 ?
                                 <div className='containerCardsMarca'>
-                                    {filterOrd?.map(everyColor => (
+                                    {filterType?.map(everyColor => (
                                         <LinkRouter className='linkColors' to={'/johnson/new/accesory'} onClick={creatingSink} key={everyColor._id} id={everyColor._id}>
                                             <h2 className='nameCards'>{everyColor.code}</h2>
                                             <img src={everyColor.photo} alt={everyColor._id} className='fitModel' id={everyColor._id} />

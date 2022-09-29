@@ -30,29 +30,33 @@ a {
     height: 40vh;
     width: 100%;
 }
-.companyCardStock h3{
+
+.companyCardStock h3 {
     font-size: 18px;
     letter-spacing: 1px;
     color: #484848;
 }
+
 /* .companyCardStock{
     width: 100%;
     display: flex;
     justify-content: space-between;
 } */
-.fitColor{
+.fitColor {
     width: 100%;
     height: 85%;
     object-fit: cover;
 
 }
-.fitStock{
+
+.fitStock {
     height: 12rem;
     width: 18rem;
-   
+
     object-fit: cover;
 }
-.containerBtnVermas{
+
+.containerBtnVermas {
     height: 10%;
 }
 
@@ -218,7 +222,7 @@ a {
 }
 
 .containerNameCompany {
-transition: all 1s;
+    transition: all 1s;
     width: 100%;
     height: 25vh;
     display: flex;
@@ -282,29 +286,36 @@ transition: all 1s;
     background-repeat: no-repeat;
 
 }
-.bgType{
+
+.bgType {
     background-image: url("../media/fondoMarmol.jpg");
 }
 
-.Standard, .Media {
+.Standard,
+.Media {
     background-image: url("https://dbdzm869oupei.cloudfront.net/img/vinylrugs/preview/34990.png");
 
 }
 
-.Jumbo,  .Entera{
+.Jumbo,
+.Entera {
     background-image: url("https://static.vecteezy.com/system/resources/previews/004/479/531/large_2x/black-and-gold-marble-texture-free-photo.jpg");
 
 }
-.bgMenor{
+
+.bgMenor {
     background-image: url("https://images.unsplash.com/photo-1554755229-ca4470e07232?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80");
 }
-.bgMayor{
+
+.bgMayor {
     background-image: url("https://images.unsplash.com/photo-1566305977571-5666677c6e98?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=645&q=80");
 }
-.bgConsumir{
+
+.bgConsumir {
     background-image: url("https://images.unsplash.com/photo-1546453667-8a8d2d07bc20?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80");
 }
-.bgOtra{
+
+.bgOtra {
     background-image: url("https://images.unsplash.com/photo-1585314062340-f1a5a7c9328d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80");
 }
 
@@ -312,16 +323,20 @@ transition: all 1s;
     /* /text-shadow: 0 1px 0 #fff, 0 -1px 2px rgb(0 0 0 / 30%), 0 -2px 2px rgb(0 0 0 / 20%), 0 0 3px rgb(0 0 0 / 10%); */
     box-shadow: 10px 10px 0px 0px #858585;
 }
+
 /***cradStock**/
-.bgDisp{
+.bgDisp {
     background-image: url("https://sc04.alicdn.com/kf/H0dfdc926c34c4d18a0cfd7df248dc28eb.jpg");
 }
-.bgVend{
+
+.bgVend {
     background-image: url("../media/vendidas.jpg");
 }
-.bgDone{
+
+.bgDone {
     background-image: url("https://sc04.alicdn.com/kf/H81ee3a72bc9a4d3da5ae1838625f9b89e.jpg");
 }
+
 /* .bgStockName{
     background-image: url("https://img.myloview.es/vinilos/invitaciones-de-boda-con-textura-de-marmol-y-oro-diseno-para-portada-banner-invitacion-tarjeta-ilustracion-de-vector-de-marca-e-identidad-700-115432698.jpg");
 } */
@@ -335,6 +350,7 @@ transition: all 1s;
     flex-direction: column;
     transition: 1s;
 }
+
 .mask3:hover {
     background-color: #0000004f;
     transition: 1s;
@@ -351,16 +367,19 @@ transition: all 1s;
     background-color: #1f7430;
 
 }
+
 /* .disp{
     color: #1f7430!important ;
 } */
-.vendidas{
+.vendidas {
     background-color: #0a3297;
 }
-.consumidas{
+
+.consumidas {
     background-color: #d83939;
 }
-.titleStock{
+
+.titleStock {
     font-size: 2.5rem;
     letter-spacing: 3.2px;
     color: rgb(255, 255, 255);
@@ -385,20 +404,20 @@ transition: all 1s;
     font-weight: bold;
     letter-spacing: 1px;
     color: #272626;
-   }
-   
-   .btnAdd:hover {
+}
+
+.btnAdd:hover {
     transform: translateY(-3px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-   }
-   
-   .btnAdd:active {
+}
+
+.btnAdd:active {
     transform: translateY(-1px);
     background-color: #fff;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-   }
-   
-   .btnAdd::after {
+}
+
+.btnAdd::after {
     content: "";
     display: inline-block;
     height: 100%;
@@ -409,17 +428,17 @@ transition: all 1s;
     left: 0;
     z-index: -1;
     transition: all .4s;
-   }
-   
-   /* .btnAdd::after {
+}
+
+/* .btnAdd::after {
     background-color: #fff;
    } */
-   
-   .btnAdd:hover::after {
+
+.btnAdd:hover::after {
     transform: scaleX(1.4) scaleY(1.6);
     opacity: 0;
-   
-   }
+
+}
 
 .btnForm {
     padding: 0.3em 3em;
@@ -475,7 +494,8 @@ transition: all 1s;
     /* margin: 5px; */
     padding: 5px;
 }
-.cardStock{
+
+.cardStock {
     min-height: 21rem;
     width: 19rem;
     min-height: 22rem;
@@ -704,6 +724,7 @@ label {
     width: 100%;
     justify-content: space-evenly;
 }
+
 .cajaCheck {
     border: solid 1px rgb(178 178 178);
     padding: 14px 5px;
@@ -713,45 +734,52 @@ label {
     align-items: center;
     justify-content: space-around;
 }
-.btnDelet{
+
+.btnDelet {
     border: none;
     background: none;
     cursor: pointer;
 }
+
 .btnDelet:hover {
 
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-   /* background-color: rgb(236, 236, 236); */
-   color: red;
-   }
+    /* background-color: rgb(236, 236, 236); */
+    color: red;
+}
 
-.iconDelet{
-    color: #C82832!important;
+.iconDelet {
+    color: #C82832 !important;
     border: none;
     /* position: fixed;
     transform: translateX(-11px) translateY(-27px); */
 }
-.containerStock{
+
+.containerStock {
     display: flex;
     flex-grow: 1;
     flex-direction: column;
     align-items: center;
-    background-color:rgb(224,224,224);
+    background-color: rgb(224, 224, 224);
 }
-.inputStock{
+
+.inputStock {
     width: 16rem;
 }
-.menorH{
-    height: 98%!important;
+
+.menorH {
+    height: 98% !important;
 }
-.bntEditDelet, .containerBtnVermas{
+
+.bntEditDelet,
+.containerBtnVermas {
     display: flex;
     margin-top: 3px;
     justify-content: center;
-    
+
 }
 
-.iconVerMas{
+.iconVerMas {
     color: white;
     background-color: #2742d2;
     padding: 3px;
@@ -760,7 +788,8 @@ label {
     width: 7rem;
     flex-grow: 1;
 }
-.iconEdit{
+
+.iconEdit {
     color: white;
     background-color: #1f7430;
     padding: 3px;
@@ -769,32 +798,37 @@ label {
     width: 7rem;
     flex-grow: 1;
 }
-.iconDelete{
+
+.iconDelete {
     color: white;
-    background-color:#f54545;
+    background-color: #f54545;
     padding: 3px;
     border: none;
     border-radius: 5px;
     width: 7rem;
     flex-grow: 1;
 }
-.selectCodigo{
+
+.selectCodigo {
     display: flex;
     align-items: center;
     gap: 1rem;
     height: 4rem;
 }
-.companyCardStockDetail{
+
+.companyCardStockDetail {
     /* border: solid 1px gray; */
     min-height: 30rem;
     width: 80vw;
     display: flex;
-    
+
 }
-.containerDetail{
+
+.containerDetail {
     justify-content: space-between;
 }
-.dataDetail{
+
+.dataDetail {
     width: 50%;
     /* height: 15rem; */
     display: flex;
@@ -802,121 +836,149 @@ label {
     justify-content: space-between;
     align-items: flex-start;
 }
-.cjaBtnDetail{
+
+.cjaBtnDetail {
     margin-bottom: 1rem;
-    gap : 1rem
+    gap: 1rem
 }
-.cjaBtnDetail .iconEdit , .cjaBtnDetail .iconDelete{
+
+.cjaBtnDetail .iconEdit,
+.cjaBtnDetail .iconDelete {
     height: 3rem;
     font-size: 20px;
 
 }
-.containerStates{
+
+.containerStates {
     width: 50%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
-.bgEtiquetaDetail{
+
+.bgEtiquetaDetail {
     background-color: #254795
 }
 
-.state{
-    
+.state {
+
     color: whitesmoke;
     height: 9rem;
     background-color: #9b9b9b;
-    
+
 }
-.h3Name{
+
+.h3Name {
     color: #254795;
 
 }
-.dataName
-{
+
+.dataName {
     display: flex;
     flex-direction: column;
 }
-.img-name{
+
+.img-name {
     display: flex;
-   
+
 }
-.imgDetail{
+
+.imgDetail {
     height: 10rem;
     border: solid 1px grey;
 }
-.bgCargar{
+
+.bgCargar {
     background-image: url("https://s3.amazonaws.com/storage.wobiz.com/13/13358/images/Large/1474660724_cc6e3330cb0c792bd721dd56c1af05c1.13358.jpeg");
 }
-.bgStockJohnson{
+
+.bgStockJohnson {
     background-image: url("https://nardellisrl.com/wp-content/uploads/2020/07/Johnson-Bacha-AI-304-Luxor-SI71A.jpg");
 }
-.bgA304{
+
+.bgA304 {
     background-image: url("https://images.unsplash.com/photo-1611110321197-3b43447c00e7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1965&q=80");
 }
-.bgA430{
+
+.bgA430 {
     background-image: url("https://p4.wallpaperbetter.com/wallpaper/637/610/408/5bd021963bc15-wallpaper-preview.jpg");
 }
-.bgAccesorios{
+
+.bgAccesorios {
     background-image: url("https://cdn.discordapp.com/attachments/964573436590587985/1024118752880644156/kitchen-faucet-function.jpg");
 }
-.johnsonTypeh1{
+
+.johnsonTypeh1 {
     font-size: 3rem;
 }
-.fitModel{
+
+.fitModel {
     width: 100%;
     height: 83%;
     object-fit: cover;
 }
-.fitAccesory{
+
+.fitAccesory {
     width: 100%;
     height: 80%;
     object-fit: cover;
 }
-.descriptionh2{
+
+.descriptionh2 {
     font-size: 15px;
 }
-.mask4{
+
+.mask4 {
     justify-content: space-evenly;
 }
-.btnAcc{
+
+.btnAcc {
     border: none;
 }
-.addIcon{
+
+.addIcon {
     position: absolute;
     transform: translate(130px, -142px);
 }
-.divContinuar{
+
+.divContinuar {
     display: flex;
     justify-content: flex-end;
     margin-bottom: 10px;
     height: 3rem;
 }
-.divNinguno{
-    height: 49px!important;
+
+.divNinguno {
+    height: 49px !important;
 }
-.btnNinguno{
+
+.btnNinguno {
     display: flex;
     align-items: center;
 }
-.formSink{
+
+.formSink {
     background-image: url("https://images.unsplash.com/photo-1556912102-ea493a2a5b93?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2093&q=80");
 }
-.labelInputCodigo{
+
+.labelInputCodigo {
     width: 56%;
     display: flex;
 }
-.inputGrow{
+
+.inputGrow {
     flex-grow: 1;
 }
-.cajaCodigo{
+
+.cajaCodigo {
     display: flex;
 }
+
 /* btonContinuarJohnson */
 .btnContinuar {
     cursor: pointer;
     font-weight: 700;
-    font-family: Helvetica,"sans-serif";
+    font-family: Helvetica, "sans-serif";
     transition: all .2s;
     padding: 10px 20px;
     border-radius: 100px;
@@ -925,48 +987,135 @@ label {
     display: flex;
     align-items: center;
     font-size: 15px;
-  }
-  
-  .btnContinuar:hover {
+}
+
+.btnContinuar:hover {
     background: #00ff00;
-  }
-  
-  .btnContinuar > svg {
+}
+
+.btnContinuar>svg {
     width: 34px;
     margin-left: 10px;
     transition: transform .3s ease-in-out;
-  }
-  
-  .btnContinuar:hover svg {
+}
+
+.btnContinuar:hover svg {
     transform: translateX(5px);
-  }
-  
-  .btnContinuar:active {
+}
+
+.btnContinuar:active {
     transform: scale(0.95);
-  }
-  .checksInstalation{
+}
+
+.checksInstalation {
     display: flex;
     align-items: center;
-  }
-  .bgJVendidas{
+}
+
+.bgJVendidas {
     background-image: url("https://images.unsplash.com/photo-1594761047926-f0bdbadae552?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80");
-  }
-  .bgEntregadas{
+}
+
+.bgEntregadas {
     background-image: url("https://images.unsplash.com/photo-1616596612351-5a7ae04e2840?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80");
-  }
-  .bgJdis{
+}
+
+.bgJdis {
     background-image: url("https://images.unsplash.com/photo-1564518823771-494a12735793?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80");
-  }
-  .inputSink{
+}
+
+.inputSink {
     text-align: center;
-  }
-  
+}
+
+.stackAcc {
+    margin-top: 15px;
+
+
+}
+
+.cajaAcc {
+    border-radius: 4px;
+    padding: 4px;
+    border: solid 1px #808080d9;
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+
+}
+
+.itemsEditAcc {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    align-items: center;
+    justify-content: center;
+    
+}
+.boxItemAcc{
+    border: 1px solid rgb(148 148 148);
+    display: flex;
+    flex-flow: column wrap;
+    width: 8rem;
+    height: 8rem;
+    justify-content: flex-end;
+}
+.imgAcc {
+    height: 100px !important;
+    width: 100px !important;
+    object-fit: cover;
+   
+
+}
+.maskAcc{
+    height: 100%;
+    padding: 3px;
+    width: 100%;
+    /* background-color: #0000008a; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.h5DescAcc{
+    font-size: 15px;
+}
+.pDescAcc{
+    font-size: 12px;
+    text-transform: lowercase;
+    text-align: center;
+   
+}
+.nameIcon{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+.addIconAcc{
+    font-size: 18px!important;
+    color: green;
+}
+
+.deletIconAcc{
+    color: gray;
+    font-size: 18px!important;
+}
+.btnAddAcc{
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    margin-top: 2px;
+
+}
+
 /******Medias*******/
 @media (width < 1024px) {
     .titleCard {
         font-size: 2rem;
     }
 }
+
 @media (width < 768px) {
     .logo {
         height: 3rem !important;
@@ -979,6 +1128,7 @@ label {
     .form {
         width: 85%;
     }
+
     .cajaCheck {
         border: solid 1px rgb(178 178 178);
         /* padding: 10px;
@@ -990,125 +1140,143 @@ label {
         flex-wrap: wrap;
         flex-direction: row;
     }
+
     .cajaCodigo {
         flex-direction: column;
     }
+
     .labelInputCodigo {
         width: 93%;
     }
-    .checksInstalation{
+
+    .checksInstalation {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
     }
- }
-    @media (width < 550px) {
-        .containerIndex1 {
-            flex-direction: column;
-            align-items: center;
-            padding-bottom: 5px;
-        }
-
-        .link {
-            width: 96%;
-        }
-
-        .ml10,
-        .mb10,
-        .mr10 {
-            margin-left: 0 !important;
-            margin-bottom: 0 !important;
-            margin-right: 0 !important;
-        }
-
-        .mt10 {
-            margin-top: 5px !important;
-        }
-
-        .form {
-            width: 95%;
-        }
-
-        label {
-            font-size: 15px;
-        }
-
-        input {
-            border-radius: 8px;
-            height: 18px;
-        }
-
-        .selectCant {
-            border-radius: 13px !important;
-            width: 7rem !important;
-            height: 1.5rem;
-        }
-
-        .inputMui {
-            font-size: 15px !important;
-        }
-
-        .labelCheck {
-            font-size: 12px;
-        }
-
-        .containerDatosForm div {
-            margin-bottom: 5px !important;
-        }
-
-        .cajaCheck {
-            border: solid 1px rgb(178 178 178);
-            /* padding: 10px;
-            margin: 2px; */
-            display: flex;
-            /* flex-direction: column; */
-            flex-direction: row;
-            flex-wrap: wrap;
-        }
-        .subtCard {
-            margin-top: 6px;
-            letter-spacing: 4px;
-            color: #ffffff;
-            font-weight: 900;
-            font-size: 15px;}
-            .inputCodigo{
-                width: 14rem;
-            }
-            
-            .btnAdd{
-                font-size: 15px;
-                align-self: center;
-            }
-            .inputCodigo {
-                width: 11rem;
-            }
-    }
-
-    @media (width < 425px) {
-        .logo {
-            height: 2rem !important;
-        }
-        .linkColors{
-            width: 18rem ;
-        }
-        
-    }
-    @media (width < 375px) {
-        .iconDelet{
-            position: fixed;
-            transform: translateX(12px) translateY(-23px);
-        }
-        .labelInputCodigo {
-            flex-direction: column;
-
-            }
-            .inputCodigo{
-                width: 14rem;
-            }
-            .cheksSink{
-                display: flex;
-                justify-content: flex-start;
-                flex-direction: column;
 }
-            }
-   
+
+@media (width < 550px) {
+    .containerIndex1 {
+        flex-direction: column;
+        align-items: center;
+        padding-bottom: 5px;
+    }
+
+    .link {
+        width: 96%;
+    }
+
+    .ml10,
+    .mb10,
+    .mr10 {
+        margin-left: 0 !important;
+        margin-bottom: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    .mt10 {
+        margin-top: 5px !important;
+    }
+
+    .form {
+        width: 95%;
+    }
+
+    label {
+        font-size: 15px;
+    }
+
+    input {
+        border-radius: 8px;
+        height: 18px;
+    }
+
+    .selectCant {
+        border-radius: 13px !important;
+        width: 7rem !important;
+        height: 1.5rem;
+    }
+
+    .inputMui {
+        font-size: 15px !important;
+    }
+
+    .labelCheck {
+        font-size: 12px;
+    }
+
+    .containerDatosForm div {
+        margin-bottom: 5px !important;
+    }
+
+    .cajaCheck {
+        border: solid 1px rgb(178 178 178);
+        /* padding: 10px;
+            margin: 2px; */
+        display: flex;
+        /* flex-direction: column; */
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .subtCard {
+        margin-top: 6px;
+        letter-spacing: 4px;
+        color: #ffffff;
+        font-weight: 900;
+        font-size: 15px;
+    }
+
+    .inputCodigo {
+        width: 14rem;
+    }
+
+    .btnAdd {
+        font-size: 15px;
+        align-self: center;
+    }
+
+    .inputCodigo {
+        width: 11rem;
+    }
+    .boxItemAcc{
+        width: 7rem;
+    }
+}
+
+@media (width < 425px) {
+    .logo {
+        height: 2rem !important;
+    }
+
+    .linkColors {
+        width: 18rem;
+    }
+
+}
+
+@media (width < 375px) {
+    .iconDelet {
+        position: fixed;
+        transform: translateX(12px) translateY(-23px);
+    }
+
+    .labelInputCodigo {
+        flex-direction: column;
+
+    }
+
+    .inputCodigo {
+        width: 14rem;
+    }
+
+    .cheksSink {
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: column;
+    }
+    .boxItemAcc{
+        width: 12rem;
+    }
+}

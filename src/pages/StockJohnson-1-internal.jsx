@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { useEffect, useState } from 'react'
 import { Link as LinkRouter } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -16,6 +17,19 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import sinkActions from '../redux/actions/sinkActions';
+import Chip from '@mui/material/Chip';
+import Stack from '@mui/material/Stack';
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
+import ImageListItemBar from '@mui/material/ImageListItemBar';
+import ListSubheader from '@mui/material/ListSubheader';
+import IconButton from '@mui/material/IconButton';
+import InfoIcon from '@mui/icons-material/Info';
+import johnsonActions from '../redux/actions/johnsonActions';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
+
+
 
 
 export default function StockInternalJohnson() {
@@ -28,28 +42,32 @@ export default function StockInternalJohnson() {
     const [openAlertEdit, setOpenAlertEdit] = useState(false);
     const [id, setId] = useState("")
     const [idDelet, setIdDelet] = useState("")
-    const [idComp, setIdComp] = useState("")
-    const [lote, setLote] = useState("")
+    const [lau, setLau] = useState([])
+    console.log("🚀 ~ file: StockJohnson-1-internal.jsx ~ line 45 ~ StockInternalJohnson ~ lau", lau)
+    const [openAcc, setOpenAcc] = useState(false)
     const [codigo, setCodigo] = useState("")
     const [esp, setEsp] = useState({})
-    //const [type, setType] = useState("")
+    const [accesories, setAccesories] = useState([])
     const [valueSelect, setValueSelect] = useState('');
-
+    const [accesorysAdd, setAccesorysAdd] = useState([])
+    console.log("🚀 ~ file: StockJohnson-1-internal.jsx ~ line 51 ~ StockInternalJohnson ~ accesorysAdd", accesorysAdd)
     useEffect(() => {
         dispatch(sinkActions.internalSink())
+        dispatch(johnsonActions.getAccesory())
         // eslint-disable-next-line
     }, [reload])
 
     useEffect(() => {
         dispatch(sinkActions.filterInternalSink(inputSearch))
         // eslint-disable-next-line
-    }, [inputSearch,reload])
+    }, [inputSearch, reload])
 
     let internalSink = useSelector(store => store.sinkReducer.internalSink)
     console.log("🚀 ~ file: StockJohnson-1-internal.jsx ~ line 52 ~ StockInternalJohnson ~ internalSink", internalSink)
     let filterInternalSink = useSelector(store => store.sinkReducer.filterInternalSink)
     console.log("🚀 ~ file: StockJohnson-1-internal.jsx ~ line 54 ~ StockInternalJohnson ~ filterInternalSink", filterInternalSink)
-
+    const accesoriesList = useSelector(store => store.johnsonReducer.accesorys)
+    console.log("🚀 ~ file: Johnson-2-model.jsx ~ line 34 ~ JohnsonModel ~ accesorys", accesoriesList)
     const types = useSelector(store => store.typeReducer.types)
 
     const [type, setType] = useState(
@@ -58,14 +76,11 @@ export default function StockInternalJohnson() {
     const typeAct = (id) => {
         setType(types.find((a) => a._id === id));
     };
-    function SortArray(x, y) {
-        if (x.jhonson?.code < y.jhonson?.code) { return -1; }
-        if (x.jhonson?.code > y.jhonson?.code) { return 1; }
-        return 0;
-    }
-    var filterOrd = filterInternalSink.sort(SortArray);
 
-   
+    const handleClickAccesorios = () => {
+        setOpenAcc(true)
+    }
+
     const handleClickOpenAlert = (id) => {
         setIdDelet(id)
         setOpenAlert(true)
@@ -73,34 +88,48 @@ export default function StockInternalJohnson() {
     const handleClickOpenAlertEdit = () => {
         setOpenAlertEdit(true)
     }
-    const handleClickOpen = (id, codigo) => {
+    const handleClickOpen = (id, codigo, acc) => {
+        console.log("🚀 ~ file: StockJohnson-1-internal.jsx ~ line 96 ~ handleClickOpen ~ acc", acc)
         setOpen(true);
         setId(id);
         setCodigo(codigo);
         setValueSelect("int")
-        
-
+        setAccesories(acc)
+        let ac = []
+        acc.forEach(element => {
+            ac.push(element._id)
+        });
+        console.log(ac)
+        setAccesorysAdd(ac)
     }
+
     const handleCloseEdit = () => {
         setOpenAlertEdit(false)
     };
     const handleCloseDelet = () => {
         setOpenAlert(false)
     };
+
     const handleClose = () => {
         setOpen(false);
+        setOpenAcc(false)
     };
-
     const handleChange = (event) => {
         setValueSelect(event.target.value);
     };
-    // const handleChangeType = (event) => {
-    //     console.log("🚀 ~ file: Stock-1-internal.jsx ~ line 88 ~ handleChangeType ~ event", event.target.value)
-    //     setEsp(event.target.value)
-    //     typeAct(event.target.value);
-    //     console.log(type)
-    //     setReload(!reload)
-    // };
+    const addAccesory = (id, elem) => {
+        if (accesorysAdd.includes(id)) {
+            console.log("ya esta en la lista")
+            setAccesorysAdd(accesorysAdd.filter(x => x !== id))
+            setAccesories(accesories.filter(x => x._id !== elem._id))
+        }
+        else {
+            setAccesorysAdd([...accesorysAdd, id])
+            setAccesories([...accesories, elem])
+            console.log("agregado")
+        }
+
+    }
 
     async function modify(id, op) {
         let data = {}
@@ -108,11 +137,14 @@ export default function StockInternalJohnson() {
             data = {
                 internal: null,
                 note: codigo,
+                accesories: accesorysAdd
             }
         }
         else {
             data = {
                 internal: codigo,
+                note: null,
+                accesories: accesorysAdd
             }
         }
 
@@ -120,9 +152,9 @@ export default function StockInternalJohnson() {
         const res = await dispatch(sinkActions.putSink(id, data))
         console.log("🚀 ~ file: Stock-1-internal.jsx ~ line 67 ~ modify ~ res", res)
 
-        setReload(!reload)
         setOpenAlertEdit(false)
         setOpen(false);
+        setReload(!reload)
 
     }
     async function delet(id) {
@@ -140,25 +172,24 @@ export default function StockInternalJohnson() {
             <div className='containerInput'>
                 <input className='input inputStock inputSink' type="text" placeholder='Buscar por codigo' onChange={(e) => setInputSearch(e.target.value)} />
             </div>
-
-            {filterOrd.length > 0 ?
+            {filterInternalSink.length > 0 ?
                 <div className='containerCardsMarca mt10'>
-                    {filterOrd?.map(sink => (
-                        
+                    {filterInternalSink?.map(sink => (
+
                         <div className='linkColors cardStock' key={sink._id}>
                             <div className='companyCardStock'>
                                 <h2 className='nameCards'>Código: {sink.internal}</h2>
-                                <h3 className='nameCards'>{sink.jhonson?.code}</h3> 
+                                <h3 className='nameCards'>{sink.jhonson?.code}</h3>
                                 <img src={sink.jhonson?.photo} alt={sink._id} className='fitStock' id={sink._id} />
                                 <h3 className='nameCards'> {sink.jhonson?.x} × {sink.jhonson?.y} × {sink.jhonson?.z}</h3>
-                                
+
                                 <div className='containerBtnVermas'>
                                     <LinkRouter className='iconVerMas' to={'/stock/plates/internal/detail/' + sink._id}  >
                                         Ver más
                                     </LinkRouter>
                                 </div>
                                 <div className='bntEditDelet'>
-                                    <button className='iconEdit' onClick={() => handleClickOpen(sink._id, sink.internal)}>Editar</button>
+                                    <button className='iconEdit' onClick={() => handleClickOpen(sink._id, sink.internal, sink.accesories)}>Editar</button>
                                     <button className='iconDelete' onClick={() => handleClickOpenAlert(sink._id)}>Eliminar</button>
 
                                 </div>
@@ -170,12 +201,12 @@ export default function StockInternalJohnson() {
                                     </DialogContentText>
                                 </DialogContent>
                                 <DialogActions>
-                                    <Button onClick={()=>delet(idDelet)}>Confirmar</Button>
+                                    <Button onClick={() => delet(idDelet)}>Confirmar</Button>
                                     <Button onClick={handleCloseDelet}>Cancelar</Button>
                                 </DialogActions>
-                        </Dialog>
+                            </Dialog>
 
-                        <Dialog open={openAlertEdit} onClose={handleClose}>
+                            <Dialog open={openAlertEdit} onClose={handleClose}>
                                 <DialogContent>
                                     <DialogContentText>
                                         Esta seguro de realizar estos cambios?
@@ -185,23 +216,15 @@ export default function StockInternalJohnson() {
                                     <Button onClick={() => modify(id, valueSelect)}>Confirmar</Button>
                                     <Button onClick={handleCloseEdit}>Cancelar</Button>
                                 </DialogActions>
-                        </Dialog>
+                            </Dialog>
                         </div>
-                        
-                    
-                        
                     ))
-
 
                     }
                 </div>
                 : <div className='noResult'>
                     <h1>no hay resultados</h1>
                 </div>
-
-
-
-
             }
 
 
@@ -210,7 +233,6 @@ export default function StockInternalJohnson() {
                     <DialogContentText>
                         Editar campos
                     </DialogContentText>
-                    
                     <div className='selectCodigo'>
                         <InputLabel id="demo-simple-select-label">Codigo:</InputLabel>
                         <Select
@@ -237,6 +259,47 @@ export default function StockInternalJohnson() {
                         onChange={(event) => setCodigo(event.target.value)}
                         id="nuevoCod"
                     />
+
+                    <div className='stackAcc'>
+                        <InputLabel id="demo-simple-select-label">Accesorios:</InputLabel>
+                        {
+                            accesories.length > 0 ?
+                            <div className='cajaAcc'>
+                            {accesories.map((op) => (
+
+                                <Chip key={op._id} value={op._id} label={op.code} />
+                            ))}
+
+                        </div> : <div className='cajaAcc'><h5>No selecciono ningun acc</h5></div>
+                        }
+                        
+
+
+                        <div className='btnAddAcc'>
+                            <button onClick={handleClickAccesorios}>Agregar</button>
+                        </div>
+
+                    </div>
+
+
+
+                    {/* <Select
+                        multiple
+                        native
+                        value={esp}
+                        // @ts-ignore Typings are not considering `native`
+                        //onChange={handleChangeMultiple}
+                        label="Accesorios"
+                        inputProps={{
+                            id: 'select-multiple-native',
+                        }}
+                    >
+                        {accesories.map((op) => (
+                            <option key={op._id} value={op._id}>
+                                {op.code}
+                            </option>
+                        ))}
+                    </Select> */}
                 </DialogContent>
 
                 <DialogActions>
@@ -246,6 +309,44 @@ export default function StockInternalJohnson() {
                 </DialogActions>
 
 
+            </Dialog>
+
+            <Dialog open={openAcc} onClose={handleClose}>
+                <DialogContent>
+                    <DialogContentText>Accesorios:</DialogContentText>
+                    <div className='itemsEditAcc'>
+                        {accesoriesList.map((item) => (
+                            <button
+                                onClick={() => addAccesory(item._id, item)}
+                                key={item._id}
+                                className='boxItemAcc'
+                                style={{
+                                    "backgroundImage": `url(${item.photo})`,
+                                    "backgroundSize": "cover",
+                                    "backgroundPosition": "center",
+                                    "objectFit": "cover"
+                                }}>
+
+
+                                <div className='maskAcc'>
+                                    <div className='nameIcon'>
+                                        <h5 className='h5DescAcc'>{item.code}</h5>
+                                        {accesorysAdd?.includes(item._id) ?
+                                            <CheckCircleIcon className="addIconAcc" />
+                                            :
+                                            <RadioButtonUncheckedIcon className="deletIconAcc" />}
+                                    </div>
+                                    <p className='pDescAcc'>{item.description}</p>
+                                </div>
+                            </button>
+                        ))}
+                    </div>
+
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => setOpenAcc(false)}>Listo</Button>
+                    <Button onClick={() => setOpenAcc(false)}>Cancelar</Button>
+                </DialogActions>
             </Dialog>
         </div>
     )

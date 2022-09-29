@@ -26,12 +26,22 @@ export default function StockNoteJohnson() {
     console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 25 ~ StockNoteJohnson ~ filterNoteSink", filterNoteSink)
     
 
-    function SortArray(x, y) {
-        if (x.jhonson?.code < y.jhonson?.code) { return -1; }
-        if (x.jhonson?.code > y.jhonson?.code) { return 1; }
-        return 0;
+    
+    function bau(array) {
+        let mayor=0;
+        for (let i = 0; i < array.length; i++) {
+            if (array[i]>0 && array[i]<10) {
+                if (array[i] > mayor){
+                    mayor=array[i]
+                }
+            }
+        }
+        return console.log(mayor)
+        
     }
-    var filterOrd = filterNoteSink.sort(SortArray);
+    const a =[1, 0 , 9, 8, 100]
+    bau(a)
+
     return (
         <div className='containerStock'>
             <div className='containerNameStock vendidas'>
@@ -43,10 +53,10 @@ export default function StockNoteJohnson() {
             <div className='containerInput'>
                 <input className='input inputStock' type="text" placeholder='Buscar por color, cod. o emp.' onChange={(e) => setInputSearch(e.target.value)} />
             </div>
-            {filterOrd.length > 0 ?
+            {filterNoteSink.length > 0 ?
                 <div className='containerCardsMarca mt10'>
 
-                    {filterOrd?.map(sink => (
+                    {filterNoteSink?.map(sink => (
                         <div className='linkColors cardStock' key={sink._id}>
                             <div className='companyCardStock'>
                                 <h2 className='nameCards'>Código: {sink.note}</h2>
