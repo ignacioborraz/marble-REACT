@@ -35,6 +35,7 @@ import JohnsonData from './pages/Johnson-4-Data'
 import StockJohnsonMenu from './pages/StockJohnson-0'
 import StockInternalJohnson from './pages/StockJohnson-1-internal'
 import StockNoteJohnson from './pages/StockJohnson-2-note'
+import ScrollToTop from './components/ScrollToTop'
 
 export default function App() {
 
@@ -52,6 +53,7 @@ export default function App() {
 
     return (
         <div className='index'>
+            <ScrollToTop />
             {user && <NavBar />}
             <Routes>
                 {user ? (<>
