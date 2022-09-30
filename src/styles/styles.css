@@ -1123,6 +1123,14 @@ label {
 .instalacionBox{
     margin-top: 12px;
 }
+.btnAgregar{
+    border-radius: 8px;
+    padding: 4px;
+    border: 1px solid;
+    background-color: #077d07;
+    color: white;
+    letter-spacing: 0.5px;
+}
 /******Medias*******/
 @media (width < 1024px) {
     .titleCard {

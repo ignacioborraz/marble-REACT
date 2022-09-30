@@ -325,7 +325,7 @@ export default function StockInternalJohnson() {
 
 
                         <div className='btnAddAcc'>
-                            <button onClick={handleClickAccesorios}>Agregar</button>
+                            <button className='btnAgregar' onClick={handleClickAccesorios}>Agregar</button>
                         </div>
 
                     </div>
