@@ -74,7 +74,7 @@ const addInstalacion = (elem) => {
     let sink = JSON.parse(localStorage.getItem('sink'))
     sink.comments = comments?.current.value.trim()
     sink.done = false
-    instalation ? (sink.instalation = instalation): sink.instalation = "instalation lateral"
+    instalation ? (sink.instalation = instalation): sink.instalation = "instalacion lateral"
     sink.accesories= accesorysAdd
     if (typeCode === "interno") {
       sink.internal = codigo

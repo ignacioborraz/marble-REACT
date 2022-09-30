@@ -16,6 +16,9 @@ import Chip from '@mui/material/Chip';
 import johnsonActions from '../redux/actions/johnsonActions';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import Box from '@mui/material/Box';
+
 
 export default function StockInternalJohnson() {
 
@@ -32,7 +35,9 @@ export default function StockInternalJohnson() {
     const [accesories, setAccesories] = useState([])
     const [valueSelect, setValueSelect] = useState('');
     const [accesorysAdd, setAccesorysAdd] = useState([])
-    console.log("🚀 ~ file: StockJohnson-1-internal.jsx ~ line 51 ~ StockInternalJohnson ~ accesorysAdd", accesorysAdd)
+    const [instalation, setInstalation] = useState([])
+    const [typeInstalation, setTypeInstalation] = useState([])
+    console.log("👽 ~ file: StockJohnson-1-internal.jsx ~ line 39 ~ StockInternalJohnson ~ instalation", instalation)
     useEffect(() => {
         dispatch(sinkActions.internalSink())
         dispatch(johnsonActions.getAccesory())
@@ -49,9 +54,6 @@ export default function StockInternalJohnson() {
     let filterInternalSink = useSelector(store => store.sinkReducer.filterInternalSink)
     console.log("🚀 ~ file: StockJohnson-1-internal.jsx ~ line 54 ~ StockInternalJohnson ~ filterInternalSink", filterInternalSink)
     const accesoriesList = useSelector(store => store.johnsonReducer.accesorys)
-    console.log("🚀 ~ file: Johnson-2-model.jsx ~ line 34 ~ JohnsonModel ~ accesorys", accesoriesList)
-    const types = useSelector(store => store.typeReducer.types)
-
 
     const handleClickAccesorios = () => {
         setOpenAcc(true)
@@ -64,12 +66,15 @@ export default function StockInternalJohnson() {
     const handleClickOpenAlertEdit = () => {
         setOpenAlertEdit(true)
     }
-    const handleClickOpen = (id, codigo, acc) => {
+    const handleClickOpen = (id, codigo, acc, instalation, typeInstalation) => {
+        console.log("🚀 ~ file: StockJohnson-1-internal.jsx ~ line 69 ~ handleClickOpen ~ instalation", instalation)
         console.log("🚀 ~ file: StockJohnson-1-internal.jsx ~ line 96 ~ handleClickOpen ~ acc", acc)
         setOpen(true);
         setId(id);
         setCodigo(codigo);
         setValueSelect("int")
+        setInstalation(instalation)
+        setTypeInstalation(typeInstalation)
         setAccesories(acc)
         let ac = []
         acc.forEach(element => {
@@ -106,6 +111,15 @@ export default function StockInternalJohnson() {
         }
 
     }
+    const handleChangeInsta = (event) => {
+        const {
+            target: { value },
+        } = event;
+        setInstalation(
+            // On autofill we get a stringified value.
+            typeof value === 'string' ? value.split(',') : value,
+        );
+    };
 
     async function modify(id, op) {
         let data = {}
@@ -113,14 +127,16 @@ export default function StockInternalJohnson() {
             data = {
                 internal: null,
                 note: codigo,
-                accesories: accesorysAdd
+                accesories: accesorysAdd,
+                instalation:instalation
             }
         }
         else {
             data = {
                 internal: codigo,
                 note: null,
-                accesories: accesorysAdd
+                accesories: accesorysAdd,
+                instalation:instalation
             }
         }
 
@@ -165,13 +181,13 @@ export default function StockInternalJohnson() {
                                     </LinkRouter>
                                 </div>
                                 <div className='bntEditDelet'>
-                                    <button className='iconEdit' onClick={() => handleClickOpen(sink._id, sink.internal, sink.accesories)}>Editar</button>
+                                    <button className='iconEdit' onClick={() => handleClickOpen(sink._id, sink.internal, sink.accesories, sink.instalation, sink.jhonson.instalation)}>Editar</button>
                                     <button className='iconDelete' onClick={() => handleClickOpenAlert(sink._id)}>Eliminar</button>
 
                                 </div>
                             </div>
-                            <Dialog open={openAlert} onClose={handleClose}>
-                                <DialogContent>
+                            <Dialog className='dialogDelet' open={openAlert} onClose={handleClose}>
+                                <DialogContent  >
                                     <DialogContentText>
                                         Esta seguro que desea eliminar?
                                     </DialogContentText>
@@ -236,19 +252,76 @@ export default function StockInternalJohnson() {
                         id="nuevoCod"
                     />
 
+                    {/* <div className='stackAcc'>
+                        <InputLabel id="demo-simple-select-label">Instalacion:</InputLabel>
+                        {
+                            instalation.length > 0 ?
+                                <div className='cajaAcc'>
+                                    {instalation.map((op, index) => (
+
+                                        <Chip key={index} value={op} label={op} />
+                                    ))}
+
+                                </div> : <div className='cajaAcc'><h5>No selecciono ningun acc</h5></div>
+                        }
+
+
+
+                        <div className='btnAddAcc'>
+                            <button onClick={handleClickAccesorios}>Agregar</button>
+                        </div>
+
+                    </div> */}
+                    {
+                        typeInstalation.length > 0 ?
+                            <div className='instalacionBox'>
+                                <InputLabel id="demo-multiple-chip-label">Instalación:</InputLabel>
+                                <Select
+                                    labelId="demo-multiple-chip-label"
+                                    id="demo-multiple-chip-label"
+                                    multiple
+                                    value={instalation}
+                                    onChange={handleChangeInsta}
+                                    input={<OutlinedInput id="select-multiple-chip" label="Instalacion" />}
+                                    renderValue={(selected) => (
+                                        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                                            {selected.map((value) => (
+                                                <Chip key={value} label={value} />
+                                            ))}
+                                        </Box>
+                                    )}
+                                //MenuProps={MenuProps}
+                                >
+                                    {typeInstalation.map((name) => (
+                                        <MenuItem
+                                            key={name}
+                                            value={name}
+                                        //style={getStyles(name, personName, theme)}
+                                        >
+                                            {name}
+                                        </MenuItem>
+                                    ))}
+                                    <MenuItem value={"instalacion lateral"}>instalacion lateral</MenuItem>
+
+                                </Select>
+                            </div> : null
+
+                    }
+
+
                     <div className='stackAcc'>
                         <InputLabel id="demo-simple-select-label">Accesorios:</InputLabel>
                         {
                             accesories.length > 0 ?
-                            <div className='cajaAcc'>
-                            {accesories.map((op) => (
+                                <div className='cajaAcc'>
+                                    {accesories.map((op) => (
 
-                                <Chip key={op._id} value={op._id} label={op.code} />
-                            ))}
+                                        <Chip key={op._id} value={op._id} label={op.code} />
+                                    ))}
 
-                        </div> : <div className='cajaAcc'><h5>No selecciono ningun acc</h5></div>
+                                </div> : <div className='cajaAcc'><h5>No selecciono ningun acc</h5></div>
                         }
-                        
+
 
 
                         <div className='btnAddAcc'>
