@@ -1108,6 +1108,15 @@ label {
     margin-top: 2px;
 
 }
+.btnAddJ{
+    display: flex;
+    justify-content: center;
+
+}
+.botonAddAcc{
+    font-size: 16px;
+    width: 12rem;
+}
 
 /******Medias*******/
 @media (width < 1024px) {

@@ -7,8 +7,14 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import johnsonActions from '../redux/actions/johnsonActions';
 import sinkActions from '../redux/actions/sinkActions';
 import Container from '../components/Container'
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
+
 export default function JohnsonData() {
 
   const navigate = useNavigate()
@@ -18,51 +24,49 @@ export default function JohnsonData() {
   console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 16 ~ JohnsonData ~ johnson", jhonson)
   const dispatch = useDispatch()
   const [codigo, setCodigo] = useState("")
-  const [instalation, setInstalation] = useState("instalacion lateral")
+  const [instalation, setInstalation] = useState("")
   console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 20 ~ JohnsonData ~ instalation", instalation)
   console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 18 ~ JohnsonData ~ codigo", codigo)
   const [typeCode, setTypeCode] = useState("")
   console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 19 ~ JohnsonData ~ type", typeCode)
-  const [inputs, setInputs] = useState([
-    {
-      codigo: "",
-      typeCode: "",
-    }
-  ]);
+  
+  const [openAcc, setOpenAcc] = useState(false)
+  const [accesorysAdd, setAccesorysAdd] = useState([])
+  console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 35 ~ JohnsonData ~ accesorysAdd", accesorysAdd)
   useEffect(() => {
     dispatch(johnsonActions.getOneJohnson(jhonson))
+    dispatch(johnsonActions.getAccesory())
     // eslint-disable-next-line
   }, [])
 
   const johnsonSelect = useSelector(store => store.johnsonReducer.oneJohnson)
-  console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 34 ~ JohnsonData ~ johnsonSelect", johnsonSelect)
-
-  const addInput = () => {
-
-    if (inputs.length >= 10) {
-      console.log("ya no se puede agregar mas")
+  const accesoriesList = useSelector(store => store.johnsonReducer.accesorys)
+  const addAccesory = (id, elem) => {
+    if (accesorysAdd.includes(id)) {
+        console.log("ya esta en la lista")
+        setAccesorysAdd(accesorysAdd.filter(x => x !== id))
     }
     else {
-      setInputs([...inputs, {
-        codigo: "",
-        typeCode: "",
-      }
-      ])
+        setAccesorysAdd([...accesorysAdd, id])
+        console.log("agregado")
     }
+
+}
+const addInstalacion = (elem) => {
+  if (instalation.includes(elem)) {
+      console.log("ya esta en la lista")
+      setInstalation(instalation.filter(x => x !== elem))
+  }
+  else {
+    setInstalation([...instalation, elem])
+      console.log("agregado")
   }
 
-  const deleteInput = (index) => {
-    const fields = inputs
-    fields.splice(index, 1)
-    setInputs([...inputs])
-  }
+}
 
-  const datos = (value, index, key) => {
-    const fields = inputs
-    fields[index][key] = value.target.value;
-    setInputs([...inputs])
-  }
-  console.log("🚀 ~ file: New-4-Data.jsx ~ line 79 ~ SelectType ~ inputs", inputs)
+  const handleClickAccesorios = () => {
+    setOpenAcc(true)
+}
 
 
   async function creatingSink(event) {
@@ -70,7 +74,8 @@ export default function JohnsonData() {
     let sink = JSON.parse(localStorage.getItem('sink'))
     sink.comments = comments?.current.value.trim()
     sink.done = false
-    sink.instalation = instalation
+    instalation ? (sink.instalation = instalation): sink.instalation = "instalation lateral"
+    sink.accesories= accesorysAdd
     if (typeCode === "interno") {
       sink.internal = codigo
       sink.note = null
@@ -118,8 +123,8 @@ export default function JohnsonData() {
                         </div>
                         {
                           johnsonSelect.instalation?.map((op, index) =>
-                            <label key={index} className='ml10 labelCheck' >
-                              <input type="radio" id={`instalation-${index + 1}`} name={`instalation`} value={op} required onChange={(e) => setInstalation(e.target.value)} />{op}
+                            <label key={index} className='ml10 labelCheck' name="checkbox-group" >
+                              <input type='checkbox' id={`instalation-${index + 1}`} name="checkbox-group"  value={op} onChange={(e) => addInstalacion(e.target.value) } />{op}
                             </label>
                           )
                         }
@@ -133,6 +138,47 @@ export default function JohnsonData() {
                   <label htmlFor='comentario'>COMENTARIO: </label>
                   <input className='inputCodigo inputGrow' id='comentario' type='text' ref={comments} />
                 </div>
+                <div className='btnAddJ'>
+                <button type='button' className='btnAdd botonAddAcc' onClick={handleClickAccesorios}>agregar Accesorios</button>
+
+                </div>
+                <Dialog open={openAcc} >
+                <DialogContent>
+                    <DialogContentText>Accesorios:</DialogContentText>
+                    <div className='itemsEditAcc'>
+                        {accesoriesList.map((item) => (
+                            <button
+                                onClick={() => addAccesory(item._id, item)}
+                                key={item._id}
+                                className='boxItemAcc'
+                                style={{
+                                    "backgroundImage": `url(${item.photo})`,
+                                    "backgroundSize": "cover",
+                                    "backgroundPosition": "center",
+                                    "objectFit": "cover"
+                                }}>
+
+
+                                <div className='maskAcc'>
+                                    <div className='nameIcon'>
+                                        <h5 className='h5DescAcc'>{item.code}</h5>
+                                        {accesorysAdd?.includes(item._id) ?
+                                            <CheckCircleIcon className="addIconAcc" />
+                                            :
+                                            <RadioButtonUncheckedIcon className="deletIconAcc" />}
+                                    </div>
+                                    <p className='pDescAcc'>{item.description}</p>
+                                </div>
+                            </button>
+                        ))}
+                    </div>
+
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => setOpenAcc(false)}>Listo</Button>
+                    <Button onClick={() => setOpenAcc(false)}>Cancelar</Button>
+                </DialogActions>
+            </Dialog>
 
 
 

@@ -66,7 +66,7 @@ export default function JohnsonModel() {
                             filterType.length > 0 ?
                                 <div className='containerCardsMarca'>
                                     {filterType?.map(everyColor => (
-                                        <LinkRouter className='linkColors' to={'/johnson/new/accesory'} onClick={creatingSink} key={everyColor._id} id={everyColor._id}>
+                                        <LinkRouter className='linkColors' to={'/johnson/new/type/data'} onClick={creatingSink} key={everyColor._id} id={everyColor._id}>
                                             <h2 className='nameCards'>{everyColor.code}</h2>
                                             <img src={everyColor.photo} alt={everyColor._id} className='fitModel' id={everyColor._id} />
                                             <h2 className='nameCards'>{everyColor.x} x {everyColor.y} x {everyColor.z} </h2>

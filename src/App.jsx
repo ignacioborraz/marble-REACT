@@ -79,7 +79,7 @@ export default function App() {
                     <Route path="/johnson/new" element={<JohnsonType/>} />
                     <Route path="/johnson/new/:type" element={<JohnsonModel/>} />
                     <Route path="/johnson/new/accesory" element={<JohnsonAccesory/>} />
-                    <Route path="/johnson/new/type/accesory/data" element={<JohnsonData/>} />
+                    <Route path="/johnson/new/type/data" element={<JohnsonData/>} />
                     <Route path="/johnson/stock" element={<StockJohnsonMenu/>} />
                     <Route path="/johnson/stock/internal" element={<StockInternalJohnson/>} />
                     <Route path="/johnson/stock/note" element={<StockNoteJohnson/>} />
