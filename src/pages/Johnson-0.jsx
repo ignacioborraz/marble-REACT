@@ -15,7 +15,6 @@ export default function JohnsonMenu() {
                         </div>
                     </div>
                 </LinkRouter>
-
                 <LinkRouter to={'/johnson/stock'}  className="linkTypes mr10 mb10 menorH">
                     <div className="bgType bgStockJohnson" >
                         <div className='mask'>

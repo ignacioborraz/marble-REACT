@@ -3,13 +3,9 @@ import { Link as LinkRouter } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import companyActions from '../redux/actions/companyActions'
 import Container from '../components/Container'
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
-import RequestQuoteIcon from '@mui/icons-material/RequestQuote';
-import TaskIcon from '@mui/icons-material/Task';
 
 export default function EditPlateTypeModif() {
     const dispatch = useDispatch()
-
     console.log(JSON.parse(localStorage.getItem('editPlate')))
     const plate = JSON.parse(localStorage.getItem('editPlate'))
     const type = plate.type
@@ -50,32 +46,20 @@ export default function EditPlateTypeModif() {
             ]
         },
     ]
-
     const opSelect = option.find(t => t.type === type)
-    console.log("🚀 ~ file: EditPlate-4-modif.jsx ~ line 55 ~ opSelect", opSelect)
-
 
     useEffect(() => {
         dispatch(companyActions.getCompanies())
         // eslint-disable-next-line
     }, [])
-
     const companies = useSelector(store => store.companyReducer.companies)
-    console.log("🚀 ~ file: New-1-Company.jsx ~ line 16 ~ SelectCompany ~ companies", companies)
-
-    // function creatingPlate(event) {
-    //     let plate = JSON.parse(localStorage.getItem('editPlate'))
-    //     plate.type = event.currentTarget.id
-    //     localStorage.setItem('editPlate', JSON.stringify(plate))
-    // }
 
     return (
         <Container grow='1' wrap='wrap' bgColor='rgb(224,224,224)'>
             <Container width='100%' justify='space-evenly' align='center' wrap='wrap'>
                 {
                     opSelect.options.map(op => (
-                        <div className={` linkTypes  mr10 mb10  ${op.class1}`} key={op.id} 
-                        /* to={'/editPlate/plate'} onClick={creatingPlate} id="placaEntera"*/>
+                        <div className={` linkTypes  mr10 mb10  ${op.class1}`} key={op.id}>
                             <div className={`bgType ${op.class} `}>
                                 <div className='mask'>
                                     <h1 className='titleCard'>{op.name}</h1>

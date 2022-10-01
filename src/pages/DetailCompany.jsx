@@ -1,39 +1,29 @@
 import React, {useEffect,useState} from 'react'
 import {useParams,useNavigate} from 'react-router-dom'
-
 import EditIcon from '@mui/icons-material/Edit'
 import {Grid} from '@mui/material'
-
 import Container from '../components/Container'
 import StyledGrid from '../components/StyledGrid'
 import StyledGridImg from '../components/StyledGridImg'
 import StyledIcon from '../components/StyledIcon'
 import Text from '../components/Text'
-
 import {useDispatch,useSelector} from 'react-redux'
 import companyActions from '../redux/actions/companyActions'
-
 export default function DetailCompany({bgImage}) {
-
     const {id} = useParams()
     const [reload,setReload] = useState(false) //va a contener el booleano que recargará la renderización
     const [openEdit,setOpenEdit] = useState(false) //va a contener el booleano que abrirá las opciones de edición
     const [property,setProperty] =  useState("") //va a contener la propiedad a editar
     const [newProperty,setNewProperty] = useState("") //va a contener el valor de la nueva propiedad
     const navigate = useNavigate()
-
     const dispatch = useDispatch() //este metodo sirve para despachar acciones al store
-
     useEffect( () => {
         dispatch(companyActions.getOneCompany(id))
     },[reload])
-
     const company = useSelector(store => store.companyReducer.oneCompany) //defino una variable con los datos del store
-
     function toOpenEdit(event) { //funcion que despliega/oculta las opciones de edicion
         setOpenEdit(!openEdit)
     }
-
     async function toEdit() { //función que edita el objeto
         if (property && newProperty) {
             let editData = {}
@@ -46,15 +36,11 @@ export default function DetailCompany({bgImage}) {
             setNewProperty("")
         }
     }
-
     async function toDelete() { //función que elimina el objeto
-        /* await dispatch(companyActions.deleteCompany(id))
-            .then(navigate("/getCompanies",{replace:true})) */
             navigate("/getCompanies",{replace:true})
     }
 
     let classN = 'backGroundStyle '+bgImage
-
     return (
         <Grid container sx={{flexGrow: '1', backgroundColor: 'rgb(25,25,25)'}}>
             <StyledGridImg bgColor='rgb(224,224,224)' className={classN} />

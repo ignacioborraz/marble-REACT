@@ -14,7 +14,6 @@ export default function JohnsonAccesory() {
     const [accesorysAdd, setAccesorysAdd] = useState("")
     const [reload, setReload] = useState(false)
     const navigate = useNavigate()
-    console.log("🚀 ~ file: Johnson-3-accesory.jsx ~ line 20 ~ JohnsonAccesory ~ accesorysAdd", accesorysAdd)
 
     useEffect(() => {
         dispatch(johnsonActions.getAccesory())
@@ -25,13 +24,7 @@ export default function JohnsonAccesory() {
         // eslint-disable-next-line
     }, [inputSearch])
 
-    const accesorys = useSelector(store => store.johnsonReducer.accesorys)
-    console.log("🚀 ~ file: Johnson-2-model.jsx ~ line 34 ~ JohnsonModel ~ accesorys", accesorys)
-
     const filterAccesory = useSelector(store => store.johnsonReducer.filterAccesory)
-    console.log("🚀 ~ file: Johnson-3-accesory.jsx ~ line 35 ~ JohnsonAccesory ~ filterAccesory", filterAccesory)
-
-    
 
     function SortArray(x, y) {
         if (x.code < y.code) { return -1; }
@@ -65,7 +58,6 @@ export default function JohnsonAccesory() {
         console.log(JSON.parse(localStorage.getItem('sink')))
     }
 
-
     return (
         <Container grow='1' wrap='wrap' bgColor='rgb(224,224,224)' sx={{ alignContent: 'flex-start' }}>
             <Container width='100%' wrap='wrap' justify='center' content='start' sx={{ alignContent: 'flex-start' }} >
@@ -73,10 +65,8 @@ export default function JohnsonAccesory() {
                     <div className={`hola bgAccesorios`}>
                         <div className='mask2'>
                             <h1 className='titleCardCompany'>Accesorios</h1>
-                        
                         </div>
                     </div>
-
                 </div>
                 <div>
                     <div className='containerInput'>
@@ -93,13 +83,10 @@ export default function JohnsonAccesory() {
                                     </svg>
                                 </LinkRouter>) : <div className='divContinuar'> <LinkRouter onClick={ninguno} className='btnForm btnNinguno' to={'/johnson/new/type/accesory/data'} >Ninguno</LinkRouter></div>
                         }
-
                     </div>
-
 
                     {
                         filterOrd ? (
-
                             filterOrd.length > 0 ?
                                 <div className='containerCardsMarca'>
                                     {filterOrd?.map(everyColor => (
@@ -111,16 +98,13 @@ export default function JohnsonAccesory() {
                                                 <div style={{ "fontSize": 30, "color": "gray" }} className="addIcon"><RadioButtonUncheckedIcon /></div>}
                                             <img src={everyColor.photo} alt={everyColor._id} className='fitAccesory' id={everyColor._id} />
                                             <h2 className='nameCards descriptionh2'>{everyColor.description}</h2>
-
                                         </button>
                                     ))}
                                 </div>
-
                                 :
                                 <div className='noResult'>
                                     <h1>no hay resultados</h1>
                                 </div>
-
                         ) : <Skeleton variant="rectangular" width={210} height={118} />
                     }
 

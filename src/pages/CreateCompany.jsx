@@ -1,31 +1,22 @@
 import {useNavigate} from 'react-router-dom'
 import {useDispatch} from 'react-redux'
-
 import {Grid} from '@mui/material'
-
 import StyledGrid from '../components/StyledGrid'
 import StyledGridImg from '../components/StyledGridImg'
 import StyledInput from '../components/StyledInput'
 import Text from '../components/Text'
-
 import companyActions from '../redux/actions/companyActions'
-
 export default function CreateCompany({options}) {
-
     const navigate = useNavigate()
     const dispatch = useDispatch()
-
     const allInputs = {}
-    
     async function handleCreation(event) {
         event.preventDefault()
         console.log(allInputs)
         await dispatch(companyActions.createCompany(allInputs))
             .then(navigate("/createdCompany",{replace:true}))
     }
-
     let classN = 'backGroundStyle '+options.bgImage
-
     return (
         <Grid container sx={{flexGrow: '1', backgroundColor: 'rgb(25,25,25)'}}>
             <StyledGridImg bgColor='rgb(224,224,224)' className={classN} />

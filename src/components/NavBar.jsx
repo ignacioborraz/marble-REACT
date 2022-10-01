@@ -1,8 +1,6 @@
 import { useState } from 'react'
 
 import Container from './Container'
-import Text from './Text'
-
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Box from '@mui/material/Box'
 import IconButton from '@mui/material/IconButton'
@@ -15,29 +13,21 @@ import logo from '../media/Logo-Chico-Marmoleria-Portaro-Rosario.png'
 import { useSelector, useDispatch } from 'react-redux'
 import userActions from '../redux/actions/userActions'
 import { Link as LinkRouter, useNavigate } from 'react-router-dom'
-
 let userOptions = [
   { to: '/usuario', name: 'nuevo' },
   { to: '/ingresar', name: 'ingresar' }
 ]
-
 export default function NavBar() {
-
   const user = useSelector(store => store.userReducer.user)
-  console.log("🚀 ~ file: NavBar.jsx ~ line 27 ~ NavBar ~ user", user)
   const navigate = useNavigate()
   const dispatch = useDispatch()
-
   const [anchorElUser, setAnchorElUser] = useState(null)
-
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
-
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   }
-
   async function signOut() {
     await dispatch(userActions.signOut(user.user.id))
       .then(navigate("/ingresar", { replace: true }))

@@ -5,18 +5,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import colorActions from '../redux/actions/colorActions';
 import companyActions from '../redux/actions/companyActions';
 import Container from '../components/Container'
-import Text from '../components/Text'
-import CircularProgress from '@mui/material/CircularProgress';
-import Box from '@mui/material/Box';
-import Skeleton from '@mui/material/Skeleton';
 export default function SelectColor() {
 
     const { id } = useParams()
     const dispatch = useDispatch()
     const [inputSearch, setInputSearch] = useState("")
-
     useEffect(() => {
-
         dispatch(colorActions.getColors(id))
         // eslint-disable-next-line
     }, [id])
@@ -28,19 +22,14 @@ export default function SelectColor() {
     }, [inputSearch, id])
 
     let filterCard = useSelector(store => store.colorReducer.filterColors)
-
     const company = useSelector(store => store.companyReducer.oneCompany)
-
 
     function creatingPlate(event) {
         console.log("🚀 ~ file: New-2-Color.jsx ~ line 32 ~ creatingPlate ~ event", event)
         let plate = JSON.parse(localStorage.getItem('plate'))
         plate.color = event.target.id
         localStorage.setItem('plate', JSON.stringify(plate))
-        //console.log(JSON.parse(localStorage.getItem('plate')))
     }
-
-    //const ord = filterCard.sort((a, b) => b.name - a.name)
 
     function SortArray(x, y) {
         if (x.name < y.name) { return -1; }
@@ -48,7 +37,6 @@ export default function SelectColor() {
         return 0;
     }
     var filterOrd = filterCard.sort(SortArray);
-    //console.log(filterOrd);
 
     return (
         <Container grow='1' wrap='wrap' bgColor='rgb(224,224,224)' sx={{ alignContent: 'flex-start' }}>
@@ -59,17 +47,12 @@ export default function SelectColor() {
                             <h1 className='titleCardCompany'>{company.nameCompany}</h1>
                         </div>
                     </div>
-
                 </div>
                 <div>
                     <div className='containerInput'>
                         <input className='input' type="text" placeholder='Buscar por color' onChange={(e) => setInputSearch(e.target.value)} />
-
                     </div>
-
                     {
-
-
                         filterOrd.length > 0 ?
                             <div className='containerCardsMarca'>
                                 {filterOrd?.map(everyColor => (
@@ -79,17 +62,12 @@ export default function SelectColor() {
                                     </LinkRouter>
                                 ))}
                             </div>
-
                             :
                             <div className='noResult'>
                                 <h1>no hay resultados</h1>
                             </div>
-
-
                     }
-
                 </div>
-
             </Container>
         </Container>
     )

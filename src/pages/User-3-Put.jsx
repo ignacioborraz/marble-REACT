@@ -4,18 +4,15 @@ import {useRef,useEffect, useState} from 'react'
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto'
 import KeyIcon from '@mui/icons-material/Key'
 import WorkIcon from '@mui/icons-material/Work'
-
 import userActions from '../redux/actions/userActions'
 
 export default function PutUser() {
-
     const {id} = useParams()    
     const dispatch = useDispatch()
     const [reload,setReload] = useState(false)
     const nick = useRef()
     const pass = useRef()
     const photo = useRef()
-
     useEffect(() => {
         if(localStorage.getItem('token')!== null) {
             let token = localStorage.getItem("token")
@@ -24,7 +21,6 @@ export default function PutUser() {
     },[reload])
     
     const user = useSelector(store => store.userReducer.user.user)
-
     async function handleEdition(event) {
         event.preventDefault()
         let allInputs = {}

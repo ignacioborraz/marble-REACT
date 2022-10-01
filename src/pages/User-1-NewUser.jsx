@@ -4,18 +4,15 @@ import {useRef} from 'react'
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto'
 import KeyIcon from '@mui/icons-material/Key'
 import WorkIcon from '@mui/icons-material/Work'
-
 import userActions from '../redux/actions/userActions'
 
 export default function NewUser({role}) {
-
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const nick = useRef()
     const pass = useRef()
     const photo = useRef()
     let allInputs = {}
-    
     async function handleCreation(event) {
         event.preventDefault()
         allInputs = {
@@ -37,7 +34,6 @@ export default function NewUser({role}) {
             return allInputs
         }
     }
-
     return (
             <div className='form-container'>
                 <h3 className='new-form new-title'>NUEVO {role.toUpperCase()}</h3>

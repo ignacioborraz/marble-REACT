@@ -1,20 +1,15 @@
 import React, {useEffect} from 'react'
 import {Link as LinkRouter} from 'react-router-dom'
-
 import Container from '../components/Container'
 import Text from '../components/Text'
-
 import {useDispatch,useSelector} from 'react-redux'
 import companyActions from '../redux/actions/companyActions'
 
 export default function GetCompanies() {
-
     const dispatch = useDispatch()
-
     useEffect( () => {
         dispatch(companyActions.getCompanies())
     },[])
-
     const companies = useSelector(store => store.companyReducer.companies)
 
     return (

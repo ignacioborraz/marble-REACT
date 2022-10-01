@@ -21,7 +21,6 @@ import Box from '@mui/material/Box';
 
 
 export default function StockInternalJohnson() {
-
     const dispatch = useDispatch()
     const [inputSearch, setInputSearch] = useState("")
     const [reload, setReload] = useState(false)
@@ -37,7 +36,6 @@ export default function StockInternalJohnson() {
     const [accesorysAdd, setAccesorysAdd] = useState([])
     const [instalation, setInstalation] = useState([])
     const [typeInstalation, setTypeInstalation] = useState([])
-    console.log("👽 ~ file: StockJohnson-1-internal.jsx ~ line 39 ~ StockInternalJohnson ~ instalation", instalation)
     useEffect(() => {
         dispatch(sinkActions.internalSink())
         dispatch(johnsonActions.getAccesory())
@@ -49,16 +47,12 @@ export default function StockInternalJohnson() {
         // eslint-disable-next-line
     }, [inputSearch, reload])
 
-    let internalSink = useSelector(store => store.sinkReducer.internalSink)
-    console.log("🚀 ~ file: StockJohnson-1-internal.jsx ~ line 52 ~ StockInternalJohnson ~ internalSink", internalSink)
+    // let internalSink = useSelector(store => store.sinkReducer.internalSink)
     let filterInternalSink = useSelector(store => store.sinkReducer.filterInternalSink)
-    console.log("🚀 ~ file: StockJohnson-1-internal.jsx ~ line 54 ~ StockInternalJohnson ~ filterInternalSink", filterInternalSink)
     const accesoriesList = useSelector(store => store.johnsonReducer.accesorys)
-
     const handleClickAccesorios = () => {
         setOpenAcc(true)
     }
-
     const handleClickOpenAlert = (id) => {
         setIdDelet(id)
         setOpenAlert(true)
@@ -67,8 +61,6 @@ export default function StockInternalJohnson() {
         setOpenAlertEdit(true)
     }
     const handleClickOpen = (id, codigo, acc, instalation, typeInstalation) => {
-        console.log("🚀 ~ file: StockJohnson-1-internal.jsx ~ line 69 ~ handleClickOpen ~ instalation", instalation)
-        console.log("🚀 ~ file: StockJohnson-1-internal.jsx ~ line 96 ~ handleClickOpen ~ acc", acc)
         setOpen(true);
         setId(id);
         setCodigo(codigo);
@@ -116,7 +108,6 @@ export default function StockInternalJohnson() {
             target: { value },
         } = event;
         setInstalation(
-            // On autofill we get a stringified value.
             typeof value === 'string' ? value.split(',') : value,
         );
     };
@@ -143,14 +134,11 @@ export default function StockInternalJohnson() {
         console.log("🚀 ~ file: Stock-1-internal.jsx ~ line 68 ~ modify ~ data", data)
         const res = await dispatch(sinkActions.putSink(id, data))
         console.log("🚀 ~ file: Stock-1-internal.jsx ~ line 67 ~ modify ~ res", res)
-
         setOpenAlertEdit(false)
         setOpen(false);
         setReload(!reload)
-
     }
     async function delet(id) {
-        console.log("🚀 ~ file: StockJohnson-1-internal.jsx ~ line 69 ~ delet ~ id", id)
         await dispatch(sinkActions.deleteSink(id))
         setOpenAlert(false)
         setReload(!reload)
@@ -183,7 +171,6 @@ export default function StockInternalJohnson() {
                                 <div className='bntEditDelet'>
                                     <button className='iconEdit' onClick={() => handleClickOpen(sink._id, sink.internal, sink.accesories, sink.instalation, sink.jhonson.instalation)}>Editar</button>
                                     <button className='iconDelete' onClick={() => handleClickOpenAlert(sink._id)}>Eliminar</button>
-
                                 </div>
                             </div>
                             <Dialog className='dialogDelet' open={openAlert} onClose={handleClose}>
@@ -197,7 +184,6 @@ export default function StockInternalJohnson() {
                                     <Button onClick={handleCloseDelet}>Cancelar</Button>
                                 </DialogActions>
                             </Dialog>
-
                             <Dialog open={openAlertEdit} onClose={handleClose}>
                                 <DialogContent>
                                     <DialogContentText>
@@ -219,7 +205,6 @@ export default function StockInternalJohnson() {
                 </div>
             }
 
-
             <Dialog open={open} onClose={handleClose}>
                 <DialogContent>
                     <DialogContentText>
@@ -237,10 +222,8 @@ export default function StockInternalJohnson() {
                         >
                             <MenuItem value={"int"}>Interno</MenuItem>
                             <MenuItem value={"ped"}>Pedido</MenuItem>
-
                         </Select>
                     </div>
-
                     <TextField
                         autoFocus
                         margin="dense"
@@ -252,26 +235,6 @@ export default function StockInternalJohnson() {
                         id="nuevoCod"
                     />
 
-                    {/* <div className='stackAcc'>
-                        <InputLabel id="demo-simple-select-label">Instalacion:</InputLabel>
-                        {
-                            instalation.length > 0 ?
-                                <div className='cajaAcc'>
-                                    {instalation.map((op, index) => (
-
-                                        <Chip key={index} value={op} label={op} />
-                                    ))}
-
-                                </div> : <div className='cajaAcc'><h5>No selecciono ningun acc</h5></div>
-                        }
-
-
-
-                        <div className='btnAddAcc'>
-                            <button onClick={handleClickAccesorios}>Agregar</button>
-                        </div>
-
-                    </div> */}
                     {
                         typeInstalation.length > 0 ?
                             <div className='instalacionBox'>
@@ -290,25 +253,19 @@ export default function StockInternalJohnson() {
                                             ))}
                                         </Box>
                                     )}
-                                //MenuProps={MenuProps}
                                 >
                                     {typeInstalation.map((name) => (
                                         <MenuItem
                                             key={name}
                                             value={name}
-                                        //style={getStyles(name, personName, theme)}
                                         >
                                             {name}
                                         </MenuItem>
                                     ))}
                                     <MenuItem value={"instalacion lateral"}>instalacion lateral</MenuItem>
-
                                 </Select>
                             </div> : null
-
                     }
-
-
                     <div className='stackAcc'>
                         <InputLabel id="demo-simple-select-label">Accesorios:</InputLabel>
                         {
@@ -318,29 +275,18 @@ export default function StockInternalJohnson() {
 
                                         <Chip key={op._id} value={op._id} label={op.code} />
                                     ))}
-
                                 </div> : <div className='cajaAcc'><h5>No selecciono ningun acc</h5></div>
                         }
-
-
-
                         <div className='btnAddAcc'>
                             <button className='btnAgregar' onClick={handleClickAccesorios}>Agregar</button>
                         </div>
-
                     </div>
-
                 </DialogContent>
-
                 <DialogActions>
                     <Button onClick={handleClickOpenAlertEdit}>Editar</Button>
                     <Button onClick={handleClose}>Cancelar</Button>
-
                 </DialogActions>
-
-
             </Dialog>
-
             <Dialog open={openAcc} onClose={handleClose}>
                 <DialogContent>
                     <DialogContentText>Accesorios:</DialogContentText>

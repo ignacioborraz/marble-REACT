@@ -1,21 +1,15 @@
 import {useDispatch} from 'react-redux'
 import {useRef} from 'react'
 import {useNavigate} from 'react-router-dom'
-
 import KeyIcon from '@mui/icons-material/Key'
 import WorkIcon from '@mui/icons-material/Work'
-
 import userActions from '../redux/actions/userActions'
-
 export default function SignIn() {
-
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const nick = useRef()
     const pass = useRef()
-
     let allInputs = {}
-    
     async function handleLogin(event) {
         event.preventDefault()
         allInputs = {
@@ -31,7 +25,6 @@ export default function SignIn() {
             return allInputs //debo returnarlos para no perder los datos
         }
     }
-
     return (
         <div className='form-container'>
             <form onSubmit={handleLogin} className='newForm'>

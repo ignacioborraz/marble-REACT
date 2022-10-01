@@ -3,34 +3,20 @@ import { Link as LinkRouter, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import typeActions from '../redux/actions/typeActions'
 import Container from '../components/Container'
-import Text from '../components/Text'
-
 export default function SelectType() {
-
     const { id } = useParams()
     const dispatch = useDispatch()
-
     useEffect(() => {
         dispatch(typeActions.getTypes(id))
     }, [id])
 
     const types = useSelector(store => store.typeReducer.types)
-    console.log("🚀 ~ file: New-3-Type.jsx ~ line 18 ~ SelectType ~ types", types)
-
-    function SortArray(x, y){
-        if (x.name < y.name) {return -1;}
-        if (x.name > y.name) {return 1;}
-        return 0;
-    }
-    var filterOrd = types.sort(SortArray);
-    console.log(filterOrd);
-
+    
     function creatingPlate(event) {
         let plate = JSON.parse(localStorage.getItem('plate'))
         plate.type = event.currentTarget.id 
         localStorage.setItem('plate', JSON.stringify(plate))
     }
-
     return (
         <Container grow='1' wrap='wrap' bgColor='rgb(224,224,224)'>
             <Container width='100%' justify='space-evenly' align='center' wrap='wrap'>

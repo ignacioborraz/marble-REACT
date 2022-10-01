@@ -1,11 +1,7 @@
 import { useEffect, useState } from 'react'
-
-import { Link as LinkRouter } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import plateActions from '../redux/actions/plateActions'
-
 export default function StockDonePlates() {
-
     const dispatch = useDispatch()
     const [inputSearch, setInputSearch] = useState("")
     useEffect(() => {
@@ -16,12 +12,8 @@ export default function StockDonePlates() {
         dispatch(plateActions.filterDonePlates(inputSearch))
         // eslint-disable-next-line
     }, [inputSearch])
-    
-    let donePlate = useSelector(store => store.plateReducer.donePlate)
-    console.log("🚀 ~ file: Stock-0.jsx ~ line 30 ~ Stock ~ donePlate", donePlate)
+
     let filterPlates = useSelector(store => store.plateReducer.filterDonePlates)
-    console.log("🚀 ~ file: Stock-0.jsx ~ line 22 ~ Stock ~ filterCard", filterPlates)
-   
     function SortArray(x, y) {
         if (x.color.name < y.color.name) { return -1; }
         if (x.name > y.name) { return 1; }
@@ -34,16 +26,11 @@ export default function StockDonePlates() {
              <div className='mask4'>
              <h1 className='titleStock'>Consumidas</h1>
              </div>
-                        
-                 
             </div>
             <div className='containerInput'>
-        
                 <input className='input inputStock' type="text" placeholder='Buscar por color, cod. o emp.' onChange={(e) => setInputSearch(e.target.value)} />
-            
             </div>
             <div className='containerCardsMarca mt10'>
-
                 {filterOrd?.map(everyPlate => (
                     <div className='linkColors cardStock' /* to={'/nueva/color/tipo/'+everyPlate._id} */ key={everyPlate._id}>
                         <div className='companyCardStock'>
@@ -53,10 +40,8 @@ export default function StockDonePlates() {
                                 everyPlate.internal ? (<h3 className='nameCards'>codInterno:{everyPlate.internal}</h3>)
                                     : <h3 className='nameCards'>codPedido: {everyPlate.note}</h3>
                             }
-                            {/* <h3 className='nameCards'>{everyPlate.type.name}</h3> */}
                             <h3 className='nameCards'>{everyPlate.type.name} {everyPlate.state.width} × {everyPlate.state.height} x {everyPlate.type.thickness}</h3>
                         </div>
-
                         <img src={everyPlate.color?.photo} alt={everyPlate._id} className='fitStock' id={everyPlate._id} />
                     </div>
                 ))}
