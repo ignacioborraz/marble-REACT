@@ -3,14 +3,13 @@ import apiUrl from "../../url";
 
 const plateActions = {
   createPlate: (plate) => {
-    const token = localStorage.getItem("token");
-    console.log(plate);
+    const token = localStorage.getItem("token")
     return async (dispatch, getState) => {
       try {
-        let res = await axios.post(apiUrl + "api/marble/plate", plate, {
+        await axios.post(apiUrl + "api/marble/plate", plate, {
           headers: { Authorization: "Bearer " + token },
-        });
-        console.log(res);
+        })
+        dispatch({type:'PLATE'})
       } catch (error) {
         console.log(error);
       }
@@ -76,7 +75,6 @@ const plateActions = {
         const res = await axios.get(apiUrl + "api/marble/plate?internal=true" , {
           headers: { Authorization: "Bearer " + token },
         });
-        console.log("🚀 ~ file: plateActions.js ~ line 53 ~ return ~ res", res.data.response)
         dispatch({ type: "INTERNAL_PLATE", payload: res.data.response });
       } catch (error) {
         console.log(error);
@@ -90,7 +88,6 @@ const plateActions = {
         const res = await axios.get(apiUrl + "api/marble/plate?note=true", {
           headers: { Authorization: "Bearer " + token },
         });
-        console.log("🚀 ~ file: plateActions.js ~ line 53 ~ return ~ res", res.data.response)
         dispatch({ type: "NOTE_PLATE", payload: res.data.response });
       } catch (error) {
         console.log(error);

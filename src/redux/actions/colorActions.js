@@ -3,8 +3,7 @@ import apiUrl from "../../url";
 
 const colorActions = {
   createColor: (name, photo, company) => {
-    const token = localStorage.getItem('token')
-    
+    const token = localStorage.getItem('token')    
     return async (dispatch, getState) => {
       try {
         await axios.post(apiUrl + "api/marble/color", { name, photo, company }, {headers: {'Authorization': 'Bearer '+token}});
@@ -14,39 +13,13 @@ const colorActions = {
     };
   },
 
-  getColors: (id) => {
+  getColors: (id,input) => {
     const token = localStorage.getItem('token')
-    //console.log(token)
-    //console.log(id);
     return async (dispatch, getState) => {
       try {
-        const res = await axios.get(apiUrl + "api/marble/color/cia/" + id, {headers: {'Authorization': 'Bearer '+token}}
+        const res = await axios.get(apiUrl + `api/marble/color?cia=${id}&&name=${input}`, {headers: {'Authorization': 'Bearer '+token}}
         );
-        //console.log(res.data.response)
         dispatch({ type: "GET_COLORS", payload: res.data.response });
-      } catch (error) {
-        console.log(error);
-      }
-    };
-  },
-  // filterc: (input,id) => {
-    //const token = localStorage.getItem('token')
-  //   //console.log(id);
-  //   return async (dispatch, getState) => {
-  //     try {
-  //       const res = await axios.get("http://localhost:8000/api/marble/colors/" +id+"?color=" + input);
-  //       //console.log(res.data.response)
-  //       dispatch({ type: "F_COLORS", payload: res.data.response });
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  // },
-  filterColors: (input) => {
-    const token = localStorage.getItem('token')
-    return (dispatch, getState) => {
-      try {
-        dispatch({ type: "FILTER_COLORS", payload: input }, {headers: {'Authorization': 'Bearer '+token}});
       } catch (error) {
         console.log(error);
       }
@@ -91,6 +64,13 @@ const colorActions = {
       }
     };
   },
+
+  newPlate: (id) => {
+    return async(dispatch, getState) => {
+      dispatch({type:'PLATE_COLOR', payload: id})
+    }
+  }
+
 };
 
 export default colorActions;

@@ -7,7 +7,7 @@ export default function JohnsonMenu() {
     return (
         <Container grow='1' wrap='wrap' bgColor='rgb(224,224,224)'>
             <Container width='100%' justify='space-evenly' align='center' wrap='wrap'>
-                <LinkRouter to={'/johnson/new'} className="linkTypes mr10 mb10 menorH">
+                <LinkRouter to={'/johnson/new'} className="linkTypes menorH">
                     <div className="bgType bgCargar" >
                         <div className='mask'>
                         <PlaylistAddCircleIcon className='iconTitle' />
@@ -15,7 +15,7 @@ export default function JohnsonMenu() {
                         </div>
                     </div>
                 </LinkRouter>
-                <LinkRouter to={'/johnson/stock'}  className="linkTypes mr10 mb10 menorH">
+                <LinkRouter to={'/johnson/stock'}  className="linkTypes menorH">
                     <div className="bgType bgStockJohnson" >
                         <div className='mask'>
                         <PlaylistAddCheckCircleIcon className='iconTitle' />

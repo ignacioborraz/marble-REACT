@@ -87,29 +87,30 @@ export default function JohnsonData() {
             <form onSubmit={creatingSink} className="form" >
               <h1 className='titleForm'>CARGAR PILETA</h1>
               <div className='containerDatosForm'>
-                <div className='cajaCodigo' >
-                  <div className='labelInputCodigo'>
-                    <label>CODIGO: </label>
+                <div className='cajaCheck mb10' >
+                  <div className='flex inputGrow mb10-lit'>
+                    <label className='input-label'>ID</label>
                     <input className='inputCodigo inputGrow' id={"codigo"} name='codigo' onChange={(e) => setCodigo(e.target.value)} required />
                   </div>
-                  <div className='cheksSink'>
+                  <div className='flex inputGrow center'>
                     <label className='ml10 labelCheck' >
-                      <input type="radio" id={`interno`} name={`typeCode`} value='interno' required onChange={(e) => setTypeCode(e.target.value)} />Cod.Interno</label>
+                      <input type="radio" id={`interno`} name={`typeCode`} value='interno' required onChange={(e) => setTypeCode(e.target.value)} />Cod Interno
+                    </label>
                     <label className='ml10 labelCheck' >
-                      <input type="radio" id={`pedido`} name={`typeCode`} value='pedido' required onChange={(e) => setTypeCode(e.target.value)} />Nota del Pedido </label>
+                    <input type="radio" id={`pedido`} name={`typeCode`} value='pedido' required onChange={(e) => setTypeCode(e.target.value)} />Nota de Pedido
+                    </label>
                   </div>
-
                 </div>
                 {
                   johnsonSelect.instalation?.length > 0 ?
                     (
-                      <div className=' checksInstalation' >
+                      <div className=' checksInstalation mb10' >
                         <div>
-                          <label>Instalacion:</label>
+                          <label>Inst: </label>
                         </div>
                         {
                           johnsonSelect.instalation?.map((op, index) =>
-                            <label key={index} className='ml10 labelCheck' name="checkbox-group" >
+                            <label key={index} className='ml10 labelCheck flex center center-lit inputGrow' name="checkbox-group" >
                               <input type='checkbox' id={`instalation-${index + 1}`} name="checkbox-group" value={op} onChange={(e) => addInstalacion(e.target.value)} />{op}
                             </label>
                           )
@@ -117,11 +118,11 @@ export default function JohnsonData() {
                       </div>
                     ) : null
                 }
-                <div className='labelInputCodigo '>
-                  <label htmlFor='comentario'>COMENTARIO: </label>
+                <div className='mb10 flex'>
+                  <label htmlFor='comentario' className='input-label'>COMENTARIO: </label>
                   <input className='inputCodigo inputGrow' id='comentario' type='text' ref={comments} />
                 </div>
-                <div className='btnAddJ'>
+                <div className='btnAddJ mb10'>
                   <button type='button' className='btnAdd botonAddAcc' onClick={handleClickAccesorios}>agregar Accesorios</button>
                 </div>
                 <Dialog open={openAcc} >

@@ -54,6 +54,12 @@ const companyActions = {
                 console.log(error)
             }
         }
+    },
+
+    newPlate: (id) => {
+        return async(dispatch, getState) => {
+            dispatch({type:'PLATE_CIA', payload: id})
+        }
     }
 
 }

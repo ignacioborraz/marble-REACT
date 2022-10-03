@@ -40,6 +40,7 @@ import ScrollToTop from './components/ScrollToTop'
 export default function App() {
 
     const user = useSelector(store => store.userReducer.user)
+    useSelector(store => console.log(store.new))
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -63,9 +64,9 @@ export default function App() {
                     <Route path="/user" element={<NewUser role='user' />} />
                     <Route path="/perfil/:id" element={<PutUser />} />
                     <Route path="/nueva" element={<SelectCompany />} />
-                    <Route path="/nueva/:id" element={<SelectColor />} />
-                    <Route path="/nueva/color/:id" element={<SelectType />} />
-                    <Route path="/nueva/color/tipo/:id" element={<SelectData />} />
+                    <Route path="/nueva/color" element={<SelectColor />} />
+                    <Route path="/nueva/color/tipo" element={<SelectType />} />
+                    <Route path="/nueva/color/tipo/datos" element={<SelectData />} />
                     <Route path="/stock" element={<Stock />} />
                     <Route path="/stock/plates/internal" element={<StockInternalPlates />} />
                     <Route path="/stock/plates/internal/detail/:id" element={<StockInternalDetail/>} />
@@ -89,15 +90,6 @@ export default function App() {
                 )}
                 <Route path="/ingresar" element={<SignIn />} />
                 <Route path="/*" element={<VariantPage />} />
-                {/*             
-                    <Route path="/nueva/placa" element={<NewPlate />} />
-                    <Route path="/signin" element={<SignIn options={options.signIn} />} />
-                    <Route path="/getCompanies" element={<GetCompanies options={options.company} />} />
-                    <Route path="/createCompany" element={<CreateCompany options={options.company} />} />
-                    <Route path="/createdCompany" element={<VariantPage text={"COMPANY CREATED!"} back={{to: "getCompanies",text: "show companies"}} />} />
-                    <Route path="/getPlates" element={<GetPlates options={options.company} />} />
-                    <Route path="/createPlate" element={<CreatePlate options={options.company} />} />
-                */}
             </Routes>
             <MySnackBar />
         </div>

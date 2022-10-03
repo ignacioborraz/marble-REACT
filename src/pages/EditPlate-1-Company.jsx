@@ -10,11 +10,9 @@ export default function SelectCompanyEditPlate() {
         // eslint-disable-next-line
     }, [])
     const companies = useSelector(store => store.companyReducer.companies)
-    console.log("🚀 ~ file: New-1-Company.jsx ~ line 16 ~ SelectCompany ~ companies", companies)
     function creatingPlate(event) {
         let plate = { company: event.currentTarget.id }
         localStorage.setItem('editPlate', JSON.stringify(plate))
-        console.log(JSON.parse(localStorage.getItem('editPlate')))
     }
     return (
         <Container grow='1' wrap='wrap' bgColor='rgb(224,224,224)'>

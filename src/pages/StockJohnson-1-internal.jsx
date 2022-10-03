@@ -156,21 +156,18 @@ export default function StockInternalJohnson() {
                 <div className='containerCardsMarca mt10'>
                     {filterInternalSink?.map(sink => (
 
-                        <div className='linkColors cardStock' key={sink._id}>
+                        <div className='cardStock linkColorsJ' key={sink._id}>
                             <div className='companyCardStock'>
-                                <h2 className='nameCards'>Código: {sink.internal}</h2>
-                                <h3 className='nameCards'>{sink.jhonson?.code}</h3>
+                                <h2 className='nameCards'>{sink.jhonson?.code}</h2>
+                                <h3 className='nameCards'>Código: {sink.internal}</h3>
                                 <img src={sink.jhonson?.photo} alt={sink._id} className='fitStock' id={sink._id} />
                                 <h3 className='nameCards'> {sink.jhonson?.x} × {sink.jhonson?.y} × {sink.jhonson?.z}</h3>
-
-                                <div className='containerBtnVermas'>
-                                    <LinkRouter className='iconVerMas' to={'/stock/plates/internal/detail/' + sink._id}  >
-                                        Ver más
-                                    </LinkRouter>
-                                </div>
                                 <div className='bntEditDelet'>
-                                    <button className='iconEdit' onClick={() => handleClickOpen(sink._id, sink.internal, sink.accesories, sink.instalation, sink.jhonson.instalation)}>Editar</button>
-                                    <button className='iconDelete' onClick={() => handleClickOpenAlert(sink._id)}>Eliminar</button>
+                                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAcJJREFUaEPtmeFtAyEMhZ1N2k3SSZpO0nSSdpNmk3STVk8KEqIY7BPPcNL5V5Q7wftsgw9zkp3baef65QCYHcFeBJ5E5F1ELhOE/ojITUQ+RAS/q9YCgPj7BOHllBD/okG0AD4neb7mM0QCEP+sBQDvIworGKLw7AX4XUF5pqHq7FYEDgAlgmlRfjtTdIkI5LmM9eWBWAKgFOGBWAIARelapNb5EYnenjENIFXRtCXnEPgP9QYQPZsCkHK+TBVAfDnEAy4coCw+JQSeewplKIBWOT2LtkypMAC17D88bs35KQAs8SFrgCmeDsAWTwWIEE8DiBJPA9A+xz0VtleB03PKNloblCE+LAIs8SEATPE0AGv+jniPsgZGCLOOcQBYPcV6zx2BlRpbmxYxOgaWox7L4/m4OL29eTtzu2/uAhgQaK2/Oo9/I6KS2utVzze/LzbMjlYJ7hE8pqaFZ5DeBYd1rBQpK4TaLrdOODoCKd0s591h4tWtyeuF7P1e16F1ftg07agUyifXICAeCxIRGGYMgJRO5f0aroiGimekUO5ZbL9YEzCKeDYAxsf2itTBlkkxVgpRxNYGPQDCXK1MtPsI/AH6HWAxi76YJQAAAABJRU5ErkJggg==" alt='edit' className='iconEdit' onClick={() => handleClickOpen(sink._id, sink.internal, sink.accesories, sink.instalation, sink.jhonson.instalation)} />
+                                    <LinkRouter className='iconVerMas' to={'/stock/plates/internal/detail/' + sink._id}>
+                                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAp9JREFUaEPtme1NAzEMht1JgEmASYBJgEmASWATYBLQK52rw7FjO/FRndRIVfvjzvFjv86He6Cdj8PO/aczwKkzWJmBSyK6J6ILIsJv/nwtkPjG55uIPpbPNP8sADt9tziccQgwb0T0uoBl3j0+OwPwRESPQ7P+fYlBYC89RgBuiOg9PZP/whBIFsCLOjsBjbPmITMMrgnIDUGwxjMRhbORAUDUtYlHIufVDuriwU8ahfcBy/lUtBSHGESrpRBEJAOabBB1RAhSqRgAQZBYbmzTDZAHoBUsnL+q8FrYsCAQKGRDHR7Ap4gKnL+dWbcdcA2iG7AegCYdOB+VzY9w1gsWPw4IBG49zHroGZUOuHoUk44CwAyOJC8re2bmLQC8DCPrEY0gvzMDoElJDaDllNR+t5AMXc8AWFloFg8LYHbyikVKq4WmBjUAqb/QhlLhsWJDbqCNjDQAqf8R+VTxyGBiBUQWjkMDkNSZpbPKcbYjN9IQgCxgFA7fqjIOVtSRrINmU9MyUDExQCvs7B7ADYSWgd1LqKqIKyQ0VMRyGc2egSqOEmzD3ZMiG1mzdAWXoooMSDU0e5IG4Fb+PwLIIDRLunUWcskDELMZcHdh+GAByMvMyDVyFkCuhuqZzAJI3Yo2OE5rt0H1RNC7pGi3okwnYjQDWiPBXAl7ANYFe+tLvbwP96TuNrZkFmBsq84EAoY9SHb/uqfhyD3XamxVZsJqGLubaAQAUbcg0N8PN2KNYrcaxqENNArQ62HONHet/xdCzneLIxktrg2G4dY6vtftdUjl+lTt9fUBC5GTjdjA5tx9ZKhhHJWQnLknqSzIiAS7l/qMAwziyUKzOeU4GxzNgOYQYFjj3t+sU/9MrievBMhkruzZM0BZKAcN7T4Dv8IIujGpGX+IAAAAAElFTkSuQmCC" className='iconVerMas' alt='info' />
+                                    </LinkRouter>
+                                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAglJREFUaEPtmeFNxDAMhX2bwCTAJMAkwCSwCWwCm4CehEUJcfzc2u2Vu/w66dL0fXZiO+5Bdj4OO9cvZ4CtPeh54EJEHkTkbgOhHyLyJiJPIoLf3TECgPj3DYS3r4T4GwtiBPC8keV7NoMnAPFnjABgfXjhGAa8cBkF+DwG5RMNXWOPPHBSAC8zzgu2RWSLlnng/jvcIdQi5DJDD+Vj4JkSAIiH9TFgTQaijSgsRDpAL7R5EFY4ZCJeOgCsDuvDC9NhQVjiX0Xkmth3JQAsxFLxeE8ZgAdxZWRR1vLqnFKAEUSvEIuKL/eAWql3JtrtPUf8agCWJxRirvhVAawD64VYLxCVnwEIMMveYLKjC8/MYs4Tr6LmeqLUA6M4jyjEJrvRNioDYJJUJGNbECUAjPhRiI1sp3QA65o3CpWWJ/CMdzdIB4Bl0fJAORyJ8y0E2zwoAZhCRJKUQrDiyxNZ9HoIQdFnyjzgZdCs/08PgLnmZVmXWSfsgcihZAQsmWOW6f+6uQuLaaa8JRLNEgv3ntX2eltH/ZrrfR9gRbG9nel6zO3NfX8WQKSmYe4NrnCdkAWg2w2Z1evxsPcGCiITQCFGhZnZ56fUdiZlA4wg9GIDD6SNCgCFaL+v4RNRqnizwksyDzrVOBMYJeKrAbA+wiu2jrbgk2zzs0zVFkoXai14BljN1MaLdu+BL7BifTHoT8MKAAAAAElFTkSuQmCC" alt='delete' className='iconDelete' onClick={() => handleClickOpenAlert(sink._id)} />
                                 </div>
                             </div>
                             <Dialog className='dialogDelet' open={openAlert} onClose={handleClose}>

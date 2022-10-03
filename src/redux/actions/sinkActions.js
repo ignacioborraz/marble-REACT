@@ -4,13 +4,11 @@ import apiUrl from "../../url";
 const johnsonActions = {
   createSink: (sink) => {
     const token = localStorage.getItem("token");
-    console.log(sink);
     return async (dispatch, getState) => {
       try {
-        let res = await axios.post(apiUrl + "api/marble/sink", sink, {
+        await axios.post(apiUrl + "api/marble/sink", sink, {
           headers: { Authorization: "Bearer " + token },
         });
-        console.log(res);
       } catch (error) {
         console.log(error);
       }

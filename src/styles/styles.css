@@ -162,6 +162,10 @@ a {
 
 }
 
+.flex {
+    display: flex;
+}
+
 /****cardsMarcas***/
 .cardCompany div {
     height: 100%;
@@ -274,7 +278,6 @@ a {
     color: #ffffff;
     font-weight: 900;
     font-size: 21px;
-    /* text-shadow: 0 1px 0 #fff, 0 -1px 2px rgb(0 0 0 / 30%), 0 -2px 2px rgb(0 0 0 / 20%), 0 0 3px rgb(0 0 0 / 10%); */
 }
 
 .linkTypes div {
@@ -320,8 +323,7 @@ a {
 }
 
 .linkTypes div:hover {
-    /* /text-shadow: 0 1px 0 #fff, 0 -1px 2px rgb(0 0 0 / 30%), 0 -2px 2px rgb(0 0 0 / 20%), 0 0 3px rgb(0 0 0 / 10%); */
-    box-shadow: 10px 10px 0px 0px #858585;
+    box-shadow: 0 0 5px rgb(50,50,50), 0 0 5px rgb(50,50,50), 0px 0px 5px rgb(50,50,50)
 }
 
 /***cradStock**/
@@ -404,6 +406,7 @@ a {
     font-weight: bold;
     letter-spacing: 1px;
     color: #272626;
+    align-self: center;
 }
 
 .btnAdd:hover {
@@ -479,8 +482,26 @@ a {
     align-items: center;
 }
 
+.cardStock {
+    width: 19rem;
+}
+
 .linkColors {
-   
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    text-align: center;
+    width: 20rem;
+    height: 21.5rem;
+    font-family: 'Montserrat', sans-serif;
+    color: rgb(25, 25, 25);
+    background-color: white;
+    /* margin: 5px; */
+    padding: 5px;
+}
+
+.linkColorsJ {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -493,12 +514,6 @@ a {
     background-color: white;
     /* margin: 5px; */
     padding: 5px;
-}
-
-.cardStock {
-    min-height: 21rem;
-    width: 19rem;
-    min-height: 22rem;
 }
 
 .linkTypes {
@@ -579,6 +594,13 @@ input {
     font-weight: bold;
     letter-spacing: 1px;
     color: #272626;
+}
+
+.input-label {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-right: 10px;
 }
 
 label {
@@ -727,8 +749,7 @@ label {
 
 .cajaCheck {
     border: solid 1px rgb(178 178 178);
-    padding: 14px 5px;
-    margin: 2px;
+    padding: 8px;
     /* text-align: center; */
     display: flex;
     align-items: center;
@@ -781,32 +802,28 @@ label {
 
 .iconVerMas {
     color: white;
-    background-color: #2742d2;
-    padding: 3px;
-    border: none;
+    background-color: rgba(39, 66, 210, 0.6);
     border-radius: 5px;
-    width: 7rem;
-    flex-grow: 1;
+    width: 36px;
+    height: 36px;
 }
 
 .iconEdit {
     color: white;
-    background-color: #1f7430;
-    padding: 3px;
-    border: none;
+    background-color: rgba(31, 116, 48, 0.8);
     border-radius: 5px;
-    width: 7rem;
-    flex-grow: 1;
+    width: 36px;
+    height: 36px;
+    margin-right: 10px;
 }
 
 .iconDelete {
     color: white;
-    background-color: #f54545;
-    padding: 3px;
-    border: none;
+    background-color: rgba(245, 69, 69, 0.8);
     border-radius: 5px;
-    width: 7rem;
-    flex-grow: 1;
+    width: 36px;
+    height: 36px;
+    margin-left: 10px;
 }
 
 .selectCodigo {
@@ -959,15 +976,6 @@ label {
 
 .formSink {
     background-image: url("https://images.unsplash.com/photo-1556912102-ea493a2a5b93?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2093&q=80");
-}
-
-.labelInputCodigo {
-    width: 56%;
-    display: flex;
-}
-
-.inputGrow {
-    flex-grow: 1;
 }
 
 .cajaCodigo {
@@ -1131,6 +1139,12 @@ label {
     color: white;
     letter-spacing: 0.5px;
 }
+
+.center {
+    justify-content: center;
+    align-items: center;
+}
+
 /******Medias*******/
 @media (width < 1024px) {
     .titleCard {
@@ -1138,7 +1152,10 @@ label {
     }
 }
 
-@media (width < 768px) {
+@media (width < 780px) {
+    .mb10-lit {
+        margin-bottom: 10px;
+    }
     .logo {
         height: 3rem !important;
     }
@@ -1150,7 +1167,6 @@ label {
     .form {
         width: 85%;
     }
-
     .cajaCheck {
         border: solid 1px rgb(178 178 178);
         /* padding: 10px;
@@ -1160,21 +1176,16 @@ label {
         justify-content: space-evenly;
         /* flex-direction: column; */
         flex-wrap: wrap;
-        flex-direction: row;
+        flex-direction: column;
     }
-
     .cajaCodigo {
         flex-direction: column;
     }
-
     .labelInputCodigo {
         width: 93%;
     }
-
-    .checksInstalation {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
+    .labelCheck {
+        font-size: 12px;
     }
 }
 
@@ -1183,7 +1194,7 @@ label {
     .menorH {
         height: 49%;
         width: 97%;
-     }
+    }
     .containerIndex1 {
         flex-direction: column;
         align-items: center;
@@ -1220,9 +1231,6 @@ label {
     .inputMui {
         font-size: 15px !important;
     }
-    .labelCheck {
-        font-size: 12px;
-    }
     .containerDatosForm div {
         margin-bottom: 5px !important;
     }
@@ -1239,20 +1247,21 @@ label {
         font-weight: 900;
         font-size: 15px;
     }
-    .inputCodigo {
-        width: 14rem;
-    }
     .btnAdd {
         font-size: 15px;
-        align-self: center;
-    }
-    .inputCodigo {
-        width: 11rem;
     }
     .boxItemAcc{
         width: 7rem;
     }
-    
+    .checksInstalation {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .center-lit {
+        justify-content: flex-start;
+        margin-bottom: 5px !important;
+    }    
 }
 
 @media (width < 425px) {
@@ -1277,10 +1286,6 @@ label {
 
     }
 
-    .inputCodigo {
-        width: 14rem;
-    }
-
     .cheksSink {
         display: flex;
         justify-content: flex-start;
@@ -1289,4 +1294,9 @@ label {
     .boxItemAcc{
         width: 12rem;
     }
+}
+
+.inputGrow {
+    flex-grow: 1;
+    width: 100%;
 }
