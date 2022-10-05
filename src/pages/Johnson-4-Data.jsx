@@ -17,6 +17,7 @@ import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 export default function JohnsonData() {
   const navigate = useNavigate()
   const comments = useRef()
+  let stock = JSON.parse(localStorage.getItem('stock'))
   let sink = JSON.parse(localStorage.getItem('sink'))
   const jhonson = sink.jhonson
   const dispatch = useDispatch()
@@ -53,26 +54,57 @@ export default function JohnsonData() {
       console.log("agregado")
     }
   }
-
   const handleClickAccesorios = () => {
     setOpenAcc(true)
+  }
+  const addSink = () => {
+    let sink = JSON.parse(localStorage.getItem('sink'))
+    let stock = {
+      comments : comments?.current?.value.trim(),
+      done : false
+     }
+    instalation ? (sink.instalation = instalation) : sink.instalation = "instalacion lateral"
+    sink.accesories = accesorysAdd
+    if (typeCode === "interno") {
+      stock.internal = codigo
+      stock.note = null
+    }
+    else if (typeCode === "pedido") {
+      stock.note = codigo
+      stock.internal = null
+    }
+    stock.sink = [{...sink}] 
+    localStorage.setItem('stock', JSON.stringify(stock))
+    localStorage.setItem('sink', JSON.stringify(sink))
+    //(navigate("/johnson/new", { replace: true }))
+    if (stock?.sink?.length <= 10) {
+      let sink = JSON.parse(localStorage.getItem('sink'))
+      stock.sink=[...stock.sink,"2"]
+      .then(navigate("/johnson/new", { replace: true }))
+
+    }
   }
 
   async function creatingSink(event) {
     event.preventDefault()
     let sink = JSON.parse(localStorage.getItem('sink'))
-    sink.comments = comments?.current.value.trim()
-    sink.done = false
+
+    let stock = {
+      comments : comments?.current?.value.trim(),
+      done : false
+     }
     instalation ? (sink.instalation = instalation) : sink.instalation = "instalacion lateral"
     sink.accesories = accesorysAdd
     if (typeCode === "interno") {
-      sink.internal = codigo
-      sink.note = null
+      stock.internal = codigo
+      stock.note = null
     }
     else if (typeCode === "pedido") {
-      sink.note = codigo
-      sink.internal = null
+      stock.note = codigo
+      stock.internal = null
     }
+    stock.sink = [{...sink }] 
+    localStorage.setItem('stock', JSON.stringify(stock))
     localStorage.setItem('sink', JSON.stringify(sink))
     console.log(sink)
     await dispatch(sinkActions.createSink(sink))
@@ -90,14 +122,14 @@ export default function JohnsonData() {
                 <div className='cajaCheck mb10' >
                   <div className='flex inputGrow mb10-lit'>
                     <label className='input-label'>ID</label>
-                    <input className='inputCodigo inputGrow' id={"codigo"} name='codigo' onChange={(e) => setCodigo(e.target.value)} required />
+                    <input className='inputCodigo inputGrow' value={stock?.internal} id={"codigo"} name='codigo' onChange={(e) => setCodigo(e.target.value)} required />
                   </div>
                   <div className='flex inputGrow center'>
                     <label className='ml10 labelCheck' >
                       <input type="radio" id={`interno`} name={`typeCode`} value='interno' required onChange={(e) => setTypeCode(e.target.value)} />Cod Interno
                     </label>
                     <label className='ml10 labelCheck' >
-                    <input type="radio" id={`pedido`} name={`typeCode`} value='pedido' required onChange={(e) => setTypeCode(e.target.value)} />Nota de Pedido
+                      <input type="radio" id={`pedido`} name={`typeCode`} value='pedido' required onChange={(e) => setTypeCode(e.target.value)} />Nota de Pedido
                     </label>
                   </div>
                 </div>
@@ -120,7 +152,7 @@ export default function JohnsonData() {
                 }
                 <div className='mb10 flex'>
                   <label htmlFor='comentario' className='input-label'>COMENTARIO: </label>
-                  <input className='inputCodigo inputGrow' id='comentario' type='text' ref={comments} />
+                  <input className='inputCodigo inputGrow' value={stock.comments} id='comentario' type='text' ref={comments} />
                 </div>
                 <div className='btnAddJ mb10'>
                   <button type='button' className='btnAdd botonAddAcc' onClick={handleClickAccesorios}>agregar Accesorios</button>
@@ -162,7 +194,12 @@ export default function JohnsonData() {
                 </Dialog>
 
               </div>
-              <input type="submit" required value='ingresar' className='btnForm ' />
+              <div className='btnesFormJson'>
+                <button type='button' className='btnForm ' onClick={addSink}>agregar</button>
+                <input type="submit" required value='Finalizar' className='btnForm ' />
+
+              </div>
+
             </form>
 
           </div>

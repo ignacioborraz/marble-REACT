@@ -1144,6 +1144,11 @@ label {
     justify-content: center;
     align-items: center;
 }
+.btnesFormJson{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
 
 /******Medias*******/
 @media (width < 1024px) {

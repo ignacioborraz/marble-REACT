@@ -22,9 +22,12 @@ export default function JohnsonModel() {
 
         const filterType = useSelector(store => store.johnsonReducer.filterJohnsonType)
         function creatingSink(event) {
+            let stock = JSON.parse(localStorage.getItem('stock'))
             let sink = { jhonson: event.currentTarget.id }
             localStorage.setItem('sink', JSON.stringify(sink))
+            stock.sink=[...{sink}]
             console.log(JSON.parse(localStorage.getItem('sink')))
+            localStorage.setItem('stock', JSON.stringify(stock))
         }
         
     return (
