@@ -25,7 +25,7 @@ export default function JohnsonModel() {
             let stock = JSON.parse(localStorage.getItem('stock'))
             let sink = { jhonson: event.currentTarget.id }
             localStorage.setItem('sink', JSON.stringify(sink))
-            stock.sink=[...{sink}]
+            stock.sink=[...stock.sink, {...sink}]
             console.log(JSON.parse(localStorage.getItem('sink')))
             localStorage.setItem('stock', JSON.stringify(stock))
         }

@@ -24,6 +24,7 @@ export default function JohnsonData() {
   const [codigo, setCodigo] = useState("")
   const [instalation, setInstalation] = useState("")
   const [typeCode, setTypeCode] = useState("")
+  const [cant, setCant] = useState("")
   const [openAcc, setOpenAcc] = useState(false)
   const [accesorysAdd, setAccesorysAdd] = useState([])
   useEffect(() => {
@@ -60,11 +61,12 @@ export default function JohnsonData() {
   const addSink = () => {
     let sink = JSON.parse(localStorage.getItem('sink'))
     let stock = {
-      comments : comments?.current?.value.trim(),
-      done : false
-     }
+      comments: comments?.current?.value.trim(),
+      done: false
+    }
     instalation ? (sink.instalation = instalation) : sink.instalation = "instalacion lateral"
     sink.accesories = accesorysAdd
+    sink.quantity = cant
     if (typeCode === "interno") {
       stock.internal = codigo
       stock.note = null
@@ -73,14 +75,14 @@ export default function JohnsonData() {
       stock.note = codigo
       stock.internal = null
     }
-    stock.sink = [{...sink}] 
+    stock.sink = [{ ...sink }]
     localStorage.setItem('stock', JSON.stringify(stock))
     localStorage.setItem('sink', JSON.stringify(sink))
     //(navigate("/johnson/new", { replace: true }))
     if (stock?.sink?.length <= 10) {
       let sink = JSON.parse(localStorage.getItem('sink'))
-      stock.sink=[...stock.sink,"2"]
-      .then(navigate("/johnson/new", { replace: true }))
+      stock.sink = [...stock.sink, { sink }]
+        .then(navigate("/johnson/new", { replace: true }))
 
     }
   }
@@ -90,9 +92,9 @@ export default function JohnsonData() {
     let sink = JSON.parse(localStorage.getItem('sink'))
 
     let stock = {
-      comments : comments?.current?.value.trim(),
-      done : false
-     }
+      comments: comments?.current?.value.trim(),
+      done: false
+    }
     instalation ? (sink.instalation = instalation) : sink.instalation = "instalacion lateral"
     sink.accesories = accesorysAdd
     if (typeCode === "interno") {
@@ -103,7 +105,7 @@ export default function JohnsonData() {
       stock.note = codigo
       stock.internal = null
     }
-    stock.sink = [{...sink }] 
+    stock.sink = [{ ...sink }]
     localStorage.setItem('stock', JSON.stringify(stock))
     localStorage.setItem('sink', JSON.stringify(sink))
     console.log(sink)
@@ -152,11 +154,22 @@ export default function JohnsonData() {
                 }
                 <div className='mb10 flex'>
                   <label htmlFor='comentario' className='input-label'>COMENTARIO: </label>
-                  <input className='inputCodigo inputGrow' value={stock.comments} id='comentario' type='text' ref={comments} />
+                  <input className='inputCodigo inputGrow' value={stock?.comments} id='comentario' type='text' ref={comments} />
                 </div>
-                <div className='btnAddJ mb10'>
+                {
+                  stock?.sink?.map((element, index) =>
+                    <div className='flex mb10-lit' key={index} >
+                      <label className='input-label'>{`Pileta${index + 1} cant:`}</label>
+                      <input className='inputCodigo ' value={element.quantity} id={"cantidad"} name='cantidad' onChange={(e) => setCant(e.target.value)} required />
+                      <button type='button' className='btnAdd botonAddAcc' onClick={handleClickAccesorios}>agregar Accesorios</button>
+                    </div>)
+                }
+
+
+
+                {/* <div className='btnAddJ mb10'>
                   <button type='button' className='btnAdd botonAddAcc' onClick={handleClickAccesorios}>agregar Accesorios</button>
-                </div>
+                </div> */}
                 <Dialog open={openAcc} >
                   <DialogContent>
                     <DialogContentText>Accesorios:</DialogContentText>
