@@ -7,6 +7,7 @@ import johnsonActions from '../redux/actions/johnsonActions';
 import sinkActions from '../redux/actions/sinkActions';
 import Container from '../components/Container'
 import Button from '@mui/material/Button';
+import MenuItem from '@mui/material/MenuItem';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -20,30 +21,60 @@ export default function JohnsonData() {
   let stock = JSON.parse(localStorage.getItem('stock'))
   let sink = JSON.parse(localStorage.getItem('sink'))
   const jhonson = sink.jhonson
+  console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 23 ~ JohnsonData ~ jhonson", jhonson)
   const dispatch = useDispatch()
   const [codigo, setCodigo] = useState("")
   const [instalation, setInstalation] = useState("")
   const [typeCode, setTypeCode] = useState("")
-  const [cant, setCant] = useState("")
-  const [openAcc, setOpenAcc] = useState(false)
   const [accesorysAdd, setAccesorysAdd] = useState([])
+  const [sinks, setSinks] = useState([{ accesories: [], instalation:"instalacion lateral", jhonson: jhonson, quantity: "" }])
+  const [sinksOpen, setSinksOpen] = useState([{ open: false }])
+  const [sinksOpenType, setSinksOpenType] = useState([{ open: false }])
+  const [typeA, setTypeA] = useState(false)
+  const [openJson, setOpenJson] = useState(false)
+  const [inputSearch, setInputSearch] = useState("")
+  const [listType, setListType] = useState([])
+
+  console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 35 ~ JohnsonData ~ sinksOpen", sinksOpen)
+  console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 31 ~ JohnsonData ~ sinks", sinks)
+
   useEffect(() => {
     dispatch(johnsonActions.getOneJohnson(jhonson))
     dispatch(johnsonActions.getAccesory())
+    dispatch(johnsonActions.getJohnsonType("A304"))
+    dispatch(johnsonActions.getJohnsonType("A430"))
     // eslint-disable-next-line
   }, [])
 
   const johnsonSelect = useSelector(store => store.johnsonReducer.oneJohnson)
+  console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 50 ~ JohnsonData ~ johnsonSelect", johnsonSelect)
   const accesoriesList = useSelector(store => store.johnsonReducer.accesorys)
-  const addAccesory = (id, elem) => {
-    if (accesorysAdd.includes(id)) {
+  const jsonList = useSelector(store => store.johnsonReducer.johnsonType)
+ 
+  const addAccesory = (id, index, key) => {
+    console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 42 ~ addAccesory ~ id", id)
+    console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 42 ~ addAccesory ~ index", index)
+    let fields = sinks[index].accesories
+    let lista = []
+    if (fields.includes(id)) {
       console.log("ya esta en la lista")
-      setAccesorysAdd(accesorysAdd.filter(x => x !== id))
+      setSinks(sinks[index].accesories.filter(x => x !== id))
     }
     else {
-      setAccesorysAdd([...accesorysAdd, id])
+      fields.push(id);
+      setSinks[index]?.accesories([...sinks[index].accesories, ...fields])
+      console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 54 ~ addAccesory ~ fields", fields)
+      console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 51 ~ addAccesory ~ lista", lista)
       console.log("agregado")
     }
+    // if (accesorysAdd.includes(id)) {
+    //   console.log("ya esta en la lista")
+    //   setAccesorysAdd(accesorysAdd.filter(x => x !== id))
+    // }
+    // else {
+    //   setAccesorysAdd([...accesorysAdd, id])
+    //   console.log("agregado")
+    // }
   }
   const addInstalacion = (elem) => {
     if (instalation.includes(elem)) {
@@ -55,35 +86,61 @@ export default function JohnsonData() {
       console.log("agregado")
     }
   }
-  const handleClickAccesorios = () => {
-    setOpenAcc(true)
+  const openAcc = (position) => {
+    const abrir = sinksOpen.map((op, index)=>{
+      if (index === position) {
+        return{open:true}
+      }
+    })
+    setSinksOpen(abrir)
+    console.log(sinksOpen)
   }
-  const addSink = () => {
-    let sink = JSON.parse(localStorage.getItem('sink'))
-    let stock = {
-      comments: comments?.current?.value.trim(),
-      done: false
-    }
-    instalation ? (sink.instalation = instalation) : sink.instalation = "instalacion lateral"
-    sink.accesories = accesorysAdd
-    sink.quantity = cant
-    if (typeCode === "interno") {
-      stock.internal = codigo
-      stock.note = null
-    }
-    else if (typeCode === "pedido") {
-      stock.note = codigo
-      stock.internal = null
-    }
-    stock.sink = [{ ...sink }]
-    localStorage.setItem('stock', JSON.stringify(stock))
-    localStorage.setItem('sink', JSON.stringify(sink))
-    //(navigate("/johnson/new", { replace: true }))
-    if (stock?.sink?.length <= 10) {
-      let sink = JSON.parse(localStorage.getItem('sink'))
-      stock.sink = [...stock.sink, { sink }]
-        .then(navigate("/johnson/new", { replace: true }))
+  const closeAcc = (position) => {
+    const cerrar = sinksOpen.map((op, index)=>{
+      if (index === position) {
+        return{open:false}
+      }
+    })
+    setSinksOpen(cerrar)
+    console.log(sinksOpen)
+  }
+  const openType = (position) => {
+    // const abrir = setSinksOpenType.map((op, index)=>{
+    //   if (index === position) {
+    //     return{open:true}
+    //   }
+    // })
+    // setSinksOpenType(abrir)
+    setTypeA(true)
+  }
 
+  async function openJohnson(type){
+    console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 112 ~ openJohnson ~ type", type)
+    const forType = jsonList.filter((element)=> element.type === type )
+    console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 119 ~ openJohnson ~ forType", forType)
+    setListType(forType)
+    setOpenJson(true)
+    setTypeA(false)
+  }
+
+  const closeJohnson = (position) => {
+    setOpenJson(false)
+  }
+  const datos = (value, index, key) => {
+    console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 129 ~ datos ~ value", value)
+    const fields = sinks
+    fields[index][key] = value?.target?.value || value;
+    setSinks([...sinks])
+  }
+  
+  const addSink = (index) => {
+    if (sinks.length < 10) {
+      setSinks([...sinks, { accesories: [], instalation: "", jhonson: "", quantity: "" }])
+      setSinksOpenType([...sinksOpenType, {open:false}])
+      setSinksOpen([...sinksOpen, {open:false}])
+      openType()
+
+      console.log("agregado")
     }
   }
 
@@ -124,7 +181,7 @@ export default function JohnsonData() {
                 <div className='cajaCheck mb10' >
                   <div className='flex inputGrow mb10-lit'>
                     <label className='input-label'>ID</label>
-                    <input className='inputCodigo inputGrow' value={stock?.internal} id={"codigo"} name='codigo' onChange={(e) => setCodigo(e.target.value)} required />
+                    <input className='inputCodigo inputGrow' id={"codigo"} name='codigo' onChange={(e) => setCodigo(e.target.value)} required />
                   </div>
                   <div className='flex inputGrow center'>
                     <label className='ml10 labelCheck' >
@@ -154,57 +211,107 @@ export default function JohnsonData() {
                 }
                 <div className='mb10 flex'>
                   <label htmlFor='comentario' className='input-label'>COMENTARIO: </label>
-                  <input className='inputCodigo inputGrow' value={stock?.comments} id='comentario' type='text' ref={comments} />
+                  <input className='inputCodigo inputGrow' id='comentario' type='text' ref={comments} />
                 </div>
+
                 {
-                  stock?.sink?.map((element, index) =>
+                  sinks.map((element, index) =>
                     <div className='flex mb10-lit' key={index} >
                       <label className='input-label'>{`Pileta${index + 1} cant:`}</label>
-                      <input className='inputCodigo ' value={element.quantity} id={"cantidad"} name='cantidad' onChange={(e) => setCant(e.target.value)} required />
-                      <button type='button' className='btnAdd botonAddAcc' onClick={handleClickAccesorios}>agregar Accesorios</button>
-                    </div>)
-                }
+                      <input className='inputCodigo ' value={element.quantity} id={"cantidad"} name='cantidad' onChange={(e) => datos(e, index, 'quantity')} required />
+                      <button type='button' className='btnAdd botonAddAcc' onClick={(e) => openAcc(index)}>agregar Accesorios</button>
 
+                      <Dialog open={sinksOpen[index]?.open} >
+                        <DialogContent>
+                          <DialogContentText>{`ACCESORIOS Pileta${index + 1}:`}</DialogContentText>
+                          <div className='itemsEditAcc'>
+                            {accesoriesList.map((item) => (
+                              <button
+                                onClick={() => addAccesory(item._id, index, "accesories", item)}
+                                key={item._id}
+                                className='boxItemAcc'
+                                style={{
+                                  "backgroundImage": `url(${item.photo})`,
+                                  "backgroundSize": "cover",
+                                  "backgroundPosition": "center",
+                                  "objectFit": "cover"
+                                }}>
 
-
-                {/* <div className='btnAddJ mb10'>
-                  <button type='button' className='btnAdd botonAddAcc' onClick={handleClickAccesorios}>agregar Accesorios</button>
-                </div> */}
-                <Dialog open={openAcc} >
-                  <DialogContent>
-                    <DialogContentText>Accesorios:</DialogContentText>
-                    <div className='itemsEditAcc'>
-                      {accesoriesList.map((item) => (
-                        <button
-                          onClick={() => addAccesory(item._id, item)}
-                          key={item._id}
-                          className='boxItemAcc'
-                          style={{
-                            "backgroundImage": `url(${item.photo})`,
-                            "backgroundSize": "cover",
-                            "backgroundPosition": "center",
-                            "objectFit": "cover"
-                          }}>
-
-                          <div className='maskAcc'>
-                            <div className='nameIcon'>
-                              <h5 className='h5DescAcc'>{item.code}</h5>
-                              {accesorysAdd?.includes(item._id) ?
-                                <CheckCircleIcon className="addIconAcc" />
-                                :
-                                <RadioButtonUncheckedIcon className="deletIconAcc" />}
-                            </div>
-                            <p className='pDescAcc'>{item.description}</p>
+                                <div className='maskAcc'>
+                                  <div className='nameIcon'>
+                                    <h5 className='h5DescAcc'>{item.code}</h5>
+                                    {sinks[index].accesories?.includes(item._id) ?
+                                      <CheckCircleIcon className="addIconAcc" />
+                                      :
+                                      <RadioButtonUncheckedIcon className="deletIconAcc" />}
+                                  </div>
+                                  <p className='pDescAcc'>{item.description}</p>
+                                </div>
+                              </button>
+                            ))}
                           </div>
-                        </button>
-                      ))}
-                    </div>
-                  </DialogContent>
-                  <DialogActions>
-                    <Button onClick={() => setOpenAcc(false)}>Listo</Button>
-                    <Button onClick={() => setOpenAcc(false)}>Cancelar</Button>
-                  </DialogActions>
-                </Dialog>
+                        </DialogContent>
+                        <DialogActions>
+                          <Button onClick={() => closeAcc(index)}>Listo</Button>
+                          <Button onClick={() => closeAcc(index)}>Cancelar</Button>
+                        </DialogActions>
+                      </Dialog>
+
+                      <Dialog open={typeA} >
+                        <DialogContent>
+                          <DialogContentText>{`Agregar pileta${index + 1}:`}</DialogContentText>
+                          <h4>Tipo de acero:</h4>
+                          <div className='tipoAc'>
+                          {/* <MenuItem value={"A304"} onChange={}>{"A304"}</MenuItem>
+                          <MenuItem value={"A430"}>{"A430"}</MenuItem> */}
+                          <button type='button' className='btnForm' onClick={() => openJohnson("A304")}>A304</button>
+                          <button type='button' className='btnForm' onClick={() => openJohnson("A430")}>A430</button>
+                          </div>
+                        </DialogContent>
+                        <DialogActions>
+                          {/* <Button onClick={() => setTypeA(false)}>Siguiente</Button> */}
+                          <Button onClick={() => setTypeA(false)}>Cancelar</Button>
+                        </DialogActions>
+                      </Dialog>
+
+                      <Dialog open={openJson} >
+                        <DialogContent>
+                          <DialogContentText>{`Johnson${index + 1}:`}</DialogContentText>
+                          <div className='itemsEditAcc'>
+                            {listType.map((item) => (
+                              <button
+                                onClick={() => datos(item._id, index, 'jhonson')}
+                                key={item._id}
+                                className='boxItemAcc'
+                                style={{
+                                  "backgroundImage": `url(${item.photo})`,
+                                  "backgroundSize": "cover",
+                                  "backgroundPosition": "center",
+                                  "objectFit": "cover"
+                                }}>
+
+                                <div className='maskAcc'>
+                                  <div className='nameIcon'>
+                                    <h5 className='h5DescAcc codejson'>{item.code}</h5>
+                                    {sinks[index].jhonson?.includes(item._id) ?
+                                      <CheckCircleIcon className="addIconAcc" />
+                                      :
+                                      <RadioButtonUncheckedIcon className="deletIconAcc" />}
+                                  </div>
+                                  <p className='pDescAcc pxyz'>{item.x} x {item.y} x {item.z} </p>
+                                </div>
+                              </button>
+                            ))}
+                          </div>
+                        </DialogContent>
+                        <DialogActions>
+                          <Button onClick={() => closeJohnson(index)}>Listo</Button>
+                          <Button onClick={() => closeJohnson(index)}>Cancelar</Button>
+                        </DialogActions>
+                      </Dialog>
+                    </div>)
+
+                }
 
               </div>
               <div className='btnesFormJson'>
@@ -224,3 +331,4 @@ export default function JohnsonData() {
   )
 
 }
+    

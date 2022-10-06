@@ -119,7 +119,7 @@ export default function StockInternalJohnson() {
                 internal: null,
                 note: codigo,
                 accesories: accesorysAdd,
-                instalation:instalation
+                instalation: instalation
             }
         }
         else {
@@ -127,7 +127,7 @@ export default function StockInternalJohnson() {
                 internal: codigo,
                 note: null,
                 accesories: accesorysAdd,
-                instalation:instalation
+                instalation: instalation
             }
         }
 

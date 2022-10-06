@@ -1149,7 +1149,20 @@ label {
     display: flex;
     justify-content: space-evenly;
 }
-
+.tipoAc{
+    height: 5rem;
+    display: flex;
+    align-items: center;
+}
+.codejson{
+    color: #00ff4e;
+    letter-spacing: 1px;
+    background-color: #00000061;
+}
+.pxyz{
+    color: #ffffff;
+    background: #000000c9;
+}
 /******Medias*******/
 @media (width < 1024px) {
     .titleCard {
