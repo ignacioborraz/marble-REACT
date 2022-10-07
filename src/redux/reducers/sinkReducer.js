@@ -3,10 +3,16 @@ const initialState = {
   filterInternalSink: [],
   filterNoteSink: [],
   noteSink: [],
+  sinkCreate: [],
 };
 
 const sinkReducer = (state = initialState, action) => {
   switch (action.type) {
+    case "SINK":
+      return {
+        ...state,
+        sinkCreate: action.payload,
+      };
     case "INTERNAL_SINK":
       return {
         ...state,

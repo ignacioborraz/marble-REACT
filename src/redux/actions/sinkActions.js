@@ -6,9 +6,11 @@ const johnsonActions = {
     const token = localStorage.getItem("token");
     return async (dispatch, getState) => {
       try {
-        await axios.post(apiUrl + "api/marble/sink", sink, {
+        const res = await axios.post(apiUrl + "api/marble/sink", sink, {
           headers: { Authorization: "Bearer " + token },
-        });
+        })
+        console.log("🚀 ~ file: sinkActions.js ~ line 12 ~ return ~ res", res)
+        dispatch({type:'SINK', payload: res.data.response});
       } catch (error) {
         console.log(error);
       }

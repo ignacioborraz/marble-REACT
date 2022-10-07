@@ -14,7 +14,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
-
+import stockActions from '../redux/actions/stockActions';
 
 export default function JohnsonData() {
   const navigate = useNavigate()
@@ -34,9 +34,10 @@ export default function JohnsonData() {
   const [typeA, setTypeA] = useState(false)
   const [openJson, setOpenJson] = useState(false)
   const [instJson, setInsJson] = useState([])
-  console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 38 ~ JohnsonData ~ instJson", instJson)
 
-  console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 35 ~ JohnsonData ~ sinksOpen", sinksOpen)
+  //console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 38 ~ JohnsonData ~ instJson", instJson)
+
+  //console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 35 ~ JohnsonData ~ sinksOpen", sinksOpen)
   console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 31 ~ JohnsonData ~ sinks", sinks)
 
   useEffect(() => {
@@ -46,7 +47,11 @@ export default function JohnsonData() {
   }, [reload])
 
   const johnsonSelect = useSelector(store => store.johnsonReducer.oneJohnson)
-  console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 50 ~ JohnsonData ~ johnsonSelect", johnsonSelect)
+  
+    const listaNEW = useSelector(store => store.sinkReducer.sinkCreate)
+
+  console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 50 ~ JohnsonData ~ listaNEW", listaNEW)
+  //console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 50 ~ JohnsonData ~ johnsonSelect", johnsonSelect)
   const accesoriesList = useSelector(store => store.johnsonReducer.accesorys)
   const [sinkInsta, setSinkInsta] = useState([{ instalation: [] }])
 
@@ -154,31 +159,48 @@ export default function JohnsonData() {
       console.log("agregado")
     }
   }
-
   async function creatingSink(event) {
     event.preventDefault()
-    let sink = JSON.parse(localStorage.getItem('sink'))
+    const listaId = []
+    try {
+      const resp = await sinks.map((item) => (dispatch(sinkActions.createSink(item))))
+      listaId.push(listaNEW._id)
+      await creatingStock(listaId)
 
-    let stock = {
-      comments: comments?.current?.value.trim(),
-      done: false
+      console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 162 ~ creatingSink ~ resp", resp)
+      
+    } catch (error) {
+    console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 177 ~ creatingSink ~ error", error)
+
     }
-    instalation ? (sink.instalation = instalation) : sink.instalation = "instalacion lateral"
-    sink.accesories = accesorysAdd
+
+
+    //await dispatch(sinkActions.createSink(sink))
+    //  .then(navigate("/", { replace: true }))
+  }
+  async function creatingStock(lis) {
+    console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 181 ~ creatingStock ~ l", lis)
+    let data = {}
     if (typeCode === "interno") {
-      stock.internal = codigo
-      stock.note = null
+      data = {
+        sink: lis, ///acaa no se como guardar los id´s
+        internal: codigo,
+        note: null,
+        done: false,
+        comments: comments?.current?.value.trim()
+
+      }
     }
-    else if (typeCode === "pedido") {
-      stock.note = codigo
-      stock.internal = null
+    else {
+      data = {
+        sink: lis,
+        internal: null,
+        note: codigo,
+        done: false,
+        comments: comments?.current?.value.trim()
+      }
     }
-    stock.sink = [{ ...sink }]
-    localStorage.setItem('stock', JSON.stringify(stock))
-    localStorage.setItem('sink', JSON.stringify(sink))
-    console.log(sink)
-    await dispatch(sinkActions.createSink(sink))
-      .then(navigate("/", { replace: true }))
+    await dispatch(stockActions.createStock(data))
   }
 
   return (
@@ -203,7 +225,7 @@ export default function JohnsonData() {
                     </label>
                   </div>
                 </div>
-                
+
                 {
                   sinks.length === 1 ?
                     (
