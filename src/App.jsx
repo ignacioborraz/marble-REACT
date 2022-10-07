@@ -40,7 +40,7 @@ import ScrollToTop from './components/ScrollToTop'
 export default function App() {
 
     const user = useSelector(store => store.userReducer.user)
-    useSelector(store => console.log(store.new))
+    //useSelector(store => console.log(store.new))
     const dispatch = useDispatch()
 
     useEffect(() => {

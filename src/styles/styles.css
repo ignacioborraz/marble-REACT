@@ -1018,6 +1018,7 @@ label {
 .checksInstalation {
     display: flex;
     align-items: center;
+    margin-top: 4px;
 }
 
 .bgJVendidas {
@@ -1162,6 +1163,27 @@ label {
 .pxyz{
     color: #ffffff;
     background: #000000c9;
+}
+.cajaCodJson{
+    flex-direction: column;
+    border: rgb(178 178 178) 1px solid;
+    padding: 3px;
+}
+.boxItemIns{
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    gap: 4px;
+    margin-left: 20px;
+    border: none;
+    background: none;
+}
+.deletIconAcc2{
+    color: white;
+    background: white;
+    border-radius: 50%;
+    border: solid 1px #665e5e;
+    font-size: 14px!important;
 }
 /******Medias*******/
 @media (width < 1024px) {
