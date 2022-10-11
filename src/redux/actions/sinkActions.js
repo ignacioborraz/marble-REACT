@@ -11,6 +11,7 @@ const johnsonActions = {
         })
         console.log("🚀 ~ file: sinkActions.js ~ line 12 ~ return ~ res", res)
         dispatch({type:'SINK', payload: res.data.response});
+        return res.data.response
       } catch (error) {
         console.log(error);
       }

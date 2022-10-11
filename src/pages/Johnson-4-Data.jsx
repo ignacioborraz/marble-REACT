@@ -28,6 +28,10 @@ export default function JohnsonData() {
   const [instalation, setInstalation] = useState("")
   const [typeCode, setTypeCode] = useState("")
   const [accesorysAdd, setAccesorysAdd] = useState([])
+  //console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 31 ~ JohnsonData ~ accesorysAdd", accesorysAdd )
+  if (accesorysAdd.length === 0) {
+    console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 31 ~ JohnsonData ~ accesorysAdd VACIOOOO", accesorysAdd )
+  }
   const [reload, setReload] = useState(false)
   const [sinks, setSinks] = useState([{ accesories: [], instalation: [], jhonson: jhonson, quantity: "" }])
   const [sinksOpen, setSinksOpen] = useState([{ open: false }])
@@ -171,28 +175,29 @@ export default function JohnsonData() {
   async function creatingSink(event) {
     event.preventDefault()
     const listaId = []
-    try {
-      const resp = await sinks.map((item) => (dispatch(sinkActions.createSink(item))))
-      listaId.push(listaNEW._id)
-      await creatingStock(listaId)
+    let listInst = sinks
+    for (let i = 0; i < listInst.length; i++) {
+      if (listInst[i].instalation.length === 0 ) {
+        listInst[i].instalation.push("instalacion lateral")
+        setSinks[i]?.instalation([...sinks[i].instalation, ...listInst])
+      }
+      const resp = await dispatch(sinkActions.createSink(sinks[i]))
+      console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 176 ~ creatingSink ~ resp", resp)
+      listaId.push(resp._id)
+      }
+      console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 174 ~ creatingSink ~ listaId", listaId)
+      creatingStock(listaId)
+  
 
-      console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 162 ~ creatingSink ~ resp", resp)
 
-    } catch (error) {
-      console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 177 ~ creatingSink ~ error", error)
-
-    }
-
-
-    //await dispatch(sinkActions.createSink(sink))
-    //  .then(navigate("/", { replace: true }))
+    
   }
   async function creatingStock(lis) {
     console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 181 ~ creatingStock ~ l", lis)
     let data = {}
     if (typeCode === "interno") {
       data = {
-        sink: lis, ///acaa no se como guardar los id´s
+        sink: lis, 
         internal: codigo,
         note: null,
         done: false,
@@ -210,6 +215,7 @@ export default function JohnsonData() {
       }
     }
     await dispatch(stockActions.createStock(data))
+    .then(navigate("/", { replace: true }))
   }
 
   return (
