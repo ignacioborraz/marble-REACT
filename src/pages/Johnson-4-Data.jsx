@@ -8,6 +8,7 @@ import sinkActions from '../redux/actions/sinkActions';
 import Container from '../components/Container'
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -47,8 +48,8 @@ export default function JohnsonData() {
   }, [reload])
 
   const johnsonSelect = useSelector(store => store.johnsonReducer.oneJohnson)
-  
-    const listaNEW = useSelector(store => store.sinkReducer.sinkCreate)
+
+  const listaNEW = useSelector(store => store.sinkReducer.sinkCreate)
 
   console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 50 ~ JohnsonData ~ listaNEW", listaNEW)
   //console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 50 ~ JohnsonData ~ johnsonSelect", johnsonSelect)
@@ -143,7 +144,6 @@ export default function JohnsonData() {
       setSinkInsta([...sinkInsta])
     }
   }
-
   const addSink = (index) => {
     const insta = sinkInsta
     insta[0]["instalation"] = johnsonSelect.instalation
@@ -159,6 +159,15 @@ export default function JohnsonData() {
       console.log("agregado")
     }
   }
+  const deleteInput = (index) => {
+    if (index !== 0) {
+      console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 163 ~ deleteInput ~ index", index)
+      const fields = sinks
+      fields.splice(index, 1)
+      setSinks([...fields])
+    }
+
+  }
   async function creatingSink(event) {
     event.preventDefault()
     const listaId = []
@@ -168,9 +177,9 @@ export default function JohnsonData() {
       await creatingStock(listaId)
 
       console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 162 ~ creatingSink ~ resp", resp)
-      
+
     } catch (error) {
-    console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 177 ~ creatingSink ~ error", error)
+      console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 177 ~ creatingSink ~ error", error)
 
     }
 
@@ -261,11 +270,16 @@ export default function JohnsonData() {
                 {
                   sinks.map((element, index) =>
                     <div className='flex mb10-lit cajaCodJson' key={index} >
-                      <div className='flex'>
+                      <div className='flex cajaInputAcc'>
 
                         <label className='input-label'>{`Pileta${index + 1} cant:`}</label>
                         <input className='inputCodigo ' value={element.quantity} id={"cantidad"} name='cantidad' onChange={(e) => datos(e, index, 'quantity')} required />
                         <button type='button' className='btnAdd botonAddAcc' onClick={(e) => openAcc(index)}>agregar Accesorios</button>
+                        {
+                          index > 0 ?
+                            <button className='ml10 btnDelet' type='button' onClick={() => deleteInput(index)} ><DeleteForeverIcon className='iconDelet' /></button>
+                            : null
+                        }
                       </div>
 
                       <div>
@@ -332,10 +346,27 @@ export default function JohnsonData() {
                         <DialogContent>
                           <DialogContentText>{`Agregar pileta${index + 1}:`}</DialogContentText>
                           <h4>Tipo de acero:</h4>
-                          <div className='tipoAc'>
+                          {/* <div className='tipoAc'>
                             <button type='button' className='btnForm' onClick={() => openJohnson("A304")}>A304</button>
                             <button type='button' className='btnForm' onClick={() => openJohnson("A430")}>A430</button>
-                          </div>
+                          </div> */}
+                           <Container width='100%' justify='space-evenly' align='center' wrap='wrap'>
+                           <button onClick={() => openJohnson("A304")} className="linkTypes  typesDialog">
+                            <div className="bgType bgA304" >
+                              <div className='mask'>
+                                <h1 className='titleCard johnsonTypeh1'>A304</h1>
+                              </div>
+                            </div>
+                            </button>
+                          
+                          <button onClick={() => openJohnson("A430")}  className="linkTypes  typesDialog">
+                            <div className="bgType bgA430" >
+                              <div className='mask'>
+                                <h1 className='titleCard johnsonTypeh1'>A430</h1>
+                              </div>
+                            </div>
+                          </button>
+                          </Container>
                         </DialogContent>
                         <DialogActions>
                           <Button onClick={() => setTypeA(false)}>Cancelar</Button>
@@ -383,8 +414,8 @@ export default function JohnsonData() {
 
               </div>
               <div className='btnesFormJson'>
-                <button type='button' className='btnForm ' onClick={addSink}>agregar</button>
-                <input type="submit" required value='Finalizar' className='btnForm ' />
+                <button type='button' className='btnForm btnFormJSON' onClick={addSink}>agregar</button>
+                <input type="submit" required value='Finalizar' className='btnForm btnFormJSON' />
 
               </div>
 

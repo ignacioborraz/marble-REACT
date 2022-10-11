@@ -323,7 +323,7 @@ a {
 }
 
 .linkTypes div:hover {
-    box-shadow: 0 0 5px rgb(50,50,50), 0 0 5px rgb(50,50,50), 0px 0px 5px rgb(50,50,50)
+    box-shadow: 0 0 5px rgb(50, 50, 50), 0 0 5px rgb(50, 50, 50), 0px 0px 5px rgb(50, 50, 50)
 }
 
 /***cradStock**/
@@ -499,7 +499,10 @@ a {
     background-color: white;
     /* margin: 5px; */
     padding: 5px;
+    box-shadow: 2px 4px 5px 0 #bdbdbd;
+
 }
+
 
 .linkColorsJ {
     display: flex;
@@ -1059,9 +1062,10 @@ label {
     gap: 4px;
     align-items: center;
     justify-content: center;
-    
+
 }
-.boxItemAcc{
+
+.boxItemAcc {
     border: 1px solid rgb(148 148 148);
     display: flex;
     flex-flow: column wrap;
@@ -1069,14 +1073,16 @@ label {
     height: 8rem;
     justify-content: flex-end;
 }
+
 .imgAcc {
     height: 100px !important;
     width: 100px !important;
     object-fit: cover;
-   
+
 
 }
-.maskAcc{
+
+.maskAcc {
     height: 100%;
     padding: 3px;
     width: 100%;
@@ -1086,53 +1092,63 @@ label {
     justify-content: space-between;
     align-items: center;
 }
-.h5DescAcc{
+
+.h5DescAcc {
     font-size: 15px;
 }
-.pDescAcc{
+
+.pDescAcc {
     font-size: 12px;
     text-transform: lowercase;
     text-align: center;
-   
+
 }
-.nameIcon{
+
+.nameIcon {
     display: flex;
     width: 100%;
     align-items: center;
     justify-content: space-between;
 }
-.addIconAcc{
-    font-size: 18px!important;
+
+.addIconAcc {
+    font-size: 18px !important;
     color: green;
 }
 
-.deletIconAcc{
+.deletIconAcc {
     color: gray;
-    font-size: 18px!important;
+    font-size: 18px !important;
 }
-.btnAddAcc{
+
+.btnAddAcc {
     display: flex;
     width: 100%;
     justify-content: flex-end;
     margin-top: 2px;
 
 }
-.btnAddJ{
+
+.btnAddJ {
     display: flex;
     justify-content: center;
 
 }
-.botonAddAcc{
+
+.botonAddAcc {
     font-size: 16px;
     width: 12rem;
 }
-.dialogDelet .css-yiavyu-MuiBackdrop-root-MuiDialog-backdrop{
-    background-color:rgb(0 0 0 / 27%);
+
+.dialogDelet .css-yiavyu-MuiBackdrop-root-MuiDialog-backdrop {
+    background-color: rgb(0 0 0 / 27%);
 }
-.instalacionBox{
+
+.instalacionBox {
     margin-top: 12px;
 }
-.btnAgregar{
+
+.btnAgregar {
     border-radius: 8px;
     padding: 4px;
     border: 1px solid;
@@ -1145,31 +1161,37 @@ label {
     justify-content: center;
     align-items: center;
 }
-.btnesFormJson{
+
+.btnesFormJson {
     width: 100%;
     display: flex;
     justify-content: space-evenly;
 }
-.tipoAc{
+
+.tipoAc {
     height: 5rem;
     display: flex;
     align-items: center;
 }
-.codejson{
+
+.codejson {
     color: #00ff4e;
     letter-spacing: 1px;
     background-color: #00000061;
 }
-.pxyz{
+
+.pxyz {
     color: #ffffff;
     background: #000000c9;
 }
-.cajaCodJson{
+
+.cajaCodJson {
     flex-direction: column;
     border: rgb(178 178 178) 1px solid;
     padding: 3px;
 }
-.boxItemIns{
+
+.boxItemIns {
     display: flex;
     align-items: center;
     flex-direction: row-reverse;
@@ -1178,13 +1200,31 @@ label {
     border: none;
     background: none;
 }
-.deletIconAcc2{
+
+.deletIconAcc2 {
     color: white;
     background: white;
     border-radius: 50%;
     border: solid 1px #665e5e;
-    font-size: 14px!important;
+    font-size: 14px !important;
 }
+
+.typesDialog {
+    height: 10rem;
+    width: 10rem;
+    margin: 7px;
+    border: none;
+    box-shadow: 2px 4px 5px 0 #bdbdbd;
+}
+
+.cajaInputAcc {
+    align-items: center;
+    gap: 5px;
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
 /******Medias*******/
 @media (width < 1024px) {
     .titleCard {
@@ -1196,6 +1236,7 @@ label {
     .mb10-lit {
         margin-bottom: 10px;
     }
+
     .logo {
         height: 3rem !important;
     }
@@ -1207,6 +1248,7 @@ label {
     .form {
         width: 85%;
     }
+
     .cajaCheck {
         border: solid 1px rgb(178 178 178);
         /* padding: 10px;
@@ -1218,31 +1260,36 @@ label {
         flex-wrap: wrap;
         flex-direction: column;
     }
+
     .cajaCodigo {
         flex-direction: column;
     }
+
     .labelInputCodigo {
         width: 93%;
     }
+
     .labelCheck {
         font-size: 12px;
     }
 }
 
-@media (width < 550px) 
-{
+@media (width < 550px) {
     .menorH {
         height: 49%;
         width: 97%;
     }
+
     .containerIndex1 {
         flex-direction: column;
         align-items: center;
         padding-bottom: 5px;
     }
+
     .link {
         width: 96%;
     }
+
     .ml10,
     .mb10,
     .mr10 {
@@ -1250,36 +1297,45 @@ label {
         margin-bottom: 0 !important;
         margin-right: 0 !important;
     }
+
     .mt10 {
         margin-top: 5px !important;
     }
+
     .form {
         width: 95%;
     }
+
     label {
         font-size: 15px;
     }
+
     input {
         border-radius: 8px;
         height: 18px;
     }
+
     .selectCant {
         border-radius: 13px !important;
         width: 7rem !important;
         height: 1.5rem;
     }
+
     .inputMui {
         font-size: 15px !important;
     }
+
     .containerDatosForm div {
         margin-bottom: 5px !important;
     }
+
     .cajaCheck {
         border: solid 1px rgb(178 178 178);
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
     }
+
     .subtCard {
         margin-top: 6px;
         letter-spacing: 4px;
@@ -1287,21 +1343,25 @@ label {
         font-weight: 900;
         font-size: 15px;
     }
+
     .btnAdd {
         font-size: 15px;
     }
-    .boxItemAcc{
+
+    .boxItemAcc {
         width: 7rem;
     }
+
     .checksInstalation {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
     }
+
     .center-lit {
         justify-content: flex-start;
         margin-bottom: 5px !important;
-    }    
+    }
 }
 
 @media (width < 425px) {
@@ -1311,6 +1371,10 @@ label {
 
     .linkColors {
         width: 18rem;
+    }
+    .btnFormJSON{
+        padding: 11px 16px;
+        font-size: 14px;
     }
 
 }
@@ -1331,7 +1395,8 @@ label {
         justify-content: flex-start;
         flex-direction: column;
     }
-    .boxItemAcc{
+
+    .boxItemAcc {
         width: 12rem;
     }
 }
