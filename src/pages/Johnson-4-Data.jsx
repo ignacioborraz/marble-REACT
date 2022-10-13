@@ -30,7 +30,7 @@ export default function JohnsonData() {
   const [accesorysAdd, setAccesorysAdd] = useState([])
   //console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 31 ~ JohnsonData ~ accesorysAdd", accesorysAdd )
   if (accesorysAdd.length === 0) {
-    console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 31 ~ JohnsonData ~ accesorysAdd VACIOOOO", accesorysAdd )
+    console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 31 ~ JohnsonData ~ accesorysAdd VACIOOOO", accesorysAdd)
   }
   const [reload, setReload] = useState(false)
   const [sinks, setSinks] = useState([{ accesories: [], instalation: [], jhonson: jhonson, quantity: "" }])
@@ -52,13 +52,15 @@ export default function JohnsonData() {
   }, [reload])
 
   const johnsonSelect = useSelector(store => store.johnsonReducer.oneJohnson)
+  console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 55 ~ JohnsonData ~ johnsonSelect", johnsonSelect)
 
   const listaNEW = useSelector(store => store.sinkReducer.sinkCreate)
 
   console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 50 ~ JohnsonData ~ listaNEW", listaNEW)
   //console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 50 ~ JohnsonData ~ johnsonSelect", johnsonSelect)
   const accesoriesList = useSelector(store => store.johnsonReducer.accesorys)
-  const [sinkInsta, setSinkInsta] = useState([{ instalation: [] }])
+  const [sinkInsta, setSinkInsta] = useState([{ instalation: [], type: "", code: "" }])
+  console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 63 ~ JohnsonData ~ sinkInsta", sinkInsta)
 
   const addAccesory = (id, index, key) => {
     let fields = sinks
@@ -134,7 +136,7 @@ export default function JohnsonData() {
   const closeJohnson = (position) => {
     setOpenJson(false)
   }
-  const datos = (value, position, key, item) => {
+  const datos = (value, position, key, item) => { //carga datos
     console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 134 ~ datos ~ item", item)
     console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 129 ~ datos ~ value", value)
     const fields = sinks
@@ -145,10 +147,12 @@ export default function JohnsonData() {
     if (item !== undefined) {
       const insta = sinkInsta
       insta[position]["instalation"] = item?.instalation
+      insta[position]["type"] = item?.type
+      insta[position]["code"] = item?.code
       setSinkInsta([...sinkInsta])
     }
   }
-  const addSink = (index) => {
+  const addSink = (index) => {  //agrega mas piletas
     const insta = sinkInsta
     insta[0]["instalation"] = johnsonSelect.instalation
     setSinkInsta([...sinkInsta])
@@ -157,8 +161,8 @@ export default function JohnsonData() {
       setSinks([...sinks, { accesories: [], instalation: [], jhonson: "", quantity: "" }])
       setSinksOpenType([...sinksOpenType, { open: false }])
       setSinksOpen([...sinksOpen, { open: false }])
-      setSinkInsta([...sinkInsta, { instalation: [] }])
-      openType()
+      setSinkInsta([...sinkInsta, { instalation: [], type: "", code: "" }])
+      //openType()
 
       console.log("agregado")
     }
@@ -177,27 +181,27 @@ export default function JohnsonData() {
     const listaId = []
     let listInst = sinks
     for (let i = 0; i < listInst.length; i++) {
-      if (listInst[i].instalation.length === 0 ) {
+      if (listInst[i].instalation.length === 0) {
         listInst[i].instalation.push("instalacion lateral")
         setSinks[i]?.instalation([...sinks[i].instalation, ...listInst])
       }
       const resp = await dispatch(sinkActions.createSink(sinks[i]))
       console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 176 ~ creatingSink ~ resp", resp)
       listaId.push(resp._id)
-      }
-      console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 174 ~ creatingSink ~ listaId", listaId)
-      creatingStock(listaId)
-  
+    }
+    console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 174 ~ creatingSink ~ listaId", listaId)
+    creatingStock(listaId)
 
 
-    
+
+
   }
   async function creatingStock(lis) {
     console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 181 ~ creatingStock ~ l", lis)
     let data = {}
     if (typeCode === "interno") {
       data = {
-        sink: lis, 
+        sink: lis,
         internal: codigo,
         note: null,
         done: false,
@@ -215,7 +219,7 @@ export default function JohnsonData() {
       }
     }
     await dispatch(stockActions.createStock(data))
-    .then(navigate("/", { replace: true }))
+      .then(navigate("/", { replace: true }))
   }
 
   return (
@@ -241,34 +245,7 @@ export default function JohnsonData() {
                   </div>
                 </div>
 
-                {
-                  sinks.length === 1 ?
-                    (
-                      johnsonSelect.instalation?.length > 0 ?
-                        (
-                          <div className=' checksInstalation mb10' >
-                            <div>
-                              <label>Inst: </label>
-                            </div>
-                            {
-                              johnsonSelect.instalation?.map((op, indice) =>
-                                <button
-                                  type='button'
-                                  onClick={(e) => addInstalacion(op, 0, "instalation")}
-                                  key={indice}
-                                  className='boxItemIns'>{op} {sinks[0]?.instalation?.includes(op) ?
-                                    <CheckCircleIcon className="addIconAcc" />
-                                    :
-                                    <RadioButtonUncheckedIcon className="deletIconAcc2" />}</button>
-                              )
-                            }
-                          </div>
-                        ) : null
-
-                    ) : null
-
-                }
-                <div className='mb10 flex'>
+                <div className='mb10 flex '>
                   <label htmlFor='comentario' className='input-label'>COMENTARIO: </label>
                   <input className='inputCodigo inputGrow' id='comentario' type='text' ref={comments} />
                 </div>
@@ -277,20 +254,62 @@ export default function JohnsonData() {
                   sinks.map((element, index) =>
                     <div className='flex mb10-lit cajaCodJson' key={index} >
                       <div className='flex cajaInputAcc'>
+                        {
+                          index === 0 ?
+                            (
+                              <div className='boxItemJson '>
+                                <div className='boxNewSink box0json'>
+                                  <label className='input-label'>{`Pileta${index + 1}`}</label>
+                                  <input type='button' value={johnsonSelect.type} className='btnAdd btnAddjson'  /*onClick={() => setTypeA(true)}*/ />
+                                  <input type='button' value={johnsonSelect.code} className='btnAdd btnAddjson btnAddjson-code' /*onClick={() =>setOpenJson(true)}*/ />
+                                  <input placeholder='Cant' className='inputCodigo inputCod2' value={element.quantity} id={"cantidad"} name='cantidad' onChange={(e) => datos(e, index, 'quantity')} required />
+                                  <button type='button' className='btnAdd btnAddjson' onClick={() => openAcc(index)}>Accesorios</button>
+                                </div>
 
-                        <label className='input-label'>{`Pileta${index + 1} cant:`}</label>
-                        <input className='inputCodigo ' value={element.quantity} id={"cantidad"} name='cantidad' onChange={(e) => datos(e, index, 'quantity')} required />
-                        <button type='button' className='btnAdd botonAddAcc' onClick={(e) => openAcc(index)}>agregar Accesorios</button>
+                                {
+                                  johnsonSelect.instalation?.length > 0 ?
+                                    (
+                                      <div className=' checksInstalation mb10' >
+                                        <div>
+                                          <label>Inst: </label>
+                                        </div>
+                                        {
+                                          johnsonSelect.instalation?.map((op, indice) =>
+                                            <button
+                                              type='button'
+                                              onClick={(e) => addInstalacion(op, 0, "instalation")}
+                                              key={indice}
+                                              className='boxItemIns'>{op} {sinks[0]?.instalation?.includes(op) ?
+                                                <CheckCircleIcon className="addIconAcc" />
+                                                :
+                                                <RadioButtonUncheckedIcon className="deletIconAcc2" />}</button>
+                                          )
+                                        }
+                                      </div>
+                                    ) : null
+
+                                }
+
+                              </div>
+                            ) :
+                            <div className='boxNewSink'>
+                              <label className='input-label'>{`Pileta${index + 1}`}</label>
+                              <input type='button' value={sinkInsta[index].type ? (sinkInsta[index].type) : "Acero"} className='btnAdd btnAddjson' onClick={() => setTypeA(true)} />
+                              <input type='button' value={sinkInsta[index].code ? (sinkInsta[index].code) : "Modelo"} className='btnAdd btnAddjson btnAddjson-code' onClick={() => setOpenJson(true)} />{``}
+                              <input placeholder='Cant' className='inputCodigo inputCod2' value={element.quantity} id={"cantidad"} name='cantidad' onChange={(e) => datos(e, index, 'quantity')} required />
+                              {/* <button type='button' className='btnAdd btnAddjson' onClick={() => openAcc(index)}>Instalacion</button> */}
+                              <button type='button' className='btnAdd btnAddjson' onClick={() => openAcc(index)}>Accesorios</button>
+                            </div>
+                        }
                         {
                           index > 0 ?
                             <button className='ml10 btnDelet' type='button' onClick={() => deleteInput(index)} ><DeleteForeverIcon className='iconDelet' /></button>
                             : null
                         }
                       </div>
-
                       <div>
                         {
-                          sinkInsta[index]?.instalation?.length > 0 ?
+                          index > 0 && sinkInsta[index]?.instalation?.length > 0 ?
                             (
                               <div className=' checksInstalation mb10' >
                                 <div>
@@ -312,6 +331,8 @@ export default function JohnsonData() {
                             ) : null
                         }
                       </div>
+
+
                       <Dialog open={sinksOpen[index]?.open} >
                         <DialogContent>
                           <DialogContentText>{`ACCESORIOS Pileta${index + 1}:`}</DialogContentText>
@@ -352,26 +373,22 @@ export default function JohnsonData() {
                         <DialogContent>
                           <DialogContentText>{`Agregar pileta${index + 1}:`}</DialogContentText>
                           <h4>Tipo de acero:</h4>
-                          {/* <div className='tipoAc'>
-                            <button type='button' className='btnForm' onClick={() => openJohnson("A304")}>A304</button>
-                            <button type='button' className='btnForm' onClick={() => openJohnson("A430")}>A430</button>
-                          </div> */}
-                           <Container width='100%' justify='space-evenly' align='center' wrap='wrap'>
-                           <button onClick={() => openJohnson("A304")} className="linkTypes  typesDialog">
-                            <div className="bgType bgA304" >
-                              <div className='mask'>
-                                <h1 className='titleCard johnsonTypeh1'>A304</h1>
+                          <Container width='100%' justify='space-evenly' align='center' wrap='wrap'>
+                            <button onClick={() => openJohnson("A304")} className="linkTypes  typesDialog">
+                              <div className="bgType bgA304" >
+                                <div className='mask'>
+                                  <h1 className='titleCard johnsonTypeh1'>A304</h1>
+                                </div>
                               </div>
-                            </div>
                             </button>
-                          
-                          <button onClick={() => openJohnson("A430")}  className="linkTypes  typesDialog">
-                            <div className="bgType bgA430" >
-                              <div className='mask'>
-                                <h1 className='titleCard johnsonTypeh1'>A430</h1>
+
+                            <button onClick={() => openJohnson("A430")} className="linkTypes  typesDialog">
+                              <div className="bgType bgA430" >
+                                <div className='mask'>
+                                  <h1 className='titleCard johnsonTypeh1'>A430</h1>
+                                </div>
                               </div>
-                            </div>
-                          </button>
+                            </button>
                           </Container>
                         </DialogContent>
                         <DialogActions>
