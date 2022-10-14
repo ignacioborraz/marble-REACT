@@ -1251,10 +1251,29 @@ label {
 .boxNewSink{
     display: flex;
     flex-grow: 1;
+    flex-wrap: wrap;
     justify-content: space-between;
 }
 .box0json{
     margin-right: 40px;
+}
+.itemsSink{
+    flex-wrap: wrap;
+    display: flex;
+    gap: 6px;
+    flex-direction: row;
+    flex-grow: 1;
+    /* justify-content: center; */
+    align-items: center;
+}
+.btnAddJsonform2{
+    width: 5rem;
+}
+.containerDatosForm-sinks {
+    gap: 3px;
+}
+.btnFormJSON{
+    margin-top: 9px;
 }
 /******Medias*******/
 @media (width < 1024px) {
@@ -1302,6 +1321,12 @@ label {
 
     .labelCheck {
         font-size: 12px;
+    }
+    .box0json {
+        margin-right: 0; 
+    }
+    .btnAddjson-code {
+        width: 6.5rem;
     }
 }
 
@@ -1359,6 +1384,9 @@ label {
     .containerDatosForm div {
         margin-bottom: 5px !important;
     }
+    .containerDatosForm-sinks div{
+        margin-bottom: 0!important;
+    }
 
     .cajaCheck {
         border: solid 1px rgb(178 178 178);
@@ -1393,6 +1421,9 @@ label {
         justify-content: flex-start;
         margin-bottom: 5px !important;
     }
+    .btnAddjson2{
+        padding: 0 9px;
+    }
 }
 
 @media (width < 425px) {
@@ -1406,15 +1437,14 @@ label {
     .btnFormJSON{
         padding: 11px 16px;
         font-size: 14px;
+        height: auto;
+    margin-top: 10px;
     }
 
 }
 
 @media (width < 375px) {
-    .iconDelet {
-        position: fixed;
-        transform: translateX(12px) translateY(-23px);
-    }
+    
 
     .labelInputCodigo {
         flex-direction: column;
@@ -1429,6 +1459,17 @@ label {
 
     .boxItemAcc {
         width: 12rem;
+    }
+    .itemsSink {
+        justify-content: center;
+    }
+
+}
+@media (width < 335px) {
+
+    .iconDelet {
+        /* position: fixed; */
+        transform: translateX(113px) translateY(-70px);
     }
 }
 

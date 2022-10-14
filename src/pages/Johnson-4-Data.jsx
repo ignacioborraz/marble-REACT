@@ -229,7 +229,7 @@ export default function JohnsonData() {
           <div className='mask2'>
             <form onSubmit={creatingSink} className="form" >
               <h1 className='titleForm'>CARGAR PILETA</h1>
-              <div className='containerDatosForm'>
+              <div className='containerDatosForm containerDatosForm-sinks'>
                 <div className='cajaCheck mb10' >
                   <div className='flex inputGrow mb10-lit'>
                     <label className='input-label'>ID</label>
@@ -260,10 +260,14 @@ export default function JohnsonData() {
                               <div className='boxItemJson '>
                                 <div className='boxNewSink box0json'>
                                   <label className='input-label'>{`Pileta${index + 1}`}</label>
-                                  <input type='button' value={johnsonSelect.type} className='btnAdd btnAddjson'  /*onClick={() => setTypeA(true)}*/ />
-                                  <input type='button' value={johnsonSelect.code} className='btnAdd btnAddjson btnAddjson-code' /*onClick={() =>setOpenJson(true)}*/ />
-                                  <input placeholder='Cant' className='inputCodigo inputCod2' value={element.quantity} id={"cantidad"} name='cantidad' onChange={(e) => datos(e, index, 'quantity')} required />
-                                  <button type='button' className='btnAdd btnAddjson' onClick={() => openAcc(index)}>Accesorios</button>
+                                  <div className='itemsSink'>
+                                    <input type='button' value={johnsonSelect.type} className='btnAddJsonform2'  /*onClick={() => setTypeA(true)}*/ />
+                                    <input type='button' value={johnsonSelect.code} className='btnAddJsonform2 btnAddjson-code' /*onClick={() =>setOpenJson(true)}*/ />
+                                    <input placeholder='Cant' className='inputCodigo inputCod2' value={element.quantity} id={"cantidad"} name='cantidad' onChange={(e) => datos(e, index, 'quantity')} required />
+                                    <button type='button' className='btnAdd btnAddjson btnAddjson2' onClick={() => openAcc(index)}>Accesorios</button>
+
+                                  </div>
+
                                 </div>
 
                                 {
@@ -294,18 +298,22 @@ export default function JohnsonData() {
                             ) :
                             <div className='boxNewSink'>
                               <label className='input-label'>{`Pileta${index + 1}`}</label>
-                              <input type='button' value={sinkInsta[index].type ? (sinkInsta[index].type) : "Acero"} className='btnAdd btnAddjson' onClick={() => setTypeA(true)} />
-                              <input type='button' value={sinkInsta[index].code ? (sinkInsta[index].code) : "Modelo"} className='btnAdd btnAddjson btnAddjson-code' onClick={() => setOpenJson(true)} />{``}
-                              <input placeholder='Cant' className='inputCodigo inputCod2' value={element.quantity} id={"cantidad"} name='cantidad' onChange={(e) => datos(e, index, 'quantity')} required />
-                              {/* <button type='button' className='btnAdd btnAddjson' onClick={() => openAcc(index)}>Instalacion</button> */}
-                              <button type='button' className='btnAdd btnAddjson' onClick={() => openAcc(index)}>Accesorios</button>
+                              <div className='itemsSink'>
+                                <input type='button' value={sinkInsta[index].type ? (sinkInsta[index].type) : "Acero"} className='btnAddJsonform2' onClick={() => setTypeA(true)} />
+                                <input type='button' value={sinkInsta[index].code ? (sinkInsta[index].code) : "Modelo"} className='btnAddJsonform2 btnAddjson-code' onClick={() => setOpenJson(true)} />{``}
+                                <input placeholder='Cant' className='inputCodigo inputCod2' value={element.quantity} id={"cantidad"} name='cantidad' onChange={(e) => datos(e, index, 'quantity')} required />
+                                {/* <button type='button' className='btnAdd btnAddjson' onClick={() => openAcc(index)}>Instalacion</button> */}
+                                <button type='button' className='btnAdd btnAddjson btnAddjson2 ' onClick={() => openAcc(index)}>Accesorios</button>
+                                {
+                                  index > 0 ?
+                                    <button className='ml10 btnDelet' type='button' onClick={() => deleteInput(index)} ><DeleteForeverIcon className='iconDelet' /></button>
+                                    : null
+                                }
+                              </div>
+
                             </div>
                         }
-                        {
-                          index > 0 ?
-                            <button className='ml10 btnDelet' type='button' onClick={() => deleteInput(index)} ><DeleteForeverIcon className='iconDelet' /></button>
-                            : null
-                        }
+
                       </div>
                       <div>
                         {
