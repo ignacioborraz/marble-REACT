@@ -7,7 +7,6 @@ import johnsonActions from '../redux/actions/johnsonActions';
 import sinkActions from '../redux/actions/sinkActions';
 import Container from '../components/Container'
 import Button from '@mui/material/Button';
-import MenuItem from '@mui/material/MenuItem';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -25,25 +24,13 @@ export default function JohnsonData() {
   console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 23 ~ JohnsonData ~ jhonson", jhonson)
   const dispatch = useDispatch()
   const [codigo, setCodigo] = useState("")
-  const [instalation, setInstalation] = useState("")
   const [typeCode, setTypeCode] = useState("")
-  const [accesorysAdd, setAccesorysAdd] = useState([])
-  //console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 31 ~ JohnsonData ~ accesorysAdd", accesorysAdd )
-  if (accesorysAdd.length === 0) {
-    console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 31 ~ JohnsonData ~ accesorysAdd VACIOOOO", accesorysAdd)
-  }
   const [reload, setReload] = useState(false)
   const [sinks, setSinks] = useState([{ accesories: [], instalation: [], jhonson: jhonson, quantity: "" }])
   const [sinksOpen, setSinksOpen] = useState([{ open: false }])
   const [typeA, setTypeA] = useState([{ open: false }])
   const [openJson, setOpenJson] = useState([{ open: false }])
-  //const [sinksOpenType, setSinksOpenType] = useState([{ open: false }])
-  
-  const [instJson, setInsJson] = useState([])
 
-  //console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 38 ~ JohnsonData ~ instJson", instJson)
-
-  //console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 35 ~ JohnsonData ~ sinksOpen", sinksOpen)
   console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 31 ~ JohnsonData ~ sinks", sinks)
 
   useEffect(() => {
@@ -159,22 +146,17 @@ export default function JohnsonData() {
     openSinksJson(index)
     closeType(index)
     setReload(!reload)
-    //setTypeA(false)
   }
   const listJSON = useSelector(store => store.johnsonReducer.johnsonType)
   //console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 128 ~ JohnsonData ~ list", listJSON)
 
-
-  const closeJohnson = (position) => {
-    setOpenJson(false)
-  }
   const datos = (value, position, key, item) => { //carga datos
     console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 134 ~ datos ~ item", item)
     console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 129 ~ datos ~ value", value)
     const fields = sinks
     fields[position][key] = value?.target?.value || value;
     setSinks([...sinks])
-    setInsJson(item)
+
 
     if (item !== undefined) {
       const insta = sinkInsta
