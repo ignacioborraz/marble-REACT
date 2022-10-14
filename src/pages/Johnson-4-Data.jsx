@@ -35,9 +35,10 @@ export default function JohnsonData() {
   const [reload, setReload] = useState(false)
   const [sinks, setSinks] = useState([{ accesories: [], instalation: [], jhonson: jhonson, quantity: "" }])
   const [sinksOpen, setSinksOpen] = useState([{ open: false }])
-  const [sinksOpenType, setSinksOpenType] = useState([{ open: false }])
-  const [typeA, setTypeA] = useState(false)
-  const [openJson, setOpenJson] = useState(false)
+  const [typeA, setTypeA] = useState([{ open: false }])
+  const [openJson, setOpenJson] = useState([{ open: false }])
+  //const [sinksOpenType, setSinksOpenType] = useState([{ open: false }])
+  
   const [instJson, setInsJson] = useState([])
 
   //console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 38 ~ JohnsonData ~ instJson", instJson)
@@ -102,13 +103,13 @@ export default function JohnsonData() {
     setReload(!reload)
   }
   const openAcc = (position) => {
+    console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 106 ~ openAcc ~ lista", lista)
     const abrir = sinksOpen.map((op, index) => {
       if (index === position) {
         return { open: true }
       }
     })
-    setSinksOpen(abrir)
-    console.log(sinksOpen)
+      setSinksOpen(abrir)
   }
   const closeAcc = (position) => {
     const cerrar = sinksOpen.map((op, index) => {
@@ -116,18 +117,49 @@ export default function JohnsonData() {
         return { open: false }
       }
     })
-    setSinksOpen(cerrar)
-    console.log(sinksOpen)
+      setSinksOpen(cerrar)
   }
   const openType = (position) => {
-    setTypeA(true)
+    const abrir = typeA.map((op, index) => {
+      if (index === position) {
+        return { open: true }
+      }
+    })
+      setTypeA(abrir)
+  }
+  const closeType = (position) => {
+    const cerrar = typeA.map((op, index) => {
+      if (index === position) {
+        return { open: false }
+      }
+    })
+      setTypeA(cerrar)
+  }
+  const openSinksJson = (position) => {
+
+    const abrir = openJson.map((op, index) => {
+      if (index === position) {
+        return { open: true }
+      }
+    })
+      setOpenJson(abrir)
+  }
+  const closeSinksJson = (position) => {
+    const cerrar = openJson.map((op, index) => {
+      if (index === position) {
+        return { open: false }
+      }
+    })
+      setOpenJson(cerrar)
   }
 
-  async function openJohnson(type) {
+  async function openJohnson(type, index) {
     console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 112 ~ openJohnson ~ type", type)
     const res = await dispatch(johnsonActions.getJohnsonType(type))
-    setOpenJson(true)
-    setTypeA(false)
+    openSinksJson(index)
+    closeType(index)
+    setReload(!reload)
+    //setTypeA(false)
   }
   const listJSON = useSelector(store => store.johnsonReducer.johnsonType)
   //console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 128 ~ JohnsonData ~ list", listJSON)
@@ -159,8 +191,9 @@ export default function JohnsonData() {
 
     if (sinks.length < 10) {
       setSinks([...sinks, { accesories: [], instalation: [], jhonson: "", quantity: "" }])
-      setSinksOpenType([...sinksOpenType, { open: false }])
       setSinksOpen([...sinksOpen, { open: false }])
+      setTypeA([...typeA, { open: false }])
+      setOpenJson([...openJson, { open: false }])
       setSinkInsta([...sinkInsta, { instalation: [], type: "", code: "" }])
       //openType()
 
@@ -299,8 +332,8 @@ export default function JohnsonData() {
                             <div className='boxNewSink'>
                               <label className='input-label'>{`Pileta${index + 1}`}</label>
                               <div className='itemsSink'>
-                                <input type='button' value={sinkInsta[index].type ? (sinkInsta[index].type) : "Acero"} className='btnAddJsonform2' onClick={() => setTypeA(true)} />
-                                <input type='button' value={sinkInsta[index].code ? (sinkInsta[index].code) : "Modelo"} className='btnAddJsonform2 btnAddjson-code' onClick={() => setOpenJson(true)} />{``}
+                                <input type='button' value={sinkInsta[index].type ? (sinkInsta[index].type) : "Acero"} className='btnAddJsonform2' onClick={() => openType(index)} />
+                                <input type='button' value={sinkInsta[index].code ? (sinkInsta[index].code) : "Modelo"} className='btnAddJsonform2 btnAddjson-code' onClick={() => openJohnson(sinkInsta[index].type ,index)} />{``}
                                 <input placeholder='Cant' className='inputCodigo inputCod2' value={element.quantity} id={"cantidad"} name='cantidad' onChange={(e) => datos(e, index, 'quantity')} required />
                                 {/* <button type='button' className='btnAdd btnAddjson' onClick={() => openAcc(index)}>Instalacion</button> */}
                                 <button type='button' className='btnAdd btnAddjson btnAddjson2 ' onClick={() => openAcc(index)}>Accesorios</button>
@@ -377,12 +410,12 @@ export default function JohnsonData() {
                         </DialogActions>
                       </Dialog>
 
-                      <Dialog open={typeA} >
+                      <Dialog open={typeA[index]?.open} >
                         <DialogContent>
                           <DialogContentText>{`Agregar pileta${index + 1}:`}</DialogContentText>
                           <h4>Tipo de acero:</h4>
                           <Container width='100%' justify='space-evenly' align='center' wrap='wrap'>
-                            <button onClick={() => openJohnson("A304")} className="linkTypes  typesDialog">
+                            <button onClick={() => openJohnson("A304", index)} className="linkTypes  typesDialog">
                               <div className="bgType bgA304" >
                                 <div className='mask'>
                                   <h1 className='titleCard johnsonTypeh1'>A304</h1>
@@ -390,7 +423,7 @@ export default function JohnsonData() {
                               </div>
                             </button>
 
-                            <button onClick={() => openJohnson("A430")} className="linkTypes  typesDialog">
+                            <button onClick={() => openJohnson("A430", index)} className="linkTypes  typesDialog">
                               <div className="bgType bgA430" >
                                 <div className='mask'>
                                   <h1 className='titleCard johnsonTypeh1'>A430</h1>
@@ -400,11 +433,11 @@ export default function JohnsonData() {
                           </Container>
                         </DialogContent>
                         <DialogActions>
-                          <Button onClick={() => setTypeA(false)}>Cancelar</Button>
+                          <Button onClick={() => closeType(index)}>Cancelar</Button>
                         </DialogActions>
                       </Dialog>
 
-                      <Dialog open={openJson} >
+                      <Dialog open={openJson[index]?.open} >
                         <DialogContent>
                           <DialogContentText>{`Johnson${index + 1}:`}</DialogContentText>
                           <div className='itemsEditAcc'>
@@ -435,8 +468,8 @@ export default function JohnsonData() {
                           </div>
                         </DialogContent>
                         <DialogActions>
-                          <Button onClick={() => closeJohnson(index)}>Listo</Button>
-                          <Button onClick={() => closeJohnson(index)}>Cancelar</Button>
+                          <Button onClick={() => closeSinksJson(index)}>Listo</Button>
+                          <Button onClick={() => closeSinksJson(index)}>Cancelar</Button>
                         </DialogActions>
                       </Dialog>
                     </div>)
