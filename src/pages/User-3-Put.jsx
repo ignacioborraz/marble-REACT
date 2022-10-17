@@ -76,7 +76,7 @@ export default function PutUser() {
                             borderRadius: '5px'}} /></label>
                         <input name='pass' id='pass' placeholder='nueva contraseña' type="text" className='inputForm' ref={pass} />            
                     </fieldset>
-                    <fieldset className='input-container'>
+                    <fieldset className='input-container uploadBox'>
                         <label className='inputLabel' htmlFor='photo'><AddAPhotoIcon sx={{
                             width: '40px',
                             height: '40px',

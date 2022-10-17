@@ -1273,6 +1273,15 @@ label {
 .btnFormJSON{
     margin-top: 9px;
 }
+.uploadBox{
+    display: flex;
+    /* flex-direction: column; */
+    flex-wrap: wrap;
+
+}
+.inputUpload{
+    width: 18rem;
+}
 /******Medias*******/
 @media (width < 1024px) {
     .titleCard {
@@ -1329,6 +1338,7 @@ label {
 }
 
 @media (width < 550px) {
+  
     .menorH {
         height: 49%;
         width: 97%;
@@ -1424,7 +1434,11 @@ label {
         margin-right: 10px;
     }
 }
-
+@media (width < 451px) {
+    .inputUpload{
+        width: 10rem;
+    }
+}
 @media (width < 425px) {
     .logo {
         height: 2rem !important;

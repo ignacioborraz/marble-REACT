@@ -70,7 +70,7 @@ export default function NewUser({role}) {
                             borderRadius: '5px'}} /></label>
                         <input name='pass' id='pass' placeholder='Contraseña' type="password" className='inputForm' ref={pass} required/>            
                     </fieldset>
-                    <fieldset className='input-container'>
+                    <fieldset className='input-container uploadBox'>
                         <label className='inputLabel' htmlFor='photo'><AddAPhotoIcon sx={{
                             width: '40px',
                             height: '40px',
