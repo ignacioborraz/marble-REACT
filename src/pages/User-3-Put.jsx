@@ -5,6 +5,18 @@ import AddAPhotoIcon from '@mui/icons-material/AddAPhoto'
 import KeyIcon from '@mui/icons-material/Key'
 import WorkIcon from '@mui/icons-material/Work'
 import userActions from '../redux/actions/userActions'
+import FileUpload from '../components/FileUpload'
+import { initializeApp } from "firebase/app";
+
+initializeApp({
+    apiKey: process.env.REACT_APP_APIKEY,
+    authDomain: process.env.REACT_APP_AUTH,
+    projectId: process.env.REACT_APP_PROYECT,
+    storageBucket: process.env.REACT_APP_BUCKET,
+    messagingSenderId: process.env.REACT_APP_MESSAGING,
+    appId: process.env.REACT_APP_ID,
+    measurementId: process.env.REACT_APP_MEASURE
+})
 
 export default function PutUser() {
     const {id} = useParams()    
@@ -12,7 +24,7 @@ export default function PutUser() {
     const [reload,setReload] = useState(false)
     const nick = useRef()
     const pass = useRef()
-    const photo = useRef()
+    const navigate = useNavigate()
     useEffect(() => {
         if(localStorage.getItem('token')!== null) {
             let token = localStorage.getItem("token")
@@ -30,16 +42,13 @@ export default function PutUser() {
         if (pass.current.value) {
             allInputs['password'] = pass.current.value.trim()
         }
-        if (photo.current.value) {
-            allInputs['photo'] = photo.current.value.trim()
+        if (event.target[6].id) {
+            allInputs['photo'] = event.target[6].id
         }
         if(localStorage.getItem('token')!== null) {
             let token = localStorage.getItem("token")
             dispatch(userActions.putUser(id,token,allInputs))
-            nick.current.value = ""
-            pass.current.value = ""
-            photo.current.value = ""
-            setReload(!reload)
+            navigate('/',{replace:true})
         }
     }
 
@@ -75,7 +84,7 @@ export default function PutUser() {
                             backgroundColor: '#C82832',
                             color: 'white',
                             borderRadius: '5px'}} /></label>
-                        <input name='photo' id='photo' placeholder={user.photo} type="text" className='inputForm' ref={photo} />
+                        <FileUpload name='photo' id='photo' type="text" required/>
                     </fieldset>
                     <input type="submit" className='buttonForm' required value='EDITAR' />
                 </form>

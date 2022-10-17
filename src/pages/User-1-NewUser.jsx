@@ -23,14 +23,14 @@ export default function NewUser({role}) {
     const dispatch = useDispatch()
     const nick = useRef()
     const pass = useRef()
-    const photo = useRef()
     let allInputs = {}
     async function handleCreation(event) {
+        console.log(event.target[6])
         event.preventDefault()
         allInputs = {
             nick: nick.current.value.trim(),
             password: pass.current.value.trim(),
-            photo: photo.current.value.trim(),
+            photo: event.target[6].id,
             role: role
         }
         console.log(allInputs)
@@ -78,7 +78,7 @@ export default function NewUser({role}) {
                             backgroundColor: '#C82832',
                             color: 'white',
                             borderRadius: '5px'}} /></label>
-                        <FileUpload name='photo' id='photo' placeholder='Foto' type="text" required/>
+                        <FileUpload name='photo' id='photo' type="text" required/>
                     </fieldset>
                     <input type="submit" className='buttonForm' required value='REGISTRAR' />
                 </form>
