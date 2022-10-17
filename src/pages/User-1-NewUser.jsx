@@ -5,6 +5,18 @@ import AddAPhotoIcon from '@mui/icons-material/AddAPhoto'
 import KeyIcon from '@mui/icons-material/Key'
 import WorkIcon from '@mui/icons-material/Work'
 import userActions from '../redux/actions/userActions'
+import FileUpload from '../components/FileUpload'
+import { initializeApp } from "firebase/app";
+
+initializeApp({
+    apiKey: process.env.REACT_APP_APIKEY,
+    authDomain: process.env.REACT_APP_AUTH,
+    projectId: process.env.REACT_APP_PROYECT,
+    storageBucket: process.env.REACT_APP_BUCKET,
+    messagingSenderId: process.env.REACT_APP_MESSAGING,
+    appId: process.env.REACT_APP_ID,
+    measurementId: process.env.REACT_APP_MEASURE
+})
 
 export default function NewUser({role}) {
     const navigate = useNavigate()
@@ -66,7 +78,7 @@ export default function NewUser({role}) {
                             backgroundColor: '#C82832',
                             color: 'white',
                             borderRadius: '5px'}} /></label>
-                        <input name='photo' id='photo' placeholder='Foto' type="text" className='inputForm' ref={photo} required/>
+                        <FileUpload name='photo' id='photo' placeholder='Foto' type="text" required/>
                     </fieldset>
                     <input type="submit" className='buttonForm' required value='REGISTRAR' />
                 </form>
