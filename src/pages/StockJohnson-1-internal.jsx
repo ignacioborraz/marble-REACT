@@ -18,6 +18,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import Box from '@mui/material/Box';
+import stockActions from '../redux/actions/stockActions';
 
 
 export default function StockInternalJohnson() {
@@ -38,18 +39,20 @@ export default function StockInternalJohnson() {
     const [typeInstalation, setTypeInstalation] = useState([])
     useEffect(() => {
         dispatch(sinkActions.internalSink())
+        dispatch(stockActions.internalStock())
         dispatch(johnsonActions.getAccesory())
         // eslint-disable-next-line
     }, [reload])
 
     useEffect(() => {
-        dispatch(sinkActions.filterInternalSink(inputSearch))
+        dispatch(stockActions.filterInternalStock(inputSearch))
         // eslint-disable-next-line
     }, [inputSearch, reload])
 
-    // let internalSink = useSelector(store => store.sinkReducer.internalSink)
-    let filterInternalSink = useSelector(store => store.sinkReducer.filterInternalSink)
+    let filterInternalStock = useSelector(store => store.stockReducer.filterInternalStock)
     const accesoriesList = useSelector(store => store.johnsonReducer.accesorys)
+    let internalStock = useSelector(store => store.stockReducer.internalStock)
+    console.log("🚀 ~ file: StockJohnson-1-internal.jsx ~ line 56 ~ StockInternalJohnson ~ internalStock", internalStock)
     const handleClickAccesorios = () => {
         setOpenAcc(true)
     }
@@ -152,7 +155,64 @@ export default function StockInternalJohnson() {
             <div className='containerInput'>
                 <input className='input inputStock inputSink' type="text" placeholder='Buscar por codigo' onChange={(e) => setInputSearch(e.target.value)} />
             </div>
-            {filterInternalSink.length > 0 ?
+            {
+                filterInternalStock.map(stock =>
+                    (
+                        <div key={stock._id} className='boxStockCard'>
+                            <div className='boxStockCard-note'><h3>Nota {stock.internal}</h3></div>
+                            <div className='boxStockCard-containerSink'>
+                                {
+                                    stock.sink.map(sink =>
+                                    (
+                                        <div className='boxStockCard-sink'>
+                                            <img src={sink.jhonson?.photo} alt={sink._id} className='boxStockCard-photo' id={sink._id} />
+                                            <div className='boxStockCard-data'>
+    
+                                                <table class="table-fill">
+    
+                                                    <tbody class="table-hover">
+                                                        <tr>
+                                                            <td class="text-left1">Cantidad</td>
+                                                            <td class="text-left">{sink.quantity}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-left1">Modelo</td>
+                                                            <td class="text-left">{sink.jhonson.code}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-left1">Accesorios</td>
+                                                            <td class="text-left">{sink.accesories?.map(i =>
+                                                                <span>{i.code + " - "}</span>)}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-left1">Instalacion</td>
+                                                            <td class="text-left">{sink.instalation?.map(i =>
+                                                                <span>{i + " - "}</span>)}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-left1">Comentarios</td>
+                                                            <td class="text-left">{stock.comments}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+    
+                                    ))
+                                }
+                            </div>
+                            <div className='boxStockCard-botones'>
+                                <button>Editar</button>
+                                <button>Asignar</button>
+                                <button>Eliminar</button>
+                            </div>
+                        </div>
+    
+                    )
+                    )
+        
+            }
+            {/* {filterInternalSink.length > 0 ?
                 <div className='containerCardsMarca mt10'>
                     {filterInternalSink?.map(sink => (
 
@@ -200,7 +260,7 @@ export default function StockInternalJohnson() {
                 : <div className='noResult'>
                     <h1>no hay resultados</h1>
                 </div>
-            }
+            } */}
 
             <Dialog open={open} onClose={handleClose}>
                 <DialogContent>

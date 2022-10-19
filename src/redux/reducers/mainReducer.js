@@ -9,8 +9,9 @@ import plateReducer from './plateReducer'
 import userReducer from './userReducer'
 import johnsonReducer from './johnsonReducer'
 import sinkReducer from './sinkReducer'
+import stockReducer from './stockReducer'
 import newNew from './new'
 
-const mainReducer = combineReducers({companyReducer,colorReducer,typeReducer,plateReducer,userReducer,johnsonReducer,sinkReducer,new:newNew})
+const mainReducer = combineReducers({companyReducer,colorReducer,typeReducer,plateReducer,userReducer,johnsonReducer,sinkReducer, stockReducer,new:newNew})
 
 export default mainReducer
