@@ -1416,7 +1416,21 @@ color : red
   .divEdit:focus-visible {
     outline: -webkit-focus-ring-color auto 1px;
 }
- 
+.boxEditSink{
+    border: solid 1px grey;
+    margin-top: 8px;
+    padding: 5px;
+}
+ .displeyNone{
+    display: none;
+ }
+ .btnModificar{
+    margin-left: 3px;
+ }
+ .btnModificarGuardar{
+    background-color: #008000;
+    color: white;
+ }
 /******Medias*******/
 @media (width < 1024px) {
     .titleCard {
