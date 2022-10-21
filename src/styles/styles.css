@@ -1313,6 +1313,30 @@ label {
 .boxStockCard-botones button {
     height: 3rem;
     width: 5rem;
+    border-radius: 4px;
+    box-shadow: 2px 4px 5px 0 #bdbdbd;
+    letter-spacing: 1px;
+}
+.btnEliminar{
+border: solid 2px #f52121;
+color:#dd0000;
+}
+.btnEditar{
+    border: solid 2px #3939f2;
+    color:#3939f2;
+}
+.btnEntregar{
+    border: solid 2px green;
+    color: green;
+}
+.boxStockCard-botones button:hover{
+    background-color: white;
+    cursor: pointer;
+}
+.btnModificarGuardar:hover{
+border: solid white 2px;
+background-color: #008000!important;
+
 }
 .boxStockCard-photo{
     background-color: rgba(65, 65, 65, 0.37);

@@ -300,9 +300,9 @@ export default function StockNoteJohnson() {
             </div>
             <div className='boxStockCard-botones'>
               <button type='button' onClick={() => modificar()} className={clase[index]?.clase ? 'btnModificarGuardar' : 'displeyNone'} >Guardar Cambios</button>
-              <button type='button' onClick={() => editFields(index, stock._id, stock.sink, stock.comments, stock.note)}>Editar</button>
-              <button type='button' onClick={() => entregarStock(stock._id)}>Entregar</button>
-              <button type='button' onClick={() => handleClickOpenAlert(stock._id)}>Eliminar</button>
+              <button className='btnEditar' type='button' onClick={() => editFields(index, stock._id, stock.sink, stock.comments, stock.note)}>Editar</button>
+              <button className='btnEntregar' type='button' onClick={() => entregarStock(stock._id)}>Entregar</button>
+              <button className='btnEliminar' type='button' onClick={() => handleClickOpenAlert(stock._id)}>Eliminar</button>
             </div>
             <Dialog className='dialogDelet' open={openAlert} onClose={handleClose}>
               <DialogContent  >
