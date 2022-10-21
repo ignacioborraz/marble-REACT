@@ -205,18 +205,7 @@ export default function StockDoneJohnson() {
     
 
   }
-  async function entregarStock(idStock) {
-    console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 208 ~ entregarStock ~ idStock", idStock)
-    let data = {}
-    data = {
-      note:null,
-      done: true
-    }
-      const resp =await dispatch(stockActions.putStock(idStock, data))
-      console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 176 ~ creatingSink ~ resp", resp)
-      setClase([])
-      setReload(!reload)
-  }
+ 
  
   return (
     <div className='containerStock'>
@@ -303,7 +292,7 @@ export default function StockDoneJohnson() {
             <div className='boxStockCard-botones'>
               <button type='button' onClick={() => modificar()} className={clase[index]?.clase ? 'btnModificarGuardar' : 'displeyNone'} >Guardar Cambios</button>
               <button type='button' onClick={() => editFields(index, stock._id, stock.sink, stock.comments, stock.note)}>Editar</button>
-              <button type='button' onClick={() => entregarStock(stock._id)}>Entregar</button>
+              {/* <button type='button' onClick={() => entregarStock(stock._id)}>Entregar</button> */}
               <button type='button' onClick={() => handleClickOpenAlert(stock._id)}>Eliminar</button>
             </div>
             <Dialog className='dialogDelet' open={openAlert} onClose={handleClose}>
