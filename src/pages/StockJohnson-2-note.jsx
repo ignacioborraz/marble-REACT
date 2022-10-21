@@ -7,8 +7,6 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
-
-import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
@@ -19,7 +17,6 @@ import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import Box from '@mui/material/Box';
 import Container from '../components/Container'
-import { Try } from '@mui/icons-material';
 
 export default function StockNoteJohnson() {
   const dispatch = useDispatch()
@@ -27,39 +24,27 @@ export default function StockNoteJohnson() {
   const [reload, setReload] = useState(false)
   const [open, setOpen] = useState(false);
   const [openAlert, setOpenAlert] = useState(false);
-  const [idDelet, setIdDelet] = useState("")
-
-  const [id, setId] = useState("")
-  const [sinks, setSinks] = useState([])
-  const [sinksEdit, setSinksEdit] = useState([])
-  console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 32 ~ StockNoteJohnson ~ sinks", sinks)
-  const [comment, setComment] = useState("")
-  console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 33 ~ StockNoteJohnson ~ comment", comment)
-
-  const [accesories, setAccesories] = useState([])
-  const [accesorysAdd, setAccesorysAdd] = useState([])
-  console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 38 ~ StockNoteJohnson ~ accesories", accesories)
   const [openAcc, setOpenAcc] = useState(false)
-  const [openAlertEdit, setOpenAlertEdit] = useState(false);
-
-  const [codeNote, setCodeNote] = useState('');
-
-  console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 44 ~ StockNoteJohnson ~ accesorysAdd", accesorysAdd)
-  const [instalation, setInstalation] = useState([])
-  console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 44 ~ StockNoteJohnson ~ instalation", instalation)
-  const [typeInstalation, setTypeInstalation] = useState([])
-  console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 45 ~ StockNoteJohnson ~ typeInstalation", typeInstalation)
-  const [clase, setClase] = useState([]);//clase para btn editar
   const [typeA, setTypeA] = useState(false)
   const [openJson, setOpenJson] = useState(false)
   const [instalationType, setInstalationType] = useState(false)
+
   const [itemModif, setItemModif] = useState("")//index sink
   const [indexStock, setIndexStock] = useState("")
+  const [idDelet, setIdDelet] = useState("")
+  const [id, setId] = useState("")//id stock
+  const [sinks, setSinks] = useState([])
+  const [comment, setComment] = useState("")
+  const [accesories, setAccesories] = useState([])
+  const [accesorysAdd, setAccesorysAdd] = useState([])
+  const [instalation, setInstalation] = useState([])
+  const [typeInstalation, setTypeInstalation] = useState([])
+  const [clase, setClase] = useState([]);//clase para btn editar
   const [newJohnson, setNewJohnson] = useState("")
-  console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 57 ~ StockNoteJohnson ~ newJohnson", newJohnson)
-
+  
+  console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 32 ~ StockNoteJohnson ~ sinks", sinks)
+  console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 33 ~ StockNoteJohnson ~ comment", comment)
   useEffect(() => {
-    dispatch(sinkActions.noteSink())
     dispatch(stockActions.noteStock())
     dispatch(johnsonActions.getAccesory())
     // eslint-disable-next-line
@@ -67,15 +52,13 @@ export default function StockNoteJohnson() {
   useEffect(() => {
     dispatch(stockActions.filterNoteStock(inputSearch))
     // eslint-disable-next-line
-  }, [inputSearch])
-  // let noteSink = useSelector(store => store.sinkReducer.noteSink)
-  // console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 22 ~ StockNoteJohnson ~ noteSink", noteSink)
-  //let filterNoteSink = useSelector(store => store.sinkReducer.filterNoteSink)
+  }, [reload, inputSearch])
+
   let noteStock = useSelector(store => store.stockReducer.noteStock)
   let filterNoteStock = useSelector(store => store.stockReducer.filterNoteStock)
   const accesoriesList = useSelector(store => store.johnsonReducer.accesorys)
   console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 24 ~ StockNoteJohnson ~ filterNoteStock", filterNoteStock)
-  // console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 22 ~ StockNoteJohnson ~ noteStock", noteStock)
+  console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 22 ~ StockNoteJohnson ~ noteStock", noteStock)
   const handleClickOpenAlert = (id) => {
     setIdDelet(id)
     setOpenAlert(true)
@@ -87,27 +70,6 @@ export default function StockNoteJohnson() {
     setOpen(false);
     //setOpenAcc(false)
   };
-  const handleClickOpenAlertEdit = () => {
-    setOpenAlertEdit(true)
-  }
-  const handleClickOpen = (id, listSinks, comments) => {
-    console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 74 ~ handleClickOpen ~ comments", comments)
-
-    console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 74 ~ handleClickOpen ~ id", id)
-    setOpen(true);
-    setId(id);
-    setSinks(listSinks)
-    setComment(comments)
-    setInstalation(instalation)
-    setTypeInstalation(typeInstalation)
-    // setAccesories(acc)
-    // let ac = []
-    // acc.forEach(element => {
-    //     ac.push(element._id)
-    // });
-    // console.log(ac)
-    // setAccesorysAdd(ac)
-  }
   const handleChangeInsta = (event) => {
     const {
       target: { value },
@@ -117,7 +79,7 @@ export default function StockNoteJohnson() {
     );
   };
   //Activa y setea datos
-  const editFields = (item, id, listSinks, comments, noteCod) => {
+  const editFields = (item, id, listSinks, comments) => {
     console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 142 ~ editFields ~ item", item)
     let list = []
     filterNoteStock.map(elem => list.push({ clase: "" }))
@@ -129,13 +91,12 @@ export default function StockNoteJohnson() {
     }
     setIndexStock(item)
     setClase(list)
-    setCodeNote(noteCod)
     setId(id);
     setSinks(listSinks)
     let idSinks = []
     listSinks.map(sink => idSinks.push(sink._id))
     setComment(comments)
-
+    setReload(!reload)
   };
   //captura y guarda datos en sinks
   const datos = (value, position, key) => {
@@ -176,6 +137,11 @@ export default function StockNoteJohnson() {
   // console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 152 ~ StockNoteJohnson ~ listJSON", listJSON)
   //Modif. instalacion
   //Instalacion tipos
+  const cargaJohnson = () => {
+    datos(newJohnson, itemModif, "jhonson")
+    setOpenAcc(false)
+    setReload(!reload)
+  }
   const openInstalationType = (position, listInstalacion) => {
     setItemModif(position)
     setInstalationType(true)
@@ -209,47 +175,36 @@ export default function StockNoteJohnson() {
     }
 
   }
-  const cargaJohnson = () => {
-    datos(newJohnson, itemModif, "jhonson")
-    setOpenAcc(false)
-    setReload(!reload)
-  }
   const cargaAccSinks = (listaAcc, position) => {
     datos(listaAcc, position, "accesories")
     setOpenAcc(false)
     setReload(!reload)
   }
   async function modificar() {
-   
-    //const dataSinks = sinks
-    sinks.map((item, index) => {
-      if (item.jhonson.instalation.length  === 0) {
-        datos("instalacion lateral", index, "instalation")
-      }
-      datos(item.jhonson._id, index, "jhonson") //me pasa solo el id de jhonson
-      const listaIdAccesories = []
-      item.accesories.map(acc => listaIdAccesories.push(acc._id))
-      datos(listaIdAccesories, index, "accesories")
-    })
-
-    for (let i = 0; i < sinks.length; i++) {
-      const resp = await dispatch(sinkActions.putSink(sinks[i]._id, sinks[i]))
-      console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 176 ~ creatingSink ~ resp", resp)
-    }
-    let data={}
-    
-    data ={
+    let data = {}
+    data = {
       comments: comment
     }
-    await dispatch(stockActions.putStock(id, data))
-    console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 243 ~ modificar ~ id", id)
-//console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 238 ~ modificar ~ respStock", respStock)
-    //const res = await dispatch(sinkActions.putSink(id, data))
-    //const res2 = await dispatch(sinkActions.putSink(id, data))
-    setClase([])
-    setReload(!reload)
-  }
+    for (let i = 0; i < sinks.length; i++) {
+      if (sinks[i].jhonson.instalation?.length === 0) {
+        datos(["instalacion lateral"], i, "instalation")
+      }
+      datos(sinks[i].jhonson._id, i, "jhonson") //me pasa solo el id de jhonson
+      const listaIdAccesories = []
+      sinks[i].accesories.map(acc => listaIdAccesories.push(acc._id))
+      datos(listaIdAccesories, i, "accesories")
+      console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 226 ~ sinks.map ~ index", i)
 
+      const resp = await dispatch(sinkActions.putSink(sinks[i]._id, sinks[i]))
+      const resp2 =await dispatch(stockActions.putStock(id, data))
+      console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 176 ~ creatingSink ~ resp", resp)
+      setClase([])
+      setReload(!reload)
+    }
+    
+
+  }
+ 
   return (
     <div className='containerStock'>
       <div className='containerNameStock vendidas'>
@@ -489,87 +444,12 @@ export default function StockNoteJohnson() {
               </DialogActions>
             </Dialog>
 
-
-
-
-
-            {/* <Dialog open={open} onClose={handleClose}>
-              <DialogContent>
-                <DialogContentText>
-                  Editar campos
-                </DialogContentText>
-                <div className='flex'>
-                  <TextField
-                    autoFocus
-                    margin="dense"
-                    defaultValue={comment}
-                    type="text"
-                    fullWidth
-                    label="Comentario"
-                    variant="standard"
-                    onChange={(event) => setComment(event.target.value)}
-                    id="nuevoComment"
-                  />
-                </div>
-                {
-                  sinks.map((item, index) =>
-                    <div className='boxEditSink'>
-                      <TextField
-                        autoFocus
-                        margin="dense"
-                        defaultValue={sinks[index].quantity}
-                        type="text"
-                        label="Cantidad"
-                        fullWidth
-                        variant="standard"
-                        onChange={(event) => setComment(event.target.value)}
-                        id="nuevoComment"
-                      />
-                      <TextField
-                        autoFocus
-                        margin="dense"
-                        defaultValue={sinks[index].jhonson.code}
-                        type="text"
-                        label="Modelo"
-                        fullWidth
-                        variant="standard"
-                        onChange={(event) => setComment(event.target.value)}
-                        id="nuevoComment"
-                      />
-                    </div>
-                  )
-                }
-
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={handleClickOpenAlertEdit}>Editar</Button>
-                <Button onClick={handleClose}>Cancelar</Button>
-              </DialogActions>
-            </Dialog> */}
           </div>
 
         )
         )
       }
 
-      {/* {filterNoteSink.length > 0 ?
-                <div className='containerCardsMarca mt10'>
-                    {filterNoteSink?.map(sink => (
-                        <div className='linkColors cardStock' key={sink._id}>
-                            <div className='companyCardStock'>
-                                <h2 className='nameCards'>Código: {sink.note}</h2>
-                                <h3 className='nameCards'>{sink.jhonson?.code}</h3>
-                                <img src={sink.jhonson?.photo} alt={sink._id} className='fitStock' id={sink._id} />
-                                <h3 className='nameCards'> {sink.jhonson?.x} × {sink.jhonson?.y} × {sink.jhonson?.z}</h3>
-                            </div>
-                        </div>
-                    ))
-                    }
-                </div>
-                : <div className='noResult'>
-                    <h1>no hay resultados</h1>
-                </div>
-            } */}
     </div>
   )
 
