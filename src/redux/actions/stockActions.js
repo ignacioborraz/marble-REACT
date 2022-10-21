@@ -80,9 +80,10 @@ putStock: (id, data) => {
   const token = localStorage.getItem("token");
   return async (dispatch, getState) => {
     try {
-      await axios.put(apiUrl + "api/marble/stock/" + id, data, {
+      const resp = await axios.put(apiUrl + "api/marble/stock/" + id, data, {
         headers: { Authorization: "Bearer " + token },
       });
+      console.log("🚀 ~ file: stockActions.js ~ line 86 ~ return ~ resp", resp)
     } catch (error) {
       console.log(error);
     }

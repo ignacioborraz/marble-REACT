@@ -76,7 +76,7 @@ export default function StockInternalJohnson() {
             ac.push(element._id)
         });
         console.log(ac)
-        setAccesorysAdd(ac)
+        setAccesorysAdd(ac)//solo los id de los accesorios
     }
 
     const handleCloseEdit = () => {
