@@ -50,6 +50,23 @@ noteStock: () => {
     }
   };
 },
+doneStock: () => {
+  const token = localStorage.getItem("token");
+  return async (dispatch, getState) => {
+    try {
+      const res = await axios.get(apiUrl + "api/marble/stock?done=true", {
+        headers: { Authorization: "Bearer " + token },
+      });
+      console.log(
+        "🚀 ~ file: plateActions.js ~ line 53 ~ return ~ res",
+        res.data.response
+      );
+      dispatch({ type: "DONE_STOCK", payload: res.data.response });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+},
 filterInternalStock: (input) => {
   const token = localStorage.getItem("token");
   return (dispatch, getState) => {
@@ -69,6 +86,19 @@ filterNoteStock: (input) => {
     try {
       dispatch(
         { type: "FILTER_NOTE_STOCK", payload: input },
+        { headers: { Authorization: "Bearer " + token } }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+},
+filterDoneStock: (input) => {
+  const token = localStorage.getItem("token");
+  return (dispatch, getState) => {
+    try {
+      dispatch(
+        { type: "FILTER_DONE_STOCK", payload: input },
         { headers: { Authorization: "Bearer " + token } }
       );
     } catch (error) {

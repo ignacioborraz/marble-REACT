@@ -4,6 +4,8 @@ const initialState = {
   filterNoteStock: [],
   noteStock: [],
   sinkCreate: [],
+  doneStock: [],
+  filterDoneStock: [],
 };
 
 const stockReducer = (state = initialState, action) => {
@@ -25,6 +27,12 @@ const stockReducer = (state = initialState, action) => {
         noteStock: action.payload,
         filterNoteStock: action.payload,
       };
+      case "DONE_STOCK":
+        return {
+          ...state,
+          doneStock: action.payload,
+          filterDoneStock: action.payload,
+        };
     case "FILTER_INTERNAL_STOCK":
       let internalfilter = state.internalStock.filter(
         (sink) =>
@@ -41,6 +49,14 @@ const stockReducer = (state = initialState, action) => {
       return {
         ...state,
         filterNoteStock: notefilter,
+      };
+      case "FILTER_DONE_STOCK":
+      let donefilter = state.doneStock.filter(
+        (sink) =>sink.note?.includes(action.payload.trim().toLowerCase())
+      );
+      return {
+        ...state,
+        filterDoneStock: donefilter,
       };
 
     default:

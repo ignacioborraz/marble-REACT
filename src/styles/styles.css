@@ -9,7 +9,9 @@ a {
     justify-content: center;
     align-items: center;
 }
-
+.inputAlignCenter{
+    text-align: center;
+}
 
 .shadow-text:hover {
     font-weight: 800;
@@ -1285,7 +1287,7 @@ label {
 .boxStockCard{
     /* border: solid 1px grey; */
     display: flex;
-    margin-top: 15px;
+    margin-bottom: 15px;
     /* width: 60%; */
 }
 .boxStockCard-note{
@@ -1295,6 +1297,8 @@ label {
     width: 8rem;
     justify-content: center;
     text-align: center;
+    word-break: break-all;
+    flex-direction: column;
 }
 
 .boxStockCard-botones{
@@ -1430,6 +1434,9 @@ color : red
  .btnModificarGuardar{
     background-color: #008000;
     color: white;
+ }
+ .h3Nota{
+    word-break: break-all;
  }
 /******Medias*******/
 @media (width < 1024px) {

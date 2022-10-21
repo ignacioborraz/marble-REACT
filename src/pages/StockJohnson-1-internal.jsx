@@ -31,6 +31,7 @@ export default function StockInternalJohnson() {
 	const [typeA, setTypeA] = useState(false)
 	const [openJson, setOpenJson] = useState(false)
 	const [instalationType, setInstalationType] = useState(false)
+	const [openAlertASIG, setOpenAlertASIG] = useState(false);
 
 	const [itemModif, setItemModif] = useState("")//index sink
 	const [indexStock, setIndexStock] = useState("")
@@ -44,6 +45,8 @@ export default function StockInternalJohnson() {
 	const [typeInstalation, setTypeInstalation] = useState([])
 	const [clase, setClase] = useState([]);//clase para btn editar
 	const [newJohnson, setNewJohnson] = useState("")
+	const [notaAsignada, setNotaAsignada] = useState("")
+
 	console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 32 ~ StockNoteJohnson ~ sinks", sinks)
 	useEffect(() => {
 		dispatch(stockActions.internalStock())
@@ -201,8 +204,22 @@ export default function StockInternalJohnson() {
 			setClase([])
 			setReload(!reload)
 		}
-
-
+	}
+	const openAlertAsignar = (id) => {
+		setId(id)
+		setOpenAlertASIG(true)
+	}
+	async function asignarNota(idStock, nota) {
+		console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 208 ~ entregarStock ~ idStock", idStock)
+		let data = {}
+		data = {
+			note: nota,
+			internal: null
+		}
+		const resp = await dispatch(stockActions.putStock(idStock, data))
+		console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 176 ~ creatingSink ~ resp", resp)
+		setClase([])
+		setReload(!reload)
 	}
 
 	return (
@@ -211,13 +228,16 @@ export default function StockInternalJohnson() {
 				<h1 className='titleStock'>Disponibles</h1>
 			</div>
 			<div className='containerInput'>
-				<input className='input inputStock inputSink' type="text" placeholder='Buscar por codigo' onChange={(e) => setInputSearch(e.target.value)} />
+				<input className='input inputStock inputSink  inputAlignCenter' type="text" placeholder='Buscar por codigo' onChange={(e) => setInputSearch(e.target.value)} />
 			</div>
 			{
 				filterInternalStock.map((stock, index) =>
 				(
 					<div key={stock._id} className='boxStockCard'>
-						<div className='boxStockCard-note'><h3>Nota {stock.internal}</h3></div>
+						<div className='boxStockCard-note'>
+							<h3>Nota</h3>
+							<h3 className='h3Nota'>{stock.internal}</h3>
+						</div>
 						<div className='boxStockCard-containerSink'>
 							{
 								stock.sink.map((sink, indexSink) =>
@@ -248,33 +268,33 @@ export default function StockInternalJohnson() {
 														</td>
 													</tr>
 													<tr>
-                            <td className="text-left1">Accesorios</td>
-                            <td className="text-left">
-                              <div>
-                                {sink.accesories?.map((i, index) =>
-                                  <span key={index}>{i.code + " - "}</span>)}
-                                <button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => handleClickAccesorios(indexSink, sink.accesories)}>Agregar</button>
-                              </div>
-                            </td>
-                          </tr>
+														<td className="text-left1">Accesorios</td>
+														<td className="text-left">
+															<div>
+																{sink.accesories?.map((i, index) =>
+																	<span key={index}>{i.code + " - "}</span>)}
+																<button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => handleClickAccesorios(indexSink, sink.accesories)}>Agregar</button>
+															</div>
+														</td>
+													</tr>
 													<tr>
-                            <td className="text-left1">Instalacion</td>
-                            <td className="text-left">
-                              <div>
-                                {sink?.instalation?.map((i, index) =>
-                                  <span key={index}>{i + " - "}</span>)}
-                                <button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => openInstalationType(indexSink, sink.instalation)}>Cambiar</button>
-                              </div>
-                            </td>
-                          </tr>
+														<td className="text-left1">Instalacion</td>
+														<td className="text-left">
+															<div>
+																{sink?.instalation?.map((i, index) =>
+																	<span key={index}>{i + " - "}</span>)}
+																<button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => openInstalationType(indexSink, sink.instalation)}>Cambiar</button>
+															</div>
+														</td>
+													</tr>
 													<tr>
-                            <td className="text-left1">Comentarios</td>
-                            <td className="text-left">
-                              <div className={clase[index]?.clase} onInput={(event) => setComment(event.currentTarget.textContent)} contentEditable suppressContentEditableWarning={true}>
-                                {stock.comments}
-                              </div>
-                            </td>
-                          </tr>
+														<td className="text-left1">Comentarios</td>
+														<td className="text-left">
+															<div className={clase[index]?.clase} onInput={(event) => setComment(event.currentTarget.textContent)} contentEditable suppressContentEditableWarning={true}>
+																{stock.comments}
+															</div>
+														</td>
+													</tr>
 												</tbody>
 											</table>
 										</div>
@@ -284,164 +304,187 @@ export default function StockInternalJohnson() {
 							}
 						</div>
 						<div className='boxStockCard-botones'>
-              <button className={clase[index]?.clase ? 'btnModificarGuardar' : 'displeyNone'} onClick={() => modificar()}>Guardar Cambios</button>
-              <button onClick={() => editFields(index, stock._id, stock.sink, stock.comments, stock.note)}>Editar</button>
-              <button>Entregar</button>
-              <button type='button' onClick={() => handleClickOpenAlert(stock._id)}>Eliminar</button>
-            </div>
+							<button className={clase[index]?.clase ? 'btnModificarGuardar' : 'displeyNone'} onClick={() => modificar()}>Guardar Cambios</button>
+							<button onClick={() => editFields(index, stock._id, stock.sink, stock.comments, stock.note)}>Editar</button>
+							<button type='button' onClick={() => openAlertAsignar(stock._id)}>Asignar</button>
+							<button type='button' onClick={() => handleClickOpenAlert(stock._id)}>Eliminar</button>
+						</div>
 						<Dialog className='dialogDelet' open={openAlert} onClose={handleClose}>
-              <DialogContent  >
-                <DialogContentText>
-                  Esta seguro que desea eliminar?
-                </DialogContentText>
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={() => delet(idDelet)}>Confirmar</Button>
-                <Button onClick={handleCloseDelet}>Cancelar</Button>
-              </DialogActions>
-            </Dialog>
+							<DialogContent  >
+								<DialogContentText>
+									Esta seguro que desea eliminar?
+								</DialogContentText>
+							</DialogContent>
+							<DialogActions>
+								<Button onClick={() => delet(idDelet)}>Confirmar</Button>
+								<Button onClick={handleCloseDelet}>Cancelar</Button>
+							</DialogActions>
+						</Dialog>
 
-            <Dialog open={typeA} >
-              <DialogContent>
-                <DialogContentText>{`Modificar pileta${index + 1}:`}</DialogContentText>
-                <h4>Tipo de acero:</h4>
-                <Container width='100%' justify='space-evenly' align='center' wrap='wrap'>
-                  <button onClick={() => openJohnson("A304", index)} className="linkTypes  typesDialog">
-                    <div className="bgType bgA304" >
-                      <div className='mask'>
-                        <h1 className='titleCard johnsonTypeh1'>A304</h1>
-                      </div>
-                    </div>
-                  </button>
+						<Dialog open={typeA} >
+							<DialogContent>
+								<DialogContentText>{`Modificar pileta${index + 1}:`}</DialogContentText>
+								<h4>Tipo de acero:</h4>
+								<Container width='100%' justify='space-evenly' align='center' wrap='wrap'>
+									<button onClick={() => openJohnson("A304", index)} className="linkTypes  typesDialog">
+										<div className="bgType bgA304" >
+											<div className='mask'>
+												<h1 className='titleCard johnsonTypeh1'>A304</h1>
+											</div>
+										</div>
+									</button>
 
-                  <button onClick={() => openJohnson("A430", index)} className="linkTypes  typesDialog">
-                    <div className="bgType bgA430" >
-                      <div className='mask'>
-                        <h1 className='titleCard johnsonTypeh1'>A430</h1>
-                      </div>
-                    </div>
-                  </button>
-                </Container>
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={() => closeType(index)}>Cancelar</Button>
-              </DialogActions>
-            </Dialog>
+									<button onClick={() => openJohnson("A430", index)} className="linkTypes  typesDialog">
+										<div className="bgType bgA430" >
+											<div className='mask'>
+												<h1 className='titleCard johnsonTypeh1'>A430</h1>
+											</div>
+										</div>
+									</button>
+								</Container>
+							</DialogContent>
+							<DialogActions>
+								<Button onClick={() => closeType(index)}>Cancelar</Button>
+							</DialogActions>
+						</Dialog>
 
-            <Dialog open={openJson} >
-              <DialogContent>
-                <DialogContentText>{`Johnson${index + 1}:`}</DialogContentText>
-                <div className='itemsEditAcc'>
-                  {listJSON.map((item) => (
-                    <button
-                      // onClick={() => datos(item, itemModif, 'jhonson')}
-                      onClick={() => setNewJohnson(item)}
-                      key={item._id}
-                      className='boxItemAcc'
-                      style={{
-                        "backgroundImage": `url(${item.photo})`,
-                        "backgroundSize": "cover",
-                        "backgroundPosition": "center",
-                        "objectFit": "cover"
-                      }}>
+						<Dialog open={openJson} >
+							<DialogContent>
+								<DialogContentText>{`Johnson${index + 1}:`}</DialogContentText>
+								<div className='itemsEditAcc'>
+									{listJSON.map((item) => (
+										<button
+											// onClick={() => datos(item, itemModif, 'jhonson')}
+											onClick={() => setNewJohnson(item)}
+											key={item._id}
+											className='boxItemAcc'
+											style={{
+												"backgroundImage": `url(${item.photo})`,
+												"backgroundSize": "cover",
+												"backgroundPosition": "center",
+												"objectFit": "cover"
+											}}>
 
-                      <div className='maskAcc'>
-                        <div className='nameIcon'>
-                          <h5 className='h5DescAcc codejson'>{item?.code}</h5>
-                          {newJohnson._id.includes(item._id) ?
-                            <CheckCircleIcon className="addIconAcc" />
-                            :
-                            <RadioButtonUncheckedIcon className="deletIconAcc" />}
-                        </div>
-                        <p className='pDescAcc pxyz'>{item.x} x {item.y} x {item.z} </p>
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={() => cargaJohnson()}>Listo</Button>
-                {/* <Button onClick={() => datos(newJohnson, itemModif, "jhonson")}>Listo</Button> */}
-                <Button onClick={() => setOpenJson(false)}>Cancelar</Button>
-              </DialogActions>
-            </Dialog>
+											<div className='maskAcc'>
+												<div className='nameIcon'>
+													<h5 className='h5DescAcc codejson'>{item?.code}</h5>
+													{newJohnson._id?.includes(item._id) ?
+														<CheckCircleIcon className="addIconAcc" />
+														:
+														<RadioButtonUncheckedIcon className="deletIconAcc" />}
+												</div>
+												<p className='pDescAcc pxyz'>{item.x} x {item.y} x {item.z} </p>
+											</div>
+										</button>
+									))}
+								</div>
+							</DialogContent>
+							<DialogActions>
+								<Button onClick={() => cargaJohnson()}>Listo</Button>
+								{/* <Button onClick={() => datos(newJohnson, itemModif, "jhonson")}>Listo</Button> */}
+								<Button onClick={() => setOpenJson(false)}>Cancelar</Button>
+							</DialogActions>
+						</Dialog>
 
-            <Dialog open={instalationType} >
-              <DialogContent>
-                <DialogContentText>{`Modificar Instalación${index + 1}:`}</DialogContentText>
-                {
-                  typeInstalation.length > 0 ?
-                    <div className='instalacionBox'>
-                      <InputLabel id="demo-multiple-chip-label">Instalación:</InputLabel>
-                      <Select
-                        labelId="demo-multiple-chip-label"
-                        id="demo-multiple-chip-label"
-                        multiple
-                        value={instalation}
-                        onChange={handleChangeInsta}
-                        input={<OutlinedInput id="select-multiple-chip" label="Instalacion" />}
-                        renderValue={(selected) => (
-                          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                            {selected.map((value) => (
-                              <Chip key={value} label={value} />
-                            ))}
-                          </Box>
-                        )}
-                      >
-                        {typeInstalation.map((name) => (
-                          <MenuItem
-                            key={name}
-                            value={name}
-                          >
-                            {name}
-                          </MenuItem>
-                        ))}
-                        <MenuItem value={"instalacion lateral"}>instalacion lateral</MenuItem>
-                      </Select>
-                    </div> : null
-                }
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={() => datos(instalation, itemModif, "instalation")}>Listo</Button>
-                <Button onClick={() => setInstalationType(false)}>Cancelar</Button>
-              </DialogActions>
-            </Dialog>
+						<Dialog open={instalationType} >
+							<DialogContent>
+								<DialogContentText>{`Modificar Instalación${index + 1}:`}</DialogContentText>
+								{
+									typeInstalation.length > 0 ?
+										<div className='instalacionBox'>
+											<InputLabel id="demo-multiple-chip-label">Instalación:</InputLabel>
+											<Select
+												labelId="demo-multiple-chip-label"
+												id="demo-multiple-chip-label"
+												multiple
+												value={instalation}
+												onChange={handleChangeInsta}
+												input={<OutlinedInput id="select-multiple-chip" label="Instalacion" />}
+												renderValue={(selected) => (
+													<Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+														{selected.map((value) => (
+															<Chip key={value} label={value} />
+														))}
+													</Box>
+												)}
+											>
+												{typeInstalation.map((name) => (
+													<MenuItem
+														key={name}
+														value={name}
+													>
+														{name}
+													</MenuItem>
+												))}
+												<MenuItem value={"instalacion lateral"}>instalacion lateral</MenuItem>
+											</Select>
+										</div> : null
+								}
+							</DialogContent>
+							<DialogActions>
+								<Button onClick={() => datos(instalation, itemModif, "instalation")}>Listo</Button>
+								<Button onClick={() => setInstalationType(false)}>Cancelar</Button>
+							</DialogActions>
+						</Dialog>
 
-            <Dialog open={openAcc} >
-              <DialogContent>
-                <DialogContentText>{`ACCESORIOS Pileta${indexStock + 1} - ${itemModif + 1}:`}</DialogContentText>
-                <div className='itemsEditAcc'>
-                  {accesoriesList.map((item) => (
-                    <button
-                      onClick={() => addAccesory(item._id, item)}
-                      key={item._id}
-                      className='boxItemAcc'
-                      style={{
-                        "backgroundImage": `url(${item.photo})`,
-                        "backgroundSize": "cover",
-                        "backgroundPosition": "center",
-                        "objectFit": "cover"
-                      }}>
+						<Dialog open={openAcc} >
+							<DialogContent>
+								<DialogContentText>{`ACCESORIOS Pileta${indexStock + 1} - ${itemModif + 1}:`}</DialogContentText>
+								<div className='itemsEditAcc'>
+									{accesoriesList.map((item) => (
+										<button
+											onClick={() => addAccesory(item._id, item)}
+											key={item._id}
+											className='boxItemAcc'
+											style={{
+												"backgroundImage": `url(${item.photo})`,
+												"backgroundSize": "cover",
+												"backgroundPosition": "center",
+												"objectFit": "cover"
+											}}>
 
-                      <div className='maskAcc'>
-                        <div className='nameIcon'>
-                          <h5 className='h5DescAcc'>{item.code}</h5>
-                          {accesorysAdd?.includes(item._id) ?
-                            <CheckCircleIcon className="addIconAcc" />
-                            :
-                            <RadioButtonUncheckedIcon className="deletIconAcc" />}
-                        </div>
-                        <p className='pDescAcc'>{item.description}</p>
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={() => cargaAccSinks(accesories, itemModif)}>Listo</Button>
-                <Button onClick={() => setOpenAcc(false)}>Cancelar</Button>
-              </DialogActions>
-            </Dialog>
+											<div className='maskAcc'>
+												<div className='nameIcon'>
+													<h5 className='h5DescAcc'>{item.code}</h5>
+													{accesorysAdd?.includes(item._id) ?
+														<CheckCircleIcon className="addIconAcc" />
+														:
+														<RadioButtonUncheckedIcon className="deletIconAcc" />}
+												</div>
+												<p className='pDescAcc'>{item.description}</p>
+											</div>
+										</button>
+									))}
+								</div>
+							</DialogContent>
+							<DialogActions>
+								<Button onClick={() => cargaAccSinks(accesories, itemModif)}>Listo</Button>
+								<Button onClick={() => setOpenAcc(false)}>Cancelar</Button>
+							</DialogActions>
+						</Dialog>
+
+						<Dialog className='dialogDelet' open={openAlertASIG}>
+							<DialogContent  >
+								<DialogContentText>
+									Asignar Nota
+								</DialogContentText>
+								<TextField
+									autoFocus
+									margin="dense"
+									defaultValue={notaAsignada}
+									type="text"
+									fullWidth
+									variant="standard"
+									label="Nota"
+									onChange={(event) => setNotaAsignada(event.target.value)}
+									id="nuevoCod"
+								/>
+							</DialogContent>
+							<DialogActions>
+								<Button onClick={() => asignarNota(id, notaAsignada)}>Confirmar</Button>
+								<Button onClick={() => setOpenAlertASIG(false)}>Cancelar</Button>
+							</DialogActions>
+						</Dialog>
 					</div>
 
 				)

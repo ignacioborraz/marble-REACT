@@ -18,7 +18,7 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import Box from '@mui/material/Box';
 import Container from '../components/Container'
 
-export default function StockNoteJohnson() {
+export default function StockDoneJohnson() {
   const dispatch = useDispatch()
   const [inputSearch, setInputSearch] = useState("")
   const [reload, setReload] = useState(false)
@@ -45,20 +45,21 @@ export default function StockNoteJohnson() {
   console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 32 ~ StockNoteJohnson ~ sinks", sinks)
   console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 33 ~ StockNoteJohnson ~ comment", comment)
   useEffect(() => {
-    dispatch(stockActions.noteStock())
+    dispatch(stockActions.doneStock())
     dispatch(johnsonActions.getAccesory())
     // eslint-disable-next-line
   }, [reload])
   useEffect(() => {
-    dispatch(stockActions.filterNoteStock(inputSearch))
+    dispatch(stockActions.filterDoneStock(inputSearch))
     // eslint-disable-next-line
   }, [reload, inputSearch])
 
-  let noteStock = useSelector(store => store.stockReducer.noteStock)
-  let filterNoteStock = useSelector(store => store.stockReducer.filterNoteStock)
+  let doneStock = useSelector(store => store.stockReducer.noteStock)
+  console.log("🚀 ~ file: StockJohnson-3-done.jsx ~ line 58 ~ StockDoneJohnson ~ doneStock", doneStock)
+  let filterDoneStock = useSelector(store => store.stockReducer.filterDoneStock)
+  console.log("🚀 ~ file: StockJohnson-3-done.jsx ~ line 59 ~ StockDoneJohnson ~ filterDoneStock", filterDoneStock)
   const accesoriesList = useSelector(store => store.johnsonReducer.accesorys)
-  console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 24 ~ StockNoteJohnson ~ filterNoteStock", filterNoteStock)
-  console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 22 ~ StockNoteJohnson ~ noteStock", noteStock)
+  
   const handleClickOpenAlert = (id) => {
     setIdDelet(id)
     setOpenAlert(true)
@@ -82,7 +83,7 @@ export default function StockNoteJohnson() {
   const editFields = (item, id, listSinks, comments) => {
     console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 142 ~ editFields ~ item", item)
     let list = []
-    filterNoteStock.map(elem => list.push({ clase: "" }))
+    filterDoneStock.map(elem => list.push({ clase: "" }))
     //console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 107 ~ editFields ~ list", list)
     for (let i = 0; i < list.length; i++) {
       if (i === item) {
@@ -208,6 +209,7 @@ export default function StockNoteJohnson() {
     console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 208 ~ entregarStock ~ idStock", idStock)
     let data = {}
     data = {
+      note:null,
       done: true
     }
       const resp =await dispatch(stockActions.putStock(idStock, data))
@@ -218,16 +220,16 @@ export default function StockNoteJohnson() {
  
   return (
     <div className='containerStock'>
-      <div className='containerNameStock vendidas'>
+      <div className='containerNameStock consumidas'>
         <div className='mask4'>
-          <h1 className='titleStock'>Vendidas</h1>
+          <h1 className='titleStock'>Entregadas</h1>
         </div>
       </div>
       <div className='containerInput'>
-        <input className='input inputStock inputAlignCenter' type="text" placeholder='Buscar por nota' onChange={(e) => setInputSearch(e.target.value)} />
+        <input className='input inputStock  inputAlignCenter' type="text" placeholder='Buscar por nota' onChange={(e) => setInputSearch(e.target.value)} />
       </div>
       {
-        filterNoteStock?.map((stock, index) =>
+        filterDoneStock?.map((stock, index) =>
         (
           <div key={stock._id} className='boxStockCard'>
             <div className='boxStockCard-note'>
