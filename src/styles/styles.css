@@ -1308,7 +1308,7 @@ label {
 }
 
 .boxStockCard-note {
-    background-color: rgb(218, 85, 85);
+    background-color: rgb(200, 40, 50);
     display: flex;
     align-items: center;
     /* width: 8rem; */
@@ -1317,6 +1317,8 @@ label {
     text-align: center;
     word-break: break-all;
     flex-direction: column;
+    color: whitesmoke;
+    letter-spacing: 2.5px;
 }
 
 .boxStockCard-botones {
