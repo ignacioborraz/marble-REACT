@@ -258,11 +258,8 @@ export default function StockInternalJohnson() {
 													<tr>
 														<td className="text-left1">Modelo</td>
 														<td className="text-left">
-															<div>
-																{
-																	sink.jhonson.code
-																}
-																{/* {sinks[itemModif]?.jhonson?.code}  */}
+															<div className='divBtntdEdit'>
+																<div>{sink.jhonson.code}</div>
 																<button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => openType(indexSink, sink.jhonson)}>Cambiar</button>
 															</div>
 														</td>
@@ -270,9 +267,10 @@ export default function StockInternalJohnson() {
 													<tr>
 														<td className="text-left1">Accesorios</td>
 														<td className="text-left">
-															<div>
-																{sink.accesories?.map((i, index) =>
-																	<span key={index}>{i.code + " - "}</span>)}
+															<div className='divBtntdEdit'>
+																<div>{sink.accesories?.map((i, index) =>
+																	<span key={index}>{i.code + " - "}</span>)}</div>
+																
 																<button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => handleClickAccesorios(indexSink, sink.accesories)}>Agregar</button>
 															</div>
 														</td>
@@ -280,9 +278,10 @@ export default function StockInternalJohnson() {
 													<tr>
 														<td className="text-left1">Instalacion</td>
 														<td className="text-left">
-															<div>
-																{sink?.instalation?.map((i, index) =>
-																	<span key={index}>{i + " - "}</span>)}
+															<div className='divBtntdEdit'>
+																<div>{sink?.instalation?.map((i, index) =>
+																	<span key={index}>{i + " - "}</span>)}</div>
+																
 																<button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => openInstalationType(indexSink, sink.instalation)}>Cambiar</button>
 															</div>
 														</td>

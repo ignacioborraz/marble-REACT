@@ -41,7 +41,7 @@ export default function StockNoteJohnson() {
   const [typeInstalation, setTypeInstalation] = useState([])
   const [clase, setClase] = useState([]);//clase para btn editar
   const [newJohnson, setNewJohnson] = useState("")
-  
+
   console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 32 ~ StockNoteJohnson ~ sinks", sinks)
   console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 33 ~ StockNoteJohnson ~ comment", comment)
   useEffect(() => {
@@ -196,12 +196,12 @@ export default function StockNoteJohnson() {
       console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 226 ~ sinks.map ~ index", i)
 
       const resp = await dispatch(sinkActions.putSink(sinks[i]._id, sinks[i]))
-      const resp2 =await dispatch(stockActions.putStock(id, data))
+      const resp2 = await dispatch(stockActions.putStock(id, data))
       console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 176 ~ creatingSink ~ resp", resp)
       setClase([])
       setReload(!reload)
     }
-    
+
 
   }
   async function entregarStock(idStock) {
@@ -210,12 +210,12 @@ export default function StockNoteJohnson() {
     data = {
       done: true
     }
-      const resp =await dispatch(stockActions.putStock(idStock, data))
-      console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 176 ~ creatingSink ~ resp", resp)
-      setClase([])
-      setReload(!reload)
+    const resp = await dispatch(stockActions.putStock(idStock, data))
+    console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 176 ~ creatingSink ~ resp", resp)
+    setClase([])
+    setReload(!reload)
   }
- 
+
   return (
     <div className='containerStock'>
       <div className='containerNameStock vendidas'>
@@ -233,7 +233,7 @@ export default function StockNoteJohnson() {
             <div className='boxStockCard-note'>
               <h3>Nota</h3>
               <h3>{stock.note}</h3>
-              </div>
+            </div>
             <div className='boxStockCard-containerSink'>
               {
                 stock?.sink?.map((sink, indexSink) =>
@@ -254,11 +254,8 @@ export default function StockNoteJohnson() {
                           <tr>
                             <td className="text-left1">Modelo</td>
                             <td className="text-left">
-                              <div>
-                                {
-                                  sink.jhonson.code
-                                }
-                                {/* {sinks[itemModif]?.jhonson?.code}  */}
+                              <div className='divBtntdEdit'>
+                                <div>{sink.jhonson.code}</div>
                                 <button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => openType(indexSink, sink.jhonson)}>Cambiar</button>
                               </div>
                             </td>
@@ -266,9 +263,13 @@ export default function StockNoteJohnson() {
                           <tr>
                             <td className="text-left1">Accesorios</td>
                             <td className="text-left">
-                              <div>
-                                {sink.accesories?.map((i, index) =>
-                                  <span key={index}>{i.code + " - "}</span>)}
+                              <div className='divBtntdEdit'>
+                                <div>
+                                  {/* {sink.accesories?.map((i, index) =>
+                                    <span key={index}>{i.code}</span>).split(",")} */}
+                                    {sink?.accesories?.map((i, index) =>
+                                    <span key={index}>{ i.code+ " - "}</span>)}
+                                </div>
                                 <button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => handleClickAccesorios(indexSink, sink.accesories)}>Agregar</button>
                               </div>
                             </td>
@@ -276,9 +277,9 @@ export default function StockNoteJohnson() {
                           <tr>
                             <td className="text-left1">Instalacion</td>
                             <td className="text-left">
-                              <div>
-                                {sink?.instalation?.map((i, index) =>
-                                  <span key={index}>{i + " - "}</span>)}
+                              <div className='divBtntdEdit'>
+                                <div>{sink?.instalation?.map((i, index) =>
+                                  <span key={index}>{i + " - "}</span>)}</div>
                                 <button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => openInstalationType(indexSink, sink.instalation)}>Cambiar</button>
                               </div>
                             </td>

@@ -381,7 +381,7 @@ a {
 }
 
 .consumidas {
-    background-color: #d83939;
+    background-color: rgb(200, 40, 50);;
 }
 
 .titleStock {
@@ -1504,11 +1504,20 @@ td:last-child {
 .btnModificar {
     margin-left: 3px;
 }
-
-
-
 .h3Nota {
     word-break: break-all;
+}
+.divBtntdEdit{
+    display: flex;
+    justify-content: space-between;
+}
+.btnModificar{
+    border: 2px solid green;
+    border-radius: 4px;
+    padding: 2px;
+    color: green;
+    background: white;
+    align-self: center;
 }
 
 /******Medias*******/
@@ -1725,7 +1734,7 @@ td:last-child {
     }
 
     td {
-        font-size: 15px;
+        font-size: 13px;
     }
 
     .boxStockCard-botones button {
@@ -1739,6 +1748,9 @@ td:last-child {
     .boxStockCard-note {
         border-top-left-radius: 11px;
         border-top-right-radius: 11px;
+    }
+    .btnModificar{
+        margin-left: 0;
     }
 }
 

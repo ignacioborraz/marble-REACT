@@ -224,7 +224,7 @@ export default function StockDoneJohnson() {
             <div className='boxStockCard-note'>
               <h3>Nota</h3>
               <h3>{stock.note}</h3>
-              </div>
+            </div>
             <div className='boxStockCard-containerSink'>
               {
                 stock?.sink?.map((sink, indexSink) =>
@@ -245,10 +245,8 @@ export default function StockDoneJohnson() {
                           <tr>
                             <td className="text-left1">Modelo</td>
                             <td className="text-left">
-                              <div>
-                                {
-                                  sink.jhonson.code
-                                }
+                              <div className='divBtntdEdit'>
+                                <div>{sink.jhonson.code}</div>
                                 {/* {sinks[itemModif]?.jhonson?.code}  */}
                                 <button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => openType(indexSink, sink.jhonson)}>Cambiar</button>
                               </div>
@@ -257,9 +255,11 @@ export default function StockDoneJohnson() {
                           <tr>
                             <td className="text-left1">Accesorios</td>
                             <td className="text-left">
-                              <div>
+                              <div className='divBtntdEdit'>
+                                <div>
                                 {sink.accesories?.map((i, index) =>
                                   <span key={index}>{i.code + " - "}</span>)}
+                                </div>
                                 <button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => handleClickAccesorios(indexSink, sink.accesories)}>Agregar</button>
                               </div>
                             </td>
@@ -267,9 +267,9 @@ export default function StockDoneJohnson() {
                           <tr>
                             <td className="text-left1">Instalacion</td>
                             <td className="text-left">
-                              <div>
-                                {sink?.instalation?.map((i, index) =>
-                                  <span key={index}>{i + " - "}</span>)}
+                              <div className='divBtntdEdit'>
+                                <div>{sink?.instalation?.map((i, index) =>
+                                  <span key={index}>{i + " - "}</span>)}</div>
                                 <button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => openInstalationType(indexSink, sink.instalation)}>Cambiar</button>
                               </div>
                             </td>
@@ -295,6 +295,7 @@ export default function StockDoneJohnson() {
               {/* <button type='button' onClick={() => entregarStock(stock._id)}>Entregar</button> */}
               <button className='btnEliminar' type='button' onClick={() => handleClickOpenAlert(stock._id)}>Eliminar</button>
             </div>
+
             <Dialog className='dialogDelet' open={openAlert} onClose={handleClose}>
               <DialogContent  >
                 <DialogContentText>
