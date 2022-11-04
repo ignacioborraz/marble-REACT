@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import sinkActions from '../redux/actions/sinkActions'
 import stockActions from '../redux/actions/stockActions'
+import codeActions from '../redux/actions/codeActions'
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -45,20 +46,25 @@ export default function StockNoteJohnson() {
   console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 32 ~ StockNoteJohnson ~ sinks", sinks)
   console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 33 ~ StockNoteJohnson ~ comment", comment)
   useEffect(() => {
-    dispatch(stockActions.noteStock())
+    dispatch(codeActions.getCode())
+    dispatch(codeActions.noteCode())
     dispatch(johnsonActions.getAccesory())
     // eslint-disable-next-line
   }, [reload])
   useEffect(() => {
-    dispatch(stockActions.filterNoteStock(inputSearch))
+    dispatch(codeActions.filterNoteCode(inputSearch))
     // eslint-disable-next-line
   }, [reload, inputSearch])
-
-  let noteStock = useSelector(store => store.stockReducer.noteStock)
-  let filterNoteStock = useSelector(store => store.stockReducer.filterNoteStock)
+ 
+  let code = useSelector(state => state.codeReducer.code)
+  console.log("👀 ~ file: StockJohnson-2-note.jsx ~ line 61 ~ StockNoteJohnson ~ code", code)
+  let noteCode = useSelector(state => state.codeReducer.noteCode)
+  console.log("👀NOTE ~ file: StockJohnson-2-note.jsx ~ line 63 ~ StockNoteJohnson ~ noteCode", noteCode)
+  
+  let filterNoteCode = useSelector(store => store.codeReducer.filterNoteCode)
+  console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 65 ~ StockNoteJohnson ~ filterNoteCode", filterNoteCode)
   const accesoriesList = useSelector(store => store.johnsonReducer.accesorys)
-  console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 24 ~ StockNoteJohnson ~ filterNoteStock", filterNoteStock)
-  console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 22 ~ StockNoteJohnson ~ noteStock", noteStock)
+
   const handleClickOpenAlert = (id) => {
     setIdDelet(id)
     setOpenAlert(true)
@@ -82,7 +88,7 @@ export default function StockNoteJohnson() {
   const editFields = (item, id, listSinks, comments) => {
     console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 142 ~ editFields ~ item", item)
     let list = []
-    filterNoteStock.map(elem => list.push({ clase: "" }))
+    filterNoteCode.map(elem => list.push({ clase: "" }))
     //console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 107 ~ editFields ~ list", list)
     for (let i = 0; i < list.length; i++) {
       if (i === item) {
@@ -226,8 +232,9 @@ export default function StockNoteJohnson() {
       <div className='containerInput'>
         <input className='input inputStock inputAlignCenter' type="text" placeholder='Buscar por nota' onChange={(e) => setInputSearch(e.target.value)} />
       </div>
-      {
-        filterNoteStock?.map((stock, index) =>
+
+        {
+        filterNoteCode?.map((stock, index) =>
         (
           <div key={stock._id} className='boxStockCard'>
             <div className='boxStockCard-note'>
@@ -236,10 +243,10 @@ export default function StockNoteJohnson() {
             </div>
             <div className='boxStockCard-containerSink'>
               {
-                stock?.sink?.map((sink, indexSink) =>
+                stock?.stock?.map((sink, indexSink) =>
                 (
                   <div key={sink._id} className='boxStockCard-sink'>
-                    <img src={sink.jhonson?.photo} alt={sink._id} className='boxStockCard-photo' id={sink._id} />
+                    <img src={sink.sink.jhonson?.photo} alt={sink._id} className='boxStockCard-photo' id={sink._id} />
                     <div className='boxStockCard-data'>
                       <table className="table-fill">
                         <tbody className="table-hover">
@@ -247,7 +254,7 @@ export default function StockNoteJohnson() {
                             <td className="text-left1">Cantidad</td>
                             <td className="text-left">
                               <div className={clase[index]?.clase} onInput={(event) => datos(event.currentTarget.textContent, indexSink, "quantity")} contentEditable suppressContentEditableWarning={true}>
-                                {sink.quantity}
+                                {sink.stock}
                               </div>
                             </td>
                           </tr>
@@ -255,7 +262,7 @@ export default function StockNoteJohnson() {
                             <td className="text-left1">Modelo</td>
                             <td className="text-left">
                               <div className='divBtntdEdit'>
-                                <div>{sink.jhonson.code}</div>
+                                <div>{sink.sink.jhonson?.code}</div>
                                 <button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => openType(indexSink, sink.jhonson)}>Cambiar</button>
                               </div>
                             </td>
@@ -265,9 +272,7 @@ export default function StockNoteJohnson() {
                             <td className="text-left">
                               <div className='divBtntdEdit'>
                                 <div>
-                                  {/* {sink.accesories?.map((i, index) =>
-                                    <span key={index}>{i.code}</span>).split(",")} */}
-                                    {sink?.accesories?.map((i, index) =>
+                                    {sink.sink?.accesories?.map((i, index) =>
                                     <span key={index}>{ i.code+ " - "}</span>)}
                                 </div>
                                 <button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => handleClickAccesorios(indexSink, sink.accesories)}>Agregar</button>
@@ -278,7 +283,7 @@ export default function StockNoteJohnson() {
                             <td className="text-left1">Instalacion</td>
                             <td className="text-left">
                               <div className='divBtntdEdit'>
-                                <div>{sink?.instalation?.map((i, index) =>
+                                <div>{sink.sink?.instalation?.map((i, index) =>
                                   <span key={index}>{i + " - "}</span>)}</div>
                                 <button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => openInstalationType(indexSink, sink.instalation)}>Cambiar</button>
                               </div>
@@ -377,7 +382,7 @@ export default function StockNoteJohnson() {
               </DialogContent>
               <DialogActions>
                 <Button onClick={() => cargaJohnson()}>Listo</Button>
-                {/* <Button onClick={() => datos(newJohnson, itemModif, "jhonson")}>Listo</Button> */}
+          
                 <Button onClick={() => setOpenJson(false)}>Cancelar</Button>
               </DialogActions>
             </Dialog>
@@ -460,12 +465,11 @@ export default function StockNoteJohnson() {
             </Dialog>
 
           </div>
-
         )
         )
       }
 
-    </div>
-  )
+      </div>
+      )
 
 }

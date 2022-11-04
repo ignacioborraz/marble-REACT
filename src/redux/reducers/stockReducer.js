@@ -1,4 +1,5 @@
 const initialState = {
+  stock: [],
   internalStock: [],
   filterInternalStock: [],
   filterNoteStock: [],
@@ -14,6 +15,11 @@ const stockReducer = (state = initialState, action) => {
       return {
         ...state,
         sinkCreate: action.payload,
+      };
+      case "GET_STOCK":
+      return {
+        ...state,
+        stock: action.payload,
       };
     case "INTERNAL_STOCK":
       return {

@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import johnsonActions from '../redux/actions/johnsonActions';
 import sinkActions from '../redux/actions/sinkActions';
+import codeActions from '../redux/actions/codeActions';
 import Container from '../components/Container'
 import Button from '@mui/material/Button';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
@@ -21,7 +22,6 @@ export default function JohnsonData() {
   const comments = useRef()
   let sink = JSON.parse(localStorage.getItem('sink'))
   const jhonson = sink.jhonson
-  console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 23 ~ JohnsonData ~ jhonson", jhonson)
   const dispatch = useDispatch()
   const [codigo, setCodigo] = useState("")
   const [typeCode, setTypeCode] = useState("")
@@ -32,7 +32,6 @@ export default function JohnsonData() {
   const [openJson, setOpenJson] = useState([{ open: false }])
 
   console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 31 ~ JohnsonData ~ sinks", sinks)
-
   useEffect(() => {
     dispatch(johnsonActions.getOneJohnson(jhonson))
     dispatch(johnsonActions.getAccesory())
@@ -44,8 +43,6 @@ export default function JohnsonData() {
 
   const listaNEW = useSelector(store => store.sinkReducer.sinkCreate)
 
-  console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 50 ~ JohnsonData ~ listaNEW", listaNEW)
-  //console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 50 ~ JohnsonData ~ johnsonSelect", johnsonSelect)
   const accesoriesList = useSelector(store => store.johnsonReducer.accesorys)
   const [sinkInsta, setSinkInsta] = useState([{ instalation: [], type: "", code: "" }])
   console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 63 ~ JohnsonData ~ sinkInsta", sinkInsta)
@@ -139,7 +136,6 @@ export default function JohnsonData() {
     })
       setOpenJson(cerrar)
   }
-
   async function openJohnson(type, index) {
     console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 112 ~ openJohnson ~ type", type)
     const res = await dispatch(johnsonActions.getJohnsonType(type))
@@ -194,6 +190,7 @@ export default function JohnsonData() {
   async function creatingSink(event) {
     event.preventDefault()
     const listaId = []
+    sinks.map((sink, index) => { datos(false, index, "done") })
     let listInst = sinks
     for (let i = 0; i < listInst.length; i++) {
       if (listInst[i].instalation.length === 0) {
@@ -205,37 +202,75 @@ export default function JohnsonData() {
       listaId.push(resp._id)
     }
     console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 174 ~ creatingSink ~ listaId", listaId)
-    creatingStock(listaId)
-
-
-
-
+    creatingStock(listaId, sinks)
   }
-  async function creatingStock(lis) {
+  // async function creatingStock(lis) {
+  //   console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 181 ~ creatingStock ~ l", lis)
+  //   let data = {}
+  //   if (typeCode === "interno") {
+  //     data = {
+  //       sink: lis,
+  //       internal: codigo,
+  //       note: null,
+        
+  //       comments: comments?.current?.value.trim()
+
+  //     }
+  //   }
+  //   else {
+  //     data = {
+  //       sink: lis,
+  //       internal: null,
+  //       note: codigo,
+  //       done: false,
+  //       comments: comments?.current?.value.trim()
+  //     }
+  //   }
+  //   await dispatch(stockActions.createStock(data))
+  //     .then(navigate("/", { replace: true }))
+  // }
+  async function creatingStock(lis, sinks) {
     console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 181 ~ creatingStock ~ l", lis)
-    let data = {}
-    if (typeCode === "interno") {
-      data = {
-        sink: lis,
-        internal: codigo,
-        note: null,
-        done: false,
-        comments: comments?.current?.value.trim()
-
+    let dataSink = [{ sink: "", stock: "" }]	
+    const dataSinksId = []
+    for (let i = 0; i < sinks.length && lis.length; i++) {
+      dataSink[i] = {
+        sink: lis[i],
+        stock: sinks[i].quantity || 1
       }
+      console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 234 ~ creatingStock ~ dataSink", dataSink)
+      const idSink =await dispatch(stockActions.createStock(dataSink[i]))
+      console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 243 ~ creatingStock ~ idSink", idSink)
+      dataSinksId.push(idSink)
+      console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 240 ~ creatingStock ~ dataSink", dataSink)
     }
-    else {
-      data = {
-        sink: lis,
-        internal: null,
-        note: codigo,
-        done: false,
-        comments: comments?.current?.value.trim()
-      }
-    }
-    await dispatch(stockActions.createStock(data))
-      .then(navigate("/", { replace: true }))
+   creatingCode(dataSinksId)
   }
+  async function creatingCode(dataSinksId) {
+    let dataCode = {}
+    if (typeCode === "interno") {
+          dataCode = {
+            internal: codigo,
+            note: null,
+            stock: dataSinksId,
+            comments: comments?.current?.value.trim(),
+            done: false
+          }
+        }
+        else {
+          dataCode = {
+            internal: null,
+            note: codigo,
+            stock: dataSinksId,
+            comments: comments?.current?.value.trim(),
+            done: false,
+          }
+        }
+      await dispatch(codeActions.createCode(dataCode))
+      .then(navigate("/", { replace: true }))
+
+    }
+
 
   return (
     <Container grow='1' wrap='wrap' bgColor='rgb(224,224,224)' >

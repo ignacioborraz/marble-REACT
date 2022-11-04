@@ -10,7 +10,22 @@ const stockActions = {
           headers: { Authorization: "Bearer " + token },
         })
         console.log("🚀 ~ file: stockActions.js ~ line 12 ~ return ~ res", res)
-        dispatch({type:'STOCK'});
+        dispatch({type:'STOCK', payload: res.data.id});
+        return res.data.id
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  },
+  getStock: () => {
+    const token = localStorage.getItem("token");
+    return async (dispatch, getState) => {
+      try {
+        const res=await axios.get(apiUrl + "api/marble/stock", {
+          headers: { Authorization: "Bearer " + token },
+        })
+        console.log("🚀 ~ file: stockActions.js ~ line 12 ~ return ~ res", res)
+        dispatch({type:'GET_STOCK'});
       } catch (error) {
         console.log(error);
       }
