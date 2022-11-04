@@ -1342,6 +1342,8 @@ label {
 .btnEliminar {
     border: solid 2px #f52121;
     color: #dd0000;
+    height: 2rem;
+    flex-grow: 1;
 }
 
 .btnEditar {
@@ -1518,6 +1520,11 @@ td:last-child {
     color: green;
     background: white;
     align-self: center;
+}
+.cajaBtnDelet{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /******Medias*******/

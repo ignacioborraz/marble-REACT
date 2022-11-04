@@ -30,6 +30,18 @@ const codeActions = {
       }
     };
   },
+  deleteCode: (id) => {
+    const token = localStorage.getItem("token");
+    return async (dispatch, getState) => {
+      try {
+        await axios.delete(apiUrl + "api/marble/code/" + id, {
+          headers: { Authorization: "Bearer " + token },
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  },
   internalCode: () => {
     const token = localStorage.getItem("token");
     return async (dispatch, getState) => {
@@ -90,5 +102,6 @@ const codeActions = {
       }
     };
   },
+
 };
 export default codeActions;

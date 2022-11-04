@@ -31,9 +31,11 @@ export default function StockNoteJohnson() {
   const [instalationType, setInstalationType] = useState(false)
 
   const [itemModif, setItemModif] = useState("")//index sink
-  const [indexStock, setIndexStock] = useState("")
+  const [indexCode, setIndexCode] = useState("")
   const [idDelet, setIdDelet] = useState("")
-  const [id, setId] = useState("")//id stock
+  const [idDeletStock, setIdDeletStock] = useState("")
+  const [cantStockDelet, setCantStockDelet] = useState("")
+  const [id, setId] = useState("")//id Code
   const [sinks, setSinks] = useState([])
   const [comment, setComment] = useState("")
   const [accesories, setAccesories] = useState([])
@@ -55,18 +57,22 @@ export default function StockNoteJohnson() {
     dispatch(codeActions.filterNoteCode(inputSearch))
     // eslint-disable-next-line
   }, [reload, inputSearch])
- 
+
   let code = useSelector(state => state.codeReducer.code)
   console.log("👀 ~ file: StockJohnson-2-note.jsx ~ line 61 ~ StockNoteJohnson ~ code", code)
   let noteCode = useSelector(state => state.codeReducer.noteCode)
   console.log("👀NOTE ~ file: StockJohnson-2-note.jsx ~ line 63 ~ StockNoteJohnson ~ noteCode", noteCode)
-  
+
   let filterNoteCode = useSelector(store => store.codeReducer.filterNoteCode)
   console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 65 ~ StockNoteJohnson ~ filterNoteCode", filterNoteCode)
   const accesoriesList = useSelector(store => store.johnsonReducer.accesorys)
 
-  const handleClickOpenAlert = (id) => {
-    setIdDelet(id)
+  const handleClickOpenAlert = (idCode, idStock , cantStock) => {
+    console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 71 ~ handleClickOpenAlert ~ idStock", idStock)
+    console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 71 ~ handleClickOpenAlert ~ cantStock", cantStock)
+    setIdDelet(idCode)
+    setIdDeletStock(idStock)
+    setCantStockDelet(cantStock)
     setOpenAlert(true)
   }
   const handleCloseDelet = () => {
@@ -95,12 +101,10 @@ export default function StockNoteJohnson() {
         list[i].clase = "divEdit"
       }
     }
-    setIndexStock(item)
+    setIndexCode(item)
     setClase(list)
     setId(id);
     setSinks(listSinks)
-    let idSinks = []
-    listSinks.map(sink => idSinks.push(sink._id))
     setComment(comments)
     setReload(!reload)
   };
@@ -117,8 +121,13 @@ export default function StockNoteJohnson() {
     setReload(!reload)
   }
   //elimina item Stock
-  async function delet(id) {
-    await dispatch(stockActions.deleteStock(id))
+  async function delet(idCode, idStock, cantStock) {
+    if (cantStock === 1) {
+      await dispatch(codeActions.deleteCode(idCode))
+    }
+    else{
+      await dispatch(stockActions.deleteStock(idStock))
+    }
     setOpenAlert(false)
     setReload(!reload)
   }
@@ -233,28 +242,28 @@ export default function StockNoteJohnson() {
         <input className='input inputStock inputAlignCenter' type="text" placeholder='Buscar por nota' onChange={(e) => setInputSearch(e.target.value)} />
       </div>
 
-        {
-        filterNoteCode?.map((stock, index) =>
+      {
+        filterNoteCode?.map((code, index) =>
         (
-          <div key={stock._id} className='boxStockCard'>
+          <div key={code._id} className='boxStockCard'>
             <div className='boxStockCard-note'>
               <h3>Nota</h3>
-              <h3>{stock.note}</h3>
+              <h3>{code.note}</h3>
             </div>
             <div className='boxStockCard-containerSink'>
               {
-                stock?.stock?.map((sink, indexSink) =>
+                code?.stock?.map((stock, indexSink) =>
                 (
-                  <div key={sink._id} className='boxStockCard-sink'>
-                    <img src={sink.sink.jhonson?.photo} alt={sink._id} className='boxStockCard-photo' id={sink._id} />
+                  <div key={stock._id} className='boxStockCard-sink'>
+                    <img src={stock.sink.jhonson?.photo} alt={stock._id} className='boxStockCard-photo' id={stock._id} />
                     <div className='boxStockCard-data'>
                       <table className="table-fill">
                         <tbody className="table-hover">
                           <tr>
                             <td className="text-left1">Cantidad</td>
                             <td className="text-left">
-                              <div className={clase[index]?.clase} onInput={(event) => datos(event.currentTarget.textContent, indexSink, "quantity")} contentEditable suppressContentEditableWarning={true}>
-                                {sink.stock}
+                              <div className={clase[index]?.clase} onInput={(event) => datos(event.currentTarget.textContent, indexSink, "stock")} contentEditable suppressContentEditableWarning={true}>
+                                {stock.stock}
                               </div>
                             </td>
                           </tr>
@@ -262,8 +271,8 @@ export default function StockNoteJohnson() {
                             <td className="text-left1">Modelo</td>
                             <td className="text-left">
                               <div className='divBtntdEdit'>
-                                <div>{sink.sink.jhonson?.code}</div>
-                                <button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => openType(indexSink, sink.jhonson)}>Cambiar</button>
+                                <div>{stock.sink.jhonson?.code}</div>
+                                <button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => openType(indexSink, stock.sink.jhonson)}>Cambiar</button>
                               </div>
                             </td>
                           </tr>
@@ -272,10 +281,10 @@ export default function StockNoteJohnson() {
                             <td className="text-left">
                               <div className='divBtntdEdit'>
                                 <div>
-                                    {sink.sink?.accesories?.map((i, index) =>
-                                    <span key={index}>{ i.code+ " - "}</span>)}
+                                  {stock.sink?.accesories?.map((i, index) =>
+                                    <span key={index}>{i.code + " - "}</span>)}
                                 </div>
-                                <button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => handleClickAccesorios(indexSink, sink.accesories)}>Agregar</button>
+                                <button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => handleClickAccesorios(indexSink, stock.sink.accesories)}>Agregar</button>
                               </div>
                             </td>
                           </tr>
@@ -283,9 +292,9 @@ export default function StockNoteJohnson() {
                             <td className="text-left1">Instalacion</td>
                             <td className="text-left">
                               <div className='divBtntdEdit'>
-                                <div>{sink.sink?.instalation?.map((i, index) =>
+                                <div>{stock.sink?.instalation?.map((i, index) =>
                                   <span key={index}>{i + " - "}</span>)}</div>
-                                <button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => openInstalationType(indexSink, sink.instalation)}>Cambiar</button>
+                                <button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => openInstalationType(indexSink, stock.sink.instalation)}>Cambiar</button>
                               </div>
                             </td>
                           </tr>
@@ -293,12 +302,15 @@ export default function StockNoteJohnson() {
                             <td className="text-left1">Comentarios</td>
                             <td className="text-left">
                               <div className={clase[index]?.clase} onInput={(event) => setComment(event.currentTarget.textContent)} contentEditable suppressContentEditableWarning={true}>
-                                {stock.comments}
+                                {code.comments}
                               </div>
                             </td>
                           </tr>
                         </tbody>
                       </table>
+                      <div className='cajaBtnDelet'>
+                        <button className='btnEliminar' type='button' onClick={() => handleClickOpenAlert(code._id, stock._id, code.stock.length )}>Eliminar</button>
+                      </div>
                     </div>
                   </div>
                 ))
@@ -306,9 +318,9 @@ export default function StockNoteJohnson() {
             </div>
             <div className='boxStockCard-botones'>
               <button type='button' onClick={() => modificar()} className={clase[index]?.clase ? 'btnModificarGuardar' : 'displeyNone'} >Guardar Cambios</button>
-              <button className='btnEditar' type='button' onClick={() => editFields(index, stock._id, stock.sink, stock.comments, stock.note)}>Editar</button>
-              <button className='btnEntregar' type='button' onClick={() => entregarStock(stock._id)}>Entregar</button>
-              <button className='btnEliminar' type='button' onClick={() => handleClickOpenAlert(stock._id)}>Eliminar</button>
+              <button className='btnEditar' type='button' onClick={() => editFields(index, code._id, code.stock, code.comments)}>Editar</button>
+              <button className='btnEntregar' type='button' onClick={() => entregarStock(code._id)}>Entregar</button>
+              {/* <button className='btnEliminar' type='button' onClick={() => handleClickOpenAlert(code._id)}>Eliminar</button> */}
             </div>
             <Dialog className='dialogDelet' open={openAlert} onClose={handleClose}>
               <DialogContent  >
@@ -317,7 +329,7 @@ export default function StockNoteJohnson() {
                 </DialogContentText>
               </DialogContent>
               <DialogActions>
-                <Button onClick={() => delet(idDelet)}>Confirmar</Button>
+                <Button onClick={() => delet(idDelet, idDeletStock, cantStockDelet)}>Confirmar</Button>
                 <Button onClick={handleCloseDelet}>Cancelar</Button>
               </DialogActions>
             </Dialog>
@@ -382,7 +394,7 @@ export default function StockNoteJohnson() {
               </DialogContent>
               <DialogActions>
                 <Button onClick={() => cargaJohnson()}>Listo</Button>
-          
+
                 <Button onClick={() => setOpenJson(false)}>Cancelar</Button>
               </DialogActions>
             </Dialog>
@@ -430,7 +442,7 @@ export default function StockNoteJohnson() {
 
             <Dialog open={openAcc} >
               <DialogContent>
-                <DialogContentText>{`ACCESORIOS Pileta${indexStock + 1} - ${itemModif + 1}:`}</DialogContentText>
+                <DialogContentText>{`ACCESORIOS Pileta${indexCode + 1} - ${itemModif + 1}:`}</DialogContentText>
                 <div className='itemsEditAcc'>
                   {accesoriesList.map((item) => (
                     <button
@@ -469,7 +481,7 @@ export default function StockNoteJohnson() {
         )
       }
 
-      </div>
-      )
+    </div>
+  )
 
 }
