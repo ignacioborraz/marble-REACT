@@ -113,8 +113,13 @@ export default function StockNoteJohnson() {
     console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 116 ~ datos ~ position", position)
     console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 129 ~ datos ~ value", value)
     let fields = sinks
-    console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 118 ~ datos ~ fields", fields)
-    fields[position][key] = value?.target?.value || value;
+    if (key === "jhonson" || key === "accesories" || key === "instalation") {
+      fields[position].sink[key] = value
+    }
+    else {
+      fields[position][key] = value?.target?.value || value;
+    }
+    
     setSinks([...sinks])
     setOpenJson(false)
     setInstalationType(false)
@@ -133,6 +138,8 @@ export default function StockNoteJohnson() {
   }
   //tipo de acero
   const openType = (position, johnson) => {
+    //console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 136 ~ openType ~ johnson", johnson)
+    //console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 136 ~ openType ~ position", position)
     setItemModif(position)
     setNewJohnson(johnson)
     setTypeA(true)
@@ -141,9 +148,9 @@ export default function StockNoteJohnson() {
     setTypeA(false)
   }
   //piletas joshnson
-  async function openJohnson(type, index) {
+  async function openJohnson(type) {
     console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 112 ~ openJohnson ~ type", type)
-    const res = await dispatch(johnsonActions.getJohnsonType(type))
+    await dispatch(johnsonActions.getJohnsonType(type))
     setOpenJson(true)
     setTypeA(false)
     setReload(!reload)
@@ -161,7 +168,9 @@ export default function StockNoteJohnson() {
     setItemModif(position)
     setInstalationType(true)
     setInstalation(listInstalacion)
-    setTypeInstalation(sinks[position].jhonson.instalation)
+    setTypeInstalation(sinks[position].sink.jhonson.instalation)//carga los tipos disponibles de instalacion que tenga ese sink
+    console.log("==============>typeImstalation", typeInstalation)
+    console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 164 ~ openInstalationType ~ sinks[position].sink.jhonson", sinks[position].sink.jhonson.instalation)
   }
   //agragar Accesorios
   const handleClickAccesorios = (ind, listAcc) => {
@@ -201,17 +210,20 @@ export default function StockNoteJohnson() {
       comments: comment
     }
     for (let i = 0; i < sinks.length; i++) {
-      if (sinks[i].jhonson.instalation?.length === 0) {
+      if (sinks[i].sink.jhonson.instalation?.length === 0) {
         datos(["instalacion lateral"], i, "instalation")
       }
-      datos(sinks[i].jhonson._id, i, "jhonson") //me pasa solo el id de jhonson
+      datos(sinks[i].sink.jhonson._id, i, "jhonson") //me pasa solo el id de jhonson
       const listaIdAccesories = []
-      sinks[i].accesories.map(acc => listaIdAccesories.push(acc._id))
+      sinks[i].sink.accesories.map(acc => listaIdAccesories.push(acc._id))
       datos(listaIdAccesories, i, "accesories")
       console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 226 ~ sinks.map ~ index", i)
-
-      const resp = await dispatch(sinkActions.putSink(sinks[i]._id, sinks[i]))
-      const resp2 = await dispatch(stockActions.putStock(id, data))
+      let dataStock = {
+        stock:sinks[i].stock
+      }
+      const resp = await dispatch(sinkActions.putSink(sinks[i].sink._id, sinks[i].sink))
+      const resp2 = await dispatch(stockActions.putStock(sinks[i]._id, dataStock))
+      await dispatch(codeActions.putCode(id, data))
       console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 176 ~ creatingSink ~ resp", resp)
       setClase([])
       setReload(!reload)
@@ -339,7 +351,7 @@ export default function StockNoteJohnson() {
                 <DialogContentText>{`Modificar pileta${index + 1}:`}</DialogContentText>
                 <h4>Tipo de acero:</h4>
                 <Container width='100%' justify='space-evenly' align='center' wrap='wrap'>
-                  <button onClick={() => openJohnson("A304", index)} className="linkTypes  typesDialog">
+                  <button onClick={() => openJohnson("A304")} className="linkTypes  typesDialog">
                     <div className="bgType bgA304" >
                       <div className='mask'>
                         <h1 className='titleCard johnsonTypeh1'>A304</h1>
@@ -347,7 +359,7 @@ export default function StockNoteJohnson() {
                     </div>
                   </button>
 
-                  <button onClick={() => openJohnson("A430", index)} className="linkTypes  typesDialog">
+                  <button onClick={() => openJohnson("A430")} className="linkTypes  typesDialog">
                     <div className="bgType bgA430" >
                       <div className='mask'>
                         <h1 className='titleCard johnsonTypeh1'>A430</h1>
@@ -368,7 +380,7 @@ export default function StockNoteJohnson() {
                   {listJSON.map((item) => (
                     <button
                       // onClick={() => datos(item, itemModif, 'jhonson')}
-                      onClick={() => setNewJohnson(item)}
+                      onClick={() => setNewJohnson(item)}//setea el nuevo jhonson
                       key={item._id}
                       className='boxItemAcc'
                       style={{
@@ -431,7 +443,7 @@ export default function StockNoteJohnson() {
                         ))}
                         <MenuItem value={"instalacion lateral"}>instalacion lateral</MenuItem>
                       </Select>
-                    </div> : null
+                    </div> : <h4>Este modelo solo tiene inst. lateral</h4>
                 }
               </DialogContent>
               <DialogActions>

@@ -23,7 +23,7 @@ const codeActions = {
         const res = await axios.get(apiUrl + "api/marble/code", {
           headers: { Authorization: "Bearer " + token },
         });
-        console.log("🚀 ~ file: stockActions.js ~ line 12 ~ return ~ res", res);
+        //console.log("🚀 ~ file: stockActions.js ~ line 12 ~ return ~ res", res);
         dispatch({ type: "GET_CODE", payload: res.data.response});
       } catch (error) {
         console.log(error);
@@ -97,6 +97,18 @@ const codeActions = {
           { type: "FILTER_NOTE_CODE", payload: input },
           { headers: { Authorization: "Bearer " + token } }
         );
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  },
+  putCode: (id, data) => {
+    const token = localStorage.getItem("token");
+    return async (dispatch, getState) => {
+      try {
+        await axios.put(apiUrl + "api/marble/code/" + id, data, {
+          headers: { Authorization: "Bearer " + token },
+        });
       } catch (error) {
         console.log(error);
       }
