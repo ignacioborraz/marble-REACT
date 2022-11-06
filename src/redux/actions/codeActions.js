@@ -76,6 +76,23 @@ const codeActions = {
       }
     };
   },
+  doneCode: () => {
+    const token = localStorage.getItem("token");
+    return async (dispatch, getState) => {
+      try {
+        const res = await axios.get(apiUrl + "api/marble/code?done=true", {
+          headers: { Authorization: "Bearer " + token },
+        });
+        console.log(
+          "🚀 ~ file: plateActions.js ~ line 53 ~ return ~ res",
+          res.data.response
+        );
+        dispatch({ type: "DONE_CODE", payload: res.data.response });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  },
   filterInternalCode: (input) => {
     const token = localStorage.getItem("token");
     return (dispatch, getState) => {
@@ -95,6 +112,19 @@ const codeActions = {
       try {
         dispatch(
           { type: "FILTER_NOTE_CODE", payload: input },
+          { headers: { Authorization: "Bearer " + token } }
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  },
+  filterDoneCode: (input) => {
+    const token = localStorage.getItem("token");
+    return (dispatch, getState) => {
+      try {
+        dispatch(
+          { type: "FILTER_DONE_CODE", payload: input },
           { headers: { Authorization: "Bearer " + token } }
         );
       } catch (error) {

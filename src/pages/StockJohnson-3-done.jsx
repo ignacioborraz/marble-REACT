@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import sinkActions from '../redux/actions/sinkActions'
 import stockActions from '../redux/actions/stockActions'
+import codeActions from '../redux/actions/codeActions'
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -41,27 +42,34 @@ export default function StockDoneJohnson() {
   const [typeInstalation, setTypeInstalation] = useState([])
   const [clase, setClase] = useState([]);//clase para btn editar
   const [newJohnson, setNewJohnson] = useState("")
-  
+  const [idDeletStock, setIdDeletStock] = useState("")
+  const [cantStockDelet, setCantStockDelet] = useState("")
+  const [indexCode, setIndexCode] = useState("")
+
   console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 32 ~ StockNoteJohnson ~ sinks", sinks)
   console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 33 ~ StockNoteJohnson ~ comment", comment)
   useEffect(() => {
-    dispatch(stockActions.doneStock())
+    dispatch(codeActions.doneCode())
     dispatch(johnsonActions.getAccesory())
     // eslint-disable-next-line
   }, [reload])
   useEffect(() => {
-    dispatch(stockActions.filterDoneStock(inputSearch))
+    dispatch(codeActions.filterDoneCode(inputSearch))
     // eslint-disable-next-line
   }, [reload, inputSearch])
 
-  let doneStock = useSelector(store => store.stockReducer.noteStock)
-  console.log("🚀 ~ file: StockJohnson-3-done.jsx ~ line 58 ~ StockDoneJohnson ~ doneStock", doneStock)
-  let filterDoneStock = useSelector(store => store.stockReducer.filterDoneStock)
-  console.log("🚀 ~ file: StockJohnson-3-done.jsx ~ line 59 ~ StockDoneJohnson ~ filterDoneStock", filterDoneStock)
+  let doneCode = useSelector(store => store.codeReducer.doneCode)
+  console.log("🚀 ~ file: StockJohnson-3-done.jsx ~ line 59 ~ StockDoneJohnson ~ doneCode", doneCode)
+  let filterDoneCode = useSelector(store => store.codeReducer.filterDoneCode)
+  console.log("🚀 ~ file: StockJohnson-3-done.jsx ~ line 61 ~ StockDoneJohnson ~ filterDoneCode", filterDoneCode)
   const accesoriesList = useSelector(store => store.johnsonReducer.accesorys)
-  
-  const handleClickOpenAlert = (id) => {
-    setIdDelet(id)
+
+  const handleClickOpenAlert = (idCode, idStock, cantStock) => {
+    console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 71 ~ handleClickOpenAlert ~ idStock", idStock)
+    console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 71 ~ handleClickOpenAlert ~ cantStock", cantStock)
+    setIdDelet(idCode)
+    setIdDeletStock(idStock)
+    setCantStockDelet(cantStock)
     setOpenAlert(true)
   }
   const handleCloseDelet = () => {
@@ -83,19 +91,17 @@ export default function StockDoneJohnson() {
   const editFields = (item, id, listSinks, comments) => {
     console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 142 ~ editFields ~ item", item)
     let list = []
-    filterDoneStock.map(elem => list.push({ clase: "" }))
+    filterDoneCode.map(elem => list.push({ clase: "" }))
     //console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 107 ~ editFields ~ list", list)
     for (let i = 0; i < list.length; i++) {
       if (i === item) {
         list[i].clase = "divEdit"
       }
     }
-    setIndexStock(item)
+    setIndexCode(item)
     setClase(list)
     setId(id);
     setSinks(listSinks)
-    let idSinks = []
-    listSinks.map(sink => idSinks.push(sink._id))
     setComment(comments)
     setReload(!reload)
   };
@@ -104,16 +110,26 @@ export default function StockDoneJohnson() {
     console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 116 ~ datos ~ position", position)
     console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 129 ~ datos ~ value", value)
     let fields = sinks
-    console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 118 ~ datos ~ fields", fields)
-    fields[position][key] = value?.target?.value || value;
+    if (key === "jhonson" || key === "accesories" || key === "instalation") {
+      fields[position].sink[key] = value
+    }
+    else {
+      fields[position][key] = value?.target?.value || value;
+    }
+
     setSinks([...sinks])
     setOpenJson(false)
     setInstalationType(false)
     setReload(!reload)
   }
-  //elimina item Stock
-  async function delet(id) {
-    await dispatch(stockActions.deleteStock(id))
+  //elimina item Stock o Code
+  async function delet(idCode, idStock, cantStock) {
+    if (cantStock === 1) {
+      await dispatch(codeActions.deleteCode(idCode))
+    }
+    else {
+      await dispatch(stockActions.deleteStock(idStock))
+    }
     setOpenAlert(false)
     setReload(!reload)
   }
@@ -123,13 +139,13 @@ export default function StockDoneJohnson() {
     setNewJohnson(johnson)
     setTypeA(true)
   }
-  const closeType = (position) => {
+  const closeType = () => {
     setTypeA(false)
   }
-  //piletas joshnson
-  async function openJohnson(type, index) {
+  //piletas johnson
+  async function openJohnson(type) {
     console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 112 ~ openJohnson ~ type", type)
-    const res = await dispatch(johnsonActions.getJohnsonType(type))
+    await dispatch(johnsonActions.getJohnsonType(type))
     setOpenJson(true)
     setTypeA(false)
     setReload(!reload)
@@ -147,7 +163,9 @@ export default function StockDoneJohnson() {
     setItemModif(position)
     setInstalationType(true)
     setInstalation(listInstalacion)
-    setTypeInstalation(sinks[position].jhonson.instalation)
+    setTypeInstalation(sinks[position].sink.jhonson.instalation)//carga los tipos disponibles de instalacion que tenga ese sink
+    console.log("==============>typeImstalation", typeInstalation)
+    console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 164 ~ openInstalationType ~ sinks[position].sink.jhonson", sinks[position].sink.jhonson.instalation)
   }
   //agragar Accesorios
   const handleClickAccesorios = (ind, listAcc) => {
@@ -160,8 +178,6 @@ export default function StockDoneJohnson() {
     });
     console.log(ac)
     setAccesorysAdd(ac)//solo los id de los accesorios
-
-    //
   }
   const addAccesory = (id, elem) => {
     if (accesorysAdd.includes(id)) {
@@ -187,26 +203,28 @@ export default function StockDoneJohnson() {
       comments: comment
     }
     for (let i = 0; i < sinks.length; i++) {
-      if (sinks[i].jhonson.instalation?.length === 0) {
+      if (sinks[i].sink.jhonson.instalation?.length === 0) {
         datos(["instalacion lateral"], i, "instalation")
       }
-      datos(sinks[i].jhonson._id, i, "jhonson") //me pasa solo el id de jhonson
+      datos(sinks[i].sink.jhonson._id, i, "jhonson") //me pasa solo el id de jhonson
       const listaIdAccesories = []
-      sinks[i].accesories.map(acc => listaIdAccesories.push(acc._id))
+      sinks[i].sink.accesories.map(acc => listaIdAccesories.push(acc._id))
       datos(listaIdAccesories, i, "accesories")
       console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 226 ~ sinks.map ~ index", i)
-
-      const resp = await dispatch(sinkActions.putSink(sinks[i]._id, sinks[i]))
-      const resp2 =await dispatch(stockActions.putStock(id, data))
+      let dataStock = {
+        stock: sinks[i].stock
+      }
+      const resp = await dispatch(sinkActions.putSink(sinks[i].sink._id, sinks[i].sink))
+      await dispatch(stockActions.putStock(sinks[i]._id, dataStock))
+      await dispatch(codeActions.putCode(id, data))
       console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 176 ~ creatingSink ~ resp", resp)
       setClase([])
       setReload(!reload)
     }
-    
+
 
   }
- 
- 
+
   return (
     <div className='containerStock'>
       <div className='containerNameStock consumidas'>
@@ -218,27 +236,27 @@ export default function StockDoneJohnson() {
         <input className='input inputStock  inputAlignCenter' type="text" placeholder='Buscar por nota' onChange={(e) => setInputSearch(e.target.value)} />
       </div>
       {
-        filterDoneStock?.map((stock, index) =>
+        filterDoneCode?.map((code, index) =>
         (
-          <div key={stock._id} className='boxStockCard'>
+          <div key={code._id} className='boxStockCard'>
             <div className='boxStockCard-note'>
               <h3>Nota</h3>
-              <h3>{stock.note}</h3>
+              <h3>{code.note}</h3>
             </div>
             <div className='boxStockCard-containerSink'>
               {
-                stock?.sink?.map((sink, indexSink) =>
+                code?.stock?.map((stock, indexSink) =>
                 (
-                  <div key={sink._id} className='boxStockCard-sink'>
-                    <img src={sink.jhonson?.photo} alt={sink._id} className='boxStockCard-photo' id={sink._id} />
+                  <div key={stock._id} className='boxStockCard-sink'>
+                    <img src={stock.sink.jhonson?.photo} alt={stock._id} className='boxStockCard-photo' id={stock._id} />
                     <div className='boxStockCard-data'>
                       <table className="table-fill">
                         <tbody className="table-hover">
                           <tr>
                             <td className="text-left1">Cantidad</td>
                             <td className="text-left">
-                              <div className={clase[index]?.clase} onInput={(event) => datos(event.currentTarget.textContent, indexSink, "quantity")} contentEditable suppressContentEditableWarning={true}>
-                                {sink.quantity}
+                              <div className={clase[index]?.clase} onInput={(event) => datos(event.currentTarget.textContent, indexSink, "stock")} contentEditable suppressContentEditableWarning={true}>
+                                {stock.stock}
                               </div>
                             </td>
                           </tr>
@@ -246,9 +264,8 @@ export default function StockDoneJohnson() {
                             <td className="text-left1">Modelo</td>
                             <td className="text-left">
                               <div className='divBtntdEdit'>
-                                <div>{sink.jhonson.code}</div>
-                                {/* {sinks[itemModif]?.jhonson?.code}  */}
-                                <button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => openType(indexSink, sink.jhonson)}>Cambiar</button>
+                                <div>{stock.sink.jhonson?.code}</div>
+                                <button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => openType(indexSink, stock.sink.jhonson)}>Cambiar</button>
                               </div>
                             </td>
                           </tr>
@@ -257,10 +274,10 @@ export default function StockDoneJohnson() {
                             <td className="text-left">
                               <div className='divBtntdEdit'>
                                 <div>
-                                {sink.accesories?.map((i, index) =>
-                                  <span key={index}>{i.code + " - "}</span>)}
+                                  {stock.sink?.accesories?.map((i, index) =>
+                                    <span key={index}>{i.code + " - "}</span>)}
                                 </div>
-                                <button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => handleClickAccesorios(indexSink, sink.accesories)}>Agregar</button>
+                                <button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => handleClickAccesorios(indexSink, stock.sink.accesories)}>Agregar</button>
                               </div>
                             </td>
                           </tr>
@@ -268,9 +285,9 @@ export default function StockDoneJohnson() {
                             <td className="text-left1">Instalacion</td>
                             <td className="text-left">
                               <div className='divBtntdEdit'>
-                                <div>{sink?.instalation?.map((i, index) =>
+                                <div>{stock.sink?.instalation?.map((i, index) =>
                                   <span key={index}>{i + " - "}</span>)}</div>
-                                <button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => openInstalationType(indexSink, sink.instalation)}>Cambiar</button>
+                                <button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => openInstalationType(indexSink, stock.sink.instalation)}>Cambiar</button>
                               </div>
                             </td>
                           </tr>
@@ -278,22 +295,23 @@ export default function StockDoneJohnson() {
                             <td className="text-left1">Comentarios</td>
                             <td className="text-left">
                               <div className={clase[index]?.clase} onInput={(event) => setComment(event.currentTarget.textContent)} contentEditable suppressContentEditableWarning={true}>
-                                {stock.comments}
+                                {code.comments}
                               </div>
                             </td>
                           </tr>
                         </tbody>
                       </table>
+                      <div className='cajaBtnDelet'>
+                        <button className='btnEliminar' type='button' onClick={() => handleClickOpenAlert(code._id, stock._id, code.stock.length)}>Eliminar</button>
+                      </div>
                     </div>
                   </div>
                 ))
               }
             </div>
             <div className='boxStockCard-botones'>
-              <button type='button' onClick={() => modificar()} className={clase[index]?.clase ? 'btnModificarGuardar' : 'displeyNone'} >Guardar Cambios</button>
-              <button className='btnEditar' type='button' onClick={() => editFields(index, stock._id, stock.sink, stock.comments, stock.note)}>Editar</button>
-              {/* <button type='button' onClick={() => entregarStock(stock._id)}>Entregar</button> */}
-              <button className='btnEliminar' type='button' onClick={() => handleClickOpenAlert(stock._id)}>Eliminar</button>
+              <button onClick={() => modificar()} className={clase[index]?.clase ? 'btnModificarGuardar' : 'displeyNone'} type='button' >Guardar Cambios</button>
+              <button onClick={() => editFields(index, code._id, code.stock, code.comments)} className='btnEditar' type='button' >Editar</button>
             </div>
 
             <Dialog className='dialogDelet' open={openAlert} onClose={handleClose}>

@@ -54,7 +54,7 @@ export default function StockNoteJohnson() {
     // eslint-disable-next-line
   }, [reload])
   useEffect(() => {
-    dispatch(codeActions.filterNoteCode(inputSearch))
+    dispatch(codeActions.filterNoteCode(inputSearch)) 
     // eslint-disable-next-line
   }, [reload, inputSearch])
 
@@ -125,7 +125,7 @@ export default function StockNoteJohnson() {
     setInstalationType(false)
     setReload(!reload)
   }
-  //elimina item Stock
+  //elimina item Stock o Code
   async function delet(idCode, idStock, cantStock) {
     if (cantStock === 1) {
       await dispatch(codeActions.deleteCode(idCode))
@@ -138,16 +138,14 @@ export default function StockNoteJohnson() {
   }
   //tipo de acero
   const openType = (position, johnson) => {
-    //console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 136 ~ openType ~ johnson", johnson)
-    //console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 136 ~ openType ~ position", position)
     setItemModif(position)
     setNewJohnson(johnson)
     setTypeA(true)
   }
-  const closeType = (position) => {
+  const closeType = () => {
     setTypeA(false)
   }
-  //piletas joshnson
+  //piletas johnson
   async function openJohnson(type) {
     console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 112 ~ openJohnson ~ type", type)
     await dispatch(johnsonActions.getJohnsonType(type))
@@ -183,8 +181,6 @@ export default function StockNoteJohnson() {
     });
     console.log(ac)
     setAccesorysAdd(ac)//solo los id de los accesorios
-
-    //
   }
   const addAccesory = (id, elem) => {
     if (accesorysAdd.includes(id)) {
@@ -222,7 +218,7 @@ export default function StockNoteJohnson() {
         stock:sinks[i].stock
       }
       const resp = await dispatch(sinkActions.putSink(sinks[i].sink._id, sinks[i].sink))
-      const resp2 = await dispatch(stockActions.putStock(sinks[i]._id, dataStock))
+      await dispatch(stockActions.putStock(sinks[i]._id, dataStock))
       await dispatch(codeActions.putCode(id, data))
       console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 176 ~ creatingSink ~ resp", resp)
       setClase([])
@@ -231,14 +227,12 @@ export default function StockNoteJohnson() {
 
 
   }
-  async function entregarStock(idStock) {
-    console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 208 ~ entregarStock ~ idStock", idStock)
-    let data = {}
-    data = {
+  async function entregarStock(idCode) {
+    console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 208 ~ entregarStock ~ idStock", idCode)
+    let data = {
       done: true
     }
-    const resp = await dispatch(stockActions.putStock(idStock, data))
-    console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 176 ~ creatingSink ~ resp", resp)
+    await dispatch(codeActions.putCode(idCode, data))
     setClase([])
     setReload(!reload)
   }
@@ -329,9 +323,9 @@ export default function StockNoteJohnson() {
               }
             </div>
             <div className='boxStockCard-botones'>
-              <button type='button' onClick={() => modificar()} className={clase[index]?.clase ? 'btnModificarGuardar' : 'displeyNone'} >Guardar Cambios</button>
-              <button className='btnEditar' type='button' onClick={() => editFields(index, code._id, code.stock, code.comments)}>Editar</button>
-              <button className='btnEntregar' type='button' onClick={() => entregarStock(code._id)}>Entregar</button>
+              <button onClick={() => modificar()} className={clase[index]?.clase ? 'btnModificarGuardar' : 'displeyNone'} type='button' >Guardar Cambios</button>
+              <button onClick={() => editFields(index, code._id, code.stock, code.comments)} className='btnEditar' type='button' >Editar</button>
+              <button onClick={() => entregarStock(code._id)} className='btnEntregar' type='button' >Entregar</button>
               {/* <button className='btnEliminar' type='button' onClick={() => handleClickOpenAlert(code._id)}>Eliminar</button> */}
             </div>
             <Dialog className='dialogDelet' open={openAlert} onClose={handleClose}>
