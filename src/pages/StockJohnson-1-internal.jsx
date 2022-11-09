@@ -45,6 +45,7 @@ export default function StockInternalJohnson() {
   const [instalation, setInstalation] = useState([])
   const [typeInstalation, setTypeInstalation] = useState([])
   const [clase, setClase] = useState([]);//clase para btn editar
+  const [clasePlaca, setClasePlacas] = useState([]);//clase para ver placas
   const [newJohnson, setNewJohnson] = useState("")
   const [notaAsignada, setNotaAsignada] = useState("")
   const [idDeletStock, setIdDeletStock] = useState("")
@@ -64,8 +65,8 @@ export default function StockInternalJohnson() {
   let internalCode = useSelector(store => store.codeReducer.internalCode)
   let filterInternalCode = useSelector(store => store.codeReducer.filterInternalCode)
   const accesoriesList = useSelector(store => store.johnsonReducer.accesorys)
-  
-  const handleClickOpenAlert = (idCode, idStock , cantStock) => {
+
+  const handleClickOpenAlert = (idCode, idStock, cantStock) => {
     setIdDelet(idCode)
     setIdDeletStock(idStock)
     setCantStockDelet(cantStock)
@@ -104,6 +105,24 @@ export default function StockInternalJohnson() {
     setComment(comments)
     setReload(!reload)
   };
+  const verPlacas = (item) => {
+    let list = []
+    filterInternalCode.map(elem => list.push({ clase: "" }))
+    for (let i = 0; i < list.length; i++) {
+      if (i === item) {
+        if (clasePlaca[i]?.clase === "edi") {
+          setClasePlacas([])	
+        }
+        else{
+          list[i].clase = "edi"
+        }
+        
+      }
+    }
+    setClasePlacas(list)
+    setReload(!reload)
+    }
+    console.log("clasePlaca======>", clasePlaca)
   //captura y guarda datos en sinks
   const datos = (value, position, key) => {
     console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 116 ~ datos ~ position", position)
@@ -115,7 +134,7 @@ export default function StockInternalJohnson() {
     else {
       fields[position][key] = value?.target?.value || value;
     }
-    
+
     setSinks([...sinks])
     setOpenJson(false)
     setInstalationType(false)
@@ -126,7 +145,7 @@ export default function StockInternalJohnson() {
     if (cantStock === 1) {
       await dispatch(codeActions.deleteCode(idCode))
     }
-    else{
+    else {
       await dispatch(stockActions.deleteStock(idStock))
     }
     setOpenAlert(false)
@@ -209,7 +228,7 @@ export default function StockInternalJohnson() {
       datos(listaIdAccesories, i, "accesories")
 
       let dataStock = {
-        stock:sinks[i].stock
+        stock: sinks[i].stock
       }
       const resp = await dispatch(sinkActions.putSink(sinks[i].sink._id, sinks[i].sink))
       await dispatch(stockActions.putStock(sinks[i]._id, dataStock))
@@ -256,65 +275,123 @@ export default function StockInternalJohnson() {
               {
                 code.stock.map((stock, indexSink) =>
                 (
-                  <div key={stock._id} className='boxStockCard-sink'>
-                  <img src={stock.sink.jhonson?.photo} alt={stock._id} className='boxStockCard-photo' id={stock._id} />
-                  <div className='boxStockCard-data'>
-                    <table className="table-fill">
-                      <tbody className="table-hover">
-                        <tr>
-                          <td className="text-left1">Cantidad</td>
-                          <td className="text-left">
-                            <div className={clase[index]?.clase} onInput={(event) => datos(event.currentTarget.textContent, indexSink, "stock")} contentEditable suppressContentEditableWarning={true}>
-                              {stock.stock}
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="text-left1">Modelo</td>
-                          <td className="text-left">
-                            <div className='divBtntdEdit'>
-                              <div>{stock.sink.jhonson?.code}</div>
-                              <button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => openType(indexSink, stock.sink.jhonson)}>Cambiar</button>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="text-left1">Accesorios</td>
-                          <td className="text-left">
-                            <div className='divBtntdEdit'>
-                              <div>
-                                {stock.sink?.accesories?.map((i, index) =>
-                                  <span key={index}>{i.code + " - "}</span>)}
-                              </div>
-                              <button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => handleClickAccesorios(indexSink, stock.sink.accesories)}>Agregar</button>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="text-left1">Instalacion</td>
-                          <td className="text-left">
-                            <div className='divBtntdEdit'>
-                              <div>{stock.sink?.instalation?.map((i, index) =>
-                                <span key={index}>{i + " - "}</span>)}</div>
-                              <button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => openInstalationType(indexSink, stock.sink.instalation)}>Cambiar</button>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="text-left1">Comentarios</td>
-                          <td className="text-left">
-                            <div className={clase[index]?.clase} onInput={(event) => setComment(event.currentTarget.textContent)} contentEditable suppressContentEditableWarning={true}>
-                              {code.comments}
-                            </div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                    <div className='cajaBtnDelet'>
-                      <button className='btnEliminar' type='button' onClick={() => handleClickOpenAlert(code._id, stock._id, code.stock.length )}>Eliminar</button>
-                    </div>
-                  </div>
-                </div>
+                  stock.sink ?
+                    (<div key={stock._id} className='boxStockCard-sink'>
+                      <img src={stock.sink?.jhonson?.photo} alt={stock._id} className='boxStockCard-photo' id={stock._id} />
+                      <div className='boxStockCard-data'>
+                        <table className="table-fill">
+                          <tbody className="table-hover">
+                            <tr>
+                              <td className="text-left1">Cantidad</td>
+                              <td className="text-left">
+                                <div className={clase[index]?.clase} onInput={(event) => datos(event.currentTarget.textContent, indexSink, "stock")} contentEditable suppressContentEditableWarning={true}>
+                                  {stock.stock}
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td className="text-left1">Modelo</td>
+                              <td className="text-left">
+                                <div className='divBtntdEdit'>
+                                  <div>{stock.sink?.jhonson?.code}</div>
+                                  <button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => openType(indexSink, stock.sink.jhonson)}>Cambiar</button>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td className="text-left1">Accesorios</td>
+                              <td className="text-left">
+                                <div className='divBtntdEdit'>
+                                  <div>
+                                    {stock.sink?.accesories?.map((i, index) =>
+                                      <span key={index}>{i.code + " - "}</span>)}
+                                  </div>
+                                  <button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => handleClickAccesorios(indexSink, stock.sink.accesories)}>Agregar</button>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td className="text-left1">Instalacion</td>
+                              <td className="text-left">
+                                <div className='divBtntdEdit'>
+                                  <div>{stock.sink?.instalation?.map((i, index) =>
+                                    <span key={index}>{i + " - "}</span>)}</div>
+                                  <button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => openInstalationType(indexSink, stock.sink.instalation)}>Cambiar</button>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td className="text-left1">Comentarios</td>
+                              <td className="text-left">
+                                <div className={clase[index]?.clase} onInput={(event) => setComment(event.currentTarget.textContent)} contentEditable suppressContentEditableWarning={true}>
+                                  {code.comments}
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <div className='cajaBtnDelet'>
+                          <button className='btnEliminar' type='button' onClick={() => handleClickOpenAlert(code._id, stock._id, code.stock.length)}>Eliminar</button>
+                        </div>
+                      </div>
+                    </div>)
+                    : stock.plate ?
+                      (<div className={clasePlaca[index]?.clase ? ' boxStockCard-sink' : 'displeyNone boxStockCard-sink'}>
+                        <img src={stock.plate?.color?.photo} alt={stock._id} className='boxStockCard-photo' id={stock._id} />
+                        <div className='boxStockCard-data'>
+                          <table className="table-fill">
+                            <tbody className="table-hover">
+                              <tr>
+                                <td className="text-left1">Cantidad</td>
+                                <td className="text-left">
+                                  <div className={clase[index]?.clase} onInput={(event) => datos(event.currentTarget.textContent, indexSink, "stock")} contentEditable suppressContentEditableWarning={true}>
+                                    {stock.stock}
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td className="text-left1">Tipo</td>
+                                <td className="text-left">
+                                  <div className='divBtntdEdit'>
+                                    <div>{stock.plate?.company?.nameCompany}</div>
+                                    <button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => openType(indexSink, stock.sink.jhonson)}>Cambiar</button>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td className="text-left1">Color</td>
+                                <td className="text-left">
+                                  <div className='divBtntdEdit'>
+                                    <div>{stock.plate?.color?.name}</div>
+                                    <button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => handleClickAccesorios(indexSink, stock.sink.accesories)}>Agregar</button>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td className="text-left1">Estado</td>
+                                <td className="text-left">
+                                  <div className='divBtntdEdit'>
+                                    <div>{stock.plate?.state?.state} {stock.plate?.state?.width} x {stock.plate?.state?.height}</div>
+                                    <button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => openInstalationType(indexSink, stock.sink.instalation)}>Cambiar</button>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td className="text-left1">Comentarios</td>
+                                <td className="text-left">
+                                  <div className={clase[index]?.clase} onInput={(event) => setComment(event.currentTarget.textContent)} contentEditable suppressContentEditableWarning={true}>
+                                    {code.comments}
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <div className='cajaBtnDelet'>
+                            <button className='btnEliminar' type='button' onClick={() => handleClickOpenAlert(code._id, stock._id, code.stock.length)}>Eliminar</button>
+                          </div>
+                        </div>
+                      </div>)
+                      : null
                 ))
               }
             </div>
@@ -322,6 +399,9 @@ export default function StockInternalJohnson() {
               <button onClick={() => modificar()} className={clase[index]?.clase ? 'btnModificarGuardar' : 'displeyNone'} >Guardar Cambios</button>
               <button onClick={() => editFields(index, code._id, code.stock, code.comments, code.note)} className='btnEditar' >Editar</button>
               <button onClick={() => openAlertAsignar(code._id)} className='btnEntregar' type='button' >Asignar</button>
+              {code.stock.map(e => e.plate ?
+                <button onClick={() => verPlacas(index)} className='btnEditar' type='button' >{clasePlaca[index]?.clase ? 'Ocultar placas' : "Ver placas"} </button>
+                : null)}
               {/* <button onClick={() => handleClickOpenAlert(stock._id)} className='btnEliminar' type='button' >Eliminar</button> */}
             </div>
             <Dialog className='dialogDelet' open={openAlert} onClose={handleClose}>

@@ -261,7 +261,7 @@ export default function StockNoteJohnson() {
                 code?.stock?.map((stock, indexSink) =>
                 (
                   <div key={stock._id} className='boxStockCard-sink'>
-                    <img src={stock.sink.jhonson?.photo} alt={stock._id} className='boxStockCard-photo' id={stock._id} />
+                    <img src={stock.sink?.jhonson?.photo} alt={stock._id} className='boxStockCard-photo' id={stock._id} />
                     <div className='boxStockCard-data'>
                       <table className="table-fill">
                         <tbody className="table-hover">
@@ -277,7 +277,7 @@ export default function StockNoteJohnson() {
                             <td className="text-left1">Modelo</td>
                             <td className="text-left">
                               <div className='divBtntdEdit'>
-                                <div>{stock.sink.jhonson?.code}</div>
+                                <div>{stock.sink?.jhonson?.code}</div>
                                 <button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => openType(indexSink, stock.sink.jhonson)}>Cambiar</button>
                               </div>
                             </td>
