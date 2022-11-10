@@ -1526,6 +1526,9 @@ td:last-child {
     justify-content: center;
     align-items: center;
 }
+.plateType1{
+    font-size: 1.8rem;
+}
 
 /******Medias*******/
 @media (width < 1400px) {

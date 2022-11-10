@@ -12,6 +12,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import sinkActions from '../redux/actions/sinkActions';
+import companyActions from '../redux/actions/companyActions';
 import Chip from '@mui/material/Chip';
 import johnsonActions from '../redux/actions/johnsonActions';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
@@ -20,6 +21,8 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import Box from '@mui/material/Box';
 import stockActions from '../redux/actions/stockActions';
 import codeActions from '../redux/actions/codeActions';
+import colorActions from '../redux/actions/colorActions';
+import plateActions from '../redux/actions/plateActions';
 import Container from '../components/Container'
 
 export default function StockInternalJohnson() {
@@ -30,6 +33,7 @@ export default function StockInternalJohnson() {
   const [openAlert, setOpenAlert] = useState(false);
   const [openAcc, setOpenAcc] = useState(false)
   const [typeA, setTypeA] = useState(false)
+  const [typePlate, setTypePlate] = useState(false)
   const [openJson, setOpenJson] = useState(false)
   const [instalationType, setInstalationType] = useState(false)
   const [openAlertASIG, setOpenAlertASIG] = useState(false);
@@ -50,11 +54,15 @@ export default function StockInternalJohnson() {
   const [notaAsignada, setNotaAsignada] = useState("")
   const [idDeletStock, setIdDeletStock] = useState("")
   const [cantStockDelet, setCantStockDelet] = useState("")
+  const [newCompany, setNewCompany] = useState("")
+  const [newColor, setNewColor] = useState("")
+  const [openColorModal, setOpenColorModal] = useState(false)
 
   console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 32 ~ StockNoteJohnson ~ sinks", sinks)
   useEffect(() => {
     dispatch(codeActions.internalCode())
     dispatch(johnsonActions.getAccesory())
+    dispatch(companyActions.getCompanies())
     // eslint-disable-next-line
   }, [reload])
   useEffect(() => {
@@ -65,7 +73,8 @@ export default function StockInternalJohnson() {
   let internalCode = useSelector(store => store.codeReducer.internalCode)
   let filterInternalCode = useSelector(store => store.codeReducer.filterInternalCode)
   const accesoriesList = useSelector(store => store.johnsonReducer.accesorys)
-
+  const companies = useSelector(store => store.companyReducer.companies)
+  console.log("🚀 ~ file: StockJohnson-1-internal.jsx ~ line 72 ~ StockInternalJohnson ~ companies", companies)
   const handleClickOpenAlert = (idCode, idStock, cantStock) => {
     setIdDelet(idCode)
     setIdDeletStock(idStock)
@@ -111,18 +120,18 @@ export default function StockInternalJohnson() {
     for (let i = 0; i < list.length; i++) {
       if (i === item) {
         if (clasePlaca[i]?.clase === "edi") {
-          setClasePlacas([])	
+          setClasePlacas([])
         }
-        else{
+        else {
           list[i].clase = "edi"
         }
-        
+
       }
     }
     setClasePlacas(list)
     setReload(!reload)
-    }
-    console.log("clasePlaca======>", clasePlaca)
+  }
+  console.log("clasePlaca======>", clasePlaca)
   //captura y guarda datos en sinks
   const datos = (value, position, key) => {
     console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 116 ~ datos ~ position", position)
@@ -130,6 +139,9 @@ export default function StockInternalJohnson() {
     let fields = sinks
     if (key === "jhonson" || key === "accesories" || key === "instalation") {
       fields[position].sink[key] = value
+    }
+    else if (key === "color" || key === "company") {
+      fields[position].plate[key] = value
     }
     else {
       fields[position][key] = value?.target?.value || value;
@@ -157,6 +169,30 @@ export default function StockInternalJohnson() {
     setNewJohnson(johnson)
     setTypeA(true)
   }
+  ////plate
+  const openTypePlate = (position, typeComp, color) => {
+    console.log("🚀 ~ file: StockJohnson-1-internal.jsx ~ line 165 ~ openTypePlate ~ position", position)
+    setItemModif(position)
+    setNewCompany(typeComp)
+    setNewColor(color)
+    setTypePlate(true)
+  }
+  async function openColor(type) {
+    console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 112 ~ openJohnson ~ type", type)
+    await dispatch(colorActions.getColors(type, ""))
+    setOpenColorModal(true)
+    setTypePlate(false)
+    setReload(!reload)
+  }
+  const listColor = useSelector(store => store.colorReducer?.colors)
+  console.log("🚀 ~ file: StockJohnson-1-internal.jsx ~ line 182 ~ StockInternalJohnson ~ listColor", listColor)
+  const cargaPlate = () => {
+    datos(newCompany, itemModif, "company")
+    datos(newColor, itemModif, "color")
+    setOpenColorModal(false)
+    setReload(!reload)
+  }
+  ///////////////////////
   const closeType = () => {
     setTypeA(false)
   }
@@ -219,10 +255,18 @@ export default function StockInternalJohnson() {
       comments: comment
     }
     for (let i = 0; i < sinks.length; i++) {
-      if (sinks[i].sink.jhonson.instalation?.length === 0) {
+      if (sinks[i].sink?.jhonson?.instalation?.length === 0) {
         datos(["instalacion lateral"], i, "instalation")
       }
-      datos(sinks[i].sink.jhonson._id, i, "jhonson")//me pasa solo el id de jhonson
+      if (sinks[i].plate !== undefined) {
+        datos(sinks[i].plate?.company?._id, i, "company")
+        datos(sinks[i].plate?.color?._id, i, "color")
+
+        await dispatch(plateActions.putPlate(sinks[i].plate._id, sinks[i].plate))
+      }
+
+      datos(sinks[i].sink?.jhonson?._id, i, "jhonson")//me pasa solo el id de jhonson
+
       const listaIdAccesories = []
       sinks[i].sink.accesories.map(acc => listaIdAccesories.push(acc._id))
       datos(listaIdAccesories, i, "accesories")
@@ -231,6 +275,7 @@ export default function StockInternalJohnson() {
         stock: sinks[i].stock
       }
       const resp = await dispatch(sinkActions.putSink(sinks[i].sink._id, sinks[i].sink))
+
       await dispatch(stockActions.putStock(sinks[i]._id, dataStock))
       await dispatch(codeActions.putCode(id, data))
       console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 176 ~ creatingSink ~ resp", resp)
@@ -354,7 +399,7 @@ export default function StockInternalJohnson() {
                                 <td className="text-left">
                                   <div className='divBtntdEdit'>
                                     <div>{stock.plate?.company?.nameCompany}</div>
-                                    <button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => openType(indexSink, stock.sink.jhonson)}>Cambiar</button>
+                                    <button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => openTypePlate(indexSink, stock.plate.company, stock.plate.color)}>Cambiar</button>
                                   </div>
                                 </td>
                               </tr>
@@ -363,7 +408,9 @@ export default function StockInternalJohnson() {
                                 <td className="text-left">
                                   <div className='divBtntdEdit'>
                                     <div>{stock.plate?.color?.name}</div>
-                                    <button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => handleClickAccesorios(indexSink, stock.sink.accesories)}>Agregar</button>
+                                    <button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} 
+                                    // onClick={() => handleClickAccesorios(indexSink, stock.sink.accesories)}
+                                    >Agregar</button>
                                   </div>
                                 </td>
                               </tr>
@@ -372,7 +419,7 @@ export default function StockInternalJohnson() {
                                 <td className="text-left">
                                   <div className='divBtntdEdit'>
                                     <div>{stock.plate?.state?.state} {stock.plate?.state?.width} x {stock.plate?.state?.height}</div>
-                                    <button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => openInstalationType(indexSink, stock.sink.instalation)}>Cambiar</button>
+                                    {/* <button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => openInstalationType(indexSink, stock.sink.instalation)}>Cambiar</button> */}
                                   </div>
                                 </td>
                               </tr>
@@ -578,6 +625,65 @@ export default function StockInternalJohnson() {
               <DialogActions>
                 <Button onClick={() => asignarNota(id, notaAsignada)}>Confirmar</Button>
                 <Button onClick={() => setOpenAlertASIG(false)}>Cancelar</Button>
+              </DialogActions>
+            </Dialog>
+
+            <Dialog open={typePlate} >
+              <DialogContent>
+                <DialogContentText>{`Modificar placa:`}</DialogContentText>
+                <h4>Plate:</h4>
+                <Container width='100%' justify='space-evenly' align='center' wrap='wrap'>
+                  {companies.map((item) => (
+                    <button key={item._id} onClick={() => openColor(item._id)} className="linkTypes  typesDialog">
+                      <div className={item.nameCompany} >
+                        <div className='mask'>
+                          <h1 className='titleCard plateType1'>{item.nameCompany}</h1>
+                        </div>
+                      </div>
+                    </button>))}
+
+                </Container>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={() => setTypePlate(false)}>Cancelar</Button>
+              </DialogActions>
+            </Dialog>
+
+            <Dialog open={openColorModal} >
+              <DialogContent>
+                <DialogContentText>{`Color:`}</DialogContentText>
+                <div className='itemsEditAcc'>
+                  {listColor.map((item) => (
+                    <button
+                      // onClick={() => datos(item, itemModif, 'jhonson')}
+                      onClick={() => setNewColor(item)}
+                      key={item._id}
+                      className='boxItemAcc'
+                      style={{
+                        "backgroundImage": `url(${item.photo})`,
+                        "backgroundSize": "cover",
+                        "backgroundPosition": "center",
+                        "objectFit": "cover"
+                      }}>
+
+                      <div className='maskAcc'>
+                        <div className='nameIcon'>
+                          <h5 className='h5DescAcc codejson'>{item?.name}</h5>
+                          {newColor._id?.includes(item._id) ?
+                            <CheckCircleIcon className="addIconAcc" />
+                            :
+                            <RadioButtonUncheckedIcon className="deletIconAcc" />}
+                        </div>
+
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={() => cargaPlate()}>Listo</Button>
+                {/* <Button onClick={() => datos(newJohnson, itemModif, "jhonson")}>Listo</Button> */}
+                <Button onClick={() => setOpenColorModal(false)}>Cancelar</Button>
               </DialogActions>
             </Dialog>
           </div>
