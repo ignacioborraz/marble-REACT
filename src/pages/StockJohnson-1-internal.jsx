@@ -255,33 +255,36 @@ export default function StockInternalJohnson() {
       comments: comment
     }
     for (let i = 0; i < sinks.length; i++) {
-      if (sinks[i].sink?.jhonson?.instalation?.length === 0) {
-        datos(["instalacion lateral"], i, "instalation")
+      if (sinks[i].sink !== undefined) {
+        if (sinks[i].sink?.jhonson?.instalation?.length === 0) {
+          datos(["instalacion lateral"], i, "instalation")
+        }
+        datos(sinks[i].sink?.jhonson?._id, i, "jhonson")//me pasa solo el id de jhonson
+        const listaIdAccesories = []
+        sinks[i].sink.accesories.map(acc => listaIdAccesories.push(acc._id))
+        datos(listaIdAccesories, i, "accesories")
+        await dispatch(sinkActions.putSink(sinks[i].sink._id, sinks[i].sink))
+        let dataStock = {
+          stock: sinks[i].stock
+        }
+        await dispatch(stockActions.putStock(sinks[i]._id, dataStock))
       }
       if (sinks[i].plate !== undefined) {
         datos(sinks[i].plate?.company?._id, i, "company")
         datos(sinks[i].plate?.color?._id, i, "color")
-
         await dispatch(plateActions.putPlate(sinks[i].plate._id, sinks[i].plate))
+        let dataStock = {
+          stock: sinks[i].stock
+        }
+        await dispatch(stockActions.putStock(sinks[i]._id, dataStock))
       }
 
-      datos(sinks[i].sink?.jhonson?._id, i, "jhonson")//me pasa solo el id de jhonson
-
-      const listaIdAccesories = []
-      sinks[i].sink.accesories.map(acc => listaIdAccesories.push(acc._id))
-      datos(listaIdAccesories, i, "accesories")
-
-      let dataStock = {
-        stock: sinks[i].stock
-      }
-      const resp = await dispatch(sinkActions.putSink(sinks[i].sink._id, sinks[i].sink))
-
-      await dispatch(stockActions.putStock(sinks[i]._id, dataStock))
       await dispatch(codeActions.putCode(id, data))
-      console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 176 ~ creatingSink ~ resp", resp)
+
       setClase([])
-      setReload(!reload)
     }
+    
+    setReload(!reload)
   }
   const openAlertAsignar = (id) => {
     setId(id)
@@ -446,8 +449,8 @@ export default function StockInternalJohnson() {
               <button onClick={() => modificar()} className={clase[index]?.clase ? 'btnModificarGuardar' : 'displeyNone'} >Guardar Cambios</button>
               <button onClick={() => editFields(index, code._id, code.stock, code.comments, code.note)} className='btnEditar' >Editar</button>
               <button onClick={() => openAlertAsignar(code._id)} className='btnEntregar' type='button' >Asignar</button>
-              {code.stock.map(e => e.plate ?
-                <button onClick={() => verPlacas(index)} className='btnEditar' type='button' >{clasePlaca[index]?.clase ? 'Ocultar placas' : "Ver placas"} </button>
+              {code.stock.map((e, i) => e.plate ?
+                <button key={i} onClick={() => verPlacas(index)} className='btnEditar' type='button' >{clasePlaca[index]?.clase ? 'Ocultar placas' : "Ver placas"} </button>
                 : null)}
               {/* <button onClick={() => handleClickOpenAlert(stock._id)} className='btnEliminar' type='button' >Eliminar</button> */}
             </div>
