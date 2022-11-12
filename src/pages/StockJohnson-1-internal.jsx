@@ -101,13 +101,13 @@ export default function StockInternalJohnson() {
     console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 142 ~ editFields ~ item", item)
     let list = []
     for (let i = 0; i < filterInternalCode.length; i++) {
-      list.push({ listaClases:[]})
-        filterInternalCode[i].stock.map(()=>list[i].listaClases.push({clase:""}))
-      }
-    
+      list.push({ listaClases: [] })
+      filterInternalCode[i].stock.map(() => list[i].listaClases.push({ clase: "" }))
+    }
+
     console.log("🍄~ list", list)
     for (let i = 0; i < list.length; i++) {
-      if (i === item ) {
+      if (i === item) {
         list[i].listaClases[itemStock].clase = "divEdit"
       }
     }
@@ -176,7 +176,7 @@ export default function StockInternalJohnson() {
   }
   ////plate
   const openTypePlate = (itemStock, typeComp, color) => {
-   console.log("🚀 ~ file: StockJohnson-1-internal.jsx ~ line 178 ~ openTypePlate ~ itemStock", itemStock)
+    console.log("🚀 ~ file: StockJohnson-1-internal.jsx ~ line 178 ~ openTypePlate ~ itemStock", itemStock)
     setItemModif(itemStock)
     setNewCompany(typeComp)
     setNewColor(color)
@@ -187,7 +187,7 @@ export default function StockInternalJohnson() {
     setNewColor(color)
     openColor(idCompany)
 
-    }
+  }
   async function openColor(type) {
     console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 112 ~ openJohnson ~ type", type)
     await dispatch(colorActions.getColors(type, ""))
@@ -199,7 +199,9 @@ export default function StockInternalJohnson() {
   console.log("🚀 ~ file: StockJohnson-1-internal.jsx ~ line 182 ~ StockInternalJohnson ~ listColor", listColor)
 
   const cargaPlate = () => {
-    datos(newCompany, itemModif, "company")
+    if (newCompany !== "") {
+      datos(newCompany, itemModif, "company")
+    }
     datos(newColor, itemModif, "color")
     setOpenColorModal(false)
     setReload(!reload)
@@ -433,7 +435,7 @@ export default function StockInternalJohnson() {
                                   <div className='divBtntdEdit'>
                                     <div>{stock.plate?.color?.name}</div>
                                     <button className={clase[index]?.listaClases[indexSink].clase ? 'btnModificar' : 'displeyNone'}
-                                    onClick={() => modifColor(stock.plate?.company._id, stock.plate.color, indexSink)}
+                                      onClick={() => modifColor(stock.plate?.company._id, stock.plate.color, indexSink)}
                                     >Cambiar</button>
                                   </div>
                                 </td>
@@ -459,7 +461,7 @@ export default function StockInternalJohnson() {
                           </table>
                           <div className='boxStockCard-botones'>
                             <button onClick={() => modificar("plate", indexSink)} className={clase[index]?.listaClases[indexSink].clase ? 'btnModificarGuardar' : 'displeyNone'} >Guardar Cambios</button>
-                            <button onClick={() => editFields(index,indexSink, code._id, code.stock, code.comments, code.note)}  className={clase[index]?.listaClases[indexSink].clase ? 'displeyNone' : 'btnEditar'}>Editar</button>
+                            <button onClick={() => editFields(index, indexSink, code._id, code.stock, code.comments, code.note)} className={clase[index]?.listaClases[indexSink].clase ? 'displeyNone' : 'btnEditar'}>Editar</button>
                             <button onClick={() => openAlertAsignar(code._id)} className='btnEntregar' type='button' >Asignar</button>
                             <button className='btnEliminar' type='button' onClick={() => handleClickOpenAlert(code._id, stock._id, code.stock.length)}>Eliminar</button>
                           </div>
@@ -700,7 +702,7 @@ export default function StockInternalJohnson() {
                 </div>
               </DialogContent>
               <DialogActions>
-                <Button onClick={() => datos(newColor, itemModif, "color")}>Listo</Button>
+                <Button onClick={() => cargaPlate()}>Listo</Button>
                 {/* <Button onClick={() => datos(newJohnson, itemModif, "jhonson")}>Listo</Button> */}
                 <Button onClick={() => setOpenColorModal(false)}>Cancelar</Button>
               </DialogActions>
