@@ -97,14 +97,18 @@ export default function StockInternalJohnson() {
     );
   };
   //Activa y setea datos
-  const editFields = (item, id, listSinks, comments) => {
+  const editFields = (item, itemStock, id, listSinks, comments) => {
     console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 142 ~ editFields ~ item", item)
     let list = []
-    filterInternalCode.map(elem => list.push({ clase: "" }))
-    //console.log("🚀 ~ file: StockJohnson-2-note.jsx ~ line 107 ~ editFields ~ list", list)
+    for (let i = 0; i < filterInternalCode.length; i++) {
+      list.push({ listaClases:[]})
+        filterInternalCode[i].stock.map(()=>list[i].listaClases.push({clase:""}))
+      }
+    
+    console.log("🍄~ list", list)
     for (let i = 0; i < list.length; i++) {
-      if (i === item) {
-        list[i].clase = "divEdit"
+      if (i === item ) {
+        list[i].listaClases[itemStock].clase = "divEdit"
       }
     }
     setIndexStock(item)
@@ -150,6 +154,7 @@ export default function StockInternalJohnson() {
     setSinks([...sinks])
     setOpenJson(false)
     setInstalationType(false)
+    setOpenColorModal(false)
     setReload(!reload)
   }
   //elimina item Stock o Code
@@ -170,13 +175,19 @@ export default function StockInternalJohnson() {
     setTypeA(true)
   }
   ////plate
-  const openTypePlate = (position, typeComp, color) => {
-    console.log("🚀 ~ file: StockJohnson-1-internal.jsx ~ line 165 ~ openTypePlate ~ position", position)
-    setItemModif(position)
+  const openTypePlate = (itemStock, typeComp, color) => {
+   console.log("🚀 ~ file: StockJohnson-1-internal.jsx ~ line 178 ~ openTypePlate ~ itemStock", itemStock)
+    setItemModif(itemStock)
     setNewCompany(typeComp)
     setNewColor(color)
     setTypePlate(true)
   }
+  const modifColor = (idCompany, color, itemStock) => {
+    setItemModif(itemStock)
+    setNewColor(color)
+    openColor(idCompany)
+
+    }
   async function openColor(type) {
     console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 112 ~ openJohnson ~ type", type)
     await dispatch(colorActions.getColors(type, ""))
@@ -186,6 +197,7 @@ export default function StockInternalJohnson() {
   }
   const listColor = useSelector(store => store.colorReducer?.colors)
   console.log("🚀 ~ file: StockJohnson-1-internal.jsx ~ line 182 ~ StockInternalJohnson ~ listColor", listColor)
+
   const cargaPlate = () => {
     datos(newCompany, itemModif, "company")
     datos(newColor, itemModif, "color")
@@ -249,41 +261,44 @@ export default function StockInternalJohnson() {
     setOpenAcc(false)
     setReload(!reload)
   }
-  async function modificar() {
+  async function modificar(key, indexSink) {
+    console.log("🚀 ~ file: StockJohnson-1-internal.jsx ~ line 253 ~ modificar ~ indexSink", indexSink)
+    console.log("🚀 ~ file: StockJohnson-1-internal.jsx ~ line 253 ~ modificar ~ key", key)
     let data = {}
     data = {
       comments: comment
     }
-    for (let i = 0; i < sinks.length; i++) {
-      if (sinks[i].sink !== undefined) {
-        if (sinks[i].sink?.jhonson?.instalation?.length === 0) {
-          datos(["instalacion lateral"], i, "instalation")
-        }
-        datos(sinks[i].sink?.jhonson?._id, i, "jhonson")//me pasa solo el id de jhonson
-        const listaIdAccesories = []
-        sinks[i].sink.accesories.map(acc => listaIdAccesories.push(acc._id))
-        datos(listaIdAccesories, i, "accesories")
-        await dispatch(sinkActions.putSink(sinks[i].sink._id, sinks[i].sink))
-        let dataStock = {
-          stock: sinks[i].stock
-        }
-        await dispatch(stockActions.putStock(sinks[i]._id, dataStock))
+    if (key === "sink") {
+      if (sinks[indexSink].sink?.jhonson?.instalation?.length === 0) {
+        datos(["instalacion lateral"], indexSink, "instalation")
       }
-      if (sinks[i].plate !== undefined) {
-        datos(sinks[i].plate?.company?._id, i, "company")
-        datos(sinks[i].plate?.color?._id, i, "color")
-        await dispatch(plateActions.putPlate(sinks[i].plate._id, sinks[i].plate))
-        let dataStock = {
-          stock: sinks[i].stock
-        }
-        await dispatch(stockActions.putStock(sinks[i]._id, dataStock))
+      datos(sinks[indexSink].sink?.jhonson?._id, indexSink, "jhonson")//me pasa solo el id de jhonson
+      const listaIdAccesories = []
+      sinks[indexSink].sink.accesories.map(acc => listaIdAccesories.push(acc._id))
+      datos(listaIdAccesories, indexSink, "accesories")//me pasa solo los id de accesories
+      await dispatch(sinkActions.putSink(sinks[indexSink].sink._id, sinks[indexSink].sink))
+      let dataStock = {
+        stock: sinks[indexSink].stock
       }
-
+      await dispatch(stockActions.putStock(sinks[indexSink]._id, dataStock))
       await dispatch(codeActions.putCode(id, data))
-
-      setClase([])
+      setReload(!reload)
     }
-    
+
+    if (key === "plate") {
+      datos(sinks[indexSink].plate?.company?._id, indexSink, "company")
+      datos(sinks[indexSink].plate?.color?._id, indexSink, "color")
+      await dispatch(plateActions.putPlate(sinks[indexSink].plate._id, sinks[indexSink].plate))
+      let dataStock = {
+        stock: sinks[indexSink].stock
+      }
+      await dispatch(stockActions.putStock(sinks[indexSink]._id, dataStock))
+      await dispatch(codeActions.putCode(id, data))
+    }
+
+    setClase([])
+
+
     setReload(!reload)
   }
   const openAlertAsignar = (id) => {
@@ -324,7 +339,7 @@ export default function StockInternalJohnson() {
                 code.stock.map((stock, indexSink) =>
                 (
                   stock.sink ?
-                    (<div key={stock._id} className='boxStockCard-sink'>
+                    (<div key={stock._id} className='hellow boxStockCard-sink'>
                       <img src={stock.sink?.jhonson?.photo} alt={stock._id} className='boxStockCard-photo' id={stock._id} />
                       <div className='boxStockCard-data'>
                         <table className="table-fill">
@@ -332,7 +347,7 @@ export default function StockInternalJohnson() {
                             <tr>
                               <td className="text-left1">Cantidad</td>
                               <td className="text-left">
-                                <div className={clase[index]?.clase} onInput={(event) => datos(event.currentTarget.textContent, indexSink, "stock")} contentEditable suppressContentEditableWarning={true}>
+                                <div className={clase[index]?.listaClases[indexSink].clase} onInput={(event) => datos(event.currentTarget.textContent, indexSink, "stock")} contentEditable suppressContentEditableWarning={true}>
                                   {stock.stock}
                                 </div>
                               </td>
@@ -342,7 +357,7 @@ export default function StockInternalJohnson() {
                               <td className="text-left">
                                 <div className='divBtntdEdit'>
                                   <div>{stock.sink?.jhonson?.code}</div>
-                                  <button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => openType(indexSink, stock.sink.jhonson)}>Cambiar</button>
+                                  <button className={clase[index]?.listaClases[indexSink].clase ? 'btnModificar' : 'displeyNone'} onClick={() => openType(indexSink, stock.sink.jhonson)}>Cambiar</button>
                                 </div>
                               </td>
                             </tr>
@@ -354,7 +369,7 @@ export default function StockInternalJohnson() {
                                     {stock.sink?.accesories?.map((i, index) =>
                                       <span key={index}>{i.code + " - "}</span>)}
                                   </div>
-                                  <button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => handleClickAccesorios(indexSink, stock.sink.accesories)}>Agregar</button>
+                                  <button className={clase[index]?.listaClases[indexSink].clase ? 'btnModificar' : 'displeyNone'} onClick={() => handleClickAccesorios(indexSink, stock.sink.accesories)}>Agregar</button>
                                 </div>
                               </td>
                             </tr>
@@ -364,22 +379,28 @@ export default function StockInternalJohnson() {
                                 <div className='divBtntdEdit'>
                                   <div>{stock.sink?.instalation?.map((i, index) =>
                                     <span key={index}>{i + " - "}</span>)}</div>
-                                  <button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => openInstalationType(indexSink, stock.sink.instalation)}>Cambiar</button>
+                                  <button className={clase[index]?.listaClases[indexSink].clase ? 'btnModificar' : 'displeyNone'} onClick={() => openInstalationType(indexSink, stock.sink.instalation)}>Cambiar</button>
                                 </div>
                               </td>
                             </tr>
                             <tr>
                               <td className="text-left1">Comentarios</td>
                               <td className="text-left">
-                                <div className={clase[index]?.clase} onInput={(event) => setComment(event.currentTarget.textContent)} contentEditable suppressContentEditableWarning={true}>
+                                <div className={clase[index]?.listaClases[indexSink].clase} onInput={(event) => setComment(event.currentTarget.textContent)} contentEditable suppressContentEditableWarning={true}>
                                   {code.comments}
                                 </div>
                               </td>
                             </tr>
                           </tbody>
                         </table>
-                        <div className='cajaBtnDelet'>
-                          <button className='btnEliminar' type='button' onClick={() => handleClickOpenAlert(code._id, stock._id, code.stock.length)}>Eliminar</button>
+                        <div className='boxStockCard-botones'>
+                          <button onClick={() => modificar("sink", indexSink)} className={clase[index]?.listaClases[indexSink].clase ? 'btnModificarGuardar' : 'displeyNone'} >Guardar Cambios</button>
+                          <button onClick={() => editFields(index, indexSink, code._id, code.stock, code.comments, code.note)} className={clase[index]?.listaClases[indexSink].clase ? 'displeyNone' : 'btnEditar'} >Editar</button>
+                          <button onClick={() => openAlertAsignar(code._id)} className='btnEntregar' type='button' >Asignar</button>
+                          <button onClick={() => handleClickOpenAlert(code._id, stock._id, code.stock.length)} className='btnEliminar' type='button'>Eliminar</button>
+                          {code.stock.map((e, i) => e.plate ?
+                            <button key={i} onClick={() => verPlacas(index)} className='btnEditar' type='button' >{clasePlaca[index]?.clase ? 'Ocultar placas' : "Ver placas"} </button>
+                            : null)}
                         </div>
                       </div>
                     </div>)
@@ -392,7 +413,7 @@ export default function StockInternalJohnson() {
                               <tr>
                                 <td className="text-left1">Cantidad</td>
                                 <td className="text-left">
-                                  <div className={clase[index]?.clase} onInput={(event) => datos(event.currentTarget.textContent, indexSink, "stock")} contentEditable suppressContentEditableWarning={true}>
+                                  <div className={clase[index]?.listaClases[indexSink].clase} onInput={(event) => datos(event.currentTarget.textContent, indexSink, "stock")} contentEditable suppressContentEditableWarning={true}>
                                     {stock.stock}
                                   </div>
                                 </td>
@@ -402,7 +423,7 @@ export default function StockInternalJohnson() {
                                 <td className="text-left">
                                   <div className='divBtntdEdit'>
                                     <div>{stock.plate?.company?.nameCompany}</div>
-                                    <button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => openTypePlate(indexSink, stock.plate.company, stock.plate.color)}>Cambiar</button>
+                                    <button className={clase[index]?.listaClases[indexSink].clase ? 'btnModificar' : 'displeyNone'} onClick={() => openTypePlate(indexSink, stock.plate.company, stock.plate.color)}>Cambiar</button>
                                   </div>
                                 </td>
                               </tr>
@@ -411,9 +432,9 @@ export default function StockInternalJohnson() {
                                 <td className="text-left">
                                   <div className='divBtntdEdit'>
                                     <div>{stock.plate?.color?.name}</div>
-                                    <button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} 
-                                    // onClick={() => handleClickAccesorios(indexSink, stock.sink.accesories)}
-                                    >Agregar</button>
+                                    <button className={clase[index]?.listaClases[indexSink].clase ? 'btnModificar' : 'displeyNone'}
+                                    onClick={() => modifColor(stock.plate?.company._id, stock.plate.color, indexSink)}
+                                    >Cambiar</button>
                                   </div>
                                 </td>
                               </tr>
@@ -422,21 +443,24 @@ export default function StockInternalJohnson() {
                                 <td className="text-left">
                                   <div className='divBtntdEdit'>
                                     <div>{stock.plate?.state?.state} {stock.plate?.state?.width} x {stock.plate?.state?.height}</div>
-                                    {/* <button className={clase[index]?.clase ? 'btnModificar' : 'displeyNone'} onClick={() => openInstalationType(indexSink, stock.sink.instalation)}>Cambiar</button> */}
+                                    {/* <button className={clase[index]?.listaClases[indexSink].clase ? 'btnModificar' : 'displeyNone'} onClick={() => openInstalationType(indexSink, stock.sink.instalation)}>Cambiar</button> */}
                                   </div>
                                 </td>
                               </tr>
                               <tr>
                                 <td className="text-left1">Comentarios</td>
                                 <td className="text-left">
-                                  <div className={clase[index]?.clase} onInput={(event) => setComment(event.currentTarget.textContent)} contentEditable suppressContentEditableWarning={true}>
+                                  <div className={clase[index]?.listaClases[indexSink].clase} onInput={(event) => setComment(event.currentTarget.textContent)} contentEditable suppressContentEditableWarning={true}>
                                     {code.comments}
                                   </div>
                                 </td>
                               </tr>
                             </tbody>
                           </table>
-                          <div className='cajaBtnDelet'>
+                          <div className='boxStockCard-botones'>
+                            <button onClick={() => modificar("plate", indexSink)} className={clase[index]?.listaClases[indexSink].clase ? 'btnModificarGuardar' : 'displeyNone'} >Guardar Cambios</button>
+                            <button onClick={() => editFields(index,indexSink, code._id, code.stock, code.comments, code.note)}  className={clase[index]?.listaClases[indexSink].clase ? 'displeyNone' : 'btnEditar'}>Editar</button>
+                            <button onClick={() => openAlertAsignar(code._id)} className='btnEntregar' type='button' >Asignar</button>
                             <button className='btnEliminar' type='button' onClick={() => handleClickOpenAlert(code._id, stock._id, code.stock.length)}>Eliminar</button>
                           </div>
                         </div>
@@ -445,15 +469,7 @@ export default function StockInternalJohnson() {
                 ))
               }
             </div>
-            <div className='boxStockCard-botones'>
-              <button onClick={() => modificar()} className={clase[index]?.clase ? 'btnModificarGuardar' : 'displeyNone'} >Guardar Cambios</button>
-              <button onClick={() => editFields(index, code._id, code.stock, code.comments, code.note)} className='btnEditar' >Editar</button>
-              <button onClick={() => openAlertAsignar(code._id)} className='btnEntregar' type='button' >Asignar</button>
-              {code.stock.map((e, i) => e.plate ?
-                <button key={i} onClick={() => verPlacas(index)} className='btnEditar' type='button' >{clasePlaca[index]?.clase ? 'Ocultar placas' : "Ver placas"} </button>
-                : null)}
-              {/* <button onClick={() => handleClickOpenAlert(stock._id)} className='btnEliminar' type='button' >Eliminar</button> */}
-            </div>
+
             <Dialog className='dialogDelet' open={openAlert} onClose={handleClose}>
               <DialogContent  >
                 <DialogContentText>
@@ -684,7 +700,7 @@ export default function StockInternalJohnson() {
                 </div>
               </DialogContent>
               <DialogActions>
-                <Button onClick={() => cargaPlate()}>Listo</Button>
+                <Button onClick={() => datos(newColor, itemModif, "color")}>Listo</Button>
                 {/* <Button onClick={() => datos(newJohnson, itemModif, "jhonson")}>Listo</Button> */}
                 <Button onClick={() => setOpenColorModal(false)}>Cancelar</Button>
               </DialogActions>
