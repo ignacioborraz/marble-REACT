@@ -6,10 +6,12 @@ const plateActions = {
     const token = localStorage.getItem("token")
     return async (dispatch, getState) => {
       try {
-        await axios.post(apiUrl + "api/marble/plate", plate, {
+        const res= await axios.post(apiUrl + "api/marble/plate", plate, {
           headers: { Authorization: "Bearer " + token },
         })
-        dispatch({type:'PLATE'})
+        console.log("🚀 ~ file: plateActions.js ~ line 12 ~ return ~ res", res)
+        dispatch({type:'PLATE',  payload: res.data.response})
+        return res.data.response
       } catch (error) {
         console.log(error);
       }

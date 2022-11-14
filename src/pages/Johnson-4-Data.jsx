@@ -204,31 +204,7 @@ export default function JohnsonData() {
     console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 174 ~ creatingSink ~ listaId", listaId)
     creatingStock(listaId, sinks)
   }
-  // async function creatingStock(lis) {
-  //   console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 181 ~ creatingStock ~ l", lis)
-  //   let data = {}
-  //   if (typeCode === "interno") {
-  //     data = {
-  //       sink: lis,
-  //       internal: codigo,
-  //       note: null,
-        
-  //       comments: comments?.current?.value.trim()
 
-  //     }
-  //   }
-  //   else {
-  //     data = {
-  //       sink: lis,
-  //       internal: null,
-  //       note: codigo,
-  //       done: false,
-  //       comments: comments?.current?.value.trim()
-  //     }
-  //   }
-  //   await dispatch(stockActions.createStock(data))
-  //     .then(navigate("/", { replace: true }))
-  // }
   async function creatingStock(lis, sinks) {
     console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 181 ~ creatingStock ~ l", lis)
     let dataSink = [{ sink: "", stock: "" }]	
