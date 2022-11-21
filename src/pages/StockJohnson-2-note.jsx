@@ -74,10 +74,7 @@ export default function StockNoteJohnson() {
   let filterNoteCode = useSelector((store) => store.codeReducer.filterNoteCode);
   const accesoriesList = useSelector((store) => store.johnsonReducer.accesorys);
   const companies = useSelector((store) => store.companyReducer.companies);
-  console.log(
-    "🚀 ~ file: StockJohnson-1-internal.jsx ~ line 72 ~ StockInternalJohnson ~ companies",
-    companies
-  );
+
   const handleClickOpenAlert = (idCode, idStock, cantStock) => {
     setIdDelet(idCode);
     setIdDeletStock(idStock);
@@ -183,10 +180,6 @@ export default function StockNoteJohnson() {
   };
   ////plate
   const openTypePlate = (itemStock, typeComp, color) => {
-    console.log(
-      "🚀 ~ file: StockJohnson-1-internal.jsx ~ line 178 ~ openTypePlate ~ itemStock",
-      itemStock
-    );
     setItemModif(itemStock);
     setNewCompany(typeComp);
     setNewColor(color);
@@ -198,20 +191,12 @@ export default function StockNoteJohnson() {
     openColor(idCompany);
   };
   async function openColor(type) {
-    console.log(
-      "🚀 ~ file: Johnson-4-Data.jsx ~ line 112 ~ openJohnson ~ type",
-      type
-    );
     await dispatch(colorActions.getColors(type, ""));
     setOpenColorModal(true);
     setTypePlate(false);
     setReload(!reload);
   }
   const listColor = useSelector((store) => store.colorReducer?.colors);
-  console.log(
-    "🚀 ~ file: StockJohnson-1-internal.jsx ~ line 182 ~ StockInternalJohnson ~ listColor",
-    listColor
-  );
 
   const cargaPlate = () => {
     if (newCompany !== "") {
@@ -360,14 +345,19 @@ export default function StockNoteJohnson() {
       </div>
       {filterNoteCode.map((code, index) => (
         <div key={code._id} className="boxStockCard">
-          <div className="boxStockCard-note">
-            <h3>Nota</h3>
-            <h3 className="h3Nota">{code.note}</h3>
-          </div>
+          {
+            code.stock[0]?.sink || code.stock[1]?.sink ?
+              (<div className='boxStockCard-note'>
+                <h3>Nota</h3>
+                <h3 className='h3Nota'>{code.note}</h3>
+              </div>)
+              : null
+
+          }
           <div className="boxStockCard-containerSink">
             {code.stock.map((stock, indexSink) =>
               stock.sink ? (
-                <div key={stock._id} className="hellow boxStockCard-sink">
+                <div key={stock._id} className="boxStockCard-sink">
                   <img
                     src={stock.sink?.jhonson?.photo}
                     alt={stock._id}
@@ -607,12 +597,7 @@ export default function StockNoteJohnson() {
                                     ? "btnModificar"
                                     : "displeyNone"
                                 }
-                                onClick={() =>
-                                  openTypePlate(
-                                    indexSink,
-                                    stock.plate.company,
-                                    stock.plate.color
-                                  )
+                                onClick={() =>openTypePlate(indexSink,stock.plate.company,stock.plate.color)
                                 }
                               >
                                 Cambiar

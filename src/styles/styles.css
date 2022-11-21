@@ -13,7 +13,19 @@ a {
 .inputAlignCenter {
     text-align: center;
 }
-
+.divBtnesForm{
+    width: 92%;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+.divBtnesForm button{
+    height: 2rem;
+    width: 7rem;
+    border-radius: 4px;
+    box-shadow: 2px 4px 5px 0 #bdbdbd;
+    letter-spacing: 1px;
+}
 .shadow-text:hover {
     font-weight: 800;
     color: #C82832;
@@ -1332,7 +1344,7 @@ label {
     margin-left: 5px;
 }
 
-.boxStockCard-botones button {
+.boxStockCard-botones button{
     height: 3rem;
     width: 5rem;
     border-radius: 4px;
@@ -1357,7 +1369,7 @@ label {
     color: green;
 }
 
-.boxStockCard-botones button:hover {
+.boxStockCard-botones button:hover, .divBtnesForm button:hover  {
     background-color: white;
     cursor: pointer;
 }

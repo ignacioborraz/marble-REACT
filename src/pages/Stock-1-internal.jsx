@@ -332,16 +332,21 @@ export default function StockInternalPlates() {
         filterInternalCode.map((code, index) =>
         (
           <div key={code._id} className='boxStockCard'>
-            <div className='boxStockCard-note'>
-              <h3>Nota</h3>
-              <h3 className='h3Nota'>{code.internal}</h3>
-            </div>
+            {
+              code.stock[0]?.plate || code.stock[1]?.plate ?
+                (<div className='boxStockCard-note'>
+                  <h3>Nota</h3>
+                  <h3 className='h3Nota'>{code.internal}</h3>
+                </div>)
+                : null
+
+            }
             <div className='boxStockCard-containerSink'>
               {
                 code.stock.map((stock, indexSink) =>
                 (
                   stock.plate ?
-                  (<div className='hellow boxStockCard-sink'>
+                  (<div className='boxStockCard-sink'>
                         <img src={stock.plate?.color?.photo} alt={stock._id} className='boxStockCard-photo' id={stock._id} />
                         <div className='boxStockCard-data'>
                           <table className="table-fill">

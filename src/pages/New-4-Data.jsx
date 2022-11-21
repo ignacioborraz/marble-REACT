@@ -41,11 +41,7 @@ export default function SelectData() {
       plate.done = false;
       console.log("plate<<<<<<<<<", plate);
       const resPlate = await dispatch(plateActions.createPlate(plate));
-      console.log(
-        "🚀 ~ file: New-4-Data.jsx ~ line 53 ~ creatingPlate ~ resPlate",
-        resPlate
-      );
-      // .then(()=>navigate("/", { replace: true }))
+      console.log("🚀 ~ file: New-4-Data.jsx ~ line 53 ~ creatingPlate ~ resPlate",resPlate);
       listaIdPlate.push(resPlate._id);
       console.log("listaaIdPLATE", listaIdPlate);
       creatingStock(listaIdPlate);

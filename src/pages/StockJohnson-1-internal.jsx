@@ -332,16 +332,22 @@ export default function StockInternalJohnson() {
         filterInternalCode.map((code, index) =>
         (
           <div key={code._id} className='boxStockCard'>
-            <div className='boxStockCard-note'>
-              <h3>Nota</h3>
-              <h3 className='h3Nota'>{code.internal}</h3>
-            </div>
+            {
+              code.stock[0]?.sink  || code.stock[1]?.sink ?
+              ( <div className='boxStockCard-note'>
+                <h3>Nota</h3>
+                <h3 className='h3Nota'>{code.internal}</h3>
+              </div>)
+              :null
+
+            }
+            
             <div className='boxStockCard-containerSink'>
               {
                 code.stock.map((stock, indexSink) =>
                 (
                   stock.sink ?
-                    (<div key={stock._id} className='hellow boxStockCard-sink'>
+                    (<div key={stock._id} className='boxStockCard-sink'>
                       <img src={stock.sink?.jhonson?.photo} alt={stock._id} className='boxStockCard-photo' id={stock._id} />
                       <div className='boxStockCard-data'>
                         <table className="table-fill">
