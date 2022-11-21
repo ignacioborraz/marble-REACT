@@ -280,7 +280,11 @@ export default function JohnsonData() {
       const idSink =await dispatch(stockActions.createStock(dataSink))
       dataSinksId.push( idSink )
       console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 243 ~ creatingStock ~ idSink", idSink)
-      if (listIdPlate !== undefined) {
+      console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 240 ~ creatingStock ~ dataSink", dataSink)
+      console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 293 ~ creatingStock ~ dataSinksId", dataSinksId)
+    }
+    for (let i = 0; i < listIdPlate.length; i++) {
+      if (listIdPlate[i] !== undefined) {
         dataPlate = {
           plate: listIdPlate[i],
           stock: plate[i].quantity || 1
@@ -288,10 +292,9 @@ export default function JohnsonData() {
         const idPlate = await dispatch(stockActions.createStock(dataPlate))
         dataSinksId.push(idPlate)
       }
-      console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 240 ~ creatingStock ~ dataSink", dataSink)
-      creatingCode(dataSinksId)
-      console.log("🚀 ~ file: Johnson-4-Data.jsx ~ line 293 ~ creatingStock ~ dataSinksId", dataSinksId)
+
     }
+    creatingCode(dataSinksId)
   
   }
   async function creatingCode(dataSinksId) {

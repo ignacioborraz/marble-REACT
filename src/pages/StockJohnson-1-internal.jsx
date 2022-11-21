@@ -406,9 +406,9 @@ export default function StockInternalJohnson() {
                           <button onClick={() => editFields(index, indexSink, code._id, code.stock, code.comments, code.note)} className={clase[index]?.listaClases[indexSink].clase ? 'displeyNone' : 'btnEditar'} >Editar</button>
                           <button onClick={() => openAlertAsignar(code._id)} className='btnEntregar' type='button' >Asignar</button>
                           <button onClick={() => handleClickOpenAlert(code._id, stock._id, code.stock.length)} className='btnEliminar' type='button'>Eliminar</button>
-                          {code.stock.map((e, i) => e.plate ?
-                            <button key={i} onClick={() => verPlacas(index)} className='btnEditar' type='button' >{clasePlaca[index]?.clase ? 'Ocultar placas' : "Ver placas"} </button>
-                            : null)}
+                          {code.stock[0]?.plate || code.stock[1]?.plate ?
+                            <button onClick={() => verPlacas(index)} className='btnEditar' type='button' >{clasePlaca[index]?.clase ? 'Ocultar placas' : "Ver placas"} </button>
+                            : null}
                         </div>
                       </div>
                     </div>)
