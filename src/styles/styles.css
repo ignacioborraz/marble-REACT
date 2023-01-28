@@ -112,8 +112,8 @@ a {
 }
 
 .iconTitle {
-    height: 3rem !important;
-    width: 3rem !important;
+    height: 100px;
+    width: 100px;
     color: rgb(255, 255, 255);
 }
 

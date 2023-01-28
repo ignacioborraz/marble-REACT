@@ -1,0 +1,46 @@
+.check-link {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 160px;
+    height: 190px;
+    font-family: 'Montserrat', sans-serif;
+    color: rgb(255, 255, 255);
+    margin: 0 10px 20px;
+    text-decoration: none;
+}
+
+.check-link:hover {
+    opacity: 0.9;
+    transform: scale(1.01);
+}
+
+.check-false {
+    opacity: 0.8;
+    border: 0px solid;
+}
+
+.check-true {
+    opacity: 1;
+    border: 3px solid rgb(200, 40, 50);
+}
+
+.check-h {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #313131;
+}
+
+.check-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+}
