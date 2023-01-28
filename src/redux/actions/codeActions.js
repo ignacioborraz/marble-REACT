@@ -3,7 +3,7 @@ import apiUrl from "../../url";
 
 const codeActions = {
   createCode: (data) => {
-    const token = localStorage.getItem("token");
+    ;
     return async (dispatch, getState) => {
       try {
         const res=await axios.post(apiUrl + "api/marble/code", data, {
