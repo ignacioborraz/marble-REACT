@@ -1,26 +1,46 @@
-import { createAsyncThunk } from '@reduxjs/toolkit'
+import { createAction, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 import apiUrl from '../../url'
 
-const read_types = createAsyncThunk('read_types', async ({ type,code,token }) => {
-    console.log(code)
-    let url = `${apiUrl}jhonson?type=${type}&code=${code}`
-    if (!token) {
-        token = localStorage.getItem('token')
+const new_sink = createAsyncThunk('new_sink', async ({ data }) => {
+    let data_storage = []
+    if (localStorage.getItem('data')) {
+        data_storage = localStorage.getItem('data')
     }
+    data_storage.push(data)
+    localStorage.setItem('data',JSON.stringify([data]))
     let headers = {headers: {'Authorization': `Bearer ${token}`}}
     try {
         let res = await axios.get(url,headers)
         //console.log(res.data.response)
         return { 
             success: true,
-            response: res.data.response.jhonsons
+            response: res.data.response.accesories
         }
     } catch (error) {
         //console.log(error)
         return {
             success: false,
             response: error.response.data
+        }
+    }
+})
+
+const capture_accesories = createAction('capture_accesories', ({ code,status }) => {
+    try {
+        return {
+            payload: { 
+                success: true,
+                response: { code,status }
+            }
+        }
+    } catch (error) {
+        //console.log(error)
+        return {
+            payload: { 
+                success: false,
+                response: 'error'
+            }
         }
     }
 })
@@ -82,6 +102,6 @@ const cerrar_sesion = createAsyncThunk('cerrar_sesion', async (token) => {
     }
 }) */
 
-const j_typeActions= { read_types }
+const j_accesoryActions= { read_accesories,capture_accesories }
 
-export default j_typeActions
+export default j_accesoryActions

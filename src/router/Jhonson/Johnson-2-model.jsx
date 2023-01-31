@@ -19,7 +19,7 @@ export default function JModel() {
     useEffect(() => {
         dispatch(read_types({ type,code:code.current.value,token }))
         // eslint-disable-next-line
-    }, [])
+    }, [reload])
         
     return (
         <div className='model-container' >

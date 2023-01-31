@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch,useSelector } from 'react-redux'
 
 import './accesoryCheck.css'
 
@@ -8,7 +8,8 @@ const { capture_accesories } = j_accesoryActions
 
 const AccesoryCheck = ({ data }) => {
 
-    const [check, setCheck] = useState(false)
+    const { codes } = useSelector(store => store.accesories)
+    const [check, setCheck] = useState(codes.includes(data._id))
     const dispatch = useDispatch()
 
     const handleCheck = (event) => {
