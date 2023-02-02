@@ -2,8 +2,8 @@ import { createAction, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 import apiUrl from '../../url'
 
-const read_accesories = createAsyncThunk('read_accesories', async ({ code,token }) => {
-    let url = `${apiUrl}accesory?code=${code}`
+const read_accesories = createAsyncThunk('read_accesories', async ({ token }) => {
+    let url = `${apiUrl}accesory`
     if (!token) {
         token = localStorage.getItem('token')
     }

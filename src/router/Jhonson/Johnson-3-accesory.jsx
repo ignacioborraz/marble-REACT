@@ -13,7 +13,6 @@ export default function JAccesory() {
 
     const { token } = useSelector(store => store.auth)
     const { accesories,codes } = useSelector(store => store.accesories)
-    const { code } = useParams()
     const [reload, setReload] = useState(false)
     const code_acc = useRef()
     const dispatch = useDispatch() 
@@ -31,7 +30,7 @@ export default function JAccesory() {
         <div className='acc-container' >
             <h2>ACCESORIOS</h2>
             <input ref={code_acc} onChange={()=>setReload(!reload)} className='acc-input' type="text" placeholder='Buscar por codigo' />
-            <LinkRouter to={`/j/${code}/a/${codes?.join(',')}`} className='acc-button'><Button icon={next} /></LinkRouter>
+            <LinkRouter to={`/jhonson-form`} className='acc-button'><Button icon={next} /></LinkRouter>
         {(accesories && accesories.length > 0) ?
             <div className='acc-box'>
                 {accesories?.map(type => <AccesoryCheck key={type._id} data={type} />)}

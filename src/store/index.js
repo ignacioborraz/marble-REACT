@@ -8,7 +8,7 @@ const store = configureStore({
     reducer: {
         auth: authReducer,
         alert: alertReducer,
-        types: typeReducer,
+        jhonsons: typeReducer,
         accesories: accReducer
     }
 })

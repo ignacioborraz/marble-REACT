@@ -1,10 +1,12 @@
 import { createReducer } from '@reduxjs/toolkit'
 import j_typeActions from './actions'
 
-const { read_types } = j_typeActions
+const { read_types,read_one_type } = j_typeActions
 
 const initialState = {
-    types: []
+    A304: [],
+    A430: [],
+    jhonsons: []
 }
 
 const typeReducer = createReducer(initialState,
@@ -12,12 +14,39 @@ const typeReducer = createReducer(initialState,
         builder
         .addCase(read_types.fulfilled, (state, action) => {
             const { success,response } = action.payload
+            const { A304,A430 } = response
             //console.log(action.payload)
             let newState = {}
             if (success) {
                 newState = {
                     ...state,
-                    types: response
+                    A304,
+                    A430
+                }
+            } else {
+                if (typeof response.response === "string") {
+                    newState = {
+                        ...state,
+                        messages: [response.response]
+                    }
+                } else {
+                    newState = {
+                        ...state,
+                        messages: response.response.map(mes => mes.message)
+                    }
+                }
+            }
+            //console.log(newState)
+            return newState
+        })
+        .addCase(read_one_type, (state, action) => {
+            const { success,response } = action.payload
+            //console.log(action.payload)
+            let newState = {}
+            if (success) {
+                newState = {
+                    ...state,
+                    jhonsons: state[response]
                 }
             } else {
                 if (typeof response.response === "string") {
@@ -35,6 +64,38 @@ const typeReducer = createReducer(initialState,
             //console.log(newState)
             return newState
         })/* 
+        .addCase(filter_types.fulfilled, (state, action) => {
+            const { success,type,code,response } = action.payload
+            //console.log(action.payload)
+            let newState = {}
+            if (success && type==='A304') {
+                newState = {
+                    ...state,
+                    filtered_A304: response,
+                    code_A304: code
+                }
+            } else if (success && type==='A430') {
+                newState = {
+                    ...state,
+                    filtered_A430: response,
+                    code_A430: code
+                }
+            } else {
+                if (typeof response.response === "string") {
+                    newState = {
+                        ...state,
+                        messages: [response.response]
+                    }
+                } else {
+                    newState = {
+                        ...state,
+                        messages: response.response.map(mes => mes.message)
+                    }
+                }
+            }
+            //console.log(newState)
+            return newState
+        })
         .addCase(iniciar_sesion.fulfilled, (state, action) => {
             const { success,response } = action.payload
             console.log(action.payload)

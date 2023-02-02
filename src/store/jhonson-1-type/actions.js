@@ -1,26 +1,38 @@
-import { createAsyncThunk } from '@reduxjs/toolkit'
+import { createAsyncThunk,createAction } from '@reduxjs/toolkit'
 import axios from 'axios'
 import apiUrl from '../../url'
 
-const read_types = createAsyncThunk('read_types', async ({ type,code,token }) => {
-    console.log(code)
-    let url = `${apiUrl}jhonson?type=${type}&code=${code}`
+const read_types = createAsyncThunk('read_types', async ({ token }) => {
+    let url304 = `${apiUrl}jhonson?type=A304`
+    let url430 = `${apiUrl}jhonson?type=A430`
     if (!token) {
         token = localStorage.getItem('token')
     }
     let headers = {headers: {'Authorization': `Bearer ${token}`}}
     try {
-        let res = await axios.get(url,headers)
-        //console.log(res.data.response)
+        let res304 = await axios.get(url304,headers)
+        let res430 = await axios.get(url430,headers)
         return { 
             success: true,
-            response: res.data.response.jhonsons
-        }
+            response: {
+                A304: res304.data.response.jhonsons,
+                A430: res430.data.response.jhonsons
+            }
+        }        
     } catch (error) {
         //console.log(error)
         return {
             success: false,
             response: error.response.data
+        }
+    }
+})
+
+const read_one_type = createAction('read_one_type', ({ type }) => {
+    return { 
+        payload: {
+            success: true,
+            response: type
         }
     }
 })
@@ -82,6 +94,6 @@ const cerrar_sesion = createAsyncThunk('cerrar_sesion', async (token) => {
     }
 }) */
 
-const j_typeActions= { read_types }
+const j_typeActions= { read_types,read_one_type }
 
 export default j_typeActions
