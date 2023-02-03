@@ -20,7 +20,7 @@ export default function JAccesory() {
     
     useEffect(() => {
         let code = code_acc.current?.value || ""
-        dispatch(read_accesories({ code,token }))       
+        dispatch(read_accesories({ code,token }))
         // eslint-disable-next-line
     }, [reload,codes])
 
@@ -33,11 +33,11 @@ export default function JAccesory() {
             <LinkRouter to={`/jhonson-form`} className='acc-button'><Button icon={next} /></LinkRouter>
         {(accesories && accesories.length > 0) ?
             <div className='acc-box'>
-                {accesories?.map(type => <AccesoryCheck key={type._id} data={type} />)}
+                
             </div>
             : <h2 className='acc-h'>no hay resultados</h2>
         }
-    </div>
+        </div>
     )
 
 }

@@ -1,6 +1,6 @@
 .layout-container {
     width: 100%;
-    min-height: 100vh;
+    height: calc(100vh - 40px);
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -28,6 +28,19 @@
 .navbar-img-mobile {
     height: 60px;
     display: none;
+}
+
+.layout-footer {
+    height: 40px;
+    width: 100%;
+    background-color: rgb(200, 40, 50);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.layout-img {
+    height: 20px;
 }
 
 @media (width < 720px) {

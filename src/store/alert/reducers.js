@@ -7,6 +7,8 @@ const initialState = {
   messages: '',
   visible: false,
   success: false,
+  options: '',
+  id_code: ''
 }
 
 const alertReducer = createReducer(
@@ -17,7 +19,9 @@ const alertReducer = createReducer(
         const newState = {
           messages: action.payload.messages,
           visible: action.payload.visible,
-          success: action.payload.success
+          success: action.payload.success,
+          options: action.payload.options,
+          id_code: action.payload.id_code
         }
         return newState
       })
@@ -25,7 +29,9 @@ const alertReducer = createReducer(
         const newState = {
           messages: action.payload.messages,
           visible: action.payload.visible,
-          success: action.payload.success
+          success: action.payload.success,
+          options: action.payload.options,
+          id_code: action.payload.id_code
         }
         return newState
       })

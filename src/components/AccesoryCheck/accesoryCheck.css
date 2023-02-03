@@ -1,44 +1,49 @@
-.check-link {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    width: 160px;
-    height: 190px;
-    font-family: 'Montserrat', sans-serif;
-    color: rgb(255, 255, 255);
-    margin: 0 10px 20px;
-    text-decoration: none;
+.accCheck-container {
+    width: 110px;
+    height: 110px;
+    margin: 5px;
 }
 
-.check-link:hover {
-    opacity: 0.9;
-    transform: scale(1.01);
+.accCheck-input {
+    height: 0;
+    width: 0;
+    position: absolute;
 }
 
-.check-false {
-    border: 0px solid;
-}
-
-.check-true {
-    border: 3px solid rgb(200, 40, 50);
-}
-
-.check-h {
+.accCheck-label {
+    width: 110px;
+    height: 110px;
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 30px;
-    font-size: 20px;
+    align-items: flex-end;
+    padding: 10px;
+    border-radius: 5px;
+    position: relative;
+    bottom: 114px;
+    z-index: 0;
+}
+
+.accCheck-label:hover {
+    background-color: rgba(118, 118, 118, 0.3);
+}
+
+.il-true {
+    background-color: rgba(118, 118, 118, 0.2);
     font-weight: 600;
-    letter-spacing: 1px;
-    color: #313131;
 }
 
-.check-img {
-    width: 100%;
-    height: 100%;
+.accCheck-img {
+    width: 110px;
+    height: 110px;
     object-fit: cover;
     border-radius: 5px;
+}
+
+.hide-true, .modal-false {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    opacity: 0;
 }

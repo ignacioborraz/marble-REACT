@@ -8,7 +8,7 @@ import WorkIcon from '@mui/icons-material/Work'
 
 import './signIn.css'
 import authActions from '../../store/auth/actions'
-import alertActions from './../../store/alert/actions';
+import alertActions from './../../store/alert/actions'
 const { iniciar_sesion } = authActions
 const { open } = alertActions
 
