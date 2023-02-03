@@ -1,24 +1,22 @@
-import { createAsyncThunk,createAction } from '@reduxjs/toolkit'
+import { createAction, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 import apiUrl from '../../url'
 
-const read_types = createAsyncThunk('read_types', async ({ token }) => {
-    let url304 = `${apiUrl}jhonson?type=A304`
-    let url430 = `${apiUrl}jhonson?type=A430`
-    if (!token) {
-        token = localStorage.getItem('token')
+const new_sink = createAsyncThunk('new_sink', async ({ data }) => {
+    let data_storage = []
+    if (localStorage.getItem('data')) {
+        data_storage = localStorage.getItem('data')
     }
+    data_storage.push(data)
+    localStorage.setItem('data',JSON.stringify([data]))
     let headers = {headers: {'Authorization': `Bearer ${token}`}}
     try {
-        let res304 = await axios.get(url304,headers)
-        let res430 = await axios.get(url430,headers)
+        let res = await axios.get(url,headers)
+        //console.log(res.data.response)
         return { 
             success: true,
-            response: {
-                A304: res304.data.response.jhonsons,
-                A430: res430.data.response.jhonsons
-            }
-        }        
+            response: res.data.response.accesories
+        }
     } catch (error) {
         //console.log(error)
         return {
@@ -28,11 +26,21 @@ const read_types = createAsyncThunk('read_types', async ({ token }) => {
     }
 })
 
-const read_one_type = createAction('read_one_type', ({ type }) => {
-    return { 
-        payload: {
-            success: true,
-            response: type
+const capture_accesories = createAction('capture_accesories', ({ code,status }) => {
+    try {
+        return {
+            payload: { 
+                success: true,
+                response: { code,status }
+            }
+        }
+    } catch (error) {
+        //console.log(error)
+        return {
+            payload: { 
+                success: false,
+                response: 'error'
+            }
         }
     }
 })
@@ -94,6 +102,6 @@ const cerrar_sesion = createAsyncThunk('cerrar_sesion', async (token) => {
     }
 }) */
 
-const j_typeActions= { read_types,read_one_type }
+const j_accesoryActions= { read_accesories,capture_accesories }
 
-export default j_typeActions
+export default j_accesoryActions

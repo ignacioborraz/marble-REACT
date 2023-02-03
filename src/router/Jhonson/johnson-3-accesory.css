@@ -27,18 +27,11 @@
     /* align-items: flex-start; */
 }
 
-.acc-link {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    width: 160px;
-    height: 190px;
-    font-family: 'Montserrat', sans-serif;
-    color: rgb(255, 255, 255);
-    margin: 0 10px 20px;
-    text-decoration: none;
+.acc-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1;
 }
 
 .acc-link:hover {

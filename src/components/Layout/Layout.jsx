@@ -6,6 +6,7 @@ import Alert from '../Alert/Alert'
 import ScrollToTop from  '../ScrollToTop'
 
 import './layout.css'
+import logo from '../../media/logo_giacomo.png'
 
 export default function Layout() {
 
@@ -16,6 +17,9 @@ export default function Layout() {
                 <Outlet />
                 <Alert />
                 <ScrollToTop />
+            </div>
+            <div className='layout-footer'>
+                <img src={logo} alt="logo" className='layout-img' />    
             </div>
         </>
     )

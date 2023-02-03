@@ -1,35 +1,39 @@
-import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useState,useEffect } from 'react'
 
 import './accesoryCheck.css'
 
-import j_accesoryActions from '../../store/jhonson-2-acc/actions'
-const { capture_accesories } = j_accesoryActions
-
-const AccesoryCheck = ({ data }) => {
+const AccesoryCheck = ({ data,inputText,modal }) => {
 
     const [check, setCheck] = useState(false)
-    const dispatch = useDispatch()
-
-    const handleCheck = (event) => {
-        setCheck(!check)
-        let boolean = event.target.className.slice(16,21).trim()
-        if (boolean === "true") {
-            boolean = false
-        } else {
-            boolean = true
-        }
-        let checkAcc = {
-            code: data._id,
-            status: boolean
-        }
-        dispatch(capture_accesories(checkAcc))
+    const [hide,setHide] = useState(false)
+    const [show,setShow] = useState(true)
+    
+    function selectAcc(event) {
+        //console.log(event.target.checked)
+        setCheck(event.target.checked)
     }
+    useEffect(
+        () => {
+            //console.log(inputText)
+            if (inputText.length !== 0) {
+                if (data?.code?.toLowerCase().includes(inputText?.toLowerCase().trim())) {
+                    setHide(false)
+                } else {
+                    setHide(true)
+                }
+            } else {
+                setHide(false)
+            }
+            setShow(modal)
+        },
+        [inputText,modal]
+    )
 
     return (
-        <div onClick={handleCheck} className='check-link' to={`/johnson/acce/${data._id}`} key={data._id} id={data._id}>
-            <h2 className='check-h'>{data.code}</h2>
-            <img src={data.photo} alt={data._id} className={`check-img check-${check}`} id={data._id} />
+        <div className={`accCheck-container hide-${hide} modal-${show}`}>
+            <input type="checkbox" name='acc' id={data._id} value={data.code} onChange={selectAcc} className='accCheck-input' />
+            <img src={data.photo} alt={data._id} className={`accCheck-img`}  />
+            <label htmlFor={data._id} className={`accCheck-label il-${check}`}>{data.code}</label>
         </div>
     )
     

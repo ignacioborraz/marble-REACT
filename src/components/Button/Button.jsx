@@ -2,7 +2,7 @@ import { useState,useEffect,useRef } from 'react'
 import { Link as LinkRouter } from 'react-router-dom'
 import './button.css'
 
-const Button = ({ icon,options,extra }) => {
+const Button = ({ icon,options,onClick,extra }) => {
 
     const [open, setOpen] = useState(false)
     const handleMenu = () => setOpen(!open)
@@ -22,7 +22,7 @@ const Button = ({ icon,options,extra }) => {
 
     return (
         <>
-            <img ref={menuIcon} onClick={handleMenu} className='button-icon' src={icon} alt={'icon'} />
+            <img ref={menuIcon} onClick={onClick || handleMenu} className={`button-icon`} src={icon} alt={'icon'} />
             <div className='button-display'>
                 {open && options?.map(option => <LinkRouter key={option.to} to={option.to} onClick={extra} className='button-option'>{option.name}</LinkRouter>)}
             </div>

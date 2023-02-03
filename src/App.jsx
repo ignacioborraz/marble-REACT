@@ -1,16 +1,18 @@
 import { useEffect } from 'react'
 
-import { router } from './router'
-import { RouterProvider } from "react-router-dom"
+import { router } from './router/index'
+import { out } from './router/out'
+import { RouterProvider} from "react-router-dom"
 
 import './app.css'
-import { useDispatch } from 'react-redux'
+import { useDispatch,useSelector } from 'react-redux'
 import authActions from "./store/auth/actions"
 const { iniciar_sesion_con_token } = authActions
 
 export default function App() {
 
     let dispatch = useDispatch()
+    let { is_online } = useSelector(store => store.auth)
   
     useEffect(() => {
         let token = localStorage.getItem('token')
@@ -18,9 +20,12 @@ export default function App() {
         if (token) {
             dispatch(iniciar_sesion_con_token(token))
         }
-    },[])
+    },[is_online])
 
-    return (
+    return is_online ? (
         <RouterProvider router={ router } />
+    ) : (
+        <RouterProvider router={ out } />
     )
+
 }
