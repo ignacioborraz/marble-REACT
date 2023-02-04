@@ -2,10 +2,8 @@ import { createBrowserRouter } from "react-router-dom"
 import Layout from '../components/Layout/Layout'
 import Index from './Index/Index'
 import Johnson from './Jhonson/Johnson'
-//import Johnson from './Jhonson/Johnson-1-type'
-import Model from './Jhonson/Johnson-2-model'
-import Accesory from './Jhonson/Johnson-3-accesory'
-import Sink from './Jhonson/Johnson-4-sink'
+import JohnsonAdd from './JhonsonAdd/JhonsonAdd'
+import JohnsonAdds from './JhonsonAdd/JhonsonAdds'
 
 export const router = createBrowserRouter([{
     path: "/",
@@ -17,14 +15,11 @@ export const router = createBrowserRouter([{
         path: "/johnson",
         element: <Johnson />
       },{
-        path: "/johnson/type/:type",
-        element: <Model />
+        path: "/add-jhonson/:id_code",
+        element: <JohnsonAdd />
       },{
-        path: "/johnson/acce/:code",
-        element: <Accesory />
-      },{
-        path: "/jhonson-form",
-        element: <Sink />
+        path: "/add-jhonsons/:id_code",
+        element: <JohnsonAdds />
       },{
         path: "/",
         element: <Index />

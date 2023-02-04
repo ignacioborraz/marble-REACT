@@ -1,35 +1,34 @@
 import { useEffect,useState,useRef } from 'react'
+import { useParams } from 'react-router-dom'
 import { useDispatch,useSelector } from 'react-redux'
 import axios from 'axios'
 import apiUrl from '../../url'
 
 import logo_j from '../../media/logo_j.png'
 
-import './johnson.css'
+import './jhonsonAdd.css'
 
 import AccesoryCheck from '../../components/AccesoryCheck/AccesoryCheck'
 import InputCheck from '../../components/InputCheck/InputCheck'
 import j_accesoryActions from '../../store/jhonson-2-acc/actions'
 import j_typeActions from '../../store/jhonson-1-type/actions'
-import alertActions from './../../store/alert/actions'
+import alertActions from '../../store/alert/actions'
 const { read_accesories } = j_accesoryActions
 const { read_types,read_one_type } = j_typeActions
 const { open } = alertActions
 
-export default function Jhonson() {
+export default function JhonsonAdd() {
 
+    const { id_code } = useParams()
     const { A304,A430,jhonsons } = useSelector(store => store.jhonsons)
     const { accesories } = useSelector(store => store.accesories)
     const { token } = useSelector(store => store.auth)
     const dispatch = useDispatch()
     const [reload, setReload] = useState(false)
-    const [data_note,setData_note] = useState(1)
-    const [data_internal,setData_internal] = useState(1)
     const [viewAccs,setViewAccs] = useState(true)
     const [quantity,setQuantity] = useState(0)
     const [openModal,setOpenModal] = useState(false)
     const [close_modal,setClose_modal] = useState(true)
-    const [note_ja,setNote_ja] = useState(null)
     const [type, setType] = useState("")
     const [id_j, setId_j] = useState("")
     const [photo_j, setPhoto_j] = useState(logo_j)
@@ -49,11 +48,6 @@ export default function Jhonson() {
         if (type) {
             dispatch(read_one_type({ type }))
         }
-        let headers = {headers: {'Authorization': `Bearer ${token}`}}
-        axios.get(`${apiUrl}code/next`,headers).then(res => {
-            setData_internal(res.data.response.codes.internal)
-            setData_note(res.data.response.codes.note)
-        })
         // eslint-disable-next-line
     }, [type,reload])
 
@@ -87,17 +81,16 @@ export default function Jhonson() {
                 accesories: selected_accesories,
                 instalation: selected_instalation
             }
-            if (id_j && selected_instalation.length > 0 && stock) {
+            if (id_j && selected_instalation.length > 0 && stock && id_code) {
                 let response_sink = await axios.post(`${apiUrl}sink`,sink,headers)
                 let id_sink = response_sink.data.response
                 let response_stock = await axios.post(`${apiUrl}stock`,{ stock, sink: id_sink },headers)
                 let id_stock = response_stock.data.response
-                let response_code = await axios.post(`${apiUrl}code`,{ stock: [id_stock], [note_ja]: data_internal || data_note },headers)
-                let id_code = response_code.data.response
+                await axios.put(`${apiUrl}code/${id_code}`,{ stock: id_stock },headers)
                 let data = 'solicitud creada'
                 let navigation = {
-                    isConfirmed: `/add-plate/${id_code}`,
-                    isDenied: `/add-jhonson/${id_code}`,
+                    isConfirmed: `/add-plates/${id_code}`,
+                    isDenied: `/add-jhonsons/${id_code}`,
                     else: "/index"
                 }
                 dispatch(open({ data,success:true,options:'redirect',navigation,id_code }))
@@ -108,46 +101,34 @@ export default function Jhonson() {
             }
         } catch(error) {
             console.log(error)
-            let data = 'error'
-            dispatch(open({ data,success:false }))
         }
     }    
 
     return (
-        <div className='jhonson-container'>
-            <div className='jhonson-container-button'>
-                <form className='jhonson-jhonson'>
-                    <div className='jhonson-size'>
-                        <span className="jhonson-span jhonson-size-1">{note_ja === "internal" ? data_internal : (note_ja === "note" ? data_note : 'seleccionar')}</span>
-                        <select defaultValue="" name="note" onChange={event=> setNote_ja(event.target.value)} className="jhonson-size-2" >
-                            <option disabled value="">tipo de nota</option>
-                            <option value="internal">interna</option>
-                            <option value="note">pedido</option>
-                        </select>
-                    </div>
-                    <select className="jhonson-size" defaultValue="" name="type" onChange={event=> setType(event.target.value)}>
-                        <option disabled value="">seleccionar acero</option>
+        <div className='add-container'>
+            <div>
+                <form className='add-form'>
+                    <select defaultValue="" name="type" onChange={event=> setType(event.target.value)} className="add-select" >
+                        <option disabled value="">seleccione acero</option>
                         <option value="A304">A304</option>
                         <option value="A430">A430</option>
                     </select>
-                    <div className='jhonson-size'>
-                        <input className="jhonson-span jhonson-size-1" type="number" ref={stock_ja} name="stock" id="stock" min="1" defaultValue="1" />
-                        <select className="jhonson-size-2" defaultValue="" name="code" onChange={selectJhonson}>
-                            <option disabled value="">seleccionar pileta</option>
-                            {jhonsons?.map((each,index) => <option key={index} value={each._id}>{each.code} - {each.x}×{each.y}×{each.z}</option>)}
-                        </select>
-                    </div>
+                    <input type="number" ref={stock_ja} name="stock" id="stock" min="1" defaultValue="1" className="add-select add-s-1" />
+                    <select defaultValue="" name="code" onChange={selectJhonson} className="add-select add-s-2" >
+                        <option disabled value="">seleccionar pileta</option>
+                        {jhonsons?.map((each,index) => <option key={index} value={each._id}>{each.code} - {each.x}×{each.y}×{each.z}</option>)}
+                    </select>
                 </form>
                 {(inst_j.length > 0) ? (
-                    <form ref={checks_j} className='jhonson-size jhonson-checks'>
+                    <form ref={checks_j} className='add-checks'>
                         {inst_j?.map(each => <InputCheck key={each} each={each} />)}
                     </form>
                 ) : (
-                    <p className='jhonson-size jhonson-checks'>
+                    <p className='add-checks'>
                         seleccionar instalacion
                     </p>
                 )}
-                {viewAccs && <div onClick={modal} className='jhonson-size jhonson-checks j-accs'>accesorios</div>}
+                {viewAccs && <div onClick={modal} className='add-checks j-accs'>accesorios</div>}
                 {openModal && (
                     <>
                         <div className={`accesory-form modal-${close_modal}`}>
@@ -160,12 +141,13 @@ export default function Jhonson() {
                                 {accesories?.map(accesory => <AccesoryCheck key={accesory._id} data={accesory} modal={close_modal} inputText={ref_code_acc.current?.value || ""} />)}
                             </form>
                         </div>
-                        {!close_modal && <p className='jhonson-size jhonson-checks j-accs' onClick={(()=>setClose_modal(!close_modal))}>{quantity} accesorios</p>}
+                        {!close_modal && <p className='add-checks j-accs' onClick={(()=>setClose_modal(!close_modal))}>{quantity} accesorios</p>}
                     </>
-                )}                
-                <button onClick={create} className='jhonson-size jhonson-button'>agregar!</button>
+                )}
+                
+                <button onClick={create} className='add-select jhonson-button'>agregar!</button>
             </div>
-            <img className='jhonson-img' src={photo_j} alt="photo_j" />
+            <img className='add-img' src={photo_j} alt="photo_j" />
         </div>
     )
 

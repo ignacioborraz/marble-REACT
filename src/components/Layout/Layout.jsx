@@ -12,8 +12,8 @@ export default function Layout() {
 
     return (
         <>
+            <NavBar />
             <div className='layout-container'>
-                <NavBar />
                 <Outlet />
                 <Alert />
                 <ScrollToTop />

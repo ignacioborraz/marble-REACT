@@ -11,7 +11,7 @@ export default function Alerts() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    let { visible,messages,success,options,id_code } = useSelector(store => store.alert)
+    let { visible,messages,success,options,id_code,navigation } = useSelector(store => store.alert)
     //let messages = useSelector(store => store.alert.messages)
     //let success = useSelector(store => store.alert.success)
 
@@ -27,11 +27,11 @@ export default function Alerts() {
             }).then((result) => {
                 /* Read more about isConfirmed, isDenied below */
                 if (result.isConfirmed) {
-                    navigate(`/add-plate/${id_code}`,{ replace:true })
+                    navigate(navigation.isConfirmed,{ replace:true })
                 } else if (result.isDenied) {
-                    navigate(`/add-jhonson/${id_code}`,{ replace:true })
+                    navigate(navigation.isDenied,{ replace:true })
                 } else {
-                    navigate("/index",{ replace:true })
+                    navigate(navigation.else,{ replace:true })
                 }
                 dispatch(close())
             })
