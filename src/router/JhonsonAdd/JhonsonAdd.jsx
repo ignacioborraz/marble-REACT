@@ -1,5 +1,5 @@
 import { useEffect,useState,useRef } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams,useNavigate,Link as Anchor } from 'react-router-dom'
 import { useDispatch,useSelector } from 'react-redux'
 import axios from 'axios'
 import apiUrl from '../../url'
@@ -24,6 +24,7 @@ export default function JhonsonAdd() {
     const { accesories } = useSelector(store => store.accesories)
     const { token } = useSelector(store => store.auth)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const [reload, setReload] = useState(false)
     const [viewAccs,setViewAccs] = useState(true)
     const [quantity,setQuantity] = useState(0)
@@ -106,29 +107,31 @@ export default function JhonsonAdd() {
 
     return (
         <div className='add-container'>
-            <div>
-                <form className='add-form'>
-                    <select defaultValue="" name="type" onChange={event=> setType(event.target.value)} className="add-select" >
+            <div className='add-container-button'>
+                <form className='add-jhonson'>
+                    <select className="add-size" defaultValue="" name="type" onChange={event=> setType(event.target.value)}>
                         <option disabled value="">seleccione acero</option>
                         <option value="A304">A304</option>
                         <option value="A430">A430</option>
                     </select>
-                    <input type="number" ref={stock_ja} name="stock" id="stock" min="1" defaultValue="1" className="add-select add-s-1" />
-                    <select defaultValue="" name="code" onChange={selectJhonson} className="add-select add-s-2" >
-                        <option disabled value="">seleccionar pileta</option>
-                        {jhonsons?.map((each,index) => <option key={index} value={each._id}>{each.code} - {each.x}×{each.y}×{each.z}</option>)}
-                    </select>
+                    <div className='add-size'>
+                        <input className="add-span add-size-1" type="number" ref={stock_ja} name="stock" id="stock" min="1" defaultValue="1" />
+                        <select className="add-size-2" defaultValue="" name="code" onChange={selectJhonson}>
+                            <option disabled value="">seleccionar pileta</option>
+                            {jhonsons?.map((each,index) => <option key={index} value={each._id}>{each.code} - {each.x}×{each.y}×{each.z}</option>)}
+                        </select>
+                    </div>
                 </form>
                 {(inst_j.length > 0) ? (
-                    <form ref={checks_j} className='add-checks'>
+                    <form ref={checks_j} className='add-size add-checks'>
                         {inst_j?.map(each => <InputCheck key={each} each={each} />)}
                     </form>
                 ) : (
-                    <p className='add-checks'>
+                    <p className='add-size add-checks'>
                         seleccionar instalacion
                     </p>
                 )}
-                {viewAccs && <div onClick={modal} className='add-checks j-accs'>accesorios</div>}
+                {viewAccs && <div onClick={modal} className='add-size add-checks j-accs'>accesorios</div>}
                 {openModal && (
                     <>
                         <div className={`accesory-form modal-${close_modal}`}>
@@ -141,11 +144,14 @@ export default function JhonsonAdd() {
                                 {accesories?.map(accesory => <AccesoryCheck key={accesory._id} data={accesory} modal={close_modal} inputText={ref_code_acc.current?.value || ""} />)}
                             </form>
                         </div>
-                        {!close_modal && <p className='add-checks j-accs' onClick={(()=>setClose_modal(!close_modal))}>{quantity} accesorios</p>}
+                        {!close_modal && <p className='add-size add-checks j-accs' onClick={(()=>setClose_modal(!close_modal))}>{quantity} accesorios</p>}
                     </>
                 )}
-                
-                <button onClick={create} className='add-select jhonson-button'>agregar!</button>
+                <div className='add-buttons'>
+                    <Anchor to={`/request/${id_code}`} className='add-button-1'>ver solicitud</Anchor>
+                    <button onClick={create} className='add-button-2'>agregar!</button>                    
+                    <button onClick={()=>navigate(-1)} className='add-button-3'>cancelar</button>
+                </div>
             </div>
             <img className='add-img' src={photo_j} alt="photo_j" />
         </div>

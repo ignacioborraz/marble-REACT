@@ -1,26 +1,26 @@
 import { createReducer } from '@reduxjs/toolkit'
-import j_accesoryActions from './actions'
+import j_codeActions from './actions'
 
-const { read_accesories,capture_accesories } = j_accesoryActions
+const { get_sinks,delete_sink } = j_codeActions
 
 const initialState = {
-    accesories: [],
-    data: {},
-    codes: [],
+    sinks: [],
+    plates: [],
     messages: ""
 }
 
-const accReducer = createReducer(initialState,
+const codeReducer = createReducer(initialState,
     (builder) => {
         builder
-        .addCase(read_accesories.fulfilled, (state, action) => {
+        .addCase(get_sinks.fulfilled, (state, action) => {
             const { success,response } = action.payload
             //console.log(action.payload)
             let newState = {}
             if (success) {
                 newState = {
                     ...state,
-                    accesories: response
+                    sinks: response.sinks,
+                    plates: response.plates
                 }
             } else {
                 if (typeof response.response === "string") {
@@ -38,72 +38,33 @@ const accReducer = createReducer(initialState,
             //console.log(newState)
             return newState
         })
-        .addCase(capture_accesories, (state, action) => {
+        .addCase(delete_sink.fulfilled, (state, action) => {
             const { success,response } = action.payload
             //console.log(action.payload)
             let newState = {}
             if (success) {
                 newState = {
                     ...state,
-                    data: {
-                        ...state.data,
-                        [response.code]: response.status
-                    }
+                    sinks: state.sinks.filter(each => each._id !== response.stock),
+                    plates: state.plates.filter(each => each._id !== response.stock)
                 }
-                newState.codes =Object.entries(newState.data).filter(e => e[1] === true).map(e => e[0])
             } else {
-                if (typeof response === "string") {
+                if (typeof response.response === "string") {
                     newState = {
                         ...state,
-                        messages: [response]
+                        messages: [response.response]
                     }
                 } else {
                     newState = {
                         ...state,
-                        messages: response.map(mes => mes.message)
+                        messages: response.response.map(mes => mes.message)
                     }
                 }
             }
             //console.log(newState)
             return newState
-        })/* 
-        .addCase(iniciar_sesion_con_token.fulfilled, (state, action) => {
-            const { success,response } = action.payload
-            //console.log(action.payload)
-            let newState = {}
-            if (success) {
-                const { user,token } = response
-                newState = {
-                    ...state,
-                    mail: user.mail,
-                    photo: user.photo,
-                    is_admin: user.is_admin,
-                    is_author: user.is_admin,
-                    is_company: user.is_company,
-                    is_online: true,
-                    messages: ['welcome back!'],
-                    token
-                }
-            } else {
-                newState = {
-                    ...state,
-                    messages: [response]
-                }
-            }
-            //console.log(newState)
-            return newState
         })
-        .addCase(cerrar_sesion.fulfilled, (state, action) => {
-            //console.log(action.payload)
-            localStorage.removeItem('token')
-            let newState = {
-                ...initialState,
-                messages: ['see you soon!']
-            }
-            return newState
-        })
- */
     }
 )
 
-export default accReducer
+export default codeReducer

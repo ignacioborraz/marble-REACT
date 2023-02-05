@@ -1,0 +1,44 @@
+* {
+    font-size: 13px;
+}
+
+.req-container {
+    width: 720px;
+    height: calc(100% - 90px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 90px;
+}
+
+.req-headers {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 1px rgb(118, 118, 118) solid;
+    background-color: white;
+}
+
+.req-head {
+    display: flex;
+    height: 30px;
+    margin-top: 20px;
+}
+
+.req-q, .req-p {
+    width: 60px;
+}
+
+.req-c {
+    width: 180px;
+}
+
+.req-i {
+    width: 120px;
+}
+
+.req-a {
+    width: 240px;
+}

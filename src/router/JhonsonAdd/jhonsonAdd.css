@@ -2,46 +2,64 @@
     width: 720px;
     height: calc(100% - 90px);
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     margin-top: 90px;
 }
 
-.add-form, .add-box {
-    width: 360px;
+.add-container-button, .add-img {
+    width: 340px;
+    height: 340px;
 }
 
-.add-select {
+.add-container-button {
+    margin-right: 20px;
+}
+
+.add-img {
+    object-fit: cover;
+}
+
+.add-jhonson {
+    width: 340px;
+}
+
+.add-size {
     height: 30px;
-    width: 350px;
-    margin: 0 10px 10px 0;
-    padding: 3px;
+    width: 340px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
     text-align: center;
 }
 
-.s-1 {
+.add-size-1 {
     width: 100px;
-    margin: 0 0 10px 0;
+    height: 100%;
+    padding: 3px;
     text-align: end;
 }
 
-.s-2 {
-    width: 250px;
+.add-size-2 {
+    width: 240px;
+    height: 100%;
+    padding: 3px;
     text-align: start;
 }
 
-.add-checks {
-    height: 30px;
-    cursor: default;
-    margin: 0 10px 10px 0;
+.add-span {
     border: 1px rgb(118, 118, 118) solid;
     border-radius: 0px;
     background-color: white;
-    font-size: 14px;
     display: flex;
-    justify-content: space-evenly;
     align-items: center;
+    justify-content: flex-end;
+}
+
+.add-checks {
+    border: 1px rgb(118, 118, 118) solid;
+    background-color: white;    
 }
 
 .j-accs:hover {
@@ -84,7 +102,6 @@
     border: 1px rgb(118, 118, 118) solid;
     border-radius: 0px;
     background-color: white;
-    font-size: 12px;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -95,13 +112,6 @@
 
 .a-opt:hover {
     background-color: rgb(220, 150, 150);
-}
-
-
-.add-img {
-    width: 360px;
-    height: 360px;
-    object-fit: cover;
 }
 
 .acc-box {
@@ -130,26 +140,72 @@
     justify-content: center;
     align-items: center;
     height: 30px;
-    font-size: 20px;
     font-weight: 600;
     letter-spacing: 1px;
     color: #313131;
 }
 
-.add-button {
+.add-buttons {
+    height: 30px;
+    width: 340px;
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.add-button-1 {
+    color: rgb(255, 255, 255);
+    background-color: rgba(112, 102, 224, 0.7);
+    border: 0 rgb(118, 118, 118) solid;
+    border-radius: 5px;
+    height: 30px;
+    width: 100px;
+    display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
+    text-decoration: none;
+}
+
+.add-button-1:hover {
+    background-color: rgba(112, 102, 224, 0.8);
+    transform: scale(1.01);
+}
+
+.add-button-2 {
     color: rgb(255, 255, 255);
     background-color: rgba(200, 40, 50, 0.7);
     border: 0 rgb(118, 118, 118) solid;
-    border-radius: 0px;
+    border-radius: 5px;
+    height: 30px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
-.add-button:hover {
-    font-weight: 600;
+.add-button-2:hover {
     background-color: rgba(200, 40, 50, 0.8);
+    transform: scale(1.01);
+}
+
+.add-button-3 {
+    color: rgb(255, 255, 255);
+    background-color: rgba(110, 120, 129, 0.7);
+    border: 0 rgb(118, 118, 118) solid;
+    border-radius: 5px;
+    height: 30px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.add-button-3:hover {
+    background-color: rgba(110, 120, 129, 0.9);
     transform: scale(1.01);
 }
 
@@ -169,7 +225,7 @@
     opacity: 0;
 }
 
-@media (width < 720px) {
+@media (width < 360px) {
     .add-container {
         width: 360px;
         min-height: calc(100vh - 90px);
@@ -177,7 +233,27 @@
         flex-wrap: wrap;
         margin-top: 90px;
     }
+    .add-form-box {
+        width: 360px;
+    }
     .add-form {
         height: auto;
+    }
+}
+
+
+@media (width < 720px) {
+    .add-container {
+        width: 340px;
+        flex-direction: column;
+    }
+    .add-container-button {
+        height: auto;
+        margin-right: 0;
+    }
+    .add-img {
+        /* align-self: stretch; */
+        height: 180px;
+        width: 340px;
     }
 }

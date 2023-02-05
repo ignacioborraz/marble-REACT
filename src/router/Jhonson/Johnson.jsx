@@ -1,5 +1,6 @@
 import { useEffect,useState,useRef } from 'react'
 import { useDispatch,useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import apiUrl from '../../url'
 
@@ -22,6 +23,7 @@ export default function Jhonson() {
     const { accesories } = useSelector(store => store.accesories)
     const { token } = useSelector(store => store.auth)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const [reload, setReload] = useState(false)
     const [data_note,setData_note] = useState(1)
     const [data_internal,setData_internal] = useState(1)
@@ -162,8 +164,11 @@ export default function Jhonson() {
                         </div>
                         {!close_modal && <p className='jhonson-size jhonson-checks j-accs' onClick={(()=>setClose_modal(!close_modal))}>{quantity} accesorios</p>}
                     </>
-                )}                
-                <button onClick={create} className='jhonson-size jhonson-button'>agregar!</button>
+                )}
+                <div className='jhonson-buttons'>
+                    <button onClick={create} className='jhonson-button-1'>agregar!</button>
+                    <button onClick={()=>navigate(-1)} className='jhonson-button-2'>cancelar</button>
+                </div>
             </div>
             <img className='jhonson-img' src={photo_j} alt="photo_j" />
         </div>

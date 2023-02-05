@@ -1,3 +1,7 @@
+* {
+    font-size: 13px;
+}
+
 .layout-container {
     width: 100%;
     height: calc(100vh - 40px);

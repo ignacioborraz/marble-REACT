@@ -9,7 +9,8 @@ const initialState = {
   success: false,
   options: '',
   id_code: '',
-  navigation: ''
+  navigation: '',
+  ids: {}
 }
 
 const alertReducer = createReducer(
@@ -23,7 +24,8 @@ const alertReducer = createReducer(
           success: action.payload.success,
           options: action.payload.options,
           id_code: action.payload.id_code,
-          navigation: action.payload.navigation
+          navigation: action.payload.navigation,
+          ids: action.payload.ids
         }
         return newState
       })
@@ -34,7 +36,8 @@ const alertReducer = createReducer(
           success: action.payload.success,
           options: action.payload.options,
           id_code: action.payload.id_code,
-          navigation: action.payload.navigation
+          navigation: action.payload.navigation,
+          ids: action.payload.ids
         }
         return newState
       })

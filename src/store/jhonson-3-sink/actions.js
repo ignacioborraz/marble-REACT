@@ -1,54 +1,16 @@
-import { createAction, createAsyncThunk } from '@reduxjs/toolkit'
+import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 import apiUrl from '../../url'
 
-const new_sink = createAsyncThunk('new_sink', async ({ data }) => {
-    let data_storage = []
-    if (localStorage.getItem('data')) {
-        data_storage = localStorage.getItem('data')
+const get_sinks = createAsyncThunk('get_sinks', async ({ token,id_code }) => {
+    let url = `${apiUrl}code/${id_code}`
+    if (!token) {
+        token = localStorage.getItem('token')
     }
-    data_storage.push(data)
-    localStorage.setItem('data',JSON.stringify([data]))
     let headers = {headers: {'Authorization': `Bearer ${token}`}}
     try {
         let res = await axios.get(url,headers)
         //console.log(res.data.response)
-        return { 
-            success: true,
-            response: res.data.response.accesories
-        }
-    } catch (error) {
-        //console.log(error)
-        return {
-            success: false,
-            response: error.response.data
-        }
-    }
-})
-
-const capture_accesories = createAction('capture_accesories', ({ code,status }) => {
-    try {
-        return {
-            payload: { 
-                success: true,
-                response: { code,status }
-            }
-        }
-    } catch (error) {
-        //console.log(error)
-        return {
-            payload: { 
-                success: false,
-                response: 'error'
-            }
-        }
-    }
-})
-
-/* const iniciar_sesion = createAsyncThunk('iniciar_sesion', async (data) => {
-    let url = `${apiUrl}auth/signin`
-    try {
-        let res = await axios.post(url,data)
         return { 
             success: true,
             response: res.data.response
@@ -57,41 +19,27 @@ const capture_accesories = createAction('capture_accesories', ({ code,status }) 
         //console.log(error)
         return {
             success: false,
-            response: error.response.data.response
-        }
-    }
-})
-
-const iniciar_sesion_con_token = createAsyncThunk('iniciar_sesion_con_token', async (token) => {
-    let url = `${apiUrl}auth/token`
-    let headers = {headers: {'Authorization': `Bearer ${token}`}}
-    try {
-        let res = await axios.post(url,null,headers)
-        console.log(res)
-        return { 
-            success: true,
-            response: {
-                ...res.data.response,
-                token
-            }
-        }
-    } catch (error) {
-        console.log(error)
-        return {
-            success: false,
             response: error.response.data
         }
     }
 })
 
-const cerrar_sesion = createAsyncThunk('cerrar_sesion', async (token) => {
-    let url = `${apiUrl}auth/signout`
+const delete_sink = createAsyncThunk('delete_sink', async ({ token,id_code,stock,sink }) => {
+    let url = `${apiUrl}code/pull/${id_code}`
+    let delete_stock_url = `${apiUrl}stock/${stock}`
+    let delete_sink_url = `${apiUrl}sink/${sink}`
+    if (!token) {
+        token = localStorage.getItem('token')
+    }
     let headers = {headers: {'Authorization': `Bearer ${token}`}}
     try {
-        await axios.post(url,null,headers)
+        let res = await axios.patch(url,{stock},headers)
+        await axios.delete(delete_stock_url,headers)
+        await axios.delete(delete_sink_url,headers)
+        //console.log(res.data.response)
         return { 
             success: true,
-            response: null
+            response: res.data.response
         }
     } catch (error) {
         //console.log(error)
@@ -100,8 +48,8 @@ const cerrar_sesion = createAsyncThunk('cerrar_sesion', async (token) => {
             response: error.response.data
         }
     }
-}) */
+})
 
-const j_accesoryActions= { read_accesories,capture_accesories }
+const j_codeActions= { get_sinks,delete_sink }
 
-export default j_accesoryActions
+export default j_codeActions
