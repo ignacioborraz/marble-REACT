@@ -2,8 +2,6 @@ import React from 'react'
 import { useDispatch,useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
-import axios from 'axios'
-import apiUrl from '../../url'
 
 import alertActions from './../../store/alert/actions'
 import j_codeActions from './../../store/jhonson-3-sink/actions'

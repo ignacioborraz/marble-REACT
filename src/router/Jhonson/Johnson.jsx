@@ -80,7 +80,12 @@ export default function Jhonson() {
         let selected_instalation = []
         let selected_accesories = []
         if (stock_ja.current) { stock = Number(stock_ja.current.value) }
-        if (checks_j.current) { selected_instalation = Object.values(checks_j.current).filter(each=> each.checked).map(each => each.value) }
+        if (checks_j.current) {
+            selected_instalation = Object.values(checks_j.current).filter(each=> each.checked).map(each => each.value)
+            if (selected_instalation.length===0) {
+                selected_instalation = Object.values(checks_j.current)[0].value
+            }
+        }
         if (checks_a.current) { selected_accesories = Object.values(checks_a?.current).filter(each=> each.checked).map(each => each.id) }
         try {
             let headers = {headers: {'Authorization': `Bearer ${token}`}}

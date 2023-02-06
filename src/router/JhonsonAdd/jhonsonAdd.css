@@ -209,6 +209,25 @@
     transform: scale(1.01);
 }
 
+.add-button-4 {
+    color: rgb(255, 255, 255);
+    background-color: rgba(200, 40, 50, 0.9);
+    border: 0 rgb(118, 118, 118) solid;
+    border-radius: 5px;
+    height: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    text-decoration: none;
+}
+
+.add-button-4:hover {
+    background-color: rgb(200, 40, 50);
+    transform: scale(1.01);
+}
+
 .acc-img {
     width: 100%;
     height: 100%;

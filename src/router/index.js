@@ -5,6 +5,7 @@ import Johnson from './Jhonson/Johnson'
 import JohnsonAdd from './JhonsonAdd/JhonsonAdd'
 import JohnsonAdds from './JhonsonAdd/JhonsonAdds'
 import Request from './Request/Request'
+import Stocks from './Stocks/Stocks'
 
 export const router = createBrowserRouter([{
     path: "/",
@@ -24,6 +25,9 @@ export const router = createBrowserRouter([{
       },{
         path: "/request/:id_code",
         element: <Request />
+      },{
+        path: "/stocks",
+        element: <Stocks />
       },{
         path: "/",
         element: <Index />

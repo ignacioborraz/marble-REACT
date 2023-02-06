@@ -73,7 +73,12 @@ export default function JhonsonAdd() {
         let selected_instalation = []
         let selected_accesories = []
         if (stock_ja.current) { stock = Number(stock_ja.current.value) }
-        if (checks_j.current) { selected_instalation = Object.values(checks_j.current).filter(each=> each.checked).map(each => each.value) }
+        if (checks_j.current) {
+            selected_instalation = Object.values(checks_j.current).filter(each=> each.checked).map(each => each.value)
+            if (selected_instalation.length===0) {
+                selected_instalation = Object.values(checks_j.current)[0].value
+            }
+        }
         if (checks_a.current) { selected_accesories = Object.values(checks_a?.current).filter(each=> each.checked).map(each => each.id) }
         try {
             let headers = {headers: {'Authorization': `Bearer ${token}`}}
@@ -103,7 +108,7 @@ export default function JhonsonAdd() {
         } catch(error) {
             console.log(error)
         }
-    }    
+    }
 
     return (
         <div className='add-container'>
@@ -148,9 +153,12 @@ export default function JhonsonAdd() {
                     </>
                 )}
                 <div className='add-buttons'>
-                    <Anchor to={`/request/${id_code}`} className='add-button-1'>ver solicitud</Anchor>
-                    <button onClick={create} className='add-button-2'>agregar!</button>                    
+                    <Anchor to={`/add-plates/${id_code}`} className='add-button-1'>+placa</Anchor>
+                    <button onClick={create} className='add-button-2'>agregar!</button>
                     <button onClick={()=>navigate(-1)} className='add-button-3'>cancelar</button>
+                </div>
+                <div className='add-buttons'>
+                    <Anchor to={`/request/${id_code}`} className='add-button-4'>ver solicitud</Anchor>
                 </div>
             </div>
             <img className='add-img' src={photo_j} alt="photo_j" />
