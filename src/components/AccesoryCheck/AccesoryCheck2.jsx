@@ -2,16 +2,12 @@ import { useState,useEffect } from 'react'
 
 import './accesoryCheck.css'
 
-const AccesoryCheck = ({ data,inputText,modal }) => {
+const AccesoryCheck = ({ data,inputText,modal,selected,id_stock }) => {
 
-    const [check, setCheck] = useState(false)
+    const [check, setCheck] = useState(selected.map(each=>each._id).includes(data._id))
     const [hide,setHide] = useState(false)
     const [show,setShow] = useState(true)
-    
-    function selectAcc(event) {
-        //console.log(data.code,check)
-        setCheck(event.target.checked)
-    }
+
     useEffect(
         () => {
             //console.log(inputText)
@@ -28,11 +24,17 @@ const AccesoryCheck = ({ data,inputText,modal }) => {
         },
         [inputText,modal,check]
     )
+
+    function changeCheck() {
+        setCheck(!check)
+
+    }
+
     return (
         <div className={`accCheck-container hide-${hide} modal-${show}`}>
-            <input type="checkbox" name='acc' id={data._id} value={data.code} onChange={selectAcc} className={`accCheck-input`} />
+            <input type="checkbox" name='acc' id={`${id_stock}-${data._id}`} value={data._id} defaultChecked={check} className={`accCheck-input`} />
             <img src={data.photo} alt={data._id} className={`accCheck-img`}  />
-            <label htmlFor={data._id} className={`accCheck-label il-${check}`}>{data.code}</label>
+            <label htmlFor={`${id_stock}-${data._id}`} className={`accCheck-label il-${check}`} onClick={changeCheck}>{data.code}</label>
         </div>
     )
     

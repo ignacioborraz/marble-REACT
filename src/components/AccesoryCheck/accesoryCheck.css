@@ -20,7 +20,7 @@
     border-radius: 5px;
     position: relative;
     bottom: 114px;
-    z-index: 0;
+    z-index: 1;
 }
 
 .accCheck-label:hover {
@@ -28,7 +28,8 @@
 }
 
 .il-true {
-    background-color: rgba(118, 118, 118, 0.2);
+    background-color: rgba(118, 118, 118, 0.3);
+    font-size: 14px;
     font-weight: 600;
 }
 
@@ -40,10 +41,11 @@
 }
 
 .hide-true, .modal-false {
+    width: 0;
+    height: 0;
     position: absolute;
     top: 0;
     left: 0;
-    width: 0;
-    height: 0;
     opacity: 0;
+    visibility: hidden;
 }

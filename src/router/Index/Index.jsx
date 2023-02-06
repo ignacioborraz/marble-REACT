@@ -25,7 +25,7 @@ export default function Index() {
                     <WashIcon className='index-icon' />
                     <h2>JOHNSON</h2>
                 </LinkRouter>
-                <LinkRouter className='index-link' to={'/stock'}>
+                <LinkRouter className='index-link' to={'/stocks'}>
                     <InventoryIcon className='index-icon' />
                     <h2>STOCK</h2>
                 </LinkRouter>

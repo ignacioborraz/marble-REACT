@@ -1,0 +1,56 @@
+.ts-container {
+    display: flex;
+}
+
+td {
+    border: 1px rgb(118, 118, 118) solid;
+    background-color: white;
+}
+
+.ts-data {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 1px rgb(118, 118, 118) solid;
+    background-color: white;
+}
+
+.ts-img, .ts-stock, .ts-buttons {
+    width: 60px;
+}
+
+.ts-img {
+    height: 100%;
+    object-fit: cover;
+}
+
+.ts-code {
+    width: 180px;
+}
+
+.ts-inst {
+    width: 120px;
+    display: flex;
+    flex-direction: column;
+}
+
+.ts-acc {
+    width: 240px;
+    justify-content: flex-start;
+}
+
+.ts-photo {
+    width: 40px;
+    height: 60px;
+    object-fit: cover;
+}
+
+.show-false {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    opacity: 0;
+}

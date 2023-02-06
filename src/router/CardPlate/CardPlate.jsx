@@ -6,19 +6,20 @@ import apiUrl from '../../url'
 
 import logo_j from '../../media/logo_j.png'
 
-import './johnson.css'
+import './cardPlate.css'
 
 import AccesoryCheck from '../../components/AccesoryCheck/AccesoryCheck'
 import InputCheck from '../../components/InputCheck/InputCheck'
 import j_accesoryActions from '../../store/jhonson-2-acc/actions'
 import j_typeActions from '../../store/jhonson-1-type/actions'
-import alertActions from './../../store/alert/actions'
+import alertActions from '../../store/alert/actions'
 const { read_accesories } = j_accesoryActions
 const { read_types,read_one_type } = j_typeActions
 const { open } = alertActions
 
-export default function Jhonson() {
-
+export default function CardSink({ data }) {
+    const { stock,sink } = data
+    //console.log(data)
     const { A304,A430,jhonsons } = useSelector(store => store.jhonsons)
     const { accesories } = useSelector(store => store.accesories)
     const { token } = useSelector(store => store.auth)
@@ -80,12 +81,7 @@ export default function Jhonson() {
         let selected_instalation = []
         let selected_accesories = []
         if (stock_ja.current) { stock = Number(stock_ja.current.value) }
-        if (checks_j.current) {
-            selected_instalation = Object.values(checks_j.current).filter(each=> each.checked).map(each => each.value)
-            if (selected_instalation.length===0) {
-                selected_instalation = Object.values(checks_j.current)[0].value
-            }
-        }
+        if (checks_j.current) { selected_instalation = Object.values(checks_j.current).filter(each=> each.checked).map(each => each.value) }
         if (checks_a.current) { selected_accesories = Object.values(checks_a?.current).filter(each=> each.checked).map(each => each.id) }
         try {
             let headers = {headers: {'Authorization': `Bearer ${token}`}}
@@ -118,65 +114,19 @@ export default function Jhonson() {
             let data = 'error'
             dispatch(open({ data,success:false }))
         }
-    }    
+    }
 
     return (
-        <div className='jhonson-container'>
-            <div className='jhonson-container-button'>
-                <form className='jhonson-jhonson'>
-                    <div className='jhonson-size'>
-                        <span className="jhonson-span jhonson-size-1">{note_ja === "internal" ? data_internal : (note_ja === "note" ? data_note : 'seleccionar')}</span>
-                        <select defaultValue="" name="note" onChange={event=> setNote_ja(event.target.value)} className="jhonson-size-2" >
-                            <option disabled value="">tipo de nota</option>
-                            <option value="internal">interna</option>
-                            <option value="note">pedido</option>
-                        </select>
-                    </div>
-                    <select className="jhonson-size" defaultValue="" name="type" onChange={event=> setType(event.target.value)}>
-                        <option disabled value="">seleccionar acero</option>
-                        <option value="A304">A304</option>
-                        <option value="A430">A430</option>
-                    </select>
-                    <div className='jhonson-size'>
-                        <input className="jhonson-span jhonson-size-1" type="number" ref={stock_ja} name="stock" id="stock" min="1" defaultValue="1" />
-                        <select className="jhonson-size-2" defaultValue="" name="code" onChange={selectJhonson}>
-                            <option disabled value="">seleccionar pileta</option>
-                            {jhonsons?.map((each,index) => <option key={index} value={each._id}>{each.code} - {each.x}×{each.y}×{each.z}</option>)}
-                        </select>
-                    </div>
-                </form>
-                {(inst_j.length > 0) ? (
-                    <form ref={checks_j} className='jhonson-size jhonson-checks'>
-                        {inst_j?.map(each => <InputCheck key={each} each={each} />)}
-                    </form>
-                ) : (
-                    <p className='jhonson-size jhonson-checks'>
-                        seleccionar instalacion
-                    </p>
-                )}
-                {viewAccs && <div onClick={modal} className='jhonson-size jhonson-checks j-accs'>accesorios</div>}
-                {openModal && (
-                    <>
-                        <div className={`accesory-form modal-${close_modal}`}>
-                            <div className='acc-form'>
-                                <p className='acc-options'>{quantity} accesorios</p>
-                                <input ref={ref_code_acc} onChange={()=>setReload(!reload)} className='acc-options' type="text" placeholder='Buscar por codigo' />
-                                <p onClick={(()=>setClose_modal(!close_modal))} className='acc-options a-opt'>finalizar</p>
-                            </div>                            
-                            <form ref={checks_a} onChange={totalAccs} className='accesory-form-box'>
-                                {accesories?.map(accesory => <AccesoryCheck key={accesory._id} data={accesory} modal={close_modal} inputText={ref_code_acc.current?.value || ""} />)}
-                            </form>
-                        </div>
-                        {!close_modal && <p className='jhonson-size jhonson-checks j-accs' onClick={(()=>setClose_modal(!close_modal))}>{quantity} accesorios</p>}
-                    </>
-                )}
-                <div className='jhonson-buttons'>
-                    <button onClick={create} className='jhonson-button-1'>agregar!</button>
-                    <button onClick={()=>navigate(-1)} className='jhonson-button-2'>cancelar</button>
-                </div>
+        <>
+            <div className='ts-container'>
+                <p className='ts-data ts-stock'>{stock}</p>
+                <img className='ts-data ts-img' src={sink?.jhonson.photo} alt="photo" />
+                <p className='ts-data ts-code'>{sink?.jhonson.code}</p>
+                <p className='ts-data ts-inst'></p>
+                {/* <p>{sink.accesories}</p> */}
+                <p className='ts-data ts-acc'>accesorios</p>
             </div>
-            <img className='jhonson-img' src={photo_j} alt="photo_j" />
-        </div>
+        </>
     )
 
 }

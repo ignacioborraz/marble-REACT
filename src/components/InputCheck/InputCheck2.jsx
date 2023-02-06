@@ -13,8 +13,8 @@ export default function InputCheck({ each,selected }) {
 
     return (
         <>
-            <input type="checkbox" name='inst' id={each} defaultChecked={check} value={each} onChange={selectInst} className='inputCheck-input' />
-            <label htmlFor={each} className={`inputCheck-label il-${check}`}>{each}</label>
+            <input type="checkbox" name='inst' id={each} defaultChecked={check} value={each} onChange={selectInst} className='inputCheck-input2' />
+            <label htmlFor={each} className={`inputCheck-label2 il-${check}`}>{each}</label>
         </>
     )
 

@@ -1,4 +1,4 @@
-.jhonson-container {
+.add-container {
     width: 720px;
     height: calc(100% - 90px);
     display: flex;
@@ -7,24 +7,24 @@
     margin-top: 90px;
 }
 
-.jhonson-container-button, .jhonson-img {
+.add-container-button, .add-img {
     width: 340px;
     height: 340px;
 }
 
-.jhonson-container-button {
+.add-container-button {
     margin-right: 20px;
 }
 
-.jhonson-img {
+.add-img {
     object-fit: cover;
 }
 
-.jhonson-jhonson {
+.add-jhonson {
     width: 340px;
 }
 
-.jhonson-size {
+.add-size {
     height: 30px;
     width: 340px;
     display: flex;
@@ -34,21 +34,21 @@
     text-align: center;
 }
 
-.jhonson-size-1 {
+.add-size-1 {
     width: 100px;
     height: 100%;
     padding: 3px;
     text-align: end;
 }
 
-.jhonson-size-2 {
+.add-size-2 {
     width: 240px;
     height: 100%;
     padding: 3px;
     text-align: start;
 }
 
-.jhonson-span {
+.add-span {
     border: 1px rgb(118, 118, 118) solid;
     border-radius: 0px;
     background-color: white;
@@ -57,7 +57,7 @@
     justify-content: flex-end;
 }
 
-.jhonson-checks {
+.add-checks {
     border: 1px rgb(118, 118, 118) solid;
     background-color: white;    
 }
@@ -145,7 +145,7 @@
     color: #313131;
 }
 
-.jhonson-buttons {
+.add-buttons {
     height: 30px;
     width: 340px;
     display: flex;
@@ -154,39 +154,77 @@
     margin-bottom: 20px;
 }
 
-.jhonson-button-1 {
+.add-button-1 {
+    color: rgb(255, 255, 255);
+    background-color: rgba(112, 102, 224, 0.7);
+    border: 0 rgb(118, 118, 118) solid;
+    border-radius: 5px;
+    height: 30px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    text-decoration: none;
+}
+
+.add-button-1:hover {
+    background-color: rgba(112, 102, 224, 0.8);
+    transform: scale(1.01);
+}
+
+.add-button-2 {
     color: rgb(255, 255, 255);
     background-color: rgba(200, 40, 50, 0.7);
     border: 0 rgb(118, 118, 118) solid;
     border-radius: 5px;
     height: 30px;
-    width: 160px;
+    width: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
 }
 
-.jhonson-button-1:hover {
+.add-button-2:hover {
     background-color: rgba(200, 40, 50, 0.8);
     transform: scale(1.01);
 }
 
-.jhonson-button-2 {
+.add-button-3 {
     color: rgb(255, 255, 255);
     background-color: rgba(110, 120, 129, 0.7);
     border: 0 rgb(118, 118, 118) solid;
     border-radius: 5px;
     height: 30px;
-    width: 160px;
+    width: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
 }
 
-.jhonson-button-2:hover {
+.add-button-3:hover {
     background-color: rgba(110, 120, 129, 0.9);
+    transform: scale(1.01);
+}
+
+.add-button-4 {
+    color: rgb(255, 255, 255);
+    background-color: rgba(200, 40, 50, 0.9);
+    border: 0 rgb(118, 118, 118) solid;
+    border-radius: 5px;
+    height: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    text-decoration: none;
+}
+
+.add-button-4:hover {
+    background-color: rgb(200, 40, 50);
     transform: scale(1.01);
 }
 
@@ -207,32 +245,32 @@
 }
 
 @media (width < 360px) {
-    .jhonson-container {
+    .add-container {
         width: 360px;
         min-height: calc(100vh - 90px);
         display: flex;
         flex-wrap: wrap;
         margin-top: 90px;
     }
-    .jhonson-form-box {
+    .add-form-box {
         width: 360px;
     }
-    .jhonson-form {
+    .add-form {
         height: auto;
     }
 }
 
 
 @media (width < 720px) {
-    .jhonson-container {
+    .add-container {
         width: 340px;
         flex-direction: column;
     }
-    .jhonson-container-button {
+    .add-container-button {
         height: auto;
         margin-right: 0;
     }
-    .jhonson-img {
+    .add-img {
         /* align-self: stretch; */
         height: 180px;
         width: 340px;

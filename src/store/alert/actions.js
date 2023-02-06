@@ -2,14 +2,16 @@ import { createAction } from "@reduxjs/toolkit"
 
 const open = createAction(
   'open',
-  ({ data,success,options,id_code }) => {
+  ({ data,success,options,id_code,navigation,ids }) => {
     return {
       payload: {
         messages: data,
         visible: true,
         success,
         options,
-        id_code
+        id_code,
+        navigation,
+        ids
       }
     }
   }
@@ -24,7 +26,9 @@ const close = createAction(
         visible: false,
         success: false,
         options: "",
-        id_code: ""
+        id_code: "",
+        navigation: "",
+        ids: {}
       }
     }
   }

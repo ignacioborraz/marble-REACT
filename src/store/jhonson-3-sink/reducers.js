@@ -1,26 +1,29 @@
 import { createReducer } from '@reduxjs/toolkit'
-import j_accesoryActions from './actions'
+import j_codeActions from './actions'
+import axios from 'axios'
+import apiUrl from '../../url'
 
-const { read_accesories,capture_accesories } = j_accesoryActions
+const { get_sinks,delete_sink,upd_code,get_stocks } = j_codeActions
 
 const initialState = {
-    accesories: [],
-    data: {},
-    codes: [],
-    messages: ""
+    sinks: [],
+    plates: [],
+    messages: "",
+    all: []
 }
 
-const accReducer = createReducer(initialState,
+const codeReducer = createReducer(initialState,
     (builder) => {
         builder
-        .addCase(read_accesories.fulfilled, (state, action) => {
+        .addCase(get_sinks.fulfilled, (state, action) => {
             const { success,response } = action.payload
             //console.log(action.payload)
             let newState = {}
             if (success) {
                 newState = {
                     ...state,
-                    accesories: response
+                    sinks: response.sinks,
+                    plates: response.plates
                 }
             } else {
                 if (typeof response.response === "string") {
@@ -38,72 +41,102 @@ const accReducer = createReducer(initialState,
             //console.log(newState)
             return newState
         })
-        .addCase(capture_accesories, (state, action) => {
-            const { success,response } = action.payload
+        .addCase(delete_sink.fulfilled, (state, action) => {
+            const { id_code,success,response,token } = action.payload
             //console.log(action.payload)
             let newState = {}
             if (success) {
                 newState = {
                     ...state,
-                    data: {
-                        ...state.data,
-                        [response.code]: response.status
-                    }
+                    sinks: state.sinks.filter(each => each._id !== response.stock),
+                    plates: state.plates.filter(each => each._id !== response.stock)
                 }
-                newState.codes =Object.entries(newState.data).filter(e => e[1] === true).map(e => e[0])
+                console.log(newState.plates.length)
+                console.log(newState.sinks.length)
+                if (newState.sinks.length===0 && newState.plates.length===0) {
+                    let url = `${apiUrl}code/${id_code}`
+                    let headers = {headers: {'Authorization': `Bearer ${token}`}}
+                    axios.delete(url,headers)
+                }
             } else {
-                if (typeof response === "string") {
+                if (typeof response.response === "string") {
                     newState = {
                         ...state,
-                        messages: [response]
+                        messages: [response.response]
                     }
                 } else {
                     newState = {
                         ...state,
-                        messages: response.map(mes => mes.message)
+                        messages: response.response.map(mes => mes.message)
                     }
                 }
             }
             //console.log(newState)
             return newState
-        })/* 
-        .addCase(iniciar_sesion_con_token.fulfilled, (state, action) => {
-            const { success,response } = action.payload
-            //console.log(action.payload)
+        })
+        .addCase(upd_code.fulfilled, (state, action) => {
+            const { response,success } = action.payload
+            //console.log(response)
             let newState = {}
             if (success) {
-                const { user,token } = response
                 newState = {
                     ...state,
-                    mail: user.mail,
-                    photo: user.photo,
-                    is_admin: user.is_admin,
-                    is_author: user.is_admin,
-                    is_company: user.is_company,
-                    is_online: true,
-                    messages: ['welcome back!'],
-                    token
+                    sinks: state.sinks.map(each => {
+                        if (each._id === response._id) {
+                            each = response
+                        }
+                        return each
+                    }),
+                    plates: state.plates.map(each => {
+                        if (each._id === response._id) {
+                            each = response
+                        }
+                        return each
+                    })
                 }
+                //console.log(newState.sinks)
             } else {
-                newState = {
-                    ...state,
-                    messages: [response]
+                if (typeof response.response === "string") {
+                    newState = {
+                        ...state,
+                        messages: [response.response]
+                    }
+                } else {
+                    newState = {
+                        ...state,
+                        messages: response.response.map(mes => mes.message)
+                    }
                 }
             }
             //console.log(newState)
             return newState
         })
-        .addCase(cerrar_sesion.fulfilled, (state, action) => {
-            //console.log(action.payload)
-            localStorage.removeItem('token')
-            let newState = {
-                ...initialState,
-                messages: ['see you soon!']
+        .addCase(get_stocks.fulfilled, (state, action) => {
+            const { success,response } = action.payload
+            console.log(response)
+            let newState = {}
+            if (success) {
+                newState = {
+                    ...state,
+                    all: response,
+                }
+            } else {
+                if (typeof response.response === "string") {
+                    newState = {
+                        ...state,
+                        messages: [response.response]
+                    }
+                } else {
+                    newState = {
+                        ...state,
+                        messages: response.response.map(mes => mes.message)
+                    }
+                }
             }
+            //console.log(newState)
             return newState
         })
- */
     }
 )
 
-export default accReducer
+export default codeReducer
