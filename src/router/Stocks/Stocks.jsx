@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useDispatch,useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
 import j_codeActions from '../../store/jhonson-3-sink/actions'
 
 import './stocks.css'
@@ -8,6 +9,7 @@ import CardCodes from './../../components/CardCodes/CardCodes'
 
 export default function Stocks() {
 
+    const { type } = useParams()
     const dispatch = useDispatch()
     const { get_stocks } = j_codeActions
     const { token } = useSelector(store => store.auth)
@@ -16,7 +18,7 @@ export default function Stocks() {
     console.log(all)
 
     useEffect(() => {
-        dispatch(get_stocks({ token }))
+        dispatch(get_stocks({ token,type }))
         // eslint-disable-next-line
     }, [])
 
