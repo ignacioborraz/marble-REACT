@@ -6,10 +6,7 @@ import JohnsonAdd from './JhonsonAdd/JhonsonAdd'
 import JohnsonAdds from './JhonsonAdd/JhonsonAdds'
 import Request from './Request/Request'
 import Stocks from './Stocks/Stocks'
-<<<<<<< HEAD
 import StockTypes from './StockTypes/StockTypes'
-=======
->>>>>>> 1ef42e8037f673d50ebf0c12ac530ec898c28d13
 
 export const router = createBrowserRouter([{
     path: "/",
@@ -31,12 +28,9 @@ export const router = createBrowserRouter([{
         element: <Request />
       },{
         path: "/stocks",
-<<<<<<< HEAD
         element: <StockTypes />
       },{
         path: "/stocks/:type",
-=======
->>>>>>> 1ef42e8037f673d50ebf0c12ac530ec898c28d13
         element: <Stocks />
       },{
         path: "/",
