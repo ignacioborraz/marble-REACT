@@ -1,6 +1,9 @@
 import { useEffect } from 'react'
 import { useDispatch,useSelector } from 'react-redux'
+<<<<<<< HEAD
 import { useParams } from 'react-router-dom'
+=======
+>>>>>>> 1ef42e8037f673d50ebf0c12ac530ec898c28d13
 import j_codeActions from '../../store/jhonson-3-sink/actions'
 
 import './stocks.css'
