@@ -1,17 +1,16 @@
 import { useEffect } from 'react'
-import { useParams,useNavigate,Link as Anchor } from 'react-router-dom'
+import { useParams,Link as Anchor } from 'react-router-dom'
 import { useDispatch,useSelector } from 'react-redux'
 import j_codeActions from '../../store/jhonson-3-sink/actions'
 
 import './request.css'
 
-import CardSink from '../CardSink/CardSink'
-import CardPlate from '../CardPlate/CardPlate'
+import CardSink from '../../components/CardSink/CardSink'
+import CardPlate from '../../components/CardPlate/CardPlate'
 
 export default function Request() {
 
     const { id_code } = useParams()
-    const navigate = useNavigate()
     const dispatch = useDispatch()
     const { get_sinks } = j_codeActions
     const { token } = useSelector(store => store.auth)

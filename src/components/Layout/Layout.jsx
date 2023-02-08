@@ -1,5 +1,6 @@
 import React from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet,useNavigate } from 'react-router-dom'
+import DoubleArrowIcon from '@mui/icons-material/DoubleArrow'
 
 import NavBar from './NavBar'
 import Alert from '../Alert/Alert'
@@ -10,6 +11,8 @@ import logo from '../../media/logo_giacomo.png'
 
 export default function Layout() {
 
+    const navigate = useNavigate()
+
     return (
         <>
             <NavBar />
@@ -19,7 +22,9 @@ export default function Layout() {
                 <ScrollToTop />
             </div>
             <div className='layout-footer'>
-                <img src={logo} alt="logo" className='layout-img' />    
+                <DoubleArrowIcon onClick={()=>navigate(-1)} sx={{transform: 'rotate(180deg)', marginRight: '20px', bgcolor: 'rgb(118, 118, 118)', color: 'white', width: '30px', borderRadius: '5px'}}/>
+                <img src={logo} alt="logo" className='layout-img' />
+                <DoubleArrowIcon onClick={()=>navigate(1)} sx={{marginLeft: '20px', bgcolor: 'rgb(118, 118, 118)', color: 'white', width: '30px', borderRadius: '5px'}}/>
             </div>
         </>
     )

@@ -40,6 +40,7 @@ export default function Jhonson() {
     const checks_j = useRef()
     const checks_a = useRef()
     const ref_code_acc = useRef()
+    const comments = useRef()
 
     useEffect(() => {
         if (A304.length === 0 || A430.length === 0) {
@@ -99,7 +100,7 @@ export default function Jhonson() {
                 let id_sink = response_sink.data.response
                 let response_stock = await axios.post(`${apiUrl}stock`,{ stock, sink: id_sink },headers)
                 let id_stock = response_stock.data.response
-                let response_code = await axios.post(`${apiUrl}code`,{ stock: [id_stock], [note_ja]: data_internal || data_note },headers)
+                let response_code = await axios.post(`${apiUrl}code`,{ stock: [id_stock], [note_ja]: data_internal || data_note, comments: comments?.current.value },headers)
                 let id_code = response_code.data.response
                 let data = 'solicitud creada'
                 let navigation = {
@@ -170,6 +171,7 @@ export default function Jhonson() {
                         {!close_modal && <p className='jhonson-size jhonson-checks j-accs' onClick={(()=>setClose_modal(!close_modal))}>{quantity} accesorios</p>}
                     </>
                 )}
+                <input className="jhonson-span jhonson-size" type="text" ref={comments} name="comment" id="comment" placeholder='comentario' />
                 <div className='jhonson-buttons'>
                     <button onClick={create} className='jhonson-button-1'>agregar!</button>
                     <button onClick={()=>navigate(-1)} className='jhonson-button-2'>cancelar</button>
