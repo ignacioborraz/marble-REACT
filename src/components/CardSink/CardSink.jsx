@@ -1,15 +1,10 @@
 import { useEffect,useState,useRef } from 'react'
 import { useDispatch,useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
-import apiUrl from '../../url'
-
-import logo_j from '../../media/logo_j.png'
 
 import './cardSink.css'
 
-import AccesoryCheck from '../../components/AccesoryCheck/AccesoryCheck2'
-import InputCheck from '../../components/InputCheck/InputCheck2'
+import AccesoryCheck from '../AccesoryCheck/AccesoryCheck2'
+import InputCheck from '../InputCheck/InputCheck2'
 import j_codeActions from '../../store/jhonson-3-sink/actions'
 import j_accesoryActions from '../../store/jhonson-2-acc/actions'
 import j_typeActions from '../../store/jhonson-1-type/actions'
