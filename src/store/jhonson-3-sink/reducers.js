@@ -113,7 +113,7 @@ const codeReducer = createReducer(initialState,
         })
         .addCase(get_stocks.fulfilled, (state, action) => {
             const { success,response } = action.payload
-            console.log(response)
+            //console.log(response)
             let newState = {}
             if (success) {
                 newState = {

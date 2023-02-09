@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useParams,Link as Anchor } from 'react-router-dom'
+import { useParams,useNavigate,Link as Anchor } from 'react-router-dom'
 import { useDispatch,useSelector } from 'react-redux'
 import j_codeActions from '../../store/jhonson-3-sink/actions'
 
@@ -11,6 +11,7 @@ import CardPlate from '../../components/CardPlate/CardPlate'
 export default function Request() {
 
     const { id_code } = useParams()
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const { get_sinks } = j_codeActions
     const { token } = useSelector(store => store.auth)
@@ -37,7 +38,7 @@ export default function Request() {
             ) : (
                 <>
                     <h3>solicitud sin stock o no existente</h3>
-                    <Anchor to={'/index'} className='req-button-back'>inicio</Anchor>
+                    <button onClick={()=> navigate(-1)} className='req-button-back'>volver</button>
                 </>
             )}
             {sinks?.map(each=> <CardSink key={each._id} id_code={id_code} data={each} />)}

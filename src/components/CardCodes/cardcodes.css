@@ -1,18 +1,38 @@
 .card-link {
     width: 160px;
-    height: 90px;
+    height: 160px;
     padding: 10px;
     margin: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     text-align: center;
     background-color: white;
     color: #313131;
     text-decoration: none;
+    border-radius: 5px;
 }
 
 .card-link:hover {
     background-color: rgb(220, 150, 150);
+}
+
+.card-h {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.card-number {
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    border: 2px solid rgb(200, 40, 50);
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 10px;
 }

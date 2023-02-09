@@ -2,8 +2,8 @@
     width: 100%;
     height: calc(100% - 90px);
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: flex-start;
     align-items: center;
     margin-top: 90px;
     margin-bottom: 20px;
@@ -18,4 +18,70 @@
 .stock-container::-webkit-scrollbar-thumb{
     background: rgb(200 40 50)!important;
     border-radius: 0.4rem!important;
+}
+
+
+.stock-inputs {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.stock-size {
+    height: 30px;
+    width: 170px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    text-align: center;
+    border: 1px rgb(118, 118, 118) solid;
+    border-radius: 0px;
+    background-color: white;
+}
+
+.stock-checkbox {
+    height: 30px;
+    width: 170px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.stock-label{
+    flex-grow: 1;
+    text-align: end;
+    padding-right: 20px;
+}
+
+.stock-box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.stock-button-back {
+    color: rgb(255, 255, 255);
+    background-color: rgba(110, 120, 129, 0.7);
+    border: 0 rgb(118, 118, 118) solid;
+    border-radius: 5px;
+    height: 30px;
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    text-decoration: none;
+    margin-top: 20px
+}
+
+.stock-button-back:hover {
+    background-color: rgba(110, 120, 129, 0.9);
+    transform: scale(1.01);
+}
+
+.stock-nobox {
+margin-top: 50px;
 }
