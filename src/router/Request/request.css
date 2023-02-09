@@ -1,0 +1,130 @@
+* {
+    font-size: 13px;
+}
+
+.req-container {
+    width: 720px;
+    height: calc(100% - 90px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 90px;
+}
+
+.req-headers {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 1px rgb(118, 118, 118) solid;
+    background-color: white;
+}
+
+.req-head {
+    display: flex;
+    height: 30px;
+    margin-top: 20px;
+}
+
+.req-q, .req-p {
+    width: 60px;
+}
+
+.req-c {
+    width: 180px;
+}
+
+.req-i {
+    width: 120px;
+}
+
+.req-a {
+    width: 240px;
+}
+
+.req-buttons {
+    height: 30px;
+    width: 340px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.req-button-1 {
+    color: rgb(255, 255, 255);
+    background-color: rgba(112, 102, 224, 0.7);
+    border: 0 rgb(118, 118, 118) solid;
+    border-radius: 5px;
+    height: 30px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    text-decoration: none;
+}
+
+.req-button-1:hover {
+    background-color: rgba(112, 102, 224, 0.8);
+    transform: scale(1.01);
+}
+
+.req-button-2 {
+    color: rgb(255, 255, 255);
+    background-color: rgba(200, 40, 50, 0.7);
+    border: 0 rgb(118, 118, 118) solid;
+    border-radius: 5px;
+    height: 30px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    text-decoration: none;
+}
+
+.req-button-2:hover {
+    background-color: rgba(200, 40, 50, 0.8);
+    transform: scale(1.01);
+}
+
+.req-button-3 {
+    color: rgb(255, 255, 255);
+    background-color: rgba(110, 120, 129, 0.7);
+    border: 0 rgb(118, 118, 118) solid;
+    border-radius: 5px;
+    height: 30px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    text-decoration: none;
+}
+
+.req-button-3:hover {
+    background-color: rgba(110, 120, 129, 0.9);
+    transform: scale(1.01);
+}
+
+.req-button-back {
+    color: rgb(255, 255, 255);
+    background-color: rgba(110, 120, 129, 0.7);
+    border: 0 rgb(118, 118, 118) solid;
+    border-radius: 5px;
+    height: 30px;
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    text-decoration: none;
+    margin-top: 20px
+}
+
+.req-button-back:hover {
+    background-color: rgba(110, 120, 129, 0.9);
+    transform: scale(1.01);
+}

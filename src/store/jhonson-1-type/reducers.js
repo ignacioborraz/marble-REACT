@@ -6,7 +6,8 @@ const { read_types,read_one_type } = j_typeActions
 const initialState = {
     A304: [],
     A430: [],
-    jhonsons: []
+    jhonsons: [],
+    all: []
 }
 
 const typeReducer = createReducer(initialState,
@@ -21,7 +22,8 @@ const typeReducer = createReducer(initialState,
                 newState = {
                     ...state,
                     A304,
-                    A430
+                    A430,
+                    all: [...A304,...A430]
                 }
             } else {
                 if (typeof response.response === "string") {
