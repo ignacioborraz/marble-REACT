@@ -41,7 +41,7 @@ export default function Request() {
                     <button onClick={()=> navigate(-1)} className='req-button-back'>volver</button>
                 </>
             )}
-            {sinks?.map(each=> <CardSink key={each._id} id_code={id_code} data={each} />)}
+            {sinks?.map(each=> <CardSink key={each._id} data={each} />)}
             {(sinks.length>0 || plates.length>0) && (
                 <div className='req-buttons'>
                     <Anchor to={`/add-plates/${id_code}`} className='req-button-1'>+placa</Anchor>

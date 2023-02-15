@@ -13,12 +13,14 @@ import EditIcon from '@mui/icons-material/Edit'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import CheckIcon from '@mui/icons-material/Check'
 import CloseIcon from '@mui/icons-material/Close';
+import ReqInputStock from '../Inputs/ReqInputStock/ReqInputStock'
+import ReqPhotoSink from './../Inputs/ReqPhotoSink/ReqPhotoSink';
 const { upd_code } = j_codeActions
 const { read_accesories } = j_accesoryActions
 const { read_types } = j_typeActions
 const { open } = alertActions
 
-export default function CardSink({ data,id_code }) {
+export default function CardSink({ data }) {
     const { _id,stock,ksink,instalation,accesory } = data
     console.log({ _id,stock,ksink,instalation,accesory } )
     const { all } = useSelector(store => store.jhonsons)
@@ -28,7 +30,7 @@ export default function CardSink({ data,id_code }) {
     const [edit,setEdit] = useState(true)
     const [codeJh,setCodeJh] = useState(ksink?._id)
     const [newPhoto,setNewPhoto] = useState(ksink?.photo)
-    const checks_j = useRef()
+
     const [inst_j,setInst_j] = useState(ksink?.instalation)
     const stock_ja = useRef()
     const [close_modal,setClose_modal] = useState(false)
@@ -36,6 +38,10 @@ export default function CardSink({ data,id_code }) {
     const [reload, setReload] = useState(false)
     const checks_a = useRef()
     const ref_code_acc = useRef()
+
+    const [showEdit,setShowEdit] = useState()
+    const dataForm = useRef()
+    const checks_j = useRef()
 
     useEffect(() => {
         if (all.length === 0) {
@@ -84,29 +90,26 @@ export default function CardSink({ data,id_code }) {
         setEdit(!edit)
     }
 
+    function handleEdit() {
+        setShowEdit(!showEdit)
+        let data = Object.values(dataForm.current).filter(each=> each.checked).map(each => each.value)
+        console.log(data)
+    }
+
     return (
         <>        
-            <div className={`ts-container show-${edit}`}>
-                <p className='ts-data ts-stock'>{stock}</p>
-                <img className='ts-data ts-img' src={ksink?.photo} alt="jphoto" />
-                <p className='ts-data ts-code'>{ksink?.name}</p>
-                <span className='ts-data ts-inst'>{inst}</span>
+            <form ref={dataForm} className={`ts-container show-${edit}`}>
+                <ReqInputStock stock={stock} showEdit={showEdit}/>
+                <ReqPhotoSink photo={ksink?.photo} newPhoto={newPhoto} name={ksink?.name} showEdit={showEdit} onChange={changeCode} sinks={all} instalation={inst} checks_j={checks_j} inst_j={inst_j} ksink_instalation={ksink?.instalation} />
                 <span className='ts-data ts-acc'>{accs}</span>
                 <span className='ts-data ts-buttons'>
-                    <EditIcon sx={{ width:'25px',height:'25px', color: '#313131' }} onClick={()=>setEdit(!edit)} />
+                    <EditIcon sx={{ width:'25px',height:'25px', color: '#313131' }} onClick={handleEdit} />
                     <DeleteForeverIcon sx={{ width:'25px',height:'25px', color: 'rgb(200, 40, 50)' }} onClick={deleteProduct} />
                 </span>
-            </div>
-            <div className={`ts-container show-${!edit}`}>
-                <input className="ts-data ts-stock" type="number" ref={stock_ja} name="stock" id="stock" min="1" defaultValue={stock} />
-                <img className='ts-data ts-img' src={newPhoto} alt="jphoto" />
-                <select className="ts-data ts-code" defaultValue="" name="type" onChange={changeCode}>
-                        <option disabled value="">seleccionar pileta</option>
-                        {all?.map((each,index) => <option key={index} value={each._id}>{each.name} - {each.x}×{each.y}×{each.z}</option>)}
-                </select>
-                <form ref={checks_j} className='ts-data ts-inst'>
-                    {inst_j?.map(each => <InputCheck key={each} each={each} selected={ksink?.instalation} />)}
-                </form>
+            </form>
+            {/* <div className={`ts-container show-${!edit}`}>
+
+                
                 
                 {modal && <span className='ts-data ts-acc' onClick={()=>{setClose_modal(!close_modal);setModal(false)}}>{accs}</span>}
                 <div className={`accesory-form modal-${close_modal}`}>
@@ -127,7 +130,7 @@ export default function CardSink({ data,id_code }) {
                     <CheckIcon sx={{ width:'25px',height:'25px', color: '#313131' }} onClick={updateSink} />
                     <CloseIcon sx={{ width:'25px',height:'25px', color: 'rgb(200, 40, 50)' }} onClick={()=>setEdit(!edit)} />
                 </span>
-            </div>
+            </div> */}
         </>
     )
 

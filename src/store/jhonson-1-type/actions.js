@@ -3,8 +3,8 @@ import axios from 'axios'
 import apiUrl from '../../url'
 
 const read_types = createAsyncThunk('read_types', async ({ token }) => {
-    let url304 = `${apiUrl}jhonson?type=A304`
-    let url430 = `${apiUrl}jhonson?type=A430`
+    let url304 = `${apiUrl}ksink?type=A304`
+    let url430 = `${apiUrl}ksink?type=A430`
     if (!token) {
         token = localStorage.getItem('token')
     }
