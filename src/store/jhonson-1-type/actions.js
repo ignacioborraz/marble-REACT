@@ -20,7 +20,7 @@ const read_types = createAsyncThunk('read_types', async ({ token }) => {
             }
         }        
     } catch (error) {
-        //console.log(error)
+        console.log(error)
         return {
             success: false,
             response: error.response.data

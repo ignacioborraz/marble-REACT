@@ -13,12 +13,12 @@ export default function Request() {
     const { id_code } = useParams()
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const { get_sinks } = j_codeActions
+    const { get_products } = j_codeActions
     const { token } = useSelector(store => store.auth)
     const { sinks,plates } = useSelector(store => store.codes)
 
     useEffect(() => {
-        dispatch(get_sinks({token,id_code}))
+        dispatch(get_products({token,id_code}))
         // eslint-disable-next-line
     }, [])
 
