@@ -16,7 +16,7 @@ const read_accesories = createAsyncThunk('read_accesories', async ({ token }) =>
             response: res.data.response.accesories
         }
     } catch (error) {
-        //console.log(error)
+        console.log(error)
         return {
             success: false,
             response: error.response.data

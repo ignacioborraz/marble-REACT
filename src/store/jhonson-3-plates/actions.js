@@ -2,8 +2,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 import apiUrl from '../../url'
 
-const get_sinks = createAsyncThunk('get_sinks', async ({ token,id_code }) => {
-    let url = `${apiUrl}code/${id_code}`
+const get_products = createAsyncThunk('get_products', async ({ token,id_code }) => {
+    let url = `${apiUrl}note/${id_code}`
     if (!token) {
         token = localStorage.getItem('token')
     }
@@ -24,23 +24,19 @@ const get_sinks = createAsyncThunk('get_sinks', async ({ token,id_code }) => {
     }
 })
 
-const delete_sink = createAsyncThunk('delete_sink', async ({ token,id_code,stock,sink }) => {
-    let url = `${apiUrl}code/pull/${id_code}`
-    let delete_stock_url = `${apiUrl}stock/${stock}`
-    let delete_sink_url = `${apiUrl}sink/${sink}`
+const delete_product = createAsyncThunk('delete_product', async ({ token,id_code }) => {
+    let url = `${apiUrl}note/${id_code}`
     if (!token) {
         token = localStorage.getItem('token')
     }
     let headers = {headers: {'Authorization': `Bearer ${token}`}}
     try {
-        let res = await axios.patch(url,{stock},headers)
-        await axios.delete(delete_stock_url,headers)
-        await axios.delete(delete_sink_url,headers)
+        let res = await axios.delete(url,headers)
         //console.log(res.data.response)
         return {
             id_code,
             success: true,
-            response: res.data.response,
+            response: id_code,
             token
         }
     } catch (error) {
@@ -52,8 +48,8 @@ const delete_sink = createAsyncThunk('delete_sink', async ({ token,id_code,stock
     }
 })
 
-const upd_code = createAsyncThunk('upd_code', async ({ id_stock,token,data }) => {
-    let url = `${apiUrl}stock/${id_stock}`
+const upd_code = createAsyncThunk('upd_code', async ({ id,token,data }) => {
+    let url = `${apiUrl}note/${id}`
     if (!token) {
         token = localStorage.getItem('token')
     }
@@ -73,8 +69,8 @@ const upd_code = createAsyncThunk('upd_code', async ({ id_stock,token,data }) =>
     }
 })
 
-const get_stocks = createAsyncThunk('get_stocks', async ({ token,type,note,comments,done }) => {
-    let url = `${apiUrl}code?type=${type}&done=${done}&note=${note}&comments=${comments}`
+const get_stocks = createAsyncThunk('get_stocks', async ({ token,type,note,comments }) => {
+    let url = `${apiUrl}note?type=${type}&note=${note}&comments=${comments}`
     if (!token) {
         token = localStorage.getItem('token')
     }
@@ -95,6 +91,6 @@ const get_stocks = createAsyncThunk('get_stocks', async ({ token,type,note,comme
     }
 })
 
-const j_codeActions= { get_sinks,delete_sink,upd_code,get_stocks }
+const j_codeActions= { get_products,delete_product,upd_code,get_stocks }
 
 export default j_codeActions

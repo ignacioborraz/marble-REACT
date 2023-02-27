@@ -2,11 +2,10 @@ import { useState,useEffect } from 'react'
 
 import './accesoryCheck.css'
 
-const AccesoryCheck = ({ data,inputText,modal }) => {
+const AccesoryCheck = ({ accesory,inputText,selected,modal }) => {
 
-    const [check, setCheck] = useState(false)
+    const [check, setCheck] = useState(selected.includes(accesory?.name))
     const [hide,setHide] = useState(false)
-    const [show,setShow] = useState(true)
     
     function selectAcc(event) {
         //console.log(data.code,check)
@@ -14,9 +13,8 @@ const AccesoryCheck = ({ data,inputText,modal }) => {
     }
     useEffect(
         () => {
-            //console.log(inputText)
             if (inputText.length !== 0) {
-                if (data?.code?.toLowerCase().includes(inputText?.toLowerCase().trim())) {
+                if (accesory?.name?.toLowerCase().includes(inputText?.toLowerCase().trim())) {
                     setHide(false)
                 } else {
                     setHide(true)
@@ -24,15 +22,21 @@ const AccesoryCheck = ({ data,inputText,modal }) => {
             } else {
                 setHide(false)
             }
-            setShow(modal)
         },
-        [inputText,modal,check]
+        [inputText,check,hide]
     )
     return (
-        <div className={`accCheck-container hide-${hide} modal-${show}`}>
-            <input type="checkbox" name='acc' id={data._id} value={data.code} onChange={selectAcc} className={`accCheck-input`} />
-            <img src={data.photo} alt={data._id} className={`accCheck-img`}  />
-            <label htmlFor={data._id} className={`accCheck-label il-${check}`}>{data.code}</label>
+        <div className={`ac-container hide-${hide} modal-${modal}`}>
+            <input
+                className={`ac-input modal-${modal}`}
+                type="checkbox"
+                name='acc'
+                id={accesory._id}
+                defaultChecked={check}
+                value={accesory.name}
+                onChange={selectAcc}/>
+            <img src={accesory.photo} alt={accesory._id} className={`ac-img modal-${modal}`}  />
+            <label htmlFor={accesory._id} className={`ac-label check-${check} modal-${modal}`}>{accesory.name}</label>
         </div>
     )
     

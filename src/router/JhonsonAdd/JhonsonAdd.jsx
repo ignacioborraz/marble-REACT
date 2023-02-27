@@ -123,7 +123,7 @@ export default function JhonsonAdd() {
                         <input className="add-span add-size-1" type="number" ref={stock_ja} name="stock" id="stock" min="1" defaultValue="1" />
                         <select className="add-size-2" defaultValue="" name="code" onChange={selectJhonson}>
                             <option disabled value="">seleccionar pileta</option>
-                            {jhonsons?.map((each,index) => <option key={index} value={each._id}>{each.code} - {each.x}×{each.y}×{each.z}</option>)}
+                            {jhonsons?.map((each,index) => <option key={index} value={each._id}>{each.name} - {each.x}×{each.y}×{each.z}</option>)}
                         </select>
                     </div>
                 </form>

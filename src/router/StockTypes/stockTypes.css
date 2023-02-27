@@ -54,7 +54,7 @@
     }
     .type-link {
         width: calc( 100% - (2 * 10px) );
-        height: calc( 50% - 10px )
+        height: calc( 33% - 10px )
     }
 }
 

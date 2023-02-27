@@ -51,8 +51,10 @@
     .navbar-img {
         display: none;
     }
-    
     .navbar-img-mobile {
         display: inline-block;
+    }
+    .layout-img {
+        height: 15px;
     }
 }

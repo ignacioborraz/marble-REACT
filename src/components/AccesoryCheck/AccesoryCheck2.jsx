@@ -2,9 +2,9 @@ import { useState,useEffect } from 'react'
 
 import './accesoryCheck.css'
 
-const AccesoryCheck = ({ data,inputText,modal,selected,id_stock }) => {
-
-    const [check, setCheck] = useState(selected.map(each=>each._id).includes(data._id))
+const AccesoryCheck2 = ({ data,inputText,modal,selected,id_stock }) => {
+    //console.log({ data,inputText,modal,selected,id_stock })
+    const [check, setCheck] = useState(selected?.map(each=>each._id).includes(data._id))
     const [hide,setHide] = useState(false)
     const [show,setShow] = useState(true)
 
@@ -40,4 +40,4 @@ const AccesoryCheck = ({ data,inputText,modal,selected,id_stock }) => {
     
 }
 
-export default AccesoryCheck
+export default AccesoryCheck2

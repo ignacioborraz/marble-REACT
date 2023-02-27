@@ -3,7 +3,7 @@ import j_codeActions from './actions'
 import axios from 'axios'
 import apiUrl from '../../url'
 
-const { get_sinks,delete_sink,upd_code,get_stocks } = j_codeActions
+const { get_products,delete_product,upd_code,get_stocks } = j_codeActions
 
 const initialState = {
     sinks: [],
@@ -15,7 +15,7 @@ const initialState = {
 const codeReducer = createReducer(initialState,
     (builder) => {
         builder
-        .addCase(get_sinks.fulfilled, (state, action) => {
+        .addCase(get_products.fulfilled, (state, action) => {
             const { success,response } = action.payload
             //console.log(action.payload)
             let newState = {}
@@ -41,18 +41,18 @@ const codeReducer = createReducer(initialState,
             //console.log(newState)
             return newState
         })
-        .addCase(delete_sink.fulfilled, (state, action) => {
+        .addCase(delete_product.fulfilled, (state, action) => {
             const { id_code,success,response,token } = action.payload
-            //console.log(action.payload)
+            console.log(action.payload)
+            console.log(state)
             let newState = {}
             if (success) {
                 newState = {
                     ...state,
-                    sinks: state.sinks.filter(each => each._id !== response.stock),
-                    plates: state.plates.filter(each => each._id !== response.stock)
+                    sinks: state.sinks.filter(each => each._id !== id_code),
+                    plates: state.plates.filter(each => each._id !== id_code)
                 }
-                console.log(newState.plates.length)
-                console.log(newState.sinks.length)
+                console.log(newState)
                 if (newState.sinks.length===0 && newState.plates.length===0) {
                     let url = `${apiUrl}code/${id_code}`
                     let headers = {headers: {'Authorization': `Bearer ${token}`}}
@@ -76,7 +76,7 @@ const codeReducer = createReducer(initialState,
         })
         .addCase(upd_code.fulfilled, (state, action) => {
             const { response,success } = action.payload
-            //console.log(response)
+            console.log(response)
             let newState = {}
             if (success) {
                 newState = {
