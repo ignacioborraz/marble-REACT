@@ -48,8 +48,8 @@ const delete_product = createAsyncThunk('delete_product', async ({ token,id_code
     }
 })
 
-const upd_code = createAsyncThunk('upd_code', async ({ id_stock,token,data }) => {
-    let url = `${apiUrl}stock/${id_stock}`
+const upd_code = createAsyncThunk('upd_code', async ({ id,token,data }) => {
+    let url = `${apiUrl}note/${id}`
     if (!token) {
         token = localStorage.getItem('token')
     }

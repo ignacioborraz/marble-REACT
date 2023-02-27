@@ -76,7 +76,7 @@ const codeReducer = createReducer(initialState,
         })
         .addCase(upd_code.fulfilled, (state, action) => {
             const { response,success } = action.payload
-            //console.log(response)
+            console.log(response)
             let newState = {}
             if (success) {
                 newState = {

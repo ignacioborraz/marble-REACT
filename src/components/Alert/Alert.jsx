@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
 
 import alertActions from './../../store/alert/actions'
-import j_codeActions from './../../store/jhonson-3-sink/actions'
+import j_codeActions from './../../store/jhonson-4-notes/actions'
 const { close } = alertActions
 const { delete_product } = j_codeActions
 

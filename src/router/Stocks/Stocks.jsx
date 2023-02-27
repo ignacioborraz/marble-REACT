@@ -1,7 +1,7 @@
 import { useEffect,useRef,useState } from 'react'
 import { useDispatch,useSelector } from 'react-redux'
 import { useParams,useNavigate } from 'react-router-dom'
-import j_codeActions from '../../store/jhonson-3-sink/actions'
+import j_codeActions from '../../store/jhonson-4-notes/actions'
 
 import './stocks.css'
 
@@ -14,7 +14,7 @@ export default function Stocks() {
     const dispatch = useDispatch()
     const { get_stocks } = j_codeActions
     const { token } = useSelector(store => store.auth)
-    const { all } = useSelector(store => store.codes)
+    const { all } = useSelector(store => store.notes)
     const [reload,setReload] = useState(false)
     const text = useRef()
     
@@ -47,7 +47,7 @@ export default function Stocks() {
                     all?.map(each=> <CardCodes key={each.number_code} products={each.products} client={each.client} id={each.number_code} />)
                 ) : (
                     <div className='stock-nobox'>
-                        <h3>solicitud sin stock o no existente</h3>
+                        <h3>solicitud sin stock o inexistente</h3>
                         <button onClick={()=> navigate(-1)} className='stock-button-back'>volver</button>
                     </div>
                 )}

@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useParams,useNavigate,Link as Anchor } from 'react-router-dom'
 import { useDispatch,useSelector } from 'react-redux'
-import j_codeActions from '../../store/jhonson-3-sink/actions'
+import j_codeActions from '../../store/jhonson-4-notes/actions'
 
 import './request.css'
 
@@ -15,7 +15,7 @@ export default function Request() {
     const dispatch = useDispatch()
     const { get_products } = j_codeActions
     const { token } = useSelector(store => store.auth)
-    const { sinks,plates } = useSelector(store => store.codes)
+    const { sinks,plates } = useSelector(store => store.notes)
 
     useEffect(() => {
         dispatch(get_products({token,id_code}))
@@ -27,23 +27,26 @@ export default function Request() {
         <div className='req-container'>    
             {plates?.map(each=> <CardPlate key={each._id} data={each} />)}
             {sinks.length>0 ? (
-                <div className='req-head'>
-                    <h3 className='req-headers req-q'>CANT</h3>
-                    <h3 className='req-headers req-p'>FOTO</h3>
-                    <h3 className='req-headers req-c'>CODIGO</h3>
-                    <h3 className='req-headers req-i'>INSTALACION</h3>
-                    <h3 className='req-headers req-a'>ACCESORIOS</h3>
-                    <h3 className='req-headers req-q'>ACCION</h3>
-                </div>
+                <>
+                    <div className='req-head'>
+                        <h3 className='req-headers req-q'>CANT</h3>
+                        <h3 className='req-headers req-p'>FOTO</h3>
+                        <h3 className='req-headers req-c'>CODIGO</h3>
+                        <h3 className='req-headers req-i'>INSTALACION</h3>
+                        <h3 className='req-headers req-a'>ACCESORIOS</h3>
+                        <h3 className='req-headers req-q'>ACCION</h3>
+                    </div>
+                    {sinks?.map(each=> <CardSink key={each._id} data={each} />)}
+                </>
             ) : (
                 <>
                     <h3>solicitud sin stock o no existente</h3>
                     <button onClick={()=> navigate(-1)} className='req-button-back'>volver</button>
                 </>
             )}
-            {sinks?.map(each=> <CardSink key={each._id} data={each} />)}
             {(sinks.length>0 || plates.length>0) && (
                 <div className='req-buttons'>
+                    <button onClick={()=> navigate(-1)} className='req-button-3'>volver</button>
                     <Anchor to={`/add-plates/${id_code}`} className='req-button-1'>+placa</Anchor>
                     <Anchor to={`/add-jhonsons/${id_code}`} className='req-button-2'>+pileta</Anchor>
                     <Anchor to={'/index'} className='req-button-3'>listo!</Anchor>

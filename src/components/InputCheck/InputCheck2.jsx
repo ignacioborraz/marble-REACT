@@ -2,19 +2,25 @@ import React, { useState } from 'react'
 
 import './inputCheck.css'
 
-export default function InputCheck({ each,selected }) {
+export default function InputCheck2({ each,currentInstalation }) {
 
-    const [check, setCheck] = useState(selected?.includes(each))
-    
-    function selectInst(event) {
-        //console.log(event.target.checked)
-        setCheck(event.target.checked)
-    }
+    const [check, setCheck] = useState(currentInstalation?.includes(each))
 
     return (
         <>
-            <input type="checkbox" name='inst' id={each} defaultChecked={check} value={each} onChange={selectInst} className='inputCheck-input2' />
-            <label htmlFor={each} className={`inputCheck-label2 il-${check}`}>{each}</label>
+            <input
+                className='inputCheck-input2'
+                type="checkbox"
+                name='inst'
+                id={each}
+                defaultChecked={check}
+                value={each}
+                onChange={(event) => setCheck(event.target.checked)} />
+            <label
+                className={`inputCheck-label2 il-${check}`}
+                htmlFor={each}>
+                {each}
+            </label>
         </>
     )
 
