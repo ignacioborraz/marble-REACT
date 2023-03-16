@@ -6,14 +6,14 @@ import Swal from 'sweetalert2'
 import alertActions from './../../store/alert/actions'
 import j_codeActions from './../../store/jhonson-4-notes/actions'
 const { close } = alertActions
-const { delete_product } = j_codeActions
+const { upd_code,delete_product } = j_codeActions
 
 export default function Alerts() {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    let { visible,messages,success,options,navigation,id_code } = useSelector(store => store.alert)
+    let { visible,messages,success,options,navigation,id_code,data } = useSelector(store => store.alert)
     let { token } = useSelector(store => store.auth)
     //let success = useSelector(store => store.alert.success)
 
@@ -37,6 +37,20 @@ export default function Alerts() {
                 }
                 dispatch(close())
             })
+        } else if (options==='update') {
+            Swal.fire({
+                title: 'confirmar?',
+                showConfirmButton: false,
+                showDenyButton: true,
+                showCancelButton: true,
+                denyButtonText: `actualizar`,
+                cancelButtonText: 'cancelar'
+            }).then(result => {
+                if (result.isDenied) {
+                    dispatch(upd_code({ id: id_code,token,data }))
+                }
+            }).then(res => dispatch(close())
+            )
         } else if (options==='delete') {
             Swal.fire({
                 title: 'confirmar?',
@@ -48,7 +62,8 @@ export default function Alerts() {
             }).then(result => {
                 if (result.isDenied) {
                     dispatch(delete_product({ token,id_code }))
-                }}).then(res => dispatch(close())
+                }
+            }).then(res => dispatch(close())
             )
         } else {
             Swal.fire({

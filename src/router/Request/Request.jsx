@@ -29,12 +29,12 @@ export default function Request() {
             {sinks.length>0 ? (
                 <>
                     <div className='req-head'>
-                        <h3 className='req-headers req-q'>CANT</h3>
-                        <h3 className='req-headers req-p'>FOTO</h3>
-                        <h3 className='req-headers req-c'>CODIGO</h3>
-                        <h3 className='req-headers req-i'>INSTALACION</h3>
-                        <h3 className='req-headers req-a'>ACCESORIOS</h3>
-                        <h3 className='req-headers req-q'>ACCION</h3>
+                        <h3 className='req-headers fs w-40'>CANT</h3>
+                        <h3 className='req-headers fs w-40'>FOTO</h3>
+                        <h3 className='req-headers fs w-80'>CODIGO</h3>
+                        <h3 className='req-headers fs w-80'>INSTALACION</h3>
+                        <h3 className='req-headers fs w-80 w-full'>ACCESORIOS</h3>
+                        <h3 className='req-headers fs w-20'></h3>
                     </div>
                     {sinks?.map(each=> <CardSink key={each._id} data={each} />)}
                 </>

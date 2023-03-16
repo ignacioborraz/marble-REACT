@@ -10,7 +10,8 @@ const initialState = {
   options: '',
   id_code: '',
   navigation: '',
-  ids: {}
+  ids: {},
+  data: {}
 }
 
 const alertReducer = createReducer(
@@ -25,7 +26,8 @@ const alertReducer = createReducer(
           options: action.payload.options,
           id_code: action.payload.id_code,
           navigation: action.payload.navigation,
-          ids: action.payload.ids
+          ids: action.payload.ids,
+          data: action.payload.data
         }
         return newState
       })
@@ -37,7 +39,8 @@ const alertReducer = createReducer(
           options: action.payload.options,
           id_code: action.payload.id_code,
           navigation: action.payload.navigation,
-          ids: action.payload.ids
+          ids: action.payload.ids,
+          data: action.payload.data
         }
         return newState
       })
