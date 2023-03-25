@@ -69,8 +69,7 @@ export default function CardSink({ data }) {
         setShowEdit(!showEdit)
     }
 
-    function handleUpd() {
-        setShowEdit(!showEdit)
+    async function handleUpd() {
         let data = {
             stock: currentStock,
             instalation: currentInstalation,
@@ -78,12 +77,14 @@ export default function CardSink({ data }) {
             accesories_data: currentAccesories
         }
         //console.log(data)
-        dispatch(upd_code({ id: _id,token,data }))
+        let response = await dispatch(open({ options:'update', id_code: _id, data }))
+        console.log(response)
+        //setShowEdit(!showEdit)
     }
 
     return (
         <>        
-            <div className={`ts-container`}>
+            <div className='card-sink-container'>
                 <ReqInputStock
                     showEdit={showEdit}
                     stock={stock}
@@ -106,7 +107,7 @@ export default function CardSink({ data }) {
                     currentAccesories={currentAccesories}
                     setCurrentAccesories={setCurrentAccesories}
                 />
-                <span className='ts-data ts-buttons'>
+                <span className='card-sink-buttons w-20'>
                     {showEdit ? (<>
                         <CheckIcon sx={{ width:'25px',height:'25px', color: '#313131' }} onClick={handleUpd} />
                         <CloseIcon sx={{ width:'25px',height:'25px', color: 'rgb(200, 40, 50)' }} onClick={()=>setShowEdit(!showEdit)} />

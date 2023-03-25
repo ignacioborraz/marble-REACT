@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import ModalAccesories from '../../ModalAccesories/ModalAccesories'
+import './reqInputAccesory.css'
 
 export default function ReqInputAccesory({
 	showEdit,
@@ -11,7 +12,7 @@ export default function ReqInputAccesory({
 	const [modal,setModal] = useState(false)
 
 	function mapAccesories(each,index) {
-		return <img className='ts-photo' src={each.photo} alt="accs" key={index} />
+		return <img className='ia-photo' src={each.photo} alt="accs" key={index} />
 	}
 
 	return (
@@ -23,10 +24,10 @@ export default function ReqInputAccesory({
 					modal={modal}
 					setModal={setModal}
 				/>
-				<span className='ts-data ts-acc' onClick={() => setModal(!modal)}>{currentAccesories?.map(mapAccesories)}</span>
+				<span className='ia-data w-80 w-full' onClick={() => setModal(!modal)}>{currentAccesories?.map(mapAccesories)}</span>
 			</>
 		) : (
-			<span className='ts-data ts-acc'>{accesory?.map(mapAccesories)}</span>
+			<span className='ia-data w-80 w-full'>{accesory?.map(mapAccesories)}</span>
 		)
 	)
 

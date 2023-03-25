@@ -1,0 +1,26 @@
+.ia-data {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    border: 1px rgb(118, 118, 118) solid;
+    background-color: white;
+}
+
+.ia-photo {
+    width: 15px;
+    height: 58px;
+    object-fit: cover;
+}
+
+@media (width > 720px) {
+    .ia-photo {
+        width: 25px;
+    }
+}
+
+@media (width > 1040px) { 
+    .ia-photo {
+        width: 35px;
+    }
+}

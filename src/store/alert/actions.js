@@ -11,7 +11,8 @@ const open = createAction(
         options,
         id_code,
         navigation,
-        ids
+        ids,
+        data
       }
     }
   }
@@ -28,7 +29,8 @@ const close = createAction(
         options: "",
         id_code: "",
         navigation: "",
-        ids: {}
+        ids: {},
+        data: {}
       }
     }
   }

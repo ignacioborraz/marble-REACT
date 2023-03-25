@@ -1,11 +1,5 @@
-.card-sink-container {
+.istock-data {
     display: flex;
-    height: 60px;
-}
-
-.card-sink-buttons {
-    display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;

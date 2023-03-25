@@ -1,5 +1,6 @@
 import InputCheck from '../../InputCheck/InputCheck2'
-import { useRef } from 'react';
+import { useRef } from 'react'
+import './reqInputSink.css'
 
 export default function ReqInputSink({
     showEdit,
@@ -22,15 +23,15 @@ export default function ReqInputSink({
 
     return (
         <>
-            <img className='ts-data ts-img' src={photo} alt="jphoto" />
-            <p className='ts-data ts-code'>{name}</p>
-            <span className='ts-data ts-inst'>
+            <img className='input-sink-data is-img w-40' src={photo} alt="jphoto" />
+            <p className='input-sink-data fs w-80'>{name}</p>
+            <span className='input-sink-data is-inst w-80'>
                 {showEdit ? (
-                    <form ref={checks_instalation} onChange={handleChange} className='span_checks'>
+                    <form ref={checks_instalation} onChange={handleChange} className='is-span_checks'>
                         {ksinkInstalation?.map(each => <InputCheck key={each} each={each} currentInstalation={currentInstalation}/>)}
                     </form>
                 ) : (
-                    instalation.map(each => <label key={each} className='onlyLabel'>{each}</label>)
+                    instalation.map(each => <label key={each} className='is-span_checks fs is-label'>{each}</label>)
                 )}
             </span>
         </>

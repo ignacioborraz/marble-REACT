@@ -1,4 +1,5 @@
 import React from 'react'
+import './reqInputStock.css'
 
 export default function ReqInputStock({
     showEdit,
@@ -11,7 +12,7 @@ export default function ReqInputStock({
     return (
         showEdit ? (
             <input
-                className="ts-data ts-stock"
+                className="istock-data fs w-40"
                 type="number"
                 name="stock"
                 id="stock"
@@ -21,7 +22,7 @@ export default function ReqInputStock({
                 onChange={(event) => setCurrentStock(event.target.value)}
             />
         ) : (
-            <p className='ts-data ts-stock'>{stock}</p>
+            <p className='istock-data fs w-40'>{stock}</p>
         )
     )
 
