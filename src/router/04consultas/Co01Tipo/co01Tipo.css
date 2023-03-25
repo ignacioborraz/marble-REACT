@@ -1,23 +1,22 @@
-.type-container {
+.types-container {
     width: 100%;
-    min-height: calc(100% - 90px);
+    height: calc(100vh - 90px - 40px);
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: flex-start;
     align-items: center;
     margin-top: 90px;
 }
 
-.type-box {
+.types-box {
     display: flex;
     width: 100%;
     min-width: 360px;
-    height: calc(100vh - 90px - 40px);
-    justify-content: space-evenly;
-    padding-bottom: 20px;
+    height: calc((100vh - 90px) / 2);
+    justify-content: space-evenly
 }
 
-.type-link {
+.types-link {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -25,45 +24,41 @@
     flex-wrap: wrap;
     text-align: center;
     width: calc( 100% - (4 * 10px) );
-    height: 100%;
     font-family: 'Montserrat', sans-serif;
     color: rgb(255, 255, 255);
     margin: 0 10px 20px;
-    background-color: rgba(200, 40, 50, 0.7);
+    background-color: rgb(200, 40, 50, 0.7);
     text-decoration: none;
     border-radius: 5px;
 }
 
-.type-link:hover {
-    background-color: rgba(200, 40, 50, 0.8);
+.types-link:hover {
+    background-color: rgb(200, 40, 50, 0.8);
     transform: scale(1.01);
 }
 
-.type-icon {
+.types-icon {
     height: 80px !important;
     width: 80px !important;
     color: rgb(255, 255, 255);
 }
 
 @media (width < 720px) {
-    .type-container {
-        width: 100%;
+    .types-box {
+        flex-direction: column;
     }
-    .type-box {
-        flex-wrap: wrap;
-    }
-    .type-link {
+    .types-link {
         width: calc( 100% - (2 * 10px) );
-        height: calc( 33% - 10px )
+        height: 100%;
     }
 }
 
 @media (width > 1440px) {
-    .type-container {
+    .types-container {
         flex-direction: row;
         align-items: stretch;
     }
-    .type-box {
+    .types-box {
         height: calc(100vh - 90px);
     }
 }

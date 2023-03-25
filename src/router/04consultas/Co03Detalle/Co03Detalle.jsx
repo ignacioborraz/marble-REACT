@@ -20,7 +20,7 @@ export default function Co03Detalle() {
     useEffect(() => {
         dispatch(get_products({token,id_code}))
         // eslint-disable-next-line
-    }, [])
+    }, [id_code])
 
     //console.log({sinks,plates})
     return (

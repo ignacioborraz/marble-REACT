@@ -9,8 +9,8 @@ import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew'
 
 export default function Index() {
     return (
-        <div className='index-container' >
-            <div className='index-box' >
+        <div className='index-container'>
+            <div className='index-box'>
                 <LinkRouter className='index-link' to={'/new'}>
                     <PlaylistAddCircleIcon className='index-icon' />
                     <h2>CARGAR</h2>
@@ -20,7 +20,7 @@ export default function Index() {
                     <h2>RECORTAR</h2>
                 </LinkRouter>
             </div>
-            <div className='index-box' >
+            <div className='index-box'>
                 <LinkRouter className='index-link' to={'/johnson'}>
                     <AccessibilityNewIcon className='index-icon' />
                     <h2>USUARIOS</h2>
