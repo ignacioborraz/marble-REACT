@@ -1,12 +1,16 @@
 import { createBrowserRouter } from "react-router-dom"
 import Layout from '../components/Layout/Layout'
 import Index from './Index/Index'
-import Johnson from './Jhonson/Johnson'
-import JohnsonAdd from './JhonsonAdd/JhonsonAdd'
-import JohnsonAdds from './JhonsonAdd/JhonsonAdds'
-import Request from './Request/Request'
-import Stocks from './Stocks/Stocks'
-import StockTypes from './StockTypes/StockTypes'
+import Jh01formulario from './01cargas/Jhonson/Jh01formulario/Jh01formulario'
+import Jh02agregar01 from './01cargas/Jhonson/Jh02agregar/Jh02agregar01'
+import Jh02agregar02 from './01cargas/Jhonson/Jh02agregar/Jh02agregar02'
+
+import Ca01Tipo from './01cargas/Ca01Tipo/Ca01Tipo'
+import Ca02Nota from './01cargas/Ca02Nota/Ca02Nota'
+
+import Co01Tipo from './04consultas/Co01Tipo/Co01Tipo'
+import Co02Nota from './04consultas/Co02Nota/Co02Nota'
+import Co03Detalle from './04consultas/Co03Detalle/Co03Detalle'
 
 export const router = createBrowserRouter([{
     path: "/",
@@ -15,23 +19,29 @@ export const router = createBrowserRouter([{
         path: "/index",
         element: <Index />
       },{
-        path: "/johnson",
-        element: <Johnson />
+        path: "/new",
+        element: <Ca01Tipo />
+      },{
+        path: "/new/:type",
+        element: <Ca02Nota />
+      },{
+        path: "/new/jhonson/note",
+        element: <Jh01formulario />
       },{
         path: "/add-jhonson/:id_code",
-        element: <JohnsonAdd />
+        element: <Jh02agregar01 />
       },{
         path: "/add-jhonsons/:id_code",
-        element: <JohnsonAdds />
-      },{
-        path: "/request/:id_code",
-        element: <Request />
+        element: <Jh02agregar02 />
       },{
         path: "/stocks",
-        element: <StockTypes />
+        element: <Co01Tipo />
       },{
         path: "/stocks/:type",
-        element: <Stocks />
+        element: <Co02Nota />
+      },{
+        path: "/request/:id_code",
+        element: <Co03Detalle />
       },{
         path: "/",
         element: <Index />

@@ -2,22 +2,22 @@ import { useEffect,useState,useRef } from 'react'
 import { useParams,useNavigate,Link as Anchor } from 'react-router-dom'
 import { useDispatch,useSelector } from 'react-redux'
 import axios from 'axios'
-import apiUrl from '../../url'
+import apiUrl from '../../../../url'
 
-import logo_j from '../../media/logo_j.png'
+import logo_j from '../../../../media/logo_j.png'
 
-import './jhonsonAdd.css'
+import './jh02agregar.css'
 
-import AccesoryCheck from '../../components/AccesoryCheck/AccesoryCheck'
-import InputCheck from '../../components/InputCheck/InputCheck'
-import j_accesoryActions from '../../store/jhonson-2-acc/actions'
-import j_typeActions from '../../store/jhonson-1-type/actions'
-import alertActions from '../../store/alert/actions'
+import AccesoryCheck from '../../../../components/AccesoryCheck/AccesoryCheck'
+import InputCheck from '../../../../components/InputCheck/InputCheck'
+import j_accesoryActions from '../../../../store/jhonson-2-acc/actions'
+import j_typeActions from '../../../../store/jhonson-1-type/actions'
+import alertActions from '../../../../store/alert/actions'
 const { read_accesories } = j_accesoryActions
 const { read_types,read_one_type } = j_typeActions
 const { open } = alertActions
 
-export default function JhonsonAdd() {
+export default function Jh02agregar01() {
 
     const { id_code } = useParams()
     const { A304,A430,jhonsons } = useSelector(store => store.jhonsons)
@@ -95,8 +95,8 @@ export default function JhonsonAdd() {
                 await axios.put(`${apiUrl}code/${id_code}`,{ stock: id_stock },headers)
                 let data = 'solicitud creada'
                 let navigation = {
-                    isConfirmed: `/add-plate/${id_code}`,
-                    isDenied: `/add-jhonson/${id_code}`,
+                    isConfirmed: `/add-plates/${id_code}`,
+                    isDenied: `/add-jhonsons/${id_code}`,
                     else: "/index"
                 }
                 dispatch(open({ data,success:true,options:'redirect',navigation,id_code }))
@@ -108,7 +108,7 @@ export default function JhonsonAdd() {
         } catch(error) {
             console.log(error)
         }
-    }    
+    }
 
     return (
         <div className='add-container'>

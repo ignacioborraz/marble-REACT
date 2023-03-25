@@ -5,29 +5,29 @@ import './index.css'
 import PlaylistAddCircleIcon from '@mui/icons-material/PlaylistAddCircle'
 import InventoryIcon from '@mui/icons-material/Inventory'
 import LayersIcon from '@mui/icons-material/Layers'
-import WashIcon from '@mui/icons-material/Wash'
+import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew'
 
 export default function Index() {
     return (
         <div className='index-container' >
             <div className='index-box' >
-                <LinkRouter className='index-link' to={'/nueva'}>
+                <LinkRouter className='index-link' to={'/new'}>
                     <PlaylistAddCircleIcon className='index-icon' />
-                    <h2>NUEVA PLACA</h2>
+                    <h2>CARGAR</h2>
                 </LinkRouter>
                 <LinkRouter className='index-link' to={'/editPlate'}>
                     <LayersIcon className='index-icon' />
-                    <h2>USAR PLACA</h2>
+                    <h2>RECORTAR</h2>
                 </LinkRouter>
             </div>
             <div className='index-box' >
                 <LinkRouter className='index-link' to={'/johnson'}>
-                    <WashIcon className='index-icon' />
-                    <h2>JOHNSON</h2>
+                    <AccessibilityNewIcon className='index-icon' />
+                    <h2>USUARIOS</h2>
                 </LinkRouter>
                 <LinkRouter className='index-link' to={'/stocks'}>
                     <InventoryIcon className='index-icon' />
-                    <h2>STOCK</h2>
+                    <h2>CONSULTAR</h2>
                 </LinkRouter>
             </div>
         </div>

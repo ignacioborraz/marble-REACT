@@ -69,8 +69,8 @@ const upd_code = createAsyncThunk('upd_code', async ({ id,token,data }) => {
     }
 })
 
-const get_stocks = createAsyncThunk('get_stocks', async ({ token,type,note,comments }) => {
-    let url = `${apiUrl}note?type=${type}&note=${note}&comments=${comments}`
+const get_stocks = createAsyncThunk('get_stocks', async ({ token,type,numbers,comments }) => {
+    let url = `${apiUrl}note?type=${type}&numbers=${numbers}&comments=${comments}`
     if (!token) {
         token = localStorage.getItem('token')
     }

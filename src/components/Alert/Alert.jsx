@@ -21,6 +21,7 @@ export default function Alerts() {
         if (options==='redirect') {
             Swal.fire({
                 title: 'continuar solicitud?',
+                text: data,
                 showDenyButton: true,
                 showCancelButton: true,
                 confirmButtonText: '+placa',

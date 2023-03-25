@@ -1,11 +1,11 @@
 import { useEffect,useRef,useState } from 'react'
 import { useDispatch,useSelector } from 'react-redux'
 import { useParams,useNavigate } from 'react-router-dom'
-import j_codeActions from '../../store/jhonson-4-notes/actions'
+import j_codeActions from '../../../store/jhonson-4-notes/actions'
 
-import './stocks.css'
+import './co02Nota.css'
 
-import CardCodes from './../../components/CardCodes/CardCodes'
+import CardCodes from '../../../components/CardCodes/CardCodes'
 
 export default function Stocks() {
 
@@ -31,7 +31,7 @@ export default function Stocks() {
         dispatch(get_stocks({
             token,
             type,
-            note,
+            numbers: note,
             comments
         }))
         // eslint-disable-next-line

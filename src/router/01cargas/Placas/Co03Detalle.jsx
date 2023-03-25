@@ -1,14 +1,14 @@
 import { useEffect } from 'react'
 import { useParams,useNavigate,Link as Anchor } from 'react-router-dom'
 import { useDispatch,useSelector } from 'react-redux'
-import j_codeActions from '../../store/jhonson-4-notes/actions'
+import j_codeActions from '../../../store/jhonson-4-notes/actions'
 
-import './request.css'
+import './co03Detalle.css'
 
-import CardSink from '../../components/CardSink/CardSink'
-import CardPlate from '../../components/CardPlate/CardPlate'
+import CardSink from '../../../components/CardSink/CardSink'
+import CardPlate from '../../../components/CardPlate/CardPlate'
 
-export default function Request() {
+export default function Co03Detalle() {
 
     const { id_code } = useParams()
     const navigate = useNavigate()
@@ -34,7 +34,7 @@ export default function Request() {
                         <h3 className='req-headers fs w-80'>CODIGO</h3>
                         <h3 className='req-headers fs w-80'>INSTALACION</h3>
                         <h3 className='req-headers fs w-80 w-full'>ACCESORIOS</h3>
-                        <h3 className='req-headers fs w-20'></h3>
+                        <h3 className='req-headers fs w-20'>EE</h3>
                     </div>
                     {sinks?.map(each=> <CardSink key={each._id} data={each} />)}
                 </>
