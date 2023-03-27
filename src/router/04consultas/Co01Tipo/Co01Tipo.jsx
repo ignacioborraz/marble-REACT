@@ -25,7 +25,7 @@ export default function Co01Tipo() {
                     <SquareIcon className='types-icon' />
                     <h2>ENTREGADOS</h2>
                 </LinkRouter>
-                <LinkRouter className='types-link' to={'/all/sinks'}>
+                <LinkRouter className='types-link' to={'/all/ksinks'}>
                     <InventoryIcon className='types-icon' />
                     <h2>STOCK</h2>
                 </LinkRouter>
