@@ -3,8 +3,7 @@ import { Outlet,useNavigate } from 'react-router-dom'
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow'
 
 import NavBar from './NavBar'
-import Alert from '../Alert/Alert'
-import ScrollToTop from  '../ScrollToTop'
+import ScrollToTop from  '../ScrollToTop/ScrollToTop'
 
 import './layout.css'
 import logo from '../../media/logo_giacomo.png'
@@ -18,7 +17,6 @@ export default function Layout() {
             <NavBar />
             <div className='layout-container'>
                 <Outlet />
-                <Alert />
                 <ScrollToTop />
             </div>
             <div className='layout-footer'>

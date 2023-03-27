@@ -1,0 +1,231 @@
+.fs {
+    font-size: 10px;
+}
+.w-20 {
+    width: 30px;
+}    
+.w-40 {
+    width: 40px;
+}    
+.w-200 {
+    width: 190px;
+}
+
+@media (width > 720px) {
+    .fs {
+        font-size: 12px;
+    }  
+    .w-40 {
+        width: 60px;
+    }
+}
+
+@media (width > 1040px) { 
+    .w-full {
+        width: 240px;
+    }
+}
+
+.co-stock-container {
+    width: 100%;
+    height: calc(100% - 90px);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 20px;
+    overflow-y: auto;
+}
+
+.co-stock-container::-webkit-scrollbar{
+    width: 0.6rem!important;
+    background: #181818!important;
+}
+
+.co-stock-container::-webkit-scrollbar-thumb{
+    background: rgb(200 40 50)!important;
+    border-radius: 0.4rem!important;
+}
+
+.co-stock-head {
+    display: flex;
+    height: 30px;
+}
+
+.co-stock-headers {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 1px rgb(118, 118, 118) solid;
+    background-color: rgb(200, 40, 50);
+    color: white
+}
+
+.co-stock-headers-red {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 1px rgb(118, 118, 118) solid;
+    background-color: rgba(200, 40, 50, 0.5);
+}
+
+.co-stock-headers-pink {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 1px rgb(118, 118, 118) solid;
+    background-color: rgba(255, 200, 200, 0.7);
+}
+
+.co-stock-headers-white {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 1px rgb(118, 118, 118) solid;
+    background-color: white;
+}
+
+.co-stock-img {
+    object-fit: cover;
+}
+
+.co-stock-buttons {
+    height: 30px;
+    width: 480px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 90px;
+    margin-bottom: 20px;
+}
+
+.co-stock-panel {
+    height: 30px;
+    width: 340px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.co-stock-panel-2 {
+    height: 30px;
+    width: 120px;
+    margin-left: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.co-stock-button-1 {
+    color: rgb(255, 255, 255);
+    background-color: rgba(112, 102, 224, 0.7);
+    border: 0 rgb(118, 118, 118) solid;
+    border-radius: 5px;
+    height: 30px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    text-decoration: none;
+}
+
+.co-stock-button-1:hover {
+    background-color: rgba(112, 102, 224, 0.8);
+    transform: scale(1.01);
+}
+
+.co-stock-button-2 {
+    color: rgb(255, 255, 255);
+    background-color: rgba(200, 40, 50, 0.7);
+    border: 0 rgb(118, 118, 118) solid;
+    border-radius: 5px;
+    height: 30px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    text-decoration: none;
+}
+
+.co-stock-button-2:hover {
+    background-color: rgba(200, 40, 50, 0.8);
+    transform: scale(1.01);
+}
+
+.co-stock-button-3 {
+    color: rgb(255, 255, 255);
+    background-color: rgba(110, 120, 129, 0.7);
+    border: 0 rgb(118, 118, 118) solid;
+    border-radius: 5px;
+    height: 30px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    text-decoration: none;
+}
+
+.co-stock-button-3:hover {
+    background-color: rgba(110, 120, 129, 0.9);
+    transform: scale(1.01);
+}
+
+.co-stock-button {
+    color: rgb(255, 255, 255);
+    background-color: rgba(110, 120, 129, 0.7);
+    border: 0 rgb(118, 118, 118) solid;
+    border-radius: 5px;
+    height: 30px !important;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    text-decoration: none;
+}
+
+.co-stock-button:hover {
+    background-color: rgba(110, 120, 129, 0.9);
+    transform: scale(1.01);
+}
+
+.co-stock-size {
+    height: 30px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 1px rgb(118, 118, 118) solid;
+    border-radius: 0px;
+    background-color: white;
+}
+
+@media (width < 500px) { 
+    .co-stock-buttons {
+        flex-direction: column;
+        height: 80px;
+    }
+    .co-stock-panel {
+        width: 300px;
+    }
+    .co-stock-panel-2 {
+        margin: 10px 0 0 0;
+        flex-direction: row-reverse;
+        width: 300px;
+    }
+    .co-stock-button-1, .co-stock-button-2, .co-stock-button-3 {
+        width: 90px;
+    }
+    .co-stock-size {
+        flex-grow: 1;
+        margin-left: 20px;
+    }
+}

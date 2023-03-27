@@ -1,7 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit'
 import j_codeActions from './actions'
-import axios from 'axios'
-import apiUrl from '../../url'
 
 const { get_products,delete_product,upd_code,get_stocks } = j_codeActions
 
@@ -26,16 +24,11 @@ const codeReducer = createReducer(initialState,
                     plates: response.plates
                 }
             } else {
-                if (typeof response.response === "string") {
-                    newState = {
-                        ...state,
-                        messages: [response.response]
-                    }
-                } else {
-                    newState = {
-                        ...state,
-                        messages: response.response.map(mes => mes.message)
-                    }
+                //console.log(response)
+                newState = {
+                    ...state,
+                    sinks: [],
+                    plates: []
                 }
             }
             //console.log(newState)

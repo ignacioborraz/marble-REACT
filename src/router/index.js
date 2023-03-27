@@ -8,9 +8,14 @@ import Jh02agregar02 from './01cargas/Jhonson/Jh02agregar/Jh02agregar02'
 import Ca01Tipo from './01cargas/Ca01Tipo/Ca01Tipo'
 import Ca02Nota from './01cargas/Ca02Nota/Ca02Nota'
 
+import Us01Rol from './03usuarios/Us01Rol/Us01Rol'
+import Us02Admin from "./03usuarios/Us02Admin/Us02Admin"
+import Us03Client from "./03usuarios/Us03Client/Us03Client"
+
 import Co01Tipo from './04consultas/Co01Tipo/Co01Tipo'
 import Co02Nota from './04consultas/Co02Nota/Co02Nota'
 import Co03Detalle from './04consultas/Co03Detalle/Co03Detalle'
+import Co04Stock from "./04consultas/Co04Stock/Co04Stock"
 
 export const router = createBrowserRouter([{
     path: "/",
@@ -34,6 +39,15 @@ export const router = createBrowserRouter([{
         path: "/add-jhonsons/:id_code",
         element: <Jh02agregar02 />
       },{
+        path: "/users",
+        element: <Us01Rol />
+      },{
+        path: "/admin",
+        element: <Us02Admin role='admin' />
+      },{
+        path: "/client",
+        element: <Us03Client role='cliente' />
+      },{
         path: "/stocks",
         element: <Co01Tipo />
       },{
@@ -42,6 +56,9 @@ export const router = createBrowserRouter([{
       },{
         path: "/request/:id_code",
         element: <Co03Detalle />
+      },{
+        path: "/all/:product",
+        element: <Co04Stock />
       },{
         path: "/",
         element: <Index />

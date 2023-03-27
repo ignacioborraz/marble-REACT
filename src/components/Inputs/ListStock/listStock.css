@@ -1,0 +1,8 @@
+.istock-data {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 1px rgb(118, 118, 118) solid;
+    background-color: white;
+}

@@ -7,11 +7,11 @@ export default function CardCodes({ id,client,products }) {
     const { type } = useParams()
     let stringId = id
     if (type === 'internal') {
-        stringId = `I-000${id}`
+        stringId = `I-${id.toString().padStart(8,'0')}`
     } else if (type === 'note') {
-        stringId = `P-000${id}`
+        stringId = `P-${id.toString().padStart(8,'0')}`
     } else {
-        stringId = `E-000${id}`
+        stringId = `E-${id.toString().padStart(8,'0')}`
     }
 
     return (

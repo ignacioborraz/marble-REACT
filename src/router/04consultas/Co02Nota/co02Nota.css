@@ -1,46 +1,47 @@
-.stock-container {
+.co-note-container {
     width: 100%;
     height: calc(100% - 90px);
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    margin-top: 90px;
     margin-bottom: 20px;
     overflow-y: auto;
 }
 
-.stock-container::-webkit-scrollbar{
+.co-note-container::-webkit-scrollbar{
     width: 0.6rem!important;
     background: #181818!important;
 }
 
-.stock-container::-webkit-scrollbar-thumb{
+.co-note-container::-webkit-scrollbar-thumb{
     background: rgb(200 40 50)!important;
     border-radius: 0.4rem!important;
 }
 
-
-.stock-inputs {
+.co-note-inputs {
+    height: 30px;
+    width: 340px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: 90px;
+    margin-bottom: 10px;
 }
 
-.stock-size {
+.co-note-size {
     height: 30px;
-    width: 170px;
+    flex-grow: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 10px;
     text-align: center;
     border: 1px rgb(118, 118, 118) solid;
     border-radius: 0px;
     background-color: white;
 }
 
-.stock-checkbox {
+.co-note-checkbox {
     height: 30px;
     width: 170px;
     display: flex;
@@ -50,38 +51,50 @@
     text-align: center;
 }
 
-.stock-label{
+.co-note-label{
     flex-grow: 1;
     text-align: end;
     padding-right: 20px;
 }
 
-.stock-box {
+.co-note-box {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
 }
 
-.stock-button-back {
+.co-note-button {
     color: rgb(255, 255, 255);
     background-color: rgba(110, 120, 129, 0.7);
     border: 0 rgb(118, 118, 118) solid;
     border-radius: 5px;
-    height: 30px;
-    width: 200px;
+    height: 30px !important;
+    width: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     text-decoration: none;
-    margin-top: 20px
+    margin-left: 20px;
 }
 
-.stock-button-back:hover {
+.co-note-button:hover {
     background-color: rgba(110, 120, 129, 0.9);
     transform: scale(1.01);
 }
 
-.stock-nobox {
-margin-top: 50px;
+.co-note-nobox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    height: 100%;
+}
+
+.co-note-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
 }
