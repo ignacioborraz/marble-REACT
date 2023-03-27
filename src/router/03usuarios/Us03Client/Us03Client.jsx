@@ -67,7 +67,7 @@ export default function Us03Client({role}) {
                             backgroundColor: '#C82832',
                             color: 'white',
                             borderRadius: '5px'}} /></label>
-                        <input name='company' id='company' placeholder='Contraseña' type="Empresa" className='inputForm' ref={company} required/>            
+                        <input name='company' id='company' placeholder='Empresa' type="Empresa" className='inputForm' ref={company} required/>            
                     </fieldset>
                     <fieldset className='input-container uploadBox'>
                         <label className='inputLabel' htmlFor='photo'><AddAPhotoIcon sx={{
