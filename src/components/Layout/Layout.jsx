@@ -4,6 +4,7 @@ import DoubleArrowIcon from '@mui/icons-material/DoubleArrow'
 
 import NavBar from './NavBar'
 import ScrollToTop from  '../ScrollToTop/ScrollToTop'
+import Alert from '../Alert/Alert'
 
 import './layout.css'
 import logo from '../../media/logo_giacomo.png'
@@ -24,6 +25,7 @@ export default function Layout() {
                 <img src={logo} alt="logo" className='layout-img' />
                 <DoubleArrowIcon onClick={()=>navigate(1)} sx={{marginLeft: '20px', bgcolor: 'rgb(118, 118, 118)', color: 'white', width: '30px', borderRadius: '5px'}}/>
             </div>
+            <Alert />
         </>
     )
     
