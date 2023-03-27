@@ -19,40 +19,33 @@ export default function Stocks() {
     const text = useRef()
     
     useEffect(() => {
-        //console.log(text?.current.value)
-        //console.log(isNaN(text?.current.value))
-        let note = ''
-        let comments = ''
-        if (isNaN(text?.current.value)) {
-            comments = text?.current.value
-        } else {
-            note = text?.current.value
-        }
         dispatch(get_stocks({
             token,
             type,
-            numbers: note,
-            comments
+            comments: text?.current.value,
         }))
         // eslint-disable-next-line
     }, [reload])
 
     return (
-        <div className='stock-container'>
-            <div className='stock-inputs'>
-                <input type="text" className='stock-size' placeholder='buscar' ref={text} onChange={()=>setReload(!reload)} />
+        <>
+            <div className='co-note-inputs'>
+                <input type="text" className='co-note-size' placeholder='buscar' ref={text} onChange={()=>setReload(!reload)} />
+                <button onClick={()=> navigate(-1)} className='co-note-button'>volver</button>
             </div>
-            <div className='stock-box'>
-                {all.length>0 ? (
-                    all?.map(each=> <CardCodes key={each.number_code} products={each.products} client={each.client} id={each.number_code} />)
+            <div className='co-note-container'>
+
+                {all.length ? (
+                    <div className='co-note-box'>
+                        {all.map(each=> <CardCodes key={each.number_code} products={each.products} client={each.client} id={each.number_code} />)}
+                    </div>
                 ) : (
-                    <div className='stock-nobox'>
-                        <h3>solicitud sin stock o inexistente</h3>
-                        <button onClick={()=> navigate(-1)} className='stock-button-back'>volver</button>
+                    <div className='co-note-nobox'>
+                        <h3 className='co-note-title'>sin stock o inexistente</h3>
                     </div>
                 )}
             </div>
-        </div>
+        </>
     )
 
 }

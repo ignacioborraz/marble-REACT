@@ -2,10 +2,10 @@ import {useNavigate} from 'react-router-dom'
 import {useDispatch} from 'react-redux'
 import {useRef} from 'react'
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto'
-import KeyIcon from '@mui/icons-material/Key'
+import StoreIcon from '@mui/icons-material/Store'
 import WorkIcon from '@mui/icons-material/Work'
-import userActions from '../redux/actions/userActions'
-import FileUpload from '../components/FileUpload'
+import userActions from '../../../redux/actions/userActions'
+import FileUpload from '../../../components/FileUpload'
 import { initializeApp } from "firebase/app";
 
 initializeApp({
@@ -18,20 +18,19 @@ initializeApp({
     measurementId: process.env.REACT_APP_MEASURE
 })
 
-export default function NewUser({role}) {
+export default function Us03Client({role}) {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const nick = useRef()
-    const pass = useRef()
+    const company = useRef()
     let allInputs = {}
     async function handleCreation(event) {
         console.log(event.target[6])
         event.preventDefault()
         allInputs = {
-            nick: nick.current.value.trim(),
-            password: pass.current.value.trim(),
+            name: nick.current.value.trim(),
+            company: company.current.value.trim(),
             photo: event.target[6].id,
-            role: role
         }
         console.log(allInputs)
         let res = await dispatch(userActions.signUp(allInputs))
@@ -58,17 +57,17 @@ export default function NewUser({role}) {
                             backgroundColor: '#C82832',
                             color: 'white',
                             borderRadius: '5px'}} /></label>
-                        <input name='nick' id='nick' placeholder='Usuario' type="text" className='inputForm' ref={nick} required/>
+                        <input name='nick' id='nick' placeholder='Cliente' type="text" className='inputForm' ref={nick} required/>
                     </fieldset>
                     <fieldset className='input-container'>
-                        <label className='inputLabel' htmlFor='pass'><KeyIcon sx={{
+                        <label className='inputLabel' htmlFor='company'><StoreIcon sx={{
                             width: '40px',
                             height: '40px',
                             padding: '5px',
                             backgroundColor: '#C82832',
                             color: 'white',
                             borderRadius: '5px'}} /></label>
-                        <input name='pass' id='pass' placeholder='Contraseña' type="password" className='inputForm' ref={pass} required/>            
+                        <input name='company' id='company' placeholder='Contraseña' type="Empresa" className='inputForm' ref={company} required/>            
                     </fieldset>
                     <fieldset className='input-container uploadBox'>
                         <label className='inputLabel' htmlFor='photo'><AddAPhotoIcon sx={{

@@ -21,7 +21,7 @@ export default function Index() {
                 </LinkRouter>
             </div>
             <div className='index-box'>
-                <LinkRouter className='index-link' to={'/johnson'}>
+                <LinkRouter className='index-link' to={'/users'}>
                     <AccessibilityNewIcon className='index-icon' />
                     <h2>USUARIOS</h2>
                 </LinkRouter>

@@ -6,7 +6,6 @@ import './cardSink.css'
 import j_codeActions from '../../store/jhonson-4-notes/actions'
 import j_accesoryActions from '../../store/jhonson-2-acc/actions'
 import j_typeActions from '../../store/jhonson-1-type/actions'
-import alertActions from '../../store/alert/actions'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import CheckIcon from '@mui/icons-material/Check'
@@ -14,10 +13,11 @@ import CloseIcon from '@mui/icons-material/Close'
 import ReqInputStock from '../Inputs/ReqInputStock/ReqInputStock'
 import ReqInputSink from '../Inputs/ReqInputSink/ReqInputSink'
 import ReqInputAccesory from '../Inputs/ReqInputAccesory/ReqInputAccesory'
-const { upd_code } = j_codeActions
+import Alert2 from './../Alert2/Alert2'
+
+const { upd_code,delete_product } = j_codeActions
 const { read_accesories } = j_accesoryActions
 const { read_types } = j_typeActions
-const { open } = alertActions
 
 export default function CardSink({ data }) {
     //console.log(data)
@@ -59,14 +59,15 @@ export default function CardSink({ data }) {
      * @currenAccesories is the current accesories of the note
      */
     const [currentAccesories,setCurrentAccesories] = useState(accesory)
+    /**
+     * @visible shows de alert
+     */
+    const [visible,setVisible] = useState(false)
+    const [visibleDel,setVisibleDel] = useState(false)
 
-    async function deleteProduct() {
+    async function handleDel() {
         console.log(_id)
-        await dispatch(open({ options:'delete', id_code: _id }))
-    }
-
-    function handleEdit() {
-        setShowEdit(!showEdit)
+        await dispatch(delete_product({ token,id_code: _id }))
     }
 
     async function handleUpd() {
@@ -76,10 +77,8 @@ export default function CardSink({ data }) {
             accesory: currentAccesories.map(each => each._id),
             accesories_data: currentAccesories
         }
-        //console.log(data)
-        let response = await dispatch(open({ options:'update', id_code: _id, data }))
-        console.log(response)
-        //setShowEdit(!showEdit)
+        await dispatch(upd_code({ id: _id,token,data }))
+        setShowEdit(!showEdit)
     }
 
     return (
@@ -109,14 +108,16 @@ export default function CardSink({ data }) {
                 />
                 <span className='card-sink-buttons w-20'>
                     {showEdit ? (<>
-                        <CheckIcon sx={{ width:'25px',height:'25px', color: '#313131' }} onClick={handleUpd} />
+                        <CheckIcon sx={{ width:'25px',height:'25px', color: '#313131' }} onClick={()=>setVisible(true)} />
                         <CloseIcon sx={{ width:'25px',height:'25px', color: 'rgb(200, 40, 50)' }} onClick={()=>setShowEdit(!showEdit)} />
                     </>) : (<>
-                        <EditIcon sx={{ width:'25px',height:'25px', color: '#313131' }} onClick={handleEdit} />
-                        <DeleteForeverIcon sx={{ width:'25px',height:'25px', color: 'rgb(200, 40, 50)' }} onClick={deleteProduct} />
+                        <EditIcon sx={{ width:'25px',height:'25px', color: '#313131' }} onClick={()=>setShowEdit(!showEdit)} />
+                        <DeleteForeverIcon sx={{ width:'25px',height:'25px', color: 'rgb(200, 40, 50)' }} onClick={()=>setVisibleDel(true)} />
                     </>)}                    
                 </span>
             </div>
+            {visible && <Alert2 visible={visible} setVisible={setVisible} title={'confirmar?'} showDenyButton={true} denyButtonText={'actualizar'} fnDenied={handleUpd} showCancelButton={true} cancelButtonText={'volver'} />}
+            {visibleDel && <Alert2 visible={visibleDel} setVisible={setVisibleDel} title={'confirmar?'} showDenyButton={true} denyButtonText={'eliminar'} fnDenied={handleDel} showCancelButton={true} cancelButtonText={'volver'} />}
         </>
     )
 

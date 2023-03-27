@@ -24,32 +24,31 @@ export default function Co03Detalle() {
 
     //console.log({sinks,plates})
     return (
-        <div className='req-container'>    
+        <div className='co-det-container'>    
             {plates?.map(each=> <CardPlate key={each._id} data={each} />)}
-            {sinks.length>0 ? (
+            {sinks.length ? (
                 <>
-                    <div className='req-head'>
-                        <h3 className='req-headers fs w-40'>CANT</h3>
-                        <h3 className='req-headers fs w-40'>FOTO</h3>
-                        <h3 className='req-headers fs w-80'>CODIGO</h3>
-                        <h3 className='req-headers fs w-80'>INSTALACION</h3>
-                        <h3 className='req-headers fs w-80 w-full'>ACCESORIOS</h3>
-                        <h3 className='req-headers fs w-20'>EE</h3>
+                    <div className='co-det-head'>
+                        <h3 className='co-det-headers fs w-40'>CANT</h3>
+                        <h3 className='co-det-headers fs w-40'>FOTO</h3>
+                        <h3 className='co-det-headers fs w-80'>CODIGO</h3>
+                        <h3 className='co-det-headers fs w-80'>INSTALACION</h3>
+                        <h3 className='co-det-headers fs w-80 w-full'>ACCESORIOS</h3>
+                        <h3 className='co-det-headers fs w-20'>EE</h3>
                     </div>
                     {sinks?.map(each=> <CardSink key={each._id} data={each} />)}
                 </>
             ) : (
                 <>
-                    <h3>solicitud sin stock o no existente</h3>
-                    <button onClick={()=> navigate(-1)} className='req-button-back'>volver</button>
+                    <h3 className='co-det-title'>sin stock o inexistente</h3>
+                    <button onClick={()=> navigate('/stocks')} className='co-det-button'>volver</button>
                 </>
             )}
             {(sinks.length>0 || plates.length>0) && (
-                <div className='req-buttons'>
-                    <button onClick={()=> navigate(-1)} className='req-button-3'>volver</button>
-                    <Anchor to={`/add-plates/${id_code}`} className='req-button-1'>+placa</Anchor>
-                    <Anchor to={`/add-jhonsons/${id_code}`} className='req-button-2'>+pileta</Anchor>
-                    <Anchor to={'/index'} className='req-button-3'>listo!</Anchor>
+                <div className='co-det-buttons'>
+                    <Anchor to={`/add-plates/${id_code}`} className='co-det-button-1'>+placa</Anchor>
+                    <Anchor to={`/add-jhonsons/${id_code}`} className='co-det-button-2'>+pileta</Anchor>
+                    <Anchor to={'/stocks'} className='co-det-button-3'>volver</Anchor>
                 </div>
             )}
         </div>
