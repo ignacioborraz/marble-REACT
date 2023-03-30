@@ -15,19 +15,10 @@ export default function FileUpload() {
         )
     }
     return (
-        <>
-
-
-            <input type='file' className='inputForm inputUpload' onChange={handleUpload} accept=".png, .jpg, .jpeg" />
+        <span className='inputUpload' >
+            <input type='file' className='load' onChange={handleUpload} accept=".png, .jpg, .jpeg" />
             <input type='hidden' name='file' id={picture} />
-
-
             <progress value={value} max='100' name='file' />
-
-
-
-
-
-        </>
+        </span>
     )
 }
