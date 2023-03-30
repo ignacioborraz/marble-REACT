@@ -1,12 +1,14 @@
-import {useNavigate} from 'react-router-dom'
-import {useDispatch} from 'react-redux'
-import {useRef} from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { useRef } from 'react'
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto'
 import StoreIcon from '@mui/icons-material/Store'
 import WorkIcon from '@mui/icons-material/Work'
-import userActions from '../../../redux/actions/userActions'
 import FileUpload from '../../../components/FileUpload'
-import { initializeApp } from "firebase/app";
+import { initializeApp } from "firebase/app"
+import './us03Client.css'
+import axios from 'axios'
+import apiUrl from '../../../url'
 
 initializeApp({
     apiKey: process.env.REACT_APP_APIKEY,
@@ -20,29 +22,25 @@ initializeApp({
 
 export default function Us03Client({role}) {
     const navigate = useNavigate()
-    const dispatch = useDispatch()
+    const { token } = useSelector(store=>store.auth)
     const nick = useRef()
     const company = useRef()
-    let allInputs = {}
+    
     async function handleCreation(event) {
-        console.log(event.target[6])
         event.preventDefault()
-        allInputs = {
+        let data = {
             name: nick.current.value.trim(),
             company: company.current.value.trim(),
             photo: event.target[6].id,
         }
-        console.log(allInputs)
-        let res = await dispatch(userActions.signUp(allInputs))
+        let headers = {headers: {'Authorization': `Bearer ${token}`}}
+        let res = await axios.post(apiUrl+'clients',data,headers)
         if (res.data.success) {
             try {
                 navigate("/",{replace:true})
             } catch(error) {
                 console.log(error)
             }
-        } else {
-            console.log(res)
-            return allInputs
         }
     }
     return (
