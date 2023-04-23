@@ -10,7 +10,6 @@
 }
 
 .new-form {
-    width: 75%;
     min-width: 280px;
     max-width: 480px;
     display: flex;
@@ -69,16 +68,12 @@
     text-align: 'center'
 }
 
-progress  {
-    display: none;
-}
-
 .inputUpload {
-    width: 18rem;
     flex-grow: 1;
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
     padding: 5px;
     margin: 5px;
     margin-right: 0;
@@ -88,8 +83,17 @@ progress  {
     border-radius: 5px;
 }
 
-@media (width < 451px) {
-    .inputUpload {
-        width: 10rem;
-    }
+progress  {
+    min-width: 100px;
+    height: 40px;
+    position: absolute;
+    accent-color: #C82832;
+}
+
+.inputs {
+    width: 100%;
+    display: inline-block;
+    position: relative;
+    z-index: 2;
+    color: white;
 }
