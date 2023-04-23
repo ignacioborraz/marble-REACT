@@ -6,7 +6,7 @@ export default function FileUpload() {
     const [picture, setPicture] = useState(null)
     const handleUpload = (event) => {
         const file = event.target.files[0]
-        const storageRef = ref(getStorage(), '/' + file.name)
+        const storageRef = ref(getStorage(), `/users/${new Date().getFullYear()}${new Date().getMonth()}${file.name}`)
         const task = uploadBytesResumable(storageRef, file, { contentType: 'image/png' })
         task.on('state_changed',
             (snapshot) => setValue(100 * (snapshot.bytesTransferred / snapshot.totalBytes)),
@@ -16,9 +16,11 @@ export default function FileUpload() {
     }
     return (
         <span className='inputUpload' >
-            <input type='file' className='load' onChange={handleUpload} accept=".png, .jpg, .jpeg" />
-            <input type='hidden' name='file' id={picture} />
             <progress value={value} max='100' name='file' />
+            <span className='inputs'>
+                <input type='file' className='load' onChange={handleUpload} accept=".png, .jpg, .jpeg" />
+                <input type='hidden' name='file' id={picture} />
+            </span>
         </span>
     )
 }

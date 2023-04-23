@@ -9,6 +9,7 @@ import { initializeApp } from "firebase/app"
 import './us02Admin.css'
 import axios from 'axios'
 import apiUrl from '../../../url'
+import Swal from 'sweetalert2'
 
 initializeApp({
     apiKey: process.env.REACT_APP_APIKEY,
@@ -29,21 +30,32 @@ export default function Us02Admin({role}) {
     
     async function handleCreation(event) {
         event.preventDefault()
+        console.log(event.target[6].id)
         let data = {
             nick: nick.current.value.trim(),
             password: pass.current.value.trim(),
-            photo: event.target[6].id,
+            photo: await event.target[6].id,
             admin: true,
             online: false
         }
         let headers = {headers: {'Authorization': `Bearer ${token}`}}
-        let res = await axios.post(apiUrl+'auth/signup',data,headers)
-        if (res.data.success) {
-            try {
-                navigate("/",{replace:true})
-            } catch(error) {
-                console.log(error)
-            }
+        try {
+            Swal.fire({ title: 'CONFIRMAR?',showConfirmButton: true })
+                .then(response => {
+                    let res
+                    if (response.isConfirmed) {
+                        res = axios.post(apiUrl+'auth/signup',data,headers)
+                    }
+                    return res
+                })
+                .then(res => navigate("/",{ replace:true }))
+                .catch(error => {
+                    let errors = error.response.data.response.map(each=>`<p>${each}</p>`)
+                    Swal.fire({ html: errors.join('') })
+                })
+        } catch(error) {
+            console.log(error)
+            Swal.fire({ title: 'OCURRIO UN ERROR', text: 'intente más tarde' })
         }
     }
     return (
@@ -58,7 +70,7 @@ export default function Us02Admin({role}) {
                             backgroundColor: '#C82832',
                             color: 'white',
                             borderRadius: '5px'}} /></label>
-                        <input name='nick' id='nick' placeholder='Cliente' type="text" className='inputForm' ref={nick} required/>
+                        <input name='nick' id='nick' placeholder='Administrador' type="text" className='inputForm' ref={nick} />
                     </fieldset>
                     <fieldset className='input-container'>
                         <label className='inputLabel' htmlFor='pass'><KeyIcon sx={{
@@ -68,7 +80,7 @@ export default function Us02Admin({role}) {
                             backgroundColor: '#C82832',
                             color: 'white',
                             borderRadius: '5px'}} /></label>
-                        <input name='pass' id='pass' placeholder='Empresa' type="password" className='inputForm' ref={pass} required/>            
+                        <input name='pass' id='pass' placeholder='Contraseña' type="password" className='inputForm' ref={pass} />            
                     </fieldset>
                     <fieldset className='input-container uploadBox'>
                         <label className='inputLabel' htmlFor='photo'><AddAPhotoIcon sx={{
@@ -78,9 +90,9 @@ export default function Us02Admin({role}) {
                             backgroundColor: '#C82832',
                             color: 'white',
                             borderRadius: '5px'}} /></label>
-                        <FileUpload name='photo' id='photo' type="text" required/>
+                        <FileUpload name='photo' id='photo' type="text" />
                     </fieldset>
-                    <input type="submit" className='buttonForm' required value='REGISTRAR' />
+                    <input type="submit" className='buttonForm' value='REGISTRAR' />
                 </form>
             </div>
     )
