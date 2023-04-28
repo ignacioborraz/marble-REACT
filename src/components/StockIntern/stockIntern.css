@@ -1,0 +1,64 @@
+
+.stock-intern-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.stock-intern-option {
+    height: 30px;
+    width: 235px;
+    margin-right: 5px;
+    padding-right: 5px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: white;
+}
+
+.stock-intern-panel {
+    height: 30px;
+    width: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.stock-intern-button-1 {
+    color: rgb(255, 255, 255);
+    background-color: rgba(112, 102, 224, 0.7);
+    border: 0 rgb(118, 118, 118) solid;
+    border-radius: 5px;
+    height: 30px;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    text-decoration: none;
+}
+
+.stock-intern-button-1:hover {
+    background-color: rgba(112, 102, 224, 0.8);
+    transform: scale(1.01);
+}
+
+.stock-intern-button-2 {
+    color: rgb(255, 255, 255);
+    background-color: rgba(200, 40, 50, 0.7);
+    border: 0 rgb(118, 118, 118) solid;
+    border-radius: 5px;
+    margin: 0 5px;
+    height: 30px;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    text-decoration: none;
+}
+
+.stock-intern-button-2:hover {
+    background-color: rgba(200, 40, 50, 0.8);
+    transform: scale(1.01);
+}

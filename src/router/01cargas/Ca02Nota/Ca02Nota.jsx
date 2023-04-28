@@ -11,7 +11,7 @@ export default function Ca02Nota() {
     return (
         <div className='type-container' >
             <div className='type-box' >
-                <LinkRouter className='type-link' to={`/new/${type}/internal`}>
+                <LinkRouter className='type-link' to={`/new/${type}/intern`}>
                     <HexagonIcon className='type-icon' />
                     <h2>INTERNOS</h2>
                 </LinkRouter>

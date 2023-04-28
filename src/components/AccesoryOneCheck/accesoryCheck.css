@@ -1,0 +1,51 @@
+.ac-container {
+    width: 110px;
+    height: 110px;
+    margin: 5px;
+}
+
+.ac-input {
+    height: 0;
+    width: 0;
+    position: absolute;
+}
+
+.ac-label {
+    width: 110px;
+    height: 110px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding: 10px;
+    border-radius: 5px;
+    position: relative;
+    bottom: 114px;
+    z-index: 1;
+}
+
+.ac-label:hover {
+    background-color: rgba(118, 118, 118, 0.3);
+}
+
+.check-true {
+    border: 4px solid rgba(200, 40, 50, 0.7);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.ac-img {
+    width: 110px;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.hide-true, .modal-false {
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    visibility: hidden;
+}

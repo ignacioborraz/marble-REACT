@@ -1,4 +1,4 @@
-import { useEffect,useState,useRef } from 'react'
+import { useEffect,useState,useRef,useParams } from 'react'
 import { useDispatch,useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
@@ -6,19 +6,22 @@ import apiUrl from '../../../../url'
 
 import logo_j from '../../../../media/logo_j.png'
 
-import './jh01formulario.css'
+import './jh01interno.css'
 
 import InputCheck from '../../../../components/InputCheck/InputCheck'
 import j_accesoryActions from '../../../../store/jhonson-2-acc/actions'
 import j_typeActions from '../../../../store/jhonson-1-type/actions'
 import alertActions from '../../../../store/alert/actions'
-import ModalAccesories from './../../../../components/ModalAccesories/ModalAccesories'
+import ModalAccesories from '../../../../components/ModalAccesories/ModalAccesories'
+import FormKsink from '../../../../components/FormKsinks/FormKsink'
+
 const { read_accesories } = j_accesoryActions
 const { read_types,read_one_type } = j_typeActions
 const { open } = alertActions
 
-export default function Jh01formulario() {
+export default function Jh01interno() {
 
+    const { new_int } = useParams()
     const { A304,A430,jhonsons } = useSelector(store => store.jhonsons)
     const { accesories } = useSelector(store => store.accesories)
     const { token } = useSelector(store => store.auth)
@@ -29,25 +32,9 @@ export default function Jh01formulario() {
      */
     const [note,setNote] = useState(1)
     /**
-     * @clients shows all clients
-     */
-    const [clients,setClients] = useState([])
-    /**
-     * @client is the selected client
-     */
-    const [client,setClient] = useState('')
-    /**
-     * @maxStock is the max stock of the selected sink
-     */
-    const [maxStock,setMaxStock] = useState(1)
-    /**
      * @type is the selected type of sink
      */
     const [type, setType] = useState("")
-    /**
-     * @checks_instalation is the selected instalation
-     */
-    const checks_instalation = useRef(null)
     /**
      * @quantity is de quantity of sinks
      */
@@ -85,8 +72,7 @@ export default function Jh01formulario() {
             dispatch(read_one_type({ type }))
         }
         let headers = {headers: {'Authorization': `Bearer ${token}`}}
-        axios.get(`${apiUrl}note/next`,headers).then(res => setNote(res.data.response.note))
-        axios.get(`${apiUrl}clients`,headers).then(res => setClients(res.data.response.clients))
+        axios.get(`${apiUrl}note/next`,headers).then(res => setNote(res.data.response.internal))
         // eslint-disable-next-line
     }, [type])
 
@@ -94,27 +80,15 @@ export default function Jh01formulario() {
         let one = jhonsons.find(each => each._id === event.target.value)
         setKsink(event.target.value)
         setPhoto_j(one.photo)
-        setInstTypes(one.instalation)
-        setMaxStock(one.stock)
         quantity.current.value = 1
     }
 
     async function create() {
-        let selected_instalation = []
-        if (checks_instalation.current) {
-            selected_instalation = Object.values(checks_instalation?.current)?.filter(each=> each.checked)?.map(each => each.value)
-            if (selected_instalation.length===0) {
-                selected_instalation = [Object.values(checks_instalation?.current)[0].value]
-            }    
-        }
-        if (ksink && client) {
+        if ('ksink') {
             let request = {
                 number_code: String(note),
-                internal: false,
-                client,
+                internal: true,
                 comments: comments.current.value,
-                accesory: currentAccesories.map(each=>each._id),
-                instalation: selected_instalation,
                 stock: Number(quantity.current?.value),
                 ksink
             }
@@ -124,16 +98,16 @@ export default function Jh01formulario() {
                 if (response.data.response===true) {
                     let data = 'solicitud creada'
                     let navigation = {
-                        isConfirmed: `/add-plate/${note}/${client}`,
-                        isDenied: `/add-jhonson/${note}/${client}`,
+                        isConfirmed: `/add-plate/${note}`,
+                        isDenied: `/add-jhonson/${note}`,
                         else: "/index"
                     }
                     dispatch(open({ data,success:true,options:'redirect',navigation,id_code:note }))
                 } else {
                     let data = response.data.response
                     let navigation = {
-                        isConfirmed: `/add-plate/${note}/${client}`,
-                        isDenied: `/add-jhonson/${note}/${client}`,
+                        isConfirmed: `/add-plate/${note}`,
+                        isDenied: `/add-jhonson/${note}`,
                         else: "/index"
                     }
                     dispatch(open({ data,success:false,options:'redirect',navigation,id_code:note }))
@@ -152,40 +126,15 @@ export default function Jh01formulario() {
     return (
         <div className='jhonson-container'>
             <div className='jhonson-middle jh-form'>
-                <span className="jhonson-note jhonson-size">NOTA DE PEDIDO: P-{note.toString().padStart(8,'0')}</span>
-                <form className='jhonson-jhonson'>
-                    <select className="jhonson-size" defaultValue="" name="client" onChange={event=> setClient(event.target.value)}>
-                        <option disabled value="">seleccionar cliente</option>
-                        {clients.map(each=><option key={each._id} value={each._id}>{each.name}</option>)}
-                    </select>
-                    <select className="jhonson-size" defaultValue="" name="type" onChange={event=> setType(event.target.value)}>
-                        <option disabled value="">seleccionar acero</option>
-                        <option value="A304">A304</option>
-                        <option value="A430">A430</option>
-                    </select>
-                    <div className='jhonson-size'>
-                        <input className="jhonson-span jhonson-size-1" type="number" ref={quantity} name="stock" id="stock" min="1" defaultValue='1' max={maxStock} />
-                        <select className="jhonson-size-2" defaultValue="" name="code" onChange={selectJhonson}>
-                            <option disabled value="">seleccionar pileta</option>
-                            {jhonsons?.map((each,index) => <option key={index} value={each._id}>{each.name} - {each.x}×{each.y}×{each.z}</option>)}
-                        </select>
-                    </div>
-                </form>
-                {(instTypes.length > 0) ? (
-                    <form ref={checks_instalation} className='jhonson-size jhonson-checks'>
-                        {instTypes?.map(each => <InputCheck key={each} each={each} />)}
-                    </form>
-                ) : (
-                    <p className='jhonson-size jhonson-checks'>
-                        seleccionar instalacion
-                    </p>
-                )}
-                {currentAccesories.length ? (
+                <span className="jhonson-note jhonson-size">STOCK INTERNO: I-{note.toString().padStart(8,'0')}</span>
+                {new_int==='ksink' && <FormKsink setType={setType} quantity={quantity} selectJhonson={selectJhonson} jhonsons={jhonsons} />}
+                
+                {/* {currentAccesories.length ? (
                     <span onClick={()=>setModal(!modal)} className='jhonson-size jhonson-checks j-accs'>{currentAccesories.length} accesorios</span>
                 ) : (
                     <span onClick={()=>setModal(!modal)} className='jhonson-size jhonson-checks j-accs'>seleccionar accesorios</span>
                 )}
-                {modal && <ModalAccesories currentAccesories={currentAccesories} setCurrentAccesories={setCurrentAccesories} modal={modal} setModal={setModal} />}
+                {modal && <ModalAccesories currentAccesories={currentAccesories} setCurrentAccesories={setCurrentAccesories} modal={modal} setModal={setModal} />} */}
                 <input className="jhonson-span jhonson-size" type="text" ref={comments} name="comment" id="comment" placeholder='comentario' />
                 <div className='jhonson-buttons'>
                     <button onClick={create} className='jhonson-button-1'>agregar!</button>

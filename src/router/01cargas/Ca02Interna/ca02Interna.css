@@ -1,0 +1,25 @@
+.intern-container {
+    width: 340px;
+    height: calc(100% - 90px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 90px;
+    margin-bottom: 20px;
+}
+
+.intern-middle {
+    width: 340px;
+    height: 340px;
+}
+
+.intern-size {
+    height: 30px;
+    width: 340px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    text-align: center;
+    background-color: white;
+}

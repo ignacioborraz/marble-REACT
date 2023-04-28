@@ -1,6 +1,6 @@
 import { useEffect,useState,useRef } from 'react'
-import { useParams,useNavigate,Link as Anchor } from 'react-router-dom'
 import { useDispatch,useSelector } from 'react-redux'
+import { useNavigate,useParams } from 'react-router-dom'
 import axios from 'axios'
 import apiUrl from '../../../../url'
 
@@ -8,36 +8,60 @@ import logo_j from '../../../../media/logo_j.png'
 
 import './jh02agregar.css'
 
-import AccesoryCheck from '../../../../components/AccesoryCheck/AccesoryCheck'
 import InputCheck from '../../../../components/InputCheck/InputCheck'
 import j_accesoryActions from '../../../../store/jhonson-2-acc/actions'
 import j_typeActions from '../../../../store/jhonson-1-type/actions'
 import alertActions from '../../../../store/alert/actions'
+import ModalAccesories from './../../../../components/ModalAccesories/ModalAccesories'
 const { read_accesories } = j_accesoryActions
 const { read_types,read_one_type } = j_typeActions
 const { open } = alertActions
 
-export default function Jh02agregar01() {
+export default function Jh01agregar() {
 
-    const { id_code } = useParams()
+    const { id_code,id_client } = useParams()
     const { A304,A430,jhonsons } = useSelector(store => store.jhonsons)
     const { accesories } = useSelector(store => store.accesories)
     const { token } = useSelector(store => store.auth)
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const [reload, setReload] = useState(false)
-    const [viewAccs,setViewAccs] = useState(true)
-    const [quantity,setQuantity] = useState(0)
-    const [openModal,setOpenModal] = useState(false)
-    const [close_modal,setClose_modal] = useState(true)
+    /**
+     * @maxStock is the max stock of the selected sink
+     */
+    const [maxStock,setMaxStock] = useState(1)
+    /**
+     * @type is the selected type of sink
+     */
     const [type, setType] = useState("")
-    const [id_j, setId_j] = useState("")
+    /**
+     * @checks_instalation is the selected instalation
+     */
+    const checks_instalation = useRef(null)
+    /**
+     * @quantity is de quantity of sinks
+     */
+    const quantity = useRef(1)
+    /**
+     * @ksink is the id of the selected sink
+     * @photo_j is the photo of the selected sink
+     * @instTypes is the types of instalation
+     */
+    const [ksink, setKsink] = useState("")
     const [photo_j, setPhoto_j] = useState(logo_j)
-    const [inst_j,setInst_j] = useState([])
-    const stock_ja = useRef()
-    const checks_j = useRef()
-    const checks_a = useRef()
-    const ref_code_acc = useRef()
+    const [instTypes,setInstTypes] = useState([])
+    /**
+     * @modal is the boolean that handle de modal
+     */
+    const [modal,setModal] = useState(false)
+    /**
+     * @currentAccesories are the selected accesories
+     */
+    const [currentAccesories,setCurrentAccesories] = useState([])
+    /**
+    /**
+     * @comments is the comment of the admin
+     */
+    const comments = useRef()    
 
     useEffect(() => {
         if (A304.length === 0 || A430.length === 0) {
@@ -50,118 +74,107 @@ export default function Jh02agregar01() {
             dispatch(read_one_type({ type }))
         }
         // eslint-disable-next-line
-    }, [type,reload])
+    }, [type])
 
     async function selectJhonson(event) {
         let one = jhonsons.find(each => each._id === event.target.value)
-        setId_j(event.target.value)
+        setKsink(event.target.value)
         setPhoto_j(one.photo)
-        setInst_j(one.instalation)
-    }
-
-    function modal() {
-        setOpenModal(!openModal)
-        setViewAccs(!viewAccs)
-    }
-
-    function totalAccs() {
-        setQuantity(Object.values(checks_a?.current).filter(each=> each.checked).map(each => each.id).length)
+        setInstTypes(one.instalation)
+        setMaxStock(one.stock)
+        quantity.current.value = 1
     }
 
     async function create() {
-        let stock = ""
         let selected_instalation = []
-        let selected_accesories = []
-        if (stock_ja.current) { stock = Number(stock_ja.current.value) }
-        if (checks_j.current) {
-            selected_instalation = Object.values(checks_j.current).filter(each=> each.checked).map(each => each.value)
+        if (checks_instalation.current) {
+            selected_instalation = Object.values(checks_instalation?.current)?.filter(each=> each.checked)?.map(each => each.value)
             if (selected_instalation.length===0) {
-                selected_instalation = Object.values(checks_j.current)[0].value
-            }
+                selected_instalation = [Object.values(checks_instalation?.current)[0].value]
+            }    
         }
-        if (checks_a.current) { selected_accesories = Object.values(checks_a?.current).filter(each=> each.checked).map(each => each.id) }
-        try {
-            let headers = {headers: {'Authorization': `Bearer ${token}`}}
-            let sink = {
-                jhonson: id_j,
-                accesories: selected_accesories,
-                instalation: selected_instalation
+        if (ksink) {
+            let request = {
+                number_code: String(id_code),
+                internal: false,
+                client: id_client,
+                comments: comments.current.value,
+                accesory: currentAccesories.map(each=>each._id),
+                instalation: selected_instalation,
+                stock: Number(quantity.current?.value),
+                ksink
             }
-            if (id_j && selected_instalation.length > 0 && stock && id_code) {
-                let response_sink = await axios.post(`${apiUrl}sink`,sink,headers)
-                let id_sink = response_sink.data.response
-                let response_stock = await axios.post(`${apiUrl}stock`,{ stock, sink: id_sink },headers)
-                let id_stock = response_stock.data.response
-                await axios.put(`${apiUrl}code/${id_code}`,{ stock: id_stock },headers)
-                let data = 'solicitud creada'
-                let navigation = {
-                    isConfirmed: `/add-plates/${id_code}`,
-                    isDenied: `/add-jhonsons/${id_code}`,
-                    else: "/index"
-                }
-                dispatch(open({ data,success:true,options:'redirect',navigation,id_code }))
-                /* redirigir hacia el detalle del pedido en la alerta*/
-            } else {
-                let data = 'complete todos los campos'
+            try {
+                let headers = {headers: {'Authorization': `Bearer ${token}`}}
+                let response = await axios.post(`${apiUrl}note`,request,headers)
+                if (response.data.response===true) {
+                    let data = 'solicitud creada'
+                    let navigation = {
+                        isConfirmed: `/add-plates/${id_code}/${id_client}`,
+                        isDenied: `/add-jhonsons/${id_code}/${id_client}`,
+                        else: "/index"
+                    }
+                    dispatch(open({ data,success:true,options:'redirect',navigation,id_code }))
+                } else {
+                    let data = response.data.response
+                    let navigation = {
+                        isConfirmed: `/add-plates/${id_code}/${id_client}`,
+                        isDenied: `/add-jhonsons/${id_code}/${id_client}`,
+                        else: "/index"
+                    }
+                    dispatch(open({ data,success:false,options:'redirect',navigation,id_code }))
+                }                
+            } catch(error) {
+                console.log(error)
+                let data = 'error'
                 dispatch(open({ data,success:false }))
             }
-        } catch(error) {
-            console.log(error)
+        } else {
+                let data = 'complete todos los campos'
+                dispatch(open({ data,success:false }))
         }
-    }
+    }    
 
     return (
-        <div className='add-container'>
-            <div className='add-container-button'>
-                <form className='add-jhonson'>
-                    <select className="add-size" defaultValue="" name="type" onChange={event=> setType(event.target.value)}>
-                        <option disabled value="">seleccione acero</option>
+        <div className='jhonson-container'>
+            <div className='jhonson-middle jh-form'>
+                <span className="jhonson-note jhonson-size">NOTA DE PEDIDO: P-{id_code.toString().padStart(8,'0')}</span>
+                <form className='jhonson-jhonson'>
+                    <select className="jhonson-size" defaultValue="" name="type" onChange={event=> setType(event.target.value)}>
+                        <option disabled value="">seleccionar acero</option>
                         <option value="A304">A304</option>
                         <option value="A430">A430</option>
                     </select>
-                    <div className='add-size'>
-                        <input className="add-span add-size-1" type="number" ref={stock_ja} name="stock" id="stock" min="1" defaultValue="1" />
-                        <select className="add-size-2" defaultValue="" name="code" onChange={selectJhonson}>
+                    <div className='jhonson-size'>
+                        <input className="jhonson-span jhonson-size-1" type="number" ref={quantity} name="stock" id="stock" min="1" defaultValue='1' max={maxStock} />
+                        <select className="jhonson-size-2" defaultValue="" name="code" onChange={selectJhonson}>
                             <option disabled value="">seleccionar pileta</option>
                             {jhonsons?.map((each,index) => <option key={index} value={each._id}>{each.name} - {each.x}×{each.y}×{each.z}</option>)}
                         </select>
                     </div>
                 </form>
-                {(inst_j.length > 0) ? (
-                    <form ref={checks_j} className='add-size add-checks'>
-                        {inst_j?.map(each => <InputCheck key={each} each={each} />)}
+                {(instTypes.length > 0) ? (
+                    <form ref={checks_instalation} className='jhonson-size jhonson-checks'>
+                        {instTypes?.map(each => <InputCheck key={each} each={each} />)}
                     </form>
                 ) : (
-                    <p className='add-size add-checks'>
+                    <p className='jhonson-size jhonson-checks'>
                         seleccionar instalacion
                     </p>
                 )}
-                {viewAccs && <div onClick={modal} className='add-size add-checks j-accs'>accesorios</div>}
-                {openModal && (
-                    <>
-                        <div className={`accesory-form modal-${close_modal}`}>
-                            <div className='acc-form'>
-                                <p className='acc-options'>{quantity} accesorios</p>
-                                <input ref={ref_code_acc} onChange={()=>setReload(!reload)} className='acc-options' type="text" placeholder='Buscar por codigo' />
-                                <p onClick={(()=>setClose_modal(!close_modal))} className='acc-options a-opt'>finalizar</p>
-                            </div>                            
-                            <form ref={checks_a} onChange={totalAccs} className='accesory-form-box'>
-                                {accesories?.map(accesory => <AccesoryCheck key={accesory._id} data={accesory} modal={close_modal} inputText={ref_code_acc.current?.value || ""} />)}
-                            </form>
-                        </div>
-                        {!close_modal && <p className='add-size add-checks j-accs' onClick={(()=>setClose_modal(!close_modal))}>{quantity} accesorios</p>}
-                    </>
+                {currentAccesories.length ? (
+                    <span onClick={()=>setModal(!modal)} className='jhonson-size jhonson-checks j-accs'>{currentAccesories.length} accesorios</span>
+                ) : (
+                    <span onClick={()=>setModal(!modal)} className='jhonson-size jhonson-checks j-accs'>seleccionar accesorios</span>
                 )}
-                <div className='add-buttons'>
-                    <Anchor to={`/add-plates/${id_code}`} className='add-button-1'>+placa</Anchor>
-                    <button onClick={create} className='add-button-2'>agregar!</button>
-                    <button onClick={()=>navigate(-1)} className='add-button-3'>cancelar</button>
-                </div>
-                <div className='add-buttons'>
-                    <Anchor to={`/request/${id_code}`} className='add-button-4'>ver solicitud</Anchor>
+                {modal && <ModalAccesories currentAccesories={currentAccesories} setCurrentAccesories={setCurrentAccesories} modal={modal} setModal={setModal} />}
+                <input className="jhonson-span jhonson-size" type="text" ref={comments} name="comment" id="comment" placeholder='comentario' />
+                <div className='jhonson-buttons'>
+                    <button onClick={create} className='jhonson-button-1'>agregar!</button>
+                    <button onClick={()=>navigate(-1)} className='jhonson-button-2'>cancelar</button>
                 </div>
             </div>
-            <img className='add-img' src={photo_j} alt="photo_j" />
+            <img className='jhonson-middle jh-img' src={photo_j} alt="photo_j" />
         </div>
     )
 

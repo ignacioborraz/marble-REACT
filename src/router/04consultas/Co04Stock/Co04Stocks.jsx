@@ -26,7 +26,7 @@ export default function Co04Stock() {
 
     function handleViews(event) {
         setView(event.target.id)
-        navigate(`/alls/${event.target.id}`)
+        navigate(`/all/${event.target.id}`)
     }
 
     //console.log({ accesories_stock_1,accesories_stock_2,accesories_stock_3,ksinks_stock_1,ksinks_stock_2,ksinks_stock_3,plates })
