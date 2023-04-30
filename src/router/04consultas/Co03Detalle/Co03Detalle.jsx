@@ -10,7 +10,7 @@ import CardPlate from '../../../components/CardPlate/CardPlate'
 
 export default function Co03Detalle() {
 
-    const { id_code } = useParams()
+    const { id_code,id_client } = useParams()
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const { get_products } = j_codeActions
@@ -46,8 +46,8 @@ export default function Co03Detalle() {
             )}
             {(sinks.length>0 || plates.length>0) && (
                 <div className='co-det-buttons'>
-                    <Anchor to={`/add-plates/${id_code}`} className='co-det-button-1'>+placa</Anchor>
-                    <Anchor to={`/add-jhonsons/${id_code}`} className='co-det-button-2'>+pileta</Anchor>
+                    <Anchor to={`/add-plates/${id_code}/${id_client}`} className='co-det-button-1'>+placa</Anchor>
+                    <Anchor to={`/add-jhonsons/${id_code}/${id_client}`} className='co-det-button-2'>+pileta</Anchor>
                     <Anchor to={'/stocks'} className='co-det-button-3'>volver</Anchor>
                 </div>
             )}

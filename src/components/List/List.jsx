@@ -10,7 +10,7 @@ import apiUrl from '../../url'
 
 export default function List({ product,id,stock,name,photo,color,reload,setReload }) {
 
-    const { token } = useSelector(store => store.auth)
+    let { token } = useSelector(store => store.auth)
     const [newStock,setNewStock] = useState(stock)
     const [showEdit,setShowEdit] = useState(false)
     const [visible,setVisible] = useState(false)
@@ -20,9 +20,6 @@ export default function List({ product,id,stock,name,photo,color,reload,setReloa
             stock: newStock,
         }
         let url = `${apiUrl+product}/${id}`
-        if (!token) {
-            token = localStorage.getItem('token')
-        }
         let headers = {headers: {'Authorization': `Bearer ${token}`}}
         try {
             await axios.put(url,data,headers)

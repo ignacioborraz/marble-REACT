@@ -12,13 +12,13 @@ import apiUrl from '../../../url'
 import Swal from 'sweetalert2'
 
 initializeApp({
-    apiKey: process.env.REACT_APP_APIKEY,
-    authDomain: process.env.REACT_APP_AUTH,
-    projectId: process.env.REACT_APP_PROYECT,
-    storageBucket: process.env.REACT_APP_BUCKET,
-    messagingSenderId: process.env.REACT_APP_MESSAGING,
-    appId: process.env.REACT_APP_ID,
-    measurementId: process.env.REACT_APP_MEASURE
+    apiKey: import.meta.VITE_APIKEY,
+    authDomain: import.meta.VITE_AUTH,
+    projectId: import.meta.VITE_PROYECT,
+    storageBucket: import.meta.VITE_BUCKET,
+    messagingSenderId: import.meta.VITE_MESSAGING,
+    appId: import.meta.VITE_ID,
+    measurementId: import.meta.VITE_MEASURE
 })
 
 export default function Us02Admin({role}) {

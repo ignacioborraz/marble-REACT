@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
 
-import { router } from './router/index'
-import { out } from './router/out'
+import { router } from './router/index.jsx'
+import { out } from './router/out.jsx'
 import { RouterProvider} from "react-router-dom"
 
-import './app.css'
+import './App.css'
 import { useDispatch,useSelector } from 'react-redux'
 import authActions from "./store/auth/actions"
 const { iniciar_sesion_con_token } = authActions

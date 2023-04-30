@@ -124,16 +124,16 @@ export default function Jh01formulario() {
                 if (response.data.response===true) {
                     let data = 'solicitud creada'
                     let navigation = {
-                        isConfirmed: `/add-plate/${note}`,
-                        isDenied: `/add-jhonson/${note}`,
+                        isConfirmed: `/add-plate/${note}/${client}`,
+                        isDenied: `/add-jhonson/${note}/${client}`,
                         else: "/index"
                     }
                     dispatch(open({ data,success:true,options:'redirect',navigation,id_code:note }))
                 } else {
                     let data = response.data.response
                     let navigation = {
-                        isConfirmed: `/add-plate/${note}`,
-                        isDenied: `/add-jhonson/${note}`,
+                        isConfirmed: `/add-plate/${note}/${client}`,
+                        isDenied: `/add-jhonson/${note}/${client}`,
                         else: "/index"
                     }
                     dispatch(open({ data,success:false,options:'redirect',navigation,id_code:note }))

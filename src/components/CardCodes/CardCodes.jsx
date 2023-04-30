@@ -2,7 +2,7 @@ import { useParams,Link as LinkRouter} from 'react-router-dom'
 
 import './cardcodes.css'
 
-export default function CardCodes({ id,client,products }) {
+export default function CardCodes({ id,id_client,client,products }) {
     
     const { type } = useParams()
     let stringId = id
@@ -15,7 +15,7 @@ export default function CardCodes({ id,client,products }) {
     }
 
     return (
-        <LinkRouter className='card-link' to={`/request/${id}`}>
+        <LinkRouter className='card-link' to={`/request/${id}/${id_client}`}>
             <h2 className='card-h'>{stringId}</h2>
             <h2 className='card-number'>{products}</h2>
             <p className='card-p'>{client}</p>

@@ -37,7 +37,8 @@ export default function Stocks() {
 
                 {all.length ? (
                     <div className='co-note-box'>
-                        {all.map(each=> <CardCodes key={each.number_code} products={each.products} client={each.client} id={each.number_code} />)}
+                        {console.log(all)}
+                        {all.map(each=> <CardCodes id_client={each.id_client} key={each.number_code} products={each.products} client={each.client} id={each.number_code} />)}
                     </div>
                 ) : (
                     <div className='co-note-nobox'>
