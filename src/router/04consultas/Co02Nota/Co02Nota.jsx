@@ -34,10 +34,9 @@ export default function Stocks() {
                 <button onClick={()=> navigate(-1)} className='co-note-button'>volver</button>
             </div>
             <div className='co-note-container'>
-
                 {all.length ? (
                     <div className='co-note-box'>
-                        {console.log(all)}
+                        {/* {console.log(all)} */}
                         {all.map(each=> <CardCodes id_client={each.id_client} key={each.number_code} products={each.products} client={each.client} id={each.number_code} />)}
                     </div>
                 ) : (
